@@ -42,11 +42,13 @@
   <thead>
     <tr>
       <th>Received Equipment</th>
+      <th>Recieved On</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let EquipmentItem of EquipmentItems">
       <td>{{ EquipmentItem.name }}</td>
+      <td>{{ EquipmentItem.receivedDate }}</td>
     </tr>
   </tbody>
 </table>

@@ -36,6 +36,6 @@ interface SavageItem {
 }
 
 interface EquipmentItem {
-  id: string;
   name: string;
+  receivedDate: string;
 }

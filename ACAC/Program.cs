@@ -23,20 +23,6 @@ namespace ACAC
                     Db.CreateTable<ACAC.Controllers.ItemDropController.EquipmentUpgrade>();
                     Db.CreateTable<ACAC.Controllers.ItemDropController.Weapon>();
                     Db.CreateTable<ACAC.Controllers.ItemDropController.WeaponUpgrade>();
-
-                    var dbh = new ACAC.Controllers.ItemDropController.DbHandler();
-                    dbh.InitializeDrops();
-                    dbh.InitializeEquipmentDrops();
-
-                    foreach (ACAC.Controllers.ItemDropController.xItemDrop x in dbh.InitializeDrops())
-                    {
-                        dbh.AddItemDrop(x);
-                    }
-
-                    foreach (ACAC.Controllers.ItemDropController.Equipment equip in dbh.InitializeEquipmentDrops())
-                    {
-                        dbh.AddEquipmentDrop(equip);
-                    }
                 }
             }
             CreateWebHostBuilder(args).Build().Run();

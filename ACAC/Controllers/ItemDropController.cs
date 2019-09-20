@@ -36,6 +36,12 @@ namespace ACAC.Controllers
 
             DbHandler Dbh = new DbHandler();
             Dbh.AddItemDrop(x);
+
+            if (Dbh.GetEquipmentDrops().Count(p => p.name == x.name) == 0)
+            {
+                Dbh.AddEquipmentDrop(new Equipment { name = x.name,
+                                                     receivedDate =  Convert.ToDateTime(x.dateFormatted) });             
+            }
             return Ok();
         }
         
@@ -43,32 +49,7 @@ namespace ACAC.Controllers
         public class DbHandler
         {
             string DbPath = Path.Combine(AppContext.BaseDirectory,"ACAC.db");
-            //SQLiteConnection Db;
-            //public  DbHandler()
-            //{                
-            //    bool FileExists = System.IO.File.Exists(DbPath);
-            //    using(Db = new SQLite.SQLiteConnection(DbPath))
-            //    {
-            //        if (!FileExists)
-            //        {
-            //            Db.CreateTable<xItemDrop>();
-            //            Db.CreateTable<Equipment>();
-            //            Db.CreateTable<EquipmentUpgrade>();
-            //            Db.CreateTable<Weapon>();
-            //            Db.CreateTable<WeaponUpgrade>();
-
-            //            foreach (xItemDrop x in InitializeDrops())
-            //            {
-            //                AddItemDrop(x);
-            //            }
-            //            foreach (Equipment equip in InitializeEquipmentDrops())
-            //            {
-            //                AddEquipmentDrop(equip);
-            //            }
-            //        }
-            //    }
-            //}
-
+           
             public IEnumerable<xItemDrop> GetItemDrops()
             {
                 using ( var Db = new SQLite.SQLiteConnection(DbPath))
@@ -165,18 +146,22 @@ namespace ACAC.Controllers
         public class Equipment
         {
             public string name { get; set;}
+            public DateTime receivedDate { get; set;}
         }
         public class EquipmentUpgrade
         {
             public string name { get; set;}
+            public DateTime receivedDate { get; set;}
         }
         public class Weapon
         {
             public string name { get; set;}
+            public DateTime receivedDate { get; set;}
         }
         public class WeaponUpgrade
         {
             public string name { get; set;}
+            public DateTime receivedDate { get; set;}
         }
     }
 }
