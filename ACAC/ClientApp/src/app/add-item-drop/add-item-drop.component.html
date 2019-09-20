@@ -3,7 +3,9 @@
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="dateFormatted">Date</label>
-      <input type="text" class="form-control" id="dateFormatted" required>
+      <input type="date" class="form-control" id="dateFormatted"
+              required
+              [(ngModel)]="Si.dateFormatted" name="dateFormatted">
     </div>
 
     <div class="form-group">
@@ -34,10 +36,10 @@
     </div>
 
     <div class="form-group">
-      <label for="equipmentupdate">Equipment Update</label>
-      <select class="form-control" id="equipmentupdate" 
+      <label for="equipmentupgrade">Equipment Upgrade</label>
+      <select class="form-control" id="equipmentupgrade" 
               required
-              [(ngModel)]="Si.equipmentupdate" name="equipmentupdate">
+              [(ngModel)]="Si.equipmentupgrade" name="equipmentupgrade">
         <option *ngFor="let rec of recs" [value]="rec">{{rec}}</option>
       </select>
     </div>

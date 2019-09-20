@@ -29,12 +29,13 @@ namespace ACAC.Controllers
             return Dbh.GetEquipmentDrops();
         }
         [HttpPost("[action]")]
-        public IActionResult addDrop(String x)
+        public IActionResult addDrop([FromBody] xItemDrop x)
         {
             
             if (x == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");
 
-            Console.Write(x);
+            DbHandler Dbh = new DbHandler();
+            Dbh.AddItemDrop(x);
             return Ok();
         }
         
