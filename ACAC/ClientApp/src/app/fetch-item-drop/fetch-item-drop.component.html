@@ -1,0 +1,54 @@
+<h1>Item Drops</h1>
+
+<ul>
+  <li>Round robin Equipment Coffers</li>
+  <li>Round robin Equipment Upgrades</li>
+  <li>Round robin Weapon Coffers... priority DPS > Tanks > Heals</li>
+  <li>Round robin Weapon Upgrades... priority DPS > Tanks > Heals, among those who have a weapon to upgrade</li>
+  <li>Weapon Tomestone ... prioritize those who need it for primary weapon > free lot </li>
+</ul>
+<p *ngIf="!SavageItems"><em>Loading...</em></p>
+
+<table class='table' *ngIf="SavageItems">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Date</th>
+      <th>Floor</th>
+      <th>Name</th>
+      <th>Equipment</th>
+      <th>Equipment Upgrade</th>
+      <th>Tomestone</th>
+      <th>Weapon</th>
+      <th>Weapon Upgrade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let SavageItem of SavageItems">
+      <td>{{ SavageItem.id }}</td>
+      <td>{{ SavageItem.dateFormatted }}</td>
+      <td>{{ SavageItem.floor }}</td>
+      <td>{{ SavageItem.name }}</td>
+      <td>{{ SavageItem.equipment }}</td>
+      <td>{{ SavageItem.equipmentupgrade }}</td>
+      <td>{{ SavageItem.tomestone }}</td>
+      <td>{{ SavageItem.weapon }}</td>
+      <td>{{ SavageItem.weaponupgrade }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<table class='table' *ngIf="EquipmentItems">
+  <thead>
+    <tr>
+      <th>Received Equipment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let EquipmentItem of EquipmentItems">
+      <td>{{ EquipmentItem.name }}</td>
+    </tr>
+  </tbody>
+</table>
+
+
