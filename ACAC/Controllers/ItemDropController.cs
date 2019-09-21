@@ -100,7 +100,7 @@ namespace ACAC.Controllers
             {
                 using ( var Db = new SQLite.SQLiteConnection(DbPath))
                 {
-                    return Db.Query<xItemDrop>("Select * from xItemDrop");
+                    return Db.Query<xItemDrop>("Select * from xItemDrop order by Date(dateReceived) desc");
                 }
                       
             }
