@@ -10,9 +10,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class AddItemDropComponent {
 
-  recs = ['No', 'Yes'];
   raiders = ['Lan Mantear', 'Hades Carmine', 'Yumi Rin', 'Aerilyn Elessedil', 'Shelly Duncan', 'Thomas Silverstar', 'Val Phoenix', 'La Ki'];
   floors = ['Eden Savage Floor 1', 'Eden Savage Floor 2', 'Eden Savage Floor 3', 'Eden Savage Floor 4'];
+  drops = ['Equipment Coffer', 'Equipment Upgrade', 'Weapon Coffer', 'Weapon Upgrade', 'Tomestone'];
 
   // tslint:disable-next-line: no-use-before-declare
   Si = new SavageItem;
@@ -39,13 +39,8 @@ export class AddItemDropComponent {
 }
 class SavageItem {
   id: number;
-  dateFormatted: string;
+  dateReceived: string;
   floor: string;
-  name: string;
-  equipment: string;
-  equipmentupgrade: string;
-  tomestone: string;
-  weapon: string;
-  weaponupgrade: string;
+  raider: string;
+  droptype: string;
 }
-

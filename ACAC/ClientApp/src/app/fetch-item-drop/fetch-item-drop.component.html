@@ -9,48 +9,80 @@
 </ul>
 <p *ngIf="!SavageItems"><em>Loading...</em></p>
 
+<div class='container'>
+  <div class='floatLeft'>
+    <table class='table' *ngIf="EquipmentItems">
+      <thead>
+        <tr>
+          <th>Can Lot Equipment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let EquipmentItem of EquipmentItems">
+          <td>{{ EquipmentItem.raider }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class='floatLeft'>
+    <table class='table'>
+      <thead>
+        <tr>
+          <th>Can Lot Equipment Upgrade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let EquipmentUpgradeItem of EquipmentUpgradeItems">
+          <td>{{ EquipmentUpgradeItem.raider}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class='floatRight'>
+      <table class='table'>
+          <thead>
+            <tr>
+              <th>Can Lot Weapon</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let WeaponItem of WeaponItems">
+              <td>{{ WeaponItem.raider}}</td>
+            </tr>
+          </tbody>
+      </table>
+  </div>
+  <div class='floatRight'>
+      <table class='table'>
+          <thead>
+            <tr>
+              <th>Can Lot Weapon Upgrade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let WeaponUpgradeItem of WeaponUpgradeItems">
+              <td>{{ WeaponUpgradeItem.raider}}</td>
+            </tr>
+          </tbody>
+      </table>
+  </div>
+</div>
+
 <table class='table' *ngIf="SavageItems">
   <thead>
     <tr>
-      <th>ID</th>
       <th>Date</th>
       <th>Floor</th>
-      <th>Name</th>
-      <th>Equipment</th>
-      <th>Equipment Upgrade</th>
-      <th>Tomestone</th>
-      <th>Weapon</th>
-      <th>Weapon Upgrade</th>
+      <th>Raider</th>
+      <th>Drop</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let SavageItem of SavageItems">
-      <td>{{ SavageItem.id }}</td>
-      <td>{{ SavageItem.dateFormatted }}</td>
+      <td>{{ SavageItem.dateReceived }}</td>
       <td>{{ SavageItem.floor }}</td>
-      <td>{{ SavageItem.name }}</td>
-      <td>{{ SavageItem.equipment }}</td>
-      <td>{{ SavageItem.equipmentupgrade }}</td>
-      <td>{{ SavageItem.tomestone }}</td>
-      <td>{{ SavageItem.weapon }}</td>
-      <td>{{ SavageItem.weaponupgrade }}</td>
+      <td>{{ SavageItem.raider }}</td>
+      <td>{{ SavageItem.droptype }}</td>
     </tr>
   </tbody>
 </table>
-
-<table class='table' *ngIf="EquipmentItems">
-  <thead>
-    <tr>
-      <th>Received Equipment</th>
-      <th>Recieved On</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let EquipmentItem of EquipmentItems">
-      <td>{{ EquipmentItem.name }}</td>
-      <td>{{ EquipmentItem.receivedDate }}</td>
-    </tr>
-  </tbody>
-</table>
-
-

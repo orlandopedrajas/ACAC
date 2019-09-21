@@ -2,10 +2,10 @@
   <h1>Add Drop</h1>
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label for="dateFormatted">Date</label>
-      <input type="date" class="form-control" id="dateFormatted"
+      <label for="dateReceived">Date</label>
+      <input type="date" class="form-control" id="dateReceived"
               required
-              [(ngModel)]="Si.dateFormatted" name="dateFormatted">
+              [(ngModel)]="Si.dateReceived" name="dateReceived">
     </div>
 
     <div class="form-group">
@@ -18,57 +18,21 @@
     </div>
 
     <div class="form-group">
-      <label for="name">Name</label>
-      <select class="form-control" id="name"
+      <label for="raider">Raider</label>
+      <select class="form-control" id="raider"
               required
-              [(ngModel)]="Si.name" name="name">
-        <option *ngFor="let raider of raiders" [value]="raider">{{raider}}</option>
+              [(ngModel)]="Si.raider" name="raider">
+        <option *ngFor="let _raider of raiders" [value]="_raider">{{_raider}}</option>
       </select>
     </div>
 
     <div class="form-group">
-      <label for="equipment">Equipment</label>
-      <select class="form-control" id="equipment" 
-              required
-              [(ngModel)]="Si.equipment" name="equipment">
-        <option *ngFor="let rec of recs" [value]="rec">{{rec}}</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="equipmentupgrade">Equipment Upgrade</label>
-      <select class="form-control" id="equipmentupgrade" 
-              required
-              [(ngModel)]="Si.equipmentupgrade" name="equipmentupgrade">
-        <option *ngFor="let rec of recs" [value]="rec">{{rec}}</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="tomestone">Tomestone</label>
-      <select class="form-control" id="tomestone" 
-              required
-              [(ngModel)]="Si.tomestone" name="tomestone">
-        <option *ngFor="let rec of recs" [value]="rec">{{rec}}</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="weapon">Weapon</label>
-      <select class="form-control" id="weapon" 
-              required
-              [(ngModel)]="Si.weapon" name="weapon">
-        <option *ngFor="let rec of recs" [value]="rec">{{rec}}</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="weaponupgrade">Weapon Upgrade</label>
-      <select class="form-control" id="weaponupgrade" 
-              required
-              [(ngModel)]="Si.weaponupgrade" name="weaponupgrade">
-        <option *ngFor="let rec of recs" [value]="rec">{{rec}}</option>
-      </select>
+        <label for="droptype">Drop</label>
+        <select class="form-control" id="droptype" 
+                required
+                [(ngModel)]="Si.droptype" name="droptype">
+          <option *ngFor="let _drop of drops" [value]="_drop">{{_drop}}</option>
+        </select>
     </div>
 
     <button type="submit" class="btn btn-success">Submit</button>
