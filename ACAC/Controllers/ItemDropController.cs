@@ -74,16 +74,20 @@ namespace ACAC.Controllers
             switch(x.droptype)
             {
                 case "Equipment Coffer":
-                    Dbh.AddRoundRobin(new Equipment { raider = x.raider });  
+                    if (Dbh.GetEquipmentDrops().Count(p => p.raider == x.raider) == 0)
+                    { Dbh.AddRoundRobin(new Equipment { raider = x.raider }); }                     
                     break;
                 case "Equipment Upgrade":
-                    Dbh.AddRoundRobin(new EquipmentUpgrade { raider = x.raider });  
+                    if (Dbh.GetEquipmentUpgradeDrops().Count(p => p.raider == x.raider) == 0)
+                    { Dbh.AddRoundRobin(new EquipmentUpgrade { raider = x.raider }); }                      
                     break;
                 case "Weapon Coffer":
-                    Dbh.AddRoundRobin(new Weapon { raider = x.raider });
+                    if (Dbh.GetWeaponDrops().Count(p => p.raider == x.raider) == 0)
+                    { Dbh.AddRoundRobin(new Weapon { raider = x.raider }); }                    
                     break;
                 case "Weapon Upgrade":
-                    Dbh.AddRoundRobin(new WeaponUpgrade { raider = x.raider });  
+                    if (Dbh.GetWeaponUpgradeDrops().Count(p => p.raider == x.raider) == 0)
+                    { Dbh.AddRoundRobin(new WeaponUpgrade { raider = x.raider }); }                      
                     break;
             }
 
