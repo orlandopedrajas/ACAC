@@ -94,8 +94,14 @@ namespace ACAC.Controllers
             return Ok();
 
         }
-        
-  
+
+        [HttpPost("[action]")]
+        public IActionResult ResetDb()
+        {
+            DbHandler Dbh = new DbHandler();
+            Dbh.ResetTable("ALL");
+            return Ok();
+        }
         public class DbHandler
         {
             string DbPath = Path.Combine(AppContext.BaseDirectory,"ACAC.db");
@@ -264,6 +270,13 @@ namespace ACAC.Controllers
                             break;
                         case "Weapon Upgrade":
                             Db.Execute("Delete from WeaponUpgrade");
+                            break;
+                        case "ALL":
+                            Db.Execute("Delete From Equipment");
+                            Db.Execute("Delete from EquipmentUpgrade");
+                            Db.Execute("Delete from Weapon");
+                            Db.Execute("Delete from WeaponUpgrade");
+                            Db.Execute("Delete from xItemDrop");
                             break;
                     }
                 }
