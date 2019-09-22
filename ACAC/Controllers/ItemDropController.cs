@@ -23,6 +23,12 @@ namespace ACAC.Controllers
             return Dbh.GetItemDrops();
         }
         [HttpGet("[action]")]
+        public IEnumerable<xItemDrop> ItemHistoryByRaider(string xRaider)
+        {
+            DbHandler Dbh = new DbHandler();
+            return Dbh.GetItemHistoryByRaider(xRaider);
+        }
+        [HttpGet("[action]")]
         public IEnumerable<Equipment> xEquipmentDrops()
         {          
             DbHandler Dbh = new DbHandler();
@@ -114,7 +120,13 @@ namespace ACAC.Controllers
                 }
                       
             }
-
+            public IEnumerable<xItemDrop> GetItemHistoryByRaider(string xRaider)
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    return Db.Query<xItemDrop>("Select * From xItemDrop where raider='" + xRaider + "' order by Date(dateReceived) desc, Floor desc");
+                }
+            }
             public IEnumerable<Equipment> GetEquipmentDrops()
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))

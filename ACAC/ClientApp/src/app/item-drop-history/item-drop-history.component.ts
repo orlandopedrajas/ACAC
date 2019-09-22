@@ -8,7 +8,13 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class ItemDropHistoryComponent {
+  SavageItems: SavageItem[];
 
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    http.get<SavageItem[]>(baseUrl + 'api/ItemDrop/xItemDrops').subscribe(result => {
+     this.SavageItems = result;
+   }, error => console.error(error));
+  }
 }
 
 interface SavageItem {
@@ -16,8 +22,4 @@ interface SavageItem {
   floor: string;
   raider: string;
   droptype: string;
-}
-
-interface EquipmentItem {
-  raider: string;
 }

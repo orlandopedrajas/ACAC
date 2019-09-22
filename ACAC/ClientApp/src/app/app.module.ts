@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { FetchItemDropComponent } from './fetch-item-drop/fetch-item-drop.component';
 import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
 import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.component';
+import { YumiRinComponent } from './raiders/yumi-rin/yumi-rin.component';
+import { LanMantearComponent } from './raiders/lan-mantear/lan-mantear.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.
     FetchItemDropComponent,
     AddItemDropComponent,
     ItemDropHistoryComponent,
+    YumiRinComponent,
+    LanMantearComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -29,6 +33,8 @@ import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.
       { path: 'fetch-item-drop', component: FetchItemDropComponent },
       { path: 'add-item-drop', component: AddItemDropComponent },
       { path: 'item-drop-history', component: ItemDropHistoryComponent },
+      { path: 'raiders/yumi-rin', component: YumiRinComponent },
+      { path: 'raiders/lan-mantear', component: LanMantearComponent },
     ])
   ],
   providers: [],

@@ -8,7 +8,6 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class FetchItemDropComponent {
-  SavageItems: SavageItem[];
   EquipmentItems: EquipmentItem[];
   EquipmentUpgradeItems: EquipmentItem[];
   WeaponItems: EquipmentItem[];
@@ -17,10 +16,6 @@ export class FetchItemDropComponent {
   raiders = ['Lan Mantear', 'Hades Carmine', 'Yumi Rin', 'Aerilyn Elessedil', 'Shelly Duncan', 'Thomas Silverstar', 'Val Phoenix', 'La Ki'];
 
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-     http.get<SavageItem[]>(baseUrl + 'api/ItemDrop/xItemDrops').subscribe(result => {
-      this.SavageItems = result;
-    }, error => console.error(error));
-
      http.get<EquipmentItem[]>(baseUrl + 'api/ItemDrop/xEquipmentDrops').subscribe(result => {
      this.EquipmentItems = result;
      }, error => console.error(error));
@@ -39,17 +34,17 @@ export class FetchItemDropComponent {
 
   }
 
-  onSubmit() {
-    this.http.post('./api/ItemDrop/ResetDb', null).subscribe(
-      (val) => { console.log('POST call successful value returned in body', val); },
-      response => {
-        console.log('POST call in error', response);
-      },
-      () => {
-        console.log('The POST observable is now completed.');
-      });
-    window.location.href = '../fetch-item-drop';
-  }
+  // onSubmit() {
+  //  this.http.post('./api/ItemDrop/ResetDb', null).subscribe(
+  //    (val) => { console.log('POST call successful value returned in body', val); },
+  //    response => {
+  //      console.log('POST call in error', response);
+  //    },
+  //    () => {
+  //      console.log('The POST observable is now completed.');
+  //    });
+  //  window.location.href = '../fetch-item-drop';
+  // }
 
 }
 
