@@ -94,8 +94,14 @@ namespace ACAC.Controllers
             return Ok();
 
         }
-        
-  
+
+        [HttpPost("[action]")]
+        public IActionResult ResetDb()
+        {
+            DbHandler Dbh = new DbHandler();
+            Dbh.ResetTable("ALL");
+            return Ok();
+        }
         public class DbHandler
         {
             string DbPath = Path.Combine(AppContext.BaseDirectory,"ACAC.db");
@@ -104,7 +110,7 @@ namespace ACAC.Controllers
             {
                 using ( var Db = new SQLite.SQLiteConnection(DbPath))
                 {
-                    return Db.Query<xItemDrop>("Select * from xItemDrop order by Date(dateReceived) desc");
+                    return Db.Query<xItemDrop>("Select * from xItemDrop order by Date(dateReceived) desc, Floor desc");
                 }
                       
             }
@@ -264,6 +270,16 @@ namespace ACAC.Controllers
                             break;
                         case "Weapon Upgrade":
                             Db.Execute("Delete from WeaponUpgrade");
+                            break;
+                        case "ALL":
+                            Db.Execute("Delete From Equipment");
+                            Db.Execute("Delete from EquipmentUpgrade");
+                            Db.Execute("Delete from Weapon");
+                            Db.Execute("Delete from WeaponUpgrade");
+                            Db.Execute("Delete from xItemDrop");
+                            break;
+                        case "LAKI":
+                            Db.Execute("Delete From xItemDrop where raider='La Ki' and droptype='Equipment Coffer' and Date(dateReceived) <='2019-09-10'");
                             break;
                     }
                 }

@@ -5,7 +5,6 @@ C:\Work\source\repos\ACAC\ACAC\bin\Release\netcoreapp2.1\ACAC.dll
 C:\Work\source\repos\ACAC\ACAC\bin\Release\netcoreapp2.1\ACAC.pdb
 C:\Work\source\repos\ACAC\ACAC\bin\Release\netcoreapp2.1\ACAC.Views.dll
 C:\Work\source\repos\ACAC\ACAC\bin\Release\netcoreapp2.1\ACAC.Views.pdb
-C:\Work\source\repos\ACAC\ACAC\obj\Release\netcoreapp2.1\ACAC.csprojAssemblyReference.cache
 C:\Work\source\repos\ACAC\ACAC\obj\Release\netcoreapp2.1\ACAC.csproj.CoreCompileInputs.cache
 C:\Work\source\repos\ACAC\ACAC\obj\Release\netcoreapp2.1\ACAC.RazorAssemblyInfo.cache
 C:\Work\source\repos\ACAC\ACAC\obj\Release\netcoreapp2.1\ACAC.RazorAssemblyInfo.cs
