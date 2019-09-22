@@ -27,6 +27,11 @@
                 <span class='glyphicon glyphicon-th-list'></span> Add Drops
               </a>
             </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/item-drop-history"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span> Drops History
+              </a>
+            </li>
           </ul>
         </div>
     </div>

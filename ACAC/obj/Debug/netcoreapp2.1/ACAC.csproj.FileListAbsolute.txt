@@ -45,4 +45,3 @@ C:\Users\sanok\Downloads\source\ACAC\ACAC\obj\Debug\netcoreapp2.1\ACAC.Views.pdb
 C:\Users\sanok\Downloads\source\ACAC\ACAC\obj\Debug\netcoreapp2.1\ACAC.dll
 C:\Users\sanok\Downloads\source\ACAC\ACAC\obj\Debug\netcoreapp2.1\ACAC.pdb
 C:\Users\sanok\Downloads\source\ACAC\ACAC\obj\Debug\netcoreapp2.1\ACAC.csproj.CopyComplete
-C:\Users\sanok\Downloads\source\ACAC\ACAC\obj\Debug\netcoreapp2.1\ACAC.csprojAssemblyReference.cache
