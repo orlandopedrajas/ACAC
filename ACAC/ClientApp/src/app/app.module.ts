@@ -14,6 +14,10 @@ import { YumiRinComponent } from './raiders/yumi-rin/yumi-rin.component';
 import { LanMantearComponent } from './raiders/lan-mantear/lan-mantear.component';
 import { ThomasSilverstarComponent } from './raiders/thomas-silverstar/thomas-silverstar.component';
 import { HadesCarmineComponent } from './raiders/hades-carmine/hades-carmine.component';
+import { ShellyDuncanComponent } from './raiders/shelly-duncan/shelly-duncan.component';
+import { ValPhoenixComponent } from './raiders/val-phoenix/val-phoenix.component';
+import { AerilynElessedilComponent } from './raiders/aerilyn-elessedil/aerilyn-elessedil.component';
+import { LaKiComponent } from './raiders/la-ki/la-ki.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +31,10 @@ import { HadesCarmineComponent } from './raiders/hades-carmine/hades-carmine.com
     LanMantearComponent,
     ThomasSilverstarComponent,
     HadesCarmineComponent,
+    ShellyDuncanComponent,
+    ValPhoenixComponent,
+    AerilynElessedilComponent,
+    LaKiComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -41,6 +49,10 @@ import { HadesCarmineComponent } from './raiders/hades-carmine/hades-carmine.com
       { path: 'raiders/lan-mantear', component: LanMantearComponent },
       { path: 'raiders/thomas-silverstar', component: ThomasSilverstarComponent },
       { path: 'raiders/hades-carmine', component: HadesCarmineComponent },
+      { path: 'raiders/shelly-duncan', component: ShellyDuncanComponent },
+      { path: 'raiders/val-phoenix', component: ValPhoenixComponent },
+      { path: 'raiders/aerilyn-elessedil', component: AerilynElessedilComponent },
+      { path: 'raiders/la-ki', component: LaKiComponent },
     ])
   ],
   providers: [],
