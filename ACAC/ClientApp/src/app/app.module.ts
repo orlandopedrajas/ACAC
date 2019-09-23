@@ -12,6 +12,8 @@ import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
 import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.component';
 import { YumiRinComponent } from './raiders/yumi-rin/yumi-rin.component';
 import { LanMantearComponent } from './raiders/lan-mantear/lan-mantear.component';
+import { ThomasSilverstarComponent } from './raiders/thomas-silverstar/thomas-silverstar.component';
+import { HadesCarmineComponent } from './raiders/hades-carmine/hades-carmine.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { LanMantearComponent } from './raiders/lan-mantear/lan-mantear.component
     ItemDropHistoryComponent,
     YumiRinComponent,
     LanMantearComponent,
+    ThomasSilverstarComponent,
+    HadesCarmineComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -35,6 +39,8 @@ import { LanMantearComponent } from './raiders/lan-mantear/lan-mantear.component
       { path: 'item-drop-history', component: ItemDropHistoryComponent },
       { path: 'raiders/yumi-rin', component: YumiRinComponent },
       { path: 'raiders/lan-mantear', component: LanMantearComponent },
+      { path: 'raiders/thomas-silverstar', component: ThomasSilverstarComponent },
+      { path: 'raiders/hades-carmine', component: HadesCarmineComponent },
     ])
   ],
   providers: [],

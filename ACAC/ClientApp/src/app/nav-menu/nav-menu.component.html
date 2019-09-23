@@ -32,22 +32,25 @@
                 <span class='glyphicon glyphicon-th-list'></span> Item History
               </a>
             </li>
-            <li>
+            <li [routerLink]='["/raiders/hades-carmine"]' (click)='collapse()'>
               <a>
-                <span class='glyphicon glyphicon-th-list'></span> Raiders
+                <span class='glyphicon glyphicon-user'></span> Hades Carmine
               </a>
-              <ul class='nav navbar-nav'>
-                  <li [routerLink]='["/raiders/lan-mantear"]' (click)='collapse()'>
-                    <a>
-                      <span class='glyphicon glyphicon-user'></span> Lan Mantear
-                    </a>
-                  </li>
-                <li [routerLink]='["/raiders/yumi-rin"]' (click)='collapse()'>
-                  <a>
-                    <span class='glyphicon glyphicon-user'></span> Yumi Rin
-                  </a>
-                </li>
-              </ul>
+            </li>
+            <li [routerLink]='["/raiders/lan-mantear"]' (click)='collapse()'>
+              <a>
+                <span class='glyphicon glyphicon-user'></span> Lan Mantear
+              </a>
+            </li>
+            <li [routerLink]='["/raiders/thomas-silverstar"]' (click)='collapse()'>
+              <a>
+                <span class='glyphicon glyphicon-user'></span> Thomas Silverstar
+              </a>
+            </li>
+            <li [routerLink]='["/raiders/yumi-rin"]' (click)='collapse()'>
+              <a>
+                <span class='glyphicon glyphicon-user'></span> Yumi Rin
+              </a>
             </li>
           </ul>
         </div>

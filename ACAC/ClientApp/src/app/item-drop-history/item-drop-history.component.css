@@ -1,3 +1,10 @@
+img.main {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 75%;
+    width: 75%
+}
 .floatLeft { width: 25%; float: left; }
 .floatRight {width: 25%; float: right; }
 .container { overflow: hidden; }
