@@ -23,6 +23,12 @@ namespace ACAC.Controllers
             return Dbh.GetItemDrops();
         }
         [HttpGet("[action]")]
+        public IEnumerable<xItemDrop> ItemHistoryByRaider(string xRaider)
+        {
+            DbHandler Dbh = new DbHandler();
+            return Dbh.GetItemHistoryByRaider(xRaider);
+        }
+        [HttpGet("[action]")]
         public IEnumerable<Equipment> xEquipmentDrops()
         {          
             DbHandler Dbh = new DbHandler();
@@ -74,24 +80,34 @@ namespace ACAC.Controllers
             switch(x.droptype)
             {
                 case "Equipment Coffer":
-                    Dbh.AddRoundRobin(new Equipment { raider = x.raider });  
+                    if (Dbh.GetEquipmentDrops().Count(p => p.raider == x.raider) == 0)
+                    { Dbh.AddRoundRobin(new Equipment { raider = x.raider }); }                     
                     break;
                 case "Equipment Upgrade":
-                    Dbh.AddRoundRobin(new EquipmentUpgrade { raider = x.raider });  
+                    if (Dbh.GetEquipmentUpgradeDrops().Count(p => p.raider == x.raider) == 0)
+                    { Dbh.AddRoundRobin(new EquipmentUpgrade { raider = x.raider }); }                      
                     break;
                 case "Weapon Coffer":
-                    Dbh.AddRoundRobin(new Weapon { raider = x.raider });
+                    if (Dbh.GetWeaponDrops().Count(p => p.raider == x.raider) == 0)
+                    { Dbh.AddRoundRobin(new Weapon { raider = x.raider }); }                    
                     break;
                 case "Weapon Upgrade":
-                    Dbh.AddRoundRobin(new WeaponUpgrade { raider = x.raider });  
+                    if (Dbh.GetWeaponUpgradeDrops().Count(p => p.raider == x.raider) == 0)
+                    { Dbh.AddRoundRobin(new WeaponUpgrade { raider = x.raider }); }                      
                     break;
             }
 
             return Ok();
 
         }
-        
-  
+
+        [HttpPost("[action]")]
+        public IActionResult ResetDb()
+        {
+            DbHandler Dbh = new DbHandler();
+            Dbh.ResetTable("ALL");
+            return Ok();
+        }
         public class DbHandler
         {
             string DbPath = Path.Combine(AppContext.BaseDirectory,"ACAC.db");
@@ -100,11 +116,17 @@ namespace ACAC.Controllers
             {
                 using ( var Db = new SQLite.SQLiteConnection(DbPath))
                 {
-                    return Db.Query<xItemDrop>("Select * from xItemDrop order by Date(dateReceived) desc");
+                    return Db.Query<xItemDrop>("Select * from xItemDrop order by Date(dateReceived) desc, Floor desc");
                 }
                       
             }
-
+            public IEnumerable<xItemDrop> GetItemHistoryByRaider(string xRaider)
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    return Db.Query<xItemDrop>("Select * From xItemDrop where raider='" + xRaider + "' order by Date(dateReceived) desc, Floor desc");
+                }
+            }
             public IEnumerable<Equipment> GetEquipmentDrops()
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
@@ -260,6 +282,16 @@ namespace ACAC.Controllers
                             break;
                         case "Weapon Upgrade":
                             Db.Execute("Delete from WeaponUpgrade");
+                            break;
+                        case "ALL":
+                            Db.Execute("Delete From Equipment");
+                            Db.Execute("Delete from EquipmentUpgrade");
+                            Db.Execute("Delete from Weapon");
+                            Db.Execute("Delete from WeaponUpgrade");
+                            Db.Execute("Delete from xItemDrop");
+                            break;
+                        case "LAKI":
+                            Db.Execute("Delete From xItemDrop where raider='La Ki' and droptype='Equipment Coffer' and Date(dateReceived) <='2019-09-10'");
                             break;
                     }
                 }

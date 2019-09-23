@@ -1,0 +1,22 @@
+<h1>Hades Carmine</h1>
+<p><img class='main' src="assets/img/hades/ffxiv_09302018_231405.jpg"></p>
+<p *ngIf="!SavageItems"><em>Loading...</em></p>
+
+<table class='table' *ngIf="SavageItems">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Floor</th>
+      <th>Raider</th>
+      <th>Drop</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let SavageItem of SavageItems">
+      <td>{{ SavageItem.dateReceived }}</td>
+      <td>{{ SavageItem.floor }}</td>
+      <td>{{ SavageItem.raider }}</td>
+      <td>{{ SavageItem.droptype }}</td>
+    </tr>
+  </tbody>
+</table>

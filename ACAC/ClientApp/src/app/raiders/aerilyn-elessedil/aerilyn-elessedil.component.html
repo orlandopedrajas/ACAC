@@ -1,0 +1,22 @@
+<h1>Aerilyn Elessedil</h1>
+<p><img class='main' src="assets/img/aerilyn/ffxiv_02222019_182604_340.png"></p>
+<p *ngIf="!SavageItems"><em>Loading...</em></p>
+
+<table class='table' *ngIf="SavageItems">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Floor</th>
+      <th>Raider</th>
+      <th>Drop</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let SavageItem of SavageItems">
+      <td>{{ SavageItem.dateReceived }}</td>
+      <td>{{ SavageItem.floor }}</td>
+      <td>{{ SavageItem.raider }}</td>
+      <td>{{ SavageItem.droptype }}</td>
+    </tr>
+  </tbody>
+</table>

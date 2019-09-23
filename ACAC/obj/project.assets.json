@@ -2866,11 +2866,11 @@
           }
         }
       },
-      "sqlite-net-pcl/1.5.231": {
+      "sqlite-net-pcl/1.6.292": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.1",
-          "SQLitePCLRaw.bundle_green": "1.1.11"
+          "SQLitePCLRaw.bundle_green": "1.1.13"
         },
         "compile": {
           "lib/netstandard1.1/SQLite-net.dll": {}
@@ -2879,14 +2879,14 @@
           "lib/netstandard1.1/SQLite-net.dll": {}
         }
       },
-      "SQLitePCLRaw.bundle_green/1.1.11": {
+      "SQLitePCLRaw.bundle_green/1.1.13": {
         "type": "package",
         "dependencies": {
-          "SQLitePCLRaw.core": "1.1.11",
-          "SQLitePCLRaw.lib.e_sqlite3.linux": "1.1.11",
-          "SQLitePCLRaw.lib.e_sqlite3.osx": "1.1.11",
-          "SQLitePCLRaw.lib.e_sqlite3.v110_xp": "1.1.11",
-          "SQLitePCLRaw.provider.e_sqlite3.netstandard11": "1.1.11"
+          "SQLitePCLRaw.core": "1.1.13",
+          "SQLitePCLRaw.lib.e_sqlite3.linux": "1.1.13",
+          "SQLitePCLRaw.lib.e_sqlite3.osx": "1.1.13",
+          "SQLitePCLRaw.lib.e_sqlite3.v110_xp": "1.1.13",
+          "SQLitePCLRaw.provider.e_sqlite3.netstandard11": "1.1.13"
         },
         "compile": {
           "lib/netcoreapp/SQLitePCLRaw.batteries_green.dll": {},
@@ -2897,7 +2897,7 @@
           "lib/netcoreapp/SQLitePCLRaw.batteries_v2.dll": {}
         }
       },
-      "SQLitePCLRaw.core/1.1.11": {
+      "SQLitePCLRaw.core/1.1.13": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0"
@@ -2909,7 +2909,7 @@
           "lib/netstandard1.1/SQLitePCLRaw.core.dll": {}
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.linux/1.1.11": {
+      "SQLitePCLRaw.lib.e_sqlite3.linux/1.1.13": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/_._": {}
@@ -2948,7 +2948,7 @@
           }
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.osx/1.1.11": {
+      "SQLitePCLRaw.lib.e_sqlite3.osx/1.1.13": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/_._": {}
@@ -2963,7 +2963,7 @@
           }
         }
       },
-      "SQLitePCLRaw.lib.e_sqlite3.v110_xp/1.1.11": {
+      "SQLitePCLRaw.lib.e_sqlite3.v110_xp/1.1.13": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/_._": {}
@@ -2986,11 +2986,11 @@
           }
         }
       },
-      "SQLitePCLRaw.provider.e_sqlite3.netstandard11/1.1.11": {
+      "SQLitePCLRaw.provider.e_sqlite3.netstandard11/1.1.13": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "SQLitePCLRaw.core": "1.1.11"
+          "SQLitePCLRaw.core": "1.1.13"
         },
         "compile": {
           "lib/netstandard1.1/SQLitePCLRaw.provider.e_sqlite3.dll": {}
@@ -7540,10 +7540,10 @@
         "version.txt"
       ]
     },
-    "sqlite-net-pcl/1.5.231": {
-      "sha512": "B9jScvqkishSMkpa9Mc4Q85LTHxRTzcUXZx9EQqgrvdz7MFEDHfpiPcKdjy1qXHdmHttEXfY4h6gu4FlgWP2Sw==",
+    "sqlite-net-pcl/1.6.292": {
+      "sha512": "TZPs206/ZZXhDAgCzxE5Dmw1enkRmtpd1RKt+dLJA6Kvml4RxwkasRs4js2kijtGxik1SLCs39rh9nl9YFwrYg==",
       "type": "package",
-      "path": "sqlite-net-pcl/1.5.231",
+      "path": "sqlite-net-pcl/1.6.292",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7552,14 +7552,14 @@
         "lib/netstandard1.1/SQLite-net.xml",
         "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid10+MonoTouch10+Xamarin.iOS10/SQLite-net.dll",
         "lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid10+MonoTouch10+Xamarin.iOS10/SQLite-net.xml",
-        "sqlite-net-pcl.1.5.231.nupkg.sha512",
+        "sqlite-net-pcl.1.6.292.nupkg.sha512",
         "sqlite-net-pcl.nuspec"
       ]
     },
-    "SQLitePCLRaw.bundle_green/1.1.11": {
-      "sha512": "Hqp8IF/RLjbypkLm+t+1RqAX8EKuWEkj7wkLXplfENQoPnE127cvTmaDvaQKtt7a5QsD/HNjFDr1z5f9q2wdPg==",
+    "SQLitePCLRaw.bundle_green/1.1.13": {
+      "sha512": "E0Hm/XTfleE/LlrRZVucB1dQqDlIDPgqvkFymbGqMO7bSaoB6R2X5Cgzq/RDxBFSzHjpzet2Tp5Kar8faLSZ+Q==",
       "type": "package",
-      "path": "sqlitepclraw.bundle_green/1.1.11",
+      "path": "sqlitepclraw.bundle_green/1.1.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7599,14 +7599,14 @@
         "lib/wp8/_._",
         "lib/wpa81/SQLitePCLRaw.batteries_green.dll",
         "lib/wpa81/SQLitePCLRaw.batteries_v2.dll",
-        "sqlitepclraw.bundle_green.1.1.11.nupkg.sha512",
+        "sqlitepclraw.bundle_green.1.1.13.nupkg.sha512",
         "sqlitepclraw.bundle_green.nuspec"
       ]
     },
-    "SQLitePCLRaw.core/1.1.11": {
-      "sha512": "QT17CyQAQIbTCu6pW5+uVA8BXqRzquiDI1tr5Un6c1YZcQydPmGPuYYng9xMs2UHUDYHbTu+JDkp55WR+qo9bQ==",
+    "SQLitePCLRaw.core/1.1.13": {
+      "sha512": "I8Q9qL1urPegoyZ5uI32lgqsxl8aPRZAyVBJbO+0T/zlGz/LBc8vhRVyDyCOU9LWWpV8dYpT0nCpuLv1ua6zkA==",
       "type": "package",
-      "path": "sqlitepclraw.core/1.1.11",
+      "path": "sqlitepclraw.core/1.1.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7625,14 +7625,14 @@
         "lib/win8/SQLitePCLRaw.core.dll",
         "lib/win81/SQLitePCLRaw.core.dll",
         "lib/wpa81/SQLitePCLRaw.core.dll",
-        "sqlitepclraw.core.1.1.11.nupkg.sha512",
+        "sqlitepclraw.core.1.1.13.nupkg.sha512",
         "sqlitepclraw.core.nuspec"
       ]
     },
-    "SQLitePCLRaw.lib.e_sqlite3.linux/1.1.11": {
-      "sha512": "yt79OujiYBueEUdhTQI+fIdmRpFEGcaMLziSCfhG2dsAERDvCQ+FB5tQgZBdFkB2kmVl0llskzBtwSbg3WEIdQ==",
+    "SQLitePCLRaw.lib.e_sqlite3.linux/1.1.13": {
+      "sha512": "q38omtX9YeAbUXctHlNZn103ae5+dlShaEuTgSRbejbB+18Y+OhBE78m7UsKgCa1U823pMXZsjVy80oatvX6UA==",
       "type": "package",
-      "path": "sqlitepclraw.lib.e_sqlite3.linux/1.1.11",
+      "path": "sqlitepclraw.lib.e_sqlite3.linux/1.1.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7647,14 +7647,14 @@
         "runtimes/linux-musl-x64/native/libe_sqlite3.so",
         "runtimes/linux-x64/native/libe_sqlite3.so",
         "runtimes/linux-x86/native/libe_sqlite3.so",
-        "sqlitepclraw.lib.e_sqlite3.linux.1.1.11.nupkg.sha512",
+        "sqlitepclraw.lib.e_sqlite3.linux.1.1.13.nupkg.sha512",
         "sqlitepclraw.lib.e_sqlite3.linux.nuspec"
       ]
     },
-    "SQLitePCLRaw.lib.e_sqlite3.osx/1.1.11": {
-      "sha512": "o6rxxAFS5Hya6AXCA/eU+1QqwpGVHJBaJjIG+Mui3kIqcV6d+qz0zi46i1QNK6TAel8Sj4QlXO85wNPN70BMEg==",
+    "SQLitePCLRaw.lib.e_sqlite3.osx/1.1.13": {
+      "sha512": "0Do6QxqJRbwOtj8YKSyYs/2eYmRakoCbzDeUhLqUAf/hIpMqEvioSjDwn5OLv1u+VMgUc9ZXETv1BcYT4KClPQ==",
       "type": "package",
-      "path": "sqlitepclraw.lib.e_sqlite3.osx/1.1.11",
+      "path": "sqlitepclraw.lib.e_sqlite3.osx/1.1.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7665,14 +7665,14 @@
         "lib/netstandard1.0/_._",
         "lib/netstandard2.0/_._",
         "runtimes/osx-x64/native/libe_sqlite3.dylib",
-        "sqlitepclraw.lib.e_sqlite3.osx.1.1.11.nupkg.sha512",
+        "sqlitepclraw.lib.e_sqlite3.osx.1.1.13.nupkg.sha512",
         "sqlitepclraw.lib.e_sqlite3.osx.nuspec"
       ]
     },
-    "SQLitePCLRaw.lib.e_sqlite3.v110_xp/1.1.11": {
-      "sha512": "h1Jng85sdFV/IC+Lri+buN1r5Kd0kgh0lh/pc4jlHd3tljZhc2Si2GW1VD0hJc4p/P4oSVa2426hBAi1y6/goA==",
+    "SQLitePCLRaw.lib.e_sqlite3.v110_xp/1.1.13": {
+      "sha512": "pdvCSC9l6ZGrX8GF/rHTTVwrivxo0wEVqaoDGPNf7nhA6lHrb1z75I3ppGbTaRSQ5PFIWItpR1PJ3bJLLiKIdA==",
       "type": "package",
-      "path": "sqlitepclraw.lib.e_sqlite3.v110_xp/1.1.11",
+      "path": "sqlitepclraw.lib.e_sqlite3.v110_xp/1.1.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7683,19 +7683,19 @@
         "runtimes/win-x64/native/e_sqlite3.dll",
         "runtimes/win-x86/native/e_sqlite3.dll",
         "runtimes/win8-arm/native/e_sqlite3.dll",
-        "sqlitepclraw.lib.e_sqlite3.v110_xp.1.1.11.nupkg.sha512",
+        "sqlitepclraw.lib.e_sqlite3.v110_xp.1.1.13.nupkg.sha512",
         "sqlitepclraw.lib.e_sqlite3.v110_xp.nuspec"
       ]
     },
-    "SQLitePCLRaw.provider.e_sqlite3.netstandard11/1.1.11": {
-      "sha512": "6q2qXc7GA11ZFh3ATFj9LjzF0HfMtlN1hDi8QATSoML4sR+inquXdionvyX8nUegutOAGXjKDp+8MziaUV5Pkg==",
+    "SQLitePCLRaw.provider.e_sqlite3.netstandard11/1.1.13": {
+      "sha512": "m2VI4byePkpUpmk7rlBHMY+9x71Yz09eNiTtu060HBzkToWXG3MYZxeYgyx4jDrze4m/zRB2EdYZ417lkuK6Dg==",
       "type": "package",
-      "path": "sqlitepclraw.provider.e_sqlite3.netstandard11/1.1.11",
+      "path": "sqlitepclraw.provider.e_sqlite3.netstandard11/1.1.13",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard1.1/SQLitePCLRaw.provider.e_sqlite3.dll",
-        "sqlitepclraw.provider.e_sqlite3.netstandard11.1.1.11.nupkg.sha512",
+        "sqlitepclraw.provider.e_sqlite3.netstandard11.1.1.13.nupkg.sha512",
         "sqlitepclraw.provider.e_sqlite3.netstandard11.nuspec"
       ]
     },
@@ -12092,29 +12092,29 @@
       "Microsoft.AspNetCore.Razor.Design >= 2.1.2",
       "Microsoft.AspNetCore.SpaServices.Extensions >= 2.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
-      "sqlite-net-pcl >= 1.5.231"
+      "sqlite-net-pcl >= 1.6.292"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\opedrajas\\.nuget\\packages\\": {},
+    "C:\\Users\\sanok\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Work\\source\\repos\\ACAC\\ACAC\\ACAC.csproj",
+      "projectUniqueName": "C:\\Users\\sanok\\Downloads\\source\\ACAC\\ACAC\\ACAC.csproj",
       "projectName": "ACAC",
-      "projectPath": "C:\\Work\\source\\repos\\ACAC\\ACAC\\ACAC.csproj",
-      "packagesPath": "C:\\Users\\opedrajas\\.nuget\\packages\\",
-      "outputPath": "C:\\Work\\source\\repos\\ACAC\\ACAC\\obj\\",
+      "projectPath": "C:\\Users\\sanok\\Downloads\\source\\ACAC\\ACAC\\ACAC.csproj",
+      "packagesPath": "C:\\Users\\sanok\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\sanok\\Downloads\\source\\ACAC\\ACAC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\opedrajas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\sanok\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -12123,8 +12123,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://teamcity.iotapplab.com/httpAuth/app/nuget/v1/FeedService.svc/": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.1": {
@@ -12156,13 +12155,14 @@
             "version": "[2.1.1, )"
           },
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
           },
           "sqlite-net-pcl": {
             "target": "Package",
-            "version": "[1.5.231, )"
+            "version": "[1.6.292, )"
           }
         },
         "imports": [
