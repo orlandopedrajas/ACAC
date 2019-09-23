@@ -5,3 +5,10 @@ img.main {
     height: 75%;
     width: 75%
 }
+img.floor-icon{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 56px;
+    width: 56px
+}

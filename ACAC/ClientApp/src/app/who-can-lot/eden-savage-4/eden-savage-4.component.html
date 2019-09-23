@@ -1,0 +1,37 @@
+<h1>Eden Savage Floor 4 - Who can lot?</h1>
+
+<ul>
+  <li>Round robin Equipment Coffers</li>
+  <li>Round robin Weapon Coffers... priority DPS > Tanks > Heals</li>
+</ul>
+
+<div class='container'>
+  <div class='floatLeft'>
+    <table class='table' *ngIf="Floor4_Equipments">
+      <thead>
+        <tr>
+          <th>Equipment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let Floor4_Equipment of Floor4_Equipments">
+          <td>{{ Floor4_Equipment.raider }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class='floatLeft'>
+    <table class='table'*ngIf="Floor4_WeaponCoffers">
+      <thead>
+        <tr>
+          <th>Weapon Coffer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let Floor4_WeaponCoffer of Floor4_WeaponCoffers">
+          <td>{{ Floor4_WeaponCoffer.raider }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

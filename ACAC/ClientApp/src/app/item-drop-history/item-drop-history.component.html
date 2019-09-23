@@ -14,7 +14,7 @@
   <tbody>
     <tr *ngFor="let SavageItem of SavageItems">
       <td>{{ SavageItem.dateReceived }}</td>
-      <td>{{ SavageItem.floor }}</td>
+      <td><img class='floor-icon' src='{{ SavageItem.floor }}'></td>
       <td>{{ SavageItem.raider }}</td>
       <td>{{ SavageItem.droptype }}</td>
     </tr>
