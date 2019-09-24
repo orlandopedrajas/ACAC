@@ -2,6 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\ACAC",
+    "\\ACAC\\ClientApp",
+    "\\ACAC\\ClientApp\\src",
+    "\\ACAC\\ClientApp\\src\\app",
     "\\ACAC\\Controllers"
   ],
   "SelectedNode": "\\ACAC\\Controllers\\ItemDropController.cs",
