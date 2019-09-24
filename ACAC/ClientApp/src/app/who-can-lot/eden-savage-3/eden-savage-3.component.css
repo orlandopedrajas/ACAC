@@ -1,0 +1,5 @@
+.container { overflow: hidden; }
+.box {
+    float: left;
+    width: 33.33%;
+}

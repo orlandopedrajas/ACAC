@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Work\\source\\repos\\ACAC\\ACAC\\ACAC.csproj": {}
+    "C:\\Users\\sanok\\Downloads\\source\\ACAC\\ACAC\\ACAC.csproj": {}
   },
   "projects": {
-    "C:\\Work\\source\\repos\\ACAC\\ACAC\\ACAC.csproj": {
+    "C:\\Users\\sanok\\Downloads\\source\\ACAC\\ACAC\\ACAC.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Work\\source\\repos\\ACAC\\ACAC\\ACAC.csproj",
+        "projectUniqueName": "C:\\Users\\sanok\\Downloads\\source\\ACAC\\ACAC\\ACAC.csproj",
         "projectName": "ACAC",
-        "projectPath": "C:\\Work\\source\\repos\\ACAC\\ACAC\\ACAC.csproj",
-        "packagesPath": "C:\\Users\\opedrajas\\.nuget\\packages\\",
-        "outputPath": "C:\\Work\\source\\repos\\ACAC\\ACAC\\obj\\",
+        "projectPath": "C:\\Users\\sanok\\Downloads\\source\\ACAC\\ACAC\\ACAC.csproj",
+        "packagesPath": "C:\\Users\\sanok\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sanok\\Downloads\\source\\ACAC\\ACAC\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\opedrajas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sanok\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -27,8 +27,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://teamcity.iotapplab.com/httpAuth/app/nuget/v1/FeedService.svc/": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp2.1": {
@@ -60,13 +59,14 @@
               "version": "[2.1.1, )"
             },
             "Microsoft.NETCore.App": {
+              "suppressParent": "All",
               "target": "Package",
               "version": "[2.1.0, )",
               "autoReferenced": true
             },
             "sqlite-net-pcl": {
               "target": "Package",
-              "version": "[1.5.231, )"
+              "version": "[1.6.292, )"
             }
           },
           "imports": [
