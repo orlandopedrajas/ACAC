@@ -20,6 +20,7 @@
     <div class="form-group">
       <label for="raider">Raider</label>
       <select class="form-control" id="raider"
+              (change)="raiderchange($event)"
               required
               [(ngModel)]="Si.raider" name="raider">
         <option *ngFor="let _raider of raiders" [value]="_raider">{{_raider}}</option>
@@ -34,7 +35,8 @@
           <option *ngFor="let _drop of drops" [value]="_drop">{{_drop}}</option>
         </select>
     </div>
-
+    
+    <input type="checkbox" (change)="toggleChange($event)"> Add another
     <button type="submit" class="btn btn-success">Submit</button>
 
   </form>
