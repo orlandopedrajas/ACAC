@@ -1,0 +1,22 @@
+<h1>Eden Savage Floor 1 - Who can lot?</h1>
+
+<ul>
+  <li>Round robin Equipment Coffers</li>
+</ul>
+
+<table class='table' *ngIf="Floor1_Equipments">
+  <thead>
+    <tr>
+      <th>Equipment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let Floor1_Equipment of Floor1_Equipments">
+      <td>{{ Floor1_Equipment.raider }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<form (ngSubmit)="onClearFloor1_equipment()">
+  <button type="submit" class="btn btn-success">Reset Equipment List</button>
+</form>

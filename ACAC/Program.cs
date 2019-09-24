@@ -19,10 +19,14 @@ namespace ACAC
                 if (!FileExists)
                 {
                     Db.CreateTable<ACAC.Controllers.ItemDropController.xItemDrop>();
-                    Db.CreateTable<ACAC.Controllers.ItemDropController.Equipment>();
-                    Db.CreateTable<ACAC.Controllers.ItemDropController.EquipmentUpgrade>();
-                    Db.CreateTable<ACAC.Controllers.ItemDropController.Weapon>();
-                    Db.CreateTable<ACAC.Controllers.ItemDropController.WeaponUpgrade>();
+                    Db.CreateTable<ACAC.Controllers.ItemDropController.Floor1_Equipment>();
+                    Db.CreateTable<ACAC.Controllers.ItemDropController.Floor2_Equipment>();
+                    Db.CreateTable<ACAC.Controllers.ItemDropController.Floor2_EquipmentUpgrade>();
+                    Db.CreateTable<ACAC.Controllers.ItemDropController.Floor3_Equipment>();
+                    Db.CreateTable<ACAC.Controllers.ItemDropController.Floor3_EquipmentUpgrade>();
+                    Db.CreateTable<ACAC.Controllers.ItemDropController.Floor3_WeaponUpgrade>();
+                    Db.CreateTable<ACAC.Controllers.ItemDropController.Floor4_Equipment>();
+                    Db.CreateTable<ACAC.Controllers.ItemDropController.Floor4_WeaponCoffer>();
                 }
             }
             CreateWebHostBuilder(args).Build().Run();

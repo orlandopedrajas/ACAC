@@ -1,3 +1,4 @@
+
 img.main {
     display: block;
     margin-left: auto;
@@ -5,6 +6,13 @@ img.main {
     height: 75%;
     width: 75%
 }
-.floatLeft { width: 25%; float: left; }
-.floatRight {width: 25%; float: right; }
-.container { overflow: hidden; }
+img.floor-icon{
+    display: block;
+    height: 56px;
+    width: 56px
+}
+table
+{
+    width: 75%;
+    margin-left: 10%;
+}

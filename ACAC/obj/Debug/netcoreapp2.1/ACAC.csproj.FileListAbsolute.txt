@@ -29,7 +29,6 @@ C:\Users\sanok\Downloads\source\ACAC\ACAC\bin\Debug\netcoreapp2.1\ACAC.dll
 C:\Users\sanok\Downloads\source\ACAC\ACAC\bin\Debug\netcoreapp2.1\ACAC.pdb
 C:\Users\sanok\Downloads\source\ACAC\ACAC\bin\Debug\netcoreapp2.1\ACAC.Views.dll
 C:\Users\sanok\Downloads\source\ACAC\ACAC\bin\Debug\netcoreapp2.1\ACAC.Views.pdb
-C:\Users\sanok\Downloads\source\ACAC\ACAC\obj\Debug\netcoreapp2.1\ACAC.csprojAssemblyReference.cache
 C:\Users\sanok\Downloads\source\ACAC\ACAC\obj\Debug\netcoreapp2.1\ACAC.csproj.CoreCompileInputs.cache
 C:\Users\sanok\Downloads\source\ACAC\ACAC\obj\Debug\netcoreapp2.1\ACAC.RazorAssemblyInfo.cache
 C:\Users\sanok\Downloads\source\ACAC\ACAC\obj\Debug\netcoreapp2.1\ACAC.RazorAssemblyInfo.cs
@@ -46,3 +45,4 @@ C:\Users\sanok\Downloads\source\ACAC\ACAC\obj\Debug\netcoreapp2.1\ACAC.Views.pdb
 C:\Users\sanok\Downloads\source\ACAC\ACAC\obj\Debug\netcoreapp2.1\ACAC.dll
 C:\Users\sanok\Downloads\source\ACAC\ACAC\obj\Debug\netcoreapp2.1\ACAC.pdb
 C:\Users\sanok\Downloads\source\ACAC\ACAC\obj\Debug\netcoreapp2.1\ACAC.csproj.CopyComplete
+c:\Users\sanok\Downloads\source\ACAC\ACAC\obj\Debug\netcoreapp2.1\ACAC.csprojAssemblyReference.cache

@@ -1,0 +1,51 @@
+<h1>Eden Savage Floor 2 - Who can lot?</h1>
+
+<ul>
+  <li>Round robin Equipment Coffers</li>
+  <li>Round robin Equipment Upgrades</li>
+  <li>Weapon Tomestone ... prioritize those who need it for primary weapon > free lot </li>
+</ul>
+
+<div class='container'>
+  <div class='box'>
+    <table class='table' *ngIf="Floor2_Equipments">
+      <thead>
+        <tr>
+          <th>Equipment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let Floor2_Equipment of Floor2_Equipments">
+          <td>{{ Floor2_Equipment.raider }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class='box'>
+    <table class='table' *ngIf="Floor2_EquipmentUpgrades">
+      <thead>
+        <tr>
+          <th>Equipment Upgrade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let Floor2_EquipmentUpgrade of Floor2_EquipmentUpgrades">
+          <td>{{ Floor2_EquipmentUpgrade.raider }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class='container'>
+  <div class='box'>
+    <form (ngSubmit)="onClearFloor2_equipment()">
+      <button type="submit" class="btn btn-success">Reset Equipment List</button>
+    </form>
+  </div>
+  <div class='box'>
+    <form (ngSubmit)="onClearFloor2_equipmentupgrades()">
+      <button type="submit" class="btn btn-success">Reset Equipment Upgrade List</button>
+    </form>    
+  </div>
+</div>
