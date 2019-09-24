@@ -403,22 +403,46 @@ namespace ACAC.Controllers
 
             public void ResetTable(string tableName)
             {
-                using(var Db = new SQLite.SQLiteConnection(DbPath))
+                if (tableName == "hardreset")
                 {
-                    switch(tableName)
+
+                    if (System.IO.File.Exists(DbPath))
                     {
-                        case "ALL":
-                            Db.Execute("Delete From Equipment");
-                            Db.Execute("Delete from EquipmentUpgrade");
-                            Db.Execute("Delete from Weapon");
-                            Db.Execute("Delete from WeaponUpgrade");
-                            Db.Execute("Delete from xItemDrop");
-                            break;
-                        default:
-                            Db.Execute("Delete From " + tableName);
-                            break;
+                        System.IO.File.Delete(DbPath);
+                    }
+                    using (var Db = new SQLite.SQLiteConnection(DbPath))
+                    {
+                        Db.CreateTable<ACAC.Controllers.ItemDropController.xItemDrop>();
+                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor1_Equipment>();
+                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor2_Equipment>();
+                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor2_EquipmentUpgrade>();
+                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor3_Equipment>();
+                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor3_EquipmentUpgrade>();
+                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor3_WeaponUpgrade>();
+                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor4_Equipment>();
+                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor4_WeaponCoffer>();
                     }
                 }
+                else
+                {
+                    using(var Db = new SQLite.SQLiteConnection(DbPath))
+                    {
+                        switch(tableName)
+                        {
+                            case "ALL":
+                                Db.Execute("Delete From Equipment");
+                                Db.Execute("Delete from EquipmentUpgrade");
+                                Db.Execute("Delete from Weapon");
+                                Db.Execute("Delete from WeaponUpgrade");
+                                Db.Execute("Delete from xItemDrop");
+                                break;
+                            default:
+                                Db.Execute("Delete From " + tableName);
+                                break;
+                        }
+                    }
+                }
+                
             }
 
 
