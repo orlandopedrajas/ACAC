@@ -2,7 +2,7 @@
 <h1>Eden Savage Floor 2 - Who can lot?</h1>
 <ul>
   <li>Round robin Equipment Coffers</li>
-  <li>Round robin Equipment Upgrades</li>
+  <li>Round robin Deepshadow Coating</li>
   <li>Weapon Tomestone ... prioritize those who need it for primary weapon > free lot </li>
 </ul>
 
@@ -11,7 +11,7 @@
     <table class='table' *ngIf="Floor2_Equipments">
       <thead>
         <tr>
-          <th>Equipment</th>
+          <th>Equipment Coffer</th>
         </tr>
       </thead>
       <tbody>
@@ -25,7 +25,7 @@
     <table class='table' *ngIf="Floor2_EquipmentUpgrades">
       <thead>
         <tr>
-          <th>Equipment Upgrade</th>
+          <th>Deepshadow Coating</th>
         </tr>
       </thead>
       <tbody>
@@ -34,18 +34,5 @@
         </tr>
       </tbody>
     </table>
-  </div>
-</div>
-
-<div class='container'>
-  <div class='box'>
-    <form (ngSubmit)="onClearFloor2_equipment()">
-      <button type="submit" class="btn btn-success">Reset Equipment List</button>
-    </form>
-  </div>
-  <div class='box'>
-    <form (ngSubmit)="onClearFloor2_equipmentupgrades()">
-      <button type="submit" class="btn btn-success">Reset Equipment Upgrade List</button>
-    </form>    
   </div>
 </div>
