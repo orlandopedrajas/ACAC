@@ -7,7 +7,7 @@
 </ul>
 
 <div class='container'>
-  <div class='floatLeft'>
+  <div class='box'>
     <table class='table' *ngIf="Floor3_Equipments">
       <thead>
         <tr>
@@ -21,7 +21,7 @@
       </tbody>
     </table>
   </div>
-  <div class='floatLeft'>
+  <div class='box'>
     <table class='table' *ngIf="Floor3_EquipmentUpgrades">
       <thead>
         <tr>
@@ -35,7 +35,7 @@
       </tbody>
     </table>
   </div>
-  <div class='floatLeft'>
+  <div class='box'>
     <table class='table' *ngIf="Floor3_WeaponUpgrades">
       <thead>
         <tr>
@@ -48,5 +48,23 @@
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+<div class='container'>
+  <div class='box'>
+    <form (ngSubmit)="onClearFloor3_Equipment()">
+      <button type="submit" class="btn btn-success">Reset Equipment List</button>
+    </form>
+  </div>
+  <div class='box'>
+    <form (ngSubmit)="onClearFloor3_EquipmentUpgrade()">
+      <button type="submit" class="btn btn-success">Reset Equipment Upgrade List</button>
+    </form>    
+  </div>
+  <div class='box'>
+    <form (ngSubmit)="onClearFloor3_WeaponUpgrade()">
+      <button type="submit" class="btn btn-success">Reset Weapon Upgrade List</button>
+    </form>    
   </div>
 </div>

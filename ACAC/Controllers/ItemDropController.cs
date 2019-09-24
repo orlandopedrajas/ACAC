@@ -176,8 +176,8 @@ namespace ACAC.Controllers
 
         }
 
-        [HttpGet("[action]")]
-        public IActionResult ResetDb(string xFloor)
+        [HttpPost("[action]")]
+        public IActionResult ResetDb([FromBody]string xFloor)
         {
             DbHandler Dbh = new DbHandler();
             Dbh.ResetTable(xFloor);
@@ -416,8 +416,7 @@ namespace ACAC.Controllers
                             break;
                         default:
                             Db.Execute("Delete From " + tableName);
-                          break;
-
+                            break;
                     }
                 }
             }
