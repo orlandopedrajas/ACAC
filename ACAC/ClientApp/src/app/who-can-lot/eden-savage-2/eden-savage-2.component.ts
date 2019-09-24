@@ -22,37 +22,6 @@ export class EdenSavage2Component {
       this.Floor2_EquipmentUpgrades = result;
     }, error => console.error(error));
   }
-
-  onClearFloor2_equipment() {
-    const headerJson = {'Content-Type': 'application/json'};
-    const header = new HttpHeaders(headerJson);
-    this.floortoclear = 'Floor2_Equipment';
-    this.http.post('./api/ItemDrop/ResetDb', JSON.stringify(this.floortoclear), {headers: header}).subscribe(
-      (val) => { console.log('POST call successful value returned in body', val); },
-      response => {
-          console.log('POST call in error', response);
-      },
-      () => {
-          console.log('The POST observable is now completed.');
-      });
-      window.location.reload();
-  }
-
-  onClearFloor2_equipmentupgrades() {
-    const headerJson = {'Content-Type': 'application/json'};
-    const header = new HttpHeaders(headerJson);
-    this.floortoclear = 'Floor2_EquipmentUpgrade';
-    this.http.post('./api/ItemDrop/ResetDb', JSON.stringify(this.floortoclear), {headers: header}).subscribe(
-      (val) => { console.log('POST call successful value returned in body', val); },
-      response => {
-          console.log('POST call in error', response);
-      },
-      () => {
-          console.log('The POST observable is now completed.');
-      });
-      window.location.reload();
-  }
-
 }
 interface SavageItem {
   dateReceived: string;

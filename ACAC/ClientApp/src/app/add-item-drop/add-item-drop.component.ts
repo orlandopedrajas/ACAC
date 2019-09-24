@@ -11,7 +11,8 @@ export class AddItemDropComponent {
 
   raiders = ['Lan Mantear', 'Hades Carmine', 'Yumi Rin', 'Aerilyn Elessedil', 'Shelly Duncan', 'Thomas Silverstar', 'Val Phoenix', 'La Ki'];
   floors = ['Eden Savage Floor 1', 'Eden Savage Floor 2', 'Eden Savage Floor 3', 'Eden Savage Floor 4'];
-  drops = ['Equipment Coffer', 'Equipment Upgrade', 'Weapon Coffer', 'Weapon Upgrade', 'Tomestone'];
+  // tslint:disable-next-line: max-line-length
+  drops = ['Accessory Coffer', 'Chest Coffer', 'Deepshadow Coating', 'Deepshadow Twine', 'Deepshadow Solvent', 'Equipment Coffer', 'Lightweight Tomestone', 'Weapon Coffer'];
   submitanother = false;
   redirectto = '../';
 
