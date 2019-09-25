@@ -1,6 +1,7 @@
+
 <div class="container">
   <h1>Add Item Drop</h1>
-  <form (ngSubmit)="onSubmit()">
+  <form (ngSubmit)="onSubmit()" #addForm="ngForm">
     <div class="form-group">
       <label for="dateReceived">Date</label>
       <input type="date" class="form-control" id="dateReceived"
@@ -36,8 +37,31 @@
         </select>
     </div>
     
-    <input type="checkbox" (change)="toggleChange($event)"> Add another
-    <button type="submit" class="btn btn-success">Submit</button>
+    <input type="checkbox" (change)="toggleChange($event)" checked=true> Add another
+    <button type="submit" class="btn btn-success" [disabled]="!addForm.form.valid">Submit</button>
 
   </form>
 </div>
+
+<h2>Recent Drops</h2>
+<div>
+<table class='table' *ngIf="SavageItems">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Floor</th>
+        <th>Raider</th>
+        <th>Drop</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let SavI of SavageItems">
+        <td>{{ SavI.dateReceived }}</td>
+        <td>{{ SavI.floor }}</td>
+        <td>{{ SavI.raider }}</td>
+        <td>{{ SavI.droptype }}</td>
+        <td><span class='glyphicon glyphicon-remove' (click)='OnRemoveItem(SavI.id)'></span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
