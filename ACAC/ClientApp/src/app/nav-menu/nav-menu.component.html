@@ -39,12 +39,12 @@
             </li>
             <li [routerLinkActive]='["link-active"]'>
               <a [routerLink]='["/add-item-drop"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th-list'></span> Add Drops
+                <span class='glyphicon glyphicon-shopping-cart'></span> Add Drops
               </a>
             </li>            
             <li [routerLinkActive]='["link-active"]'>
               <a [routerLink]='["/item-drop-history"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th-list'></span> Item History
+                <span class='glyphicon glyphicon-tag'></span> Item History
               </a>
             </li>
             <li [routerLinkActive]='["link-active"]'>
@@ -85,6 +85,11 @@
             <li [routerLinkActive]='["link-active"]'>
               <a [routerLink]='["/raiders/yumi-rin"]' (click)='collapse()'>
                 <span class='glyphicon glyphicon-user'></span> Yumi Rin
+              </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/admin-pages/manage-lists"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-pencil'></span> Manage Lists
               </a>
             </li>
           </ul>

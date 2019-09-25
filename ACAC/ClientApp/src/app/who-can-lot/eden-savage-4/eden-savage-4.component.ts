@@ -22,37 +22,6 @@ export class EdenSavage4Component {
       this.Floor4_WeaponCoffers = result;
     }, error => console.error(error));
   }
-
-  onClearFloor4_Equipment() {
-    const headerJson = {'Content-Type': 'application/json'};
-    const header = new HttpHeaders(headerJson);
-    this.floortoclear = 'Floor4_Equipment';
-    this.http.post('./api/ItemDrop/ResetDb', JSON.stringify(this.floortoclear), {headers: header}).subscribe(
-      (val) => { console.log('POST call successful value returned in body', val); },
-      response => {
-          console.log('POST call in error', response);
-      },
-      () => {
-          console.log('The POST observable is now completed.');
-      });
-      window.location.reload();
-  }
-
-  onClearFloor4_WeaponCoffer() {
-    const headerJson = {'Content-Type': 'application/json'};
-    const header = new HttpHeaders(headerJson);
-    this.floortoclear = 'Floor4_WeaponCoffer';
-    this.http.post('./api/ItemDrop/ResetDb', JSON.stringify(this.floortoclear), {headers: header}).subscribe(
-      (val) => { console.log('POST call successful value returned in body', val); },
-      response => {
-          console.log('POST call in error', response);
-      },
-      () => {
-          console.log('The POST observable is now completed.');
-      });
-      window.location.reload();
-  }
-
 }
 
 interface EquipmentItem {

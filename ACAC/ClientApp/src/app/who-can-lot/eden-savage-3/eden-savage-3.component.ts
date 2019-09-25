@@ -27,51 +27,6 @@ export class EdenSavage3Component {
        this.Floor3_WeaponUpgrades = result;
      }, error => console.error(error));
   }
-
-  onClearFloor3_Equipment() {
-    const headerJson = {'Content-Type': 'application/json'};
-    const header = new HttpHeaders(headerJson);
-    this.floortoclear = 'Floor3_Equipment';
-    this.http.post('./api/ItemDrop/ResetDb', JSON.stringify(this.floortoclear), {headers: header}).subscribe(
-      (val) => { console.log('POST call successful value returned in body', val); },
-      response => {
-          console.log('POST call in error', response);
-      },
-      () => {
-          console.log('The POST observable is now completed.');
-      });
-      window.location.reload();
-  }
-
-  onClearFloor3_EquipmentUpgrade() {
-    const headerJson = {'Content-Type': 'application/json'};
-    const header = new HttpHeaders(headerJson);
-    this.floortoclear = 'Floor3_EquipmentUpgrade';
-    this.http.post('./api/ItemDrop/ResetDb', JSON.stringify(this.floortoclear), {headers: header}).subscribe(
-      (val) => { console.log('POST call successful value returned in body', val); },
-      response => {
-          console.log('POST call in error', response);
-      },
-      () => {
-          console.log('The POST observable is now completed.');
-      });
-      window.location.reload();
-  }
-
-  onClearFloor3_WeaponUpgrade() {
-    const headerJson = {'Content-Type': 'application/json'};
-    const header = new HttpHeaders(headerJson);
-    this.floortoclear = 'Floor3_WeaponUpgrade';
-    this.http.post('./api/ItemDrop/ResetDb', JSON.stringify(this.floortoclear), {headers: header}).subscribe(
-      (val) => { console.log('POST call successful value returned in body', val); },
-      response => {
-          console.log('POST call in error', response);
-      },
-      () => {
-          console.log('The POST observable is now completed.');
-      });
-      window.location.reload();
-  }
 }
 
 interface SavageItem {
