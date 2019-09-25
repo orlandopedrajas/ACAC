@@ -23,6 +23,12 @@ namespace ACAC.Controllers
             return Dbh.GetItemDrops();
         }
         [HttpGet("[action]")]
+        public IEnumerable<xItemDrop> GetRecentItemDrops()
+        {
+            DbHandler Dbh = new DbHandler();
+            return Dbh.GetRecentItemDrops();
+        }
+        [HttpGet("[action]")]
         public IEnumerable<xItemDrop> ItemHistoryByRaider(string xRaider)
         {
             DbHandler Dbh = new DbHandler();
@@ -181,6 +187,13 @@ namespace ACAC.Controllers
         {
             DbHandler Dbh = new DbHandler();
             Dbh.ResetTable(xFloor);
+            return Ok();
+        }
+        [HttpPost("[action]")]
+        public IActionResult DeleteItemById([FromBody] string id)
+        {
+            DbHandler Dbh = new DbHandler();
+            Dbh.DeleteItemByID(id);
             return Ok();
         }
         [HttpPost("[action]")]
@@ -473,11 +486,25 @@ namespace ACAC.Controllers
                 }
                 return xDrops;
             }
+            public IEnumerable<xItemDrop> GetRecentItemDrops()
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    return Db.Query<xItemDrop>("Select * From xItemDrop order by Date(dateReceived) desc, Floor desc LIMIT 5");
+                }
+            }
             public IEnumerable<xItemDrop> GetItemHistoryByRaider(string xRaider)
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
                     return Db.Query<xItemDrop>("Select * From xItemDrop where raider='" + xRaider + "' order by Date(dateReceived) desc, Floor desc");
+                }
+            }
+            public void DeleteItemByID(string id)
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    Db.Execute("Delete from xItemDrop where id=" + id);
                 }
             }
             public void AddItemDrop(xItemDrop xItem)

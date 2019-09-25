@@ -17,6 +17,7 @@
       <td><img class='floor-icon' src='{{ SavageItem.floor }}'></td>
       <td>{{ SavageItem.raider }}</td>
       <td>{{ SavageItem.droptype }}</td>
+      <td><span class='glyphicon glyphicon-remove' (click)='OnRemoveItem(SavageItem.id)'></span></td>
     </tr>
   </tbody>
 </table>
