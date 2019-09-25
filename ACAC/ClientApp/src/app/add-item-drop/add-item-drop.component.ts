@@ -13,14 +13,20 @@ export class AddItemDropComponent {
   floors = ['Eden Savage Floor 1', 'Eden Savage Floor 2', 'Eden Savage Floor 3', 'Eden Savage Floor 4'];
   // tslint:disable-next-line: max-line-length
   drops = ['Accessory Coffer', 'Chest Coffer', 'Deepshadow Coating', 'Deepshadow Twine', 'Deepshadow Solvent', 'Equipment Coffer', 'Lightweight Tomestone', 'Weapon Coffer'];
-  submitanother = false;
+  submitanother = true;
   redirectto = '../';
 
   // tslint:disable-next-line: no-use-before-declare
   Si = new SavageItem;
+  // tslint:disable-next-line: no-use-before-declare
+  SavageItems: SavI[];
   submitted = false;
 
- constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    http.get<SavageItem[]>(baseUrl + 'api/ItemDrop/GetRecentItemDrops').subscribe(result => {
+     this.SavageItems = result;
+   }, error => console.error(error));
+  }
 
   onSubmit() {
     this.submitted = true;
@@ -44,7 +50,7 @@ export class AddItemDropComponent {
   toggleChange(event) {
     if (event.target.checked) {
       this.submitanother = true;
-    }
+    } else { this.submitanother = false; }
   }
   raiderchange(event: any) {
     switch (event.target.value) {
@@ -74,9 +80,29 @@ export class AddItemDropComponent {
         break;
     }
   }
+  OnRemoveItem(id: any) {
+    const headerJson = {'Content-Type': 'application/json'};
+    const header = new HttpHeaders(headerJson);
+
+    this.http.post('./api/ItemDrop/DeleteItemById', JSON.stringify(id), {headers: header}).subscribe(
+      (val) => { console.log('POST call successful value returned in body', val); },
+      response => {
+          console.log('POST call in error', response);
+      },
+      () => {
+          console.log('The POST observable is now completed.');
+      });
+      window.location.reload();
+  }
 }
 class SavageItem {
   id: number;
+  dateReceived: string;
+  floor: string;
+  raider: string;
+  droptype: string;
+}
+interface SavI {
   dateReceived: string;
   floor: string;
   raider: string;
