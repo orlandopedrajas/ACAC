@@ -92,6 +92,11 @@
                 <span class='glyphicon glyphicon-pencil'></span> Manage Lists
               </a>
             </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/admin-pages/archived-item-drop/archived-item-drop"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-pencil'></span> Deleted Item Drops
+              </a>
+            </li>
           </ul>
         </div>
     </div>
