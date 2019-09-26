@@ -3,8 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-manage-lists',
-  templateUrl: './manage-lists.component.html',
-  styleUrls: ['./manage-lists.component.css']
+  templateUrl: './manage-lists.component.html'
 })
 
 export class ManageListsComponent {
