@@ -14,7 +14,7 @@ export class ManageListsComponent {
   listtoclear = '';
 
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-
+       
   }
 
   onClearFloor(lt: string, redirecto: string) {

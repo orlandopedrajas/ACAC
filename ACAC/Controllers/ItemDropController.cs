@@ -12,7 +12,7 @@ using SQLite;
 
 namespace ACAC.Controllers
 {
-     [Route("api/[controller]")]
+    [Route("api/[controller]")]
     public class ItemDropController : Controller
     {
         [HttpGet("[action]")]
@@ -21,6 +21,12 @@ namespace ACAC.Controllers
 
             DbHandler Dbh = new DbHandler();
             return Dbh.GetItemDrops();
+        }
+        [HttpGet("[action]")]
+        public IEnumerable<xItemDropArchive> xItemDropArchives()
+        {
+            DbHandler Dbh = new DbHandler();
+            return Dbh.GetItemDropArchive();
         }
         [HttpGet("[action]")]
         public IEnumerable<xItemDrop> GetRecentItemDrops()
@@ -34,7 +40,6 @@ namespace ACAC.Controllers
             DbHandler Dbh = new DbHandler();
             return Dbh.GetItemHistoryByRaider(xRaider);
         }
-
         [HttpGet("[action]")]
         public IEnumerable<Floor1_Equipment> xFloor1_Equipment()
         {
@@ -115,11 +120,10 @@ namespace ACAC.Controllers
             }
             return Dbh.CurrentFloor4_WeaponCofferRaiders();
         }
-    
         [HttpPost("[action]")]
         public IActionResult addDrop([FromBody] xItemDrop x)
         {
-            
+
             if (x == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");
 
             DbHandler Dbh = new DbHandler();
@@ -130,7 +134,7 @@ namespace ACAC.Controllers
                 case "Eden Savage Floor 1":
                     if (Dbh.GetFloor1_Equipment().Count(p => p.raider == x.raider) == 0)
                     {
-                       Dbh.AddRoundRobin(new Floor1_Equipment { raider = x.raider });
+                        Dbh.AddRoundRobin(new Floor1_Equipment { raider = x.raider });
                     }
                     break;
                 case "Eden Savage Floor 2":
@@ -177,11 +181,10 @@ namespace ACAC.Controllers
                     }
                     break;
             }
-           
+
             return Ok();
 
         }
-
         [HttpPost("[action]")]
         public IActionResult ResetDb([FromBody]string xFloor)
         {
@@ -193,7 +196,10 @@ namespace ACAC.Controllers
         public IActionResult DeleteItemById([FromBody] string id)
         {
             DbHandler Dbh = new DbHandler();
-            Dbh.DeleteItemByID(id);
+            if (Dbh.TableExists("xItemDropArchive"))
+            {
+                Dbh.DeleteItemByID(id);
+            }
             return Ok();
         }
         [HttpPost("[action]")]
@@ -223,7 +229,7 @@ namespace ACAC.Controllers
                             li.Remove(itemToRemove);
                         }
                         catch {
-                        }                  
+                        }
                     }
 
                     Dbh.ResetTable("Floor1_Equipment");
@@ -257,7 +263,7 @@ namespace ACAC.Controllers
                         {
                         }
                     }
-                    
+
                     Dbh.ResetTable("Floor2_Equipment");
                     foreach (Floor2_Equipment eq in li2)
                     {
@@ -456,42 +462,83 @@ namespace ACAC.Controllers
         }
         public class DbHandler
         {
-            string DbPath = Path.Combine(AppContext.BaseDirectory,"ACAC.db");
-           
+            string DbPath = Path.Combine(AppContext.BaseDirectory, "ACAC.db");
+
+            public bool TableExists(string tableName)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    if (Db.ExecuteScalar<int>("SELECT count(*) FROM sqlite_master WHERE type='table' AND name='" + tableName + "'") > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        switch (tableName)
+                        {
+                            case "xItemDropArchive":
+                                Db.CreateTable<xItemDropArchive>();
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                }
+            }
             public IEnumerable<xItemDrop> GetItemDrops()
             {
                 IEnumerable<xItemDrop> xDrops;
-                using ( var Db = new SQLite.SQLiteConnection(DbPath))
+                try
                 {
-                     xDrops = Db.Query<xItemDrop>("Select * from xItemDrop order by Date(dateReceived) desc, Floor desc");
-                }
-
-                foreach(xItemDrop x in xDrops)   
-                {
-                    switch (x.floor)
+                    using (var Db = new SQLite.SQLiteConnection(DbPath))
                     {
-                        case "Eden Savage Floor 1":
-                            x.floor = "https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/65-icon.jpg";
-                            break;
-                        case "Eden Savage Floor 2":
-                            x.floor = "https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/66-icon.jpg";
-                            break;
-                        case "Eden Savage Floor 3":
-                            x.floor = "https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/67-icon.jpg";
-                            break;
-                        case "Eden Savage Floor 4":
-                            x.floor = "https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/68-icon.jpg";
-                            break;    
+                        xDrops = Db.Query<xItemDrop>("Select * from xItemDrop order by Date(dateReceived) desc, Floor desc");
                     }
+
+                    foreach (xItemDrop x in xDrops)
+                    {
+                        switch (x.floor)
+                        {
+                            case "Eden Savage Floor 1":
+                                x.floor = "https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/65-icon.jpg";
+                                break;
+                            case "Eden Savage Floor 2":
+                                x.floor = "https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/66-icon.jpg";
+                                break;
+                            case "Eden Savage Floor 3":
+                                x.floor = "https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/67-icon.jpg";
+                                break;
+                            case "Eden Savage Floor 4":
+                                x.floor = "https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/68-icon.jpg";
+                                break;
+                        }
+                    }
+                    return xDrops;
                 }
-                return xDrops;
+                catch
+                { return Enumerable.Empty<xItemDrop>(); }
             }
             public IEnumerable<xItemDrop> GetRecentItemDrops()
             {
-                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                try
                 {
-                    return Db.Query<xItemDrop>("Select * From xItemDrop order by Date(dateReceived) desc, Floor desc LIMIT 5");
+                    using (var Db = new SQLite.SQLiteConnection(DbPath))
+                    {
+                        return Db.Query<xItemDrop>("Select * From xItemDrop order by Date(dateReceived) desc, Floor desc LIMIT 5");
+                    }
                 }
+                catch
+                { return Enumerable.Empty<xItemDrop>(); }
+            }
+            public IEnumerable<xItemDropArchive> GetItemDropArchive()
+            {
+                try {
+                    using (var Db = new SQLite.SQLiteConnection(DbPath))
+                    {
+                        return Db.Query<xItemDropArchive>("Select * From xItemDropArchive order by Date(dateArchived) desc");
+                    }
+                }                
+                catch { return Enumerable.Empty<xItemDropArchive>(); }                
             }
             public IEnumerable<xItemDrop> GetItemHistoryByRaider(string xRaider)
             {
@@ -504,18 +551,30 @@ namespace ACAC.Controllers
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
-                    Db.Execute("Delete from xItemDrop where id=" + id);
+                    IEnumerable<xItemDrop> xids = Db.Query<xItemDrop>("Select * From xItemDrop where id=" + id);
+                    foreach (xItemDrop xid in xids)
+                    {
+                        xItemDropArchive Xida = new xItemDropArchive
+                        {
+                            dateArchived = DateTime.Now.ToString(),
+                            dateReceived = xid.dateReceived,
+                            droptype = xid.droptype,
+                            floor = xid.floor,
+                            Id = xid.Id,
+                            raider =  xid.raider
+                        };
+                        Db.Insert(Xida);
+                        Db.Execute("Delete from xItemDrop where id=" + id);
+                    }                    
                 }
             }
             public void AddItemDrop(xItemDrop xItem)
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
-                    Db.Insert(xItem);  
+                    Db.Insert(xItem);
                 }
-                     
             }
-
             public IEnumerable<Floor1_Equipment> CurrentFloor1_EquipmentRaiders()
             {
                 List<Floor1_Equipment> li = new List<Floor1_Equipment>();
@@ -658,7 +717,7 @@ namespace ACAC.Controllers
             }
             public IEnumerable<Floor4_WeaponCoffer> CurrentFloor4_WeaponCofferRaiders()
             {
-                List<Floor4_WeaponCoffer> li = new List<Floor4_WeaponCoffer> ();
+                List<Floor4_WeaponCoffer> li = new List<Floor4_WeaponCoffer>();
                 li.Add(new Floor4_WeaponCoffer { raider = "Lan Mantear" });
                 li.Add(new Floor4_WeaponCoffer { raider = "Hades Carmine" });
                 li.Add(new Floor4_WeaponCoffer { raider = "Yumi Rin" });
@@ -676,7 +735,6 @@ namespace ACAC.Controllers
 
                 return li;
             }
-
             public void AddRoundRobin(object ItemX)
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
@@ -684,7 +742,6 @@ namespace ACAC.Controllers
                     Db.Insert(ItemX);
                 }
             }
-
             public void ResetTable(string tableName)
             {
                 if (tableName == "hardreset")
@@ -709,9 +766,9 @@ namespace ACAC.Controllers
                 }
                 else
                 {
-                    using(var Db = new SQLite.SQLiteConnection(DbPath))
+                    using (var Db = new SQLite.SQLiteConnection(DbPath))
                     {
-                        switch(tableName)
+                        switch (tableName)
                         {
                             case "ALL":
                                 Db.Execute("Delete From Equipment");
@@ -726,10 +783,8 @@ namespace ACAC.Controllers
                         }
                     }
                 }
-                
+
             }
-
-
             public IEnumerable<Floor1_Equipment> GetFloor1_Equipment()
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
@@ -786,17 +841,25 @@ namespace ACAC.Controllers
                     return Db.Query<Floor4_WeaponCoffer>("Select * from Floor4_WeaponCoffer");
                 }
             }
-
         }
-
         public class xItemDrop
         {
             [PrimaryKey, AutoIncrement]
             public long Id { get; set; }
             public string dateReceived { get; set; }
-            public string floor{ get; set;}
-            public string raider { get; set;}
-            public string droptype { get; set;}
+            public string floor { get; set; }
+            public string raider { get; set; }
+            public string droptype { get; set; }
+        }
+        public class xItemDropArchive
+        {
+            [PrimaryKey, AutoIncrement]
+            public long Id { get; set; }
+            public string dateReceived { get; set; }
+            public string floor { get; set; }
+            public string raider { get; set; }
+            public string droptype { get; set; }
+            public string dateArchived { get; set; }
         }
         public class Floor1_Equipment
         {
@@ -830,7 +893,6 @@ namespace ACAC.Controllers
         {
             public string raider { get; set; }
         }
-
         public class Overridelist
         {
             public string listtype { get; set; }

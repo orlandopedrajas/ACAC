@@ -22,6 +22,8 @@ import { EdenSavage2Component } from './who-can-lot/eden-savage-2/eden-savage-2.
 import { EdenSavage3Component } from './who-can-lot/eden-savage-3/eden-savage-3.component';
 import { EdenSavage4Component } from './who-can-lot/eden-savage-4/eden-savage-4.component';
 import { ManageListsComponent } from './admin-pages/manage-lists.component';
+import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/archived-item-drop.component';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { ManageListsComponent } from './admin-pages/manage-lists.component';
     EdenSavage3Component,
     EdenSavage4Component,
     ManageListsComponent,
+    ArchivedItemDropComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -65,6 +68,7 @@ import { ManageListsComponent } from './admin-pages/manage-lists.component';
       { path: 'who-can-lot/eden-savage-3', component: EdenSavage3Component },
       { path: 'who-can-lot/eden-savage-4', component: EdenSavage4Component },
       { path: 'admin-pages/manage-lists', component: ManageListsComponent },
+      { path: 'admin-pages/archived-item-drop/archived-item-drop', component: ArchivedItemDropComponent }
     ])
   ],
   providers: [],
