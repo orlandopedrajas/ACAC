@@ -1,6 +1,13 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+export interface SavageItem {
+  dateReceived: string;
+  floor: string;
+  raider: string;
+  droptype: string;
+  id: string;
+}
 @Component({
   selector: 'app-item-drop-history',
   templateUrl: './item-drop-history.component.html',
@@ -9,8 +16,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class ItemDropHistoryComponent {
   SavageItems: SavageItem[];
- 
-  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
+  constructor(private http: HttpClient) {
+    const baseUrl = document.getElementsByTagName('base')[0].href;
     http.get<SavageItem[]>(baseUrl + 'api/ItemDrop/xItemDrops').subscribe(result => {
      this.SavageItems = result;
    }, error => console.error(error));
@@ -28,14 +36,7 @@ export class ItemDropHistoryComponent {
       () => {
           console.log('The POST observable is now completed.');
       });
-      window.location.reload();
+    window.location.reload();
   }
 
-}
-
-interface SavageItem {
-  dateReceived: string;
-  floor: string;
-  raider: string;
-  droptype: string;
 }
