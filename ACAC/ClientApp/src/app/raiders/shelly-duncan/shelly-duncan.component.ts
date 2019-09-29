@@ -1,6 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+export interface SavageItem {
+  dateReceived: string;
+  floor: string;
+  raider: string;
+  droptype: string;
+}
 
 @Component({
   selector: 'app-shelly-duncan',
@@ -9,17 +15,13 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class ShellyDuncanComponent {
-    SavageItems: SavageItem[];
+  displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
+  SavageItems: SavageItem[];
 
-    constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-      http.get<SavageItem[]>(baseUrl + 'api/ItemDrop/ItemHistoryByRaider?xRaider=Shelly Duncan').subscribe(result => {
-       this.SavageItems = result;
-     }, error => console.error(error));
-    }
+  constructor(private http: HttpClient) {
+    const baseUrl = document.getElementsByTagName('base')[0].href;
+    http.get<SavageItem[]>(baseUrl + 'api/ItemDrop/ItemHistoryByRaider?xRaider=Shelly Duncan').subscribe(result => {
+      this.SavageItems = result;
+    }, error => console.error(error));
   }
-  interface SavageItem {
-    dateReceived: string;
-    floor: string;
-    raider: string;
-    droptype: string;
-  }
+}

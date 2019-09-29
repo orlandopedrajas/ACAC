@@ -1,103 +1,68 @@
-<div class='main-nav'>
-    <div class='navbar navbar-inverse'>
-        <div class='navbar-header'>
-            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse' [attr.aria-expanded]='isExpanded' (click)='toggle()'>
-                <span class='sr-only'>Toggle navigation</span>
-                <span class='icon-bar'></span>
-                <span class='icon-bar'></span>
-                <span class='icon-bar'></span>
-            </button>
-            <a class='navbar-brand' [routerLink]='["/"]'>A Clear's A Clear</a>
-        </div>
-        <div class='clearfix'></div>
-        <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
-          <ul class='nav navbar-nav'>
-            <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-              <a [routerLink]='["/"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-home'></span> Home
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/who-can-lot/eden-savage-1"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th-list'></span> Eden Savage 1
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/who-can-lot/eden-savage-2"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th-list'></span> Eden Savage 2
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/who-can-lot/eden-savage-3"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th-list'></span> Eden Savage 3
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/who-can-lot/eden-savage-4"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-th-list'></span> Eden Savage 4
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/add-item-drop"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-shopping-cart'></span> Add Drops
-              </a>
-            </li>            
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/item-drop-history"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-tag'></span> Item History
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/raiders/aerilyn-elessedil"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-user'></span> Aerilyn Elessedil
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/raiders/hades-carmine"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-user'></span> Hades Carmine
-              </a>
-            </li>
-            <li >
-              <a [routerLink]='["/raiders/la-ki"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-user'></span> La Ki
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/raiders/lan-mantear"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-user'></span> Lan Mantear
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/raiders/shelly-duncan"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-user'></span> Shelly Duncan
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/raiders/thomas-silverstar"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-user'></span> Thomas Silverstar
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/raiders/val-phoenix"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-user'></span> Val Phoenix
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/raiders/yumi-rin"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-user'></span> Yumi Rin
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/admin-pages/manage-lists"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-pencil'></span> Manage Lists
-              </a>
-            </li>
-            <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/admin-pages/archived-item-drop/archived-item-drop"]' (click)='collapse()'>
-                <span class='glyphicon glyphicon-pencil'></span> Deleted Item Drops
-              </a>
-            </li>
-          </ul>
-        </div>
-    </div>
-</div>
+<button mat-icon-button [matMenuTriggerFor]="acacmenu"><mat-icon>menu</mat-icon></button>
+
+<mat-menu #acacmenu="matMenu">
+  <button mat-menu-item [routerLink]='["/"]'>
+    <mat-icon aria-hidden="false" aria-label="Home">home</mat-icon>  Home
+  </button>
+  <button mat-menu-item [routerLink]='["/item-drop-history"]'>
+    <mat-icon aria-hidden="false" aria-label="Item Drop History">history</mat-icon>  Item Drop History
+  </button>
+  <button mat-menu-item [matMenuTriggerFor]="savagefloors"><mat-icon aria-hidden="false" aria-label="Who can lot?">work</mat-icon>Who can lot?</button>
+  <button mat-menu-item [matMenuTriggerFor]="raiders"><mat-icon aria-hidden="false" aria-label="Raiders">emoji_people</mat-icon>Raiders</button>
+  <button mat-menu-item [matMenuTriggerFor]="adminpages"><mat-icon aria-hidden="false" aria-label="Raiders">settings_applications</mat-icon></button>
+</mat-menu>
+
+<mat-menu #savagefloors="matMenu">
+  <button mat-menu-item [routerLink]='["/who-can-lot/eden-savage-1"]'>
+    <mat-icon aria-hidden="false">looks_one</mat-icon> Eden Savage 1
+  </button>
+  <button mat-menu-item [routerLink]='["/who-can-lot/eden-savage-2"]'>
+    <mat-icon aria-hidden="false">looks_two</mat-icon> Eden Savage 2
+  </button>
+  <button mat-menu-item [routerLink]='["/who-can-lot/eden-savage-3"]'>
+    <mat-icon aria-hidden="false">looks_3</mat-icon> Eden Savage 3
+  </button>
+  <button mat-menu-item [routerLink]='["/who-can-lot/eden-savage-4"]'>
+    <mat-icon aria-hidden="false">looks_4</mat-icon> Eden Savage 4
+  </button>
+</mat-menu>
+
+<mat-menu #raiders="matMenu">
+    <button mat-menu-item [routerLink]='["/raiders/aerilyn-elessedil"]'>
+      <mat-icon aria-hidden="false">face</mat-icon> Aerilyn Elessedil
+    </button>
+    <button mat-menu-item [routerLink]='["/raiders/hades-carmine"]'>
+      <mat-icon aria-hidden="false">face</mat-icon> Hades Carmine
+    </button>
+    <button mat-menu-item [routerLink]='["/raiders/la-ki"]'>
+      <mat-icon aria-hidden="false">face</mat-icon> La Ki
+    </button>
+    <button mat-menu-item [routerLink]='["/raiders/lan-mantear"]'>
+      <mat-icon aria-hidden="false">face</mat-icon> Lan Mantear
+    </button>
+    <button mat-menu-item [routerLink]='["/raiders/shelly-duncan"]'>
+      <mat-icon aria-hidden="false">face</mat-icon> Shelly Duncan
+    </button>
+    <button mat-menu-item [routerLink]='["/raiders/thomas-silverstar"]'>
+      <mat-icon aria-hidden="false">face</mat-icon> Thomas Silverstar
+    </button>
+    <button mat-menu-item [routerLink]='["/raiders/val-phoenix"]'>
+      <mat-icon aria-hidden="false">face</mat-icon> Val Phoenix
+    </button>
+    <button mat-menu-item [routerLink]='["/raiders/yumi-rin"]'>
+      <mat-icon aria-hidden="false">face</mat-icon> Yumi Rin
+    </button>
+</mat-menu>
+
+<mat-menu #adminpages="matMenu">
+    <button mat-menu-item [routerLink]='["/add-item-drop"]'>
+      <mat-icon aria-hidden="false" aria-label="Item Drop History">add</mat-icon>  Add Drop
+    </button>
+    <button mat-menu-item [routerLink]='["/admin-pages/archived-item-drop/archived-item-drop"]'>
+      <mat-icon aria-hidden="false">archive</mat-icon> Removed Items
+    </button>
+    <button mat-menu-item [routerLink]='["/admin-pages/manage-lists"]'>
+      <mat-icon aria-hidden="false">view_list</mat-icon> Manage Lists
+    </button>
+  </mat-menu>
+
