@@ -30,6 +30,7 @@ import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.
 import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
 import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/archived-item-drop.component';
 import { ManageListsComponent } from './admin-pages/manage-lists.component';
+import { ProfilePicturesComponent } from './admin-pages/profile-pictures/profile-pictures.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { ManageListsComponent } from './admin-pages/manage-lists.component';
     ItemDropHistoryComponent,
     AddItemDropComponent,
     ArchivedItemDropComponent,
-    ManageListsComponent
+    ManageListsComponent,
+    ProfilePicturesComponent
   ],
   imports: [
     BrowserModule,

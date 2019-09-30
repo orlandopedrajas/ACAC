@@ -16,6 +16,17 @@ namespace ACAC.Controllers
     public class ItemDropController : Controller
     {
         [HttpGet("[action]")]
+        public IEnumerable<profiles> GetProfiles()
+        {
+            try
+            {
+                DbHandler Dbh = new DbHandler();
+                return Dbh.xGetProfiles();
+            }
+            catch {return Enumerable.Empty<profiles>();}
+        }
+
+        [HttpGet("[action]")]
         public IEnumerable<xItemDrop> xItemDrops()
         {
 
@@ -119,6 +130,20 @@ namespace ACAC.Controllers
                 Dbh.ResetTable("Floor4_WeaponCoffer");
             }
             return Dbh.CurrentFloor4_WeaponCofferRaiders();
+        }
+        [HttpPost("[action]")]
+        public IActionResult saveProfiles([FromBody] profiles[] _profiles)
+        {
+            if (_profiles == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");
+            foreach(profiles p in _profiles)
+            {
+                DbHandler Dbh = new DbHandler();
+                if (Dbh.TableExists("profiles"))
+                {
+                    Dbh.InsertUpdateProfile(p);
+                }                
+            }
+            return Ok();
         }
         [HttpPost("[action]")]
         public IActionResult addDrop([FromBody] xItemDrop x)
@@ -479,6 +504,9 @@ namespace ACAC.Controllers
                             case "xItemDropArchive":
                                 Db.CreateTable<xItemDropArchive>();
                                 return true;
+                            case "profiles":
+                                Db.CreateTable<profiles>();
+                                return true;
                             default:
                                 return false;
                         }
@@ -742,6 +770,14 @@ namespace ACAC.Controllers
                     Db.Insert(ItemX);
                 }
             }
+            public void InsertUpdateProfile(profiles _p)
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    string q = "INSERT INTO profiles (img, name) VALUES('" + _p.img + "', '" + _p.name + "') ON CONFLICT(name) DO UPDATE SET img=exclude.img;";
+                    Db.Execute(q);
+                }
+            }
             public void ResetTable(string tableName)
             {
                 if (tableName == "hardreset")
@@ -841,6 +877,13 @@ namespace ACAC.Controllers
                     return Db.Query<Floor4_WeaponCoffer>("Select * from Floor4_WeaponCoffer");
                 }
             }
+            public IEnumerable<profiles> xGetProfiles()
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    return Db.Query<profiles>("Select * from profiles");
+                }
+            }
         }
         public class xItemDrop
         {
@@ -897,6 +940,11 @@ namespace ACAC.Controllers
         {
             public string listtype { get; set; }
             public string raiders { get; set; }
+        }
+        public class profiles
+        {
+            public string img { get; set; }
+            public string name { get; set;}
         }
     }
 }
