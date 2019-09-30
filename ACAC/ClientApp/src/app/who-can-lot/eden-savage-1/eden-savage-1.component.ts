@@ -13,7 +13,8 @@ export class EdenSavage1Component {
   raiders = ['Lan Mantear', 'Hades Carmine', 'Yumi Rin', 'Aerilyn Elessedil', 'Shelly Duncan', 'Thomas Silverstar', 'Val Phoenix', 'La Ki'];
   res: object;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private http: HttpClient) {
+    const baseUrl = document.getElementsByTagName('base')[0].href;
     http.get<EquipmentItem[]>(baseUrl + 'api/ItemDrop/xFloor1_Equipment').subscribe(result => {
      this.Floor1_Equipments = result;
      }, error => console.error(error));
