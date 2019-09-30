@@ -1,6 +1,14 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+export interface EquipmentItem {
+  raider: string;
+}
+export class OverrideList {
+    listtype: string;
+    raiders: string;
+}
+
 @Component({
   selector: 'app-manage-lists',
   templateUrl: './manage-lists.component.html'
@@ -13,8 +21,7 @@ export class ManageListsComponent {
   lo = new OverrideList();
   listtoclear = '';
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-       
+  constructor(private http: HttpClient) {
   }
 
   onClearFloor(lt: string, redirecto: string) {
@@ -29,7 +36,7 @@ export class ManageListsComponent {
       () => {
           console.log('The POST observable is now completed.');
       });
-      window.location.href = './who-can-lot/' + redirecto;
+    window.location.href = './who-can-lot/' + redirecto;
   }
 
   onOverrideFloor(lt: string, redirecto: string) {
@@ -47,12 +54,4 @@ export class ManageListsComponent {
     window.location.href = './who-can-lot/' + redirecto;
   }
 
-}
-
-interface EquipmentItem {
-  raider: string;
-}
-class OverrideList {
-    listtype: string;
-    raiders: string;
 }

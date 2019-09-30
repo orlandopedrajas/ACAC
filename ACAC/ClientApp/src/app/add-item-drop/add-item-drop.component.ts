@@ -1,6 +1,21 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+export class SavageItem {
+  id: number;
+  dateReceived: string;
+  floor: string;
+  raider: string;
+  droptype: string;
+}
+
+export interface SavI {
+  dateReceived: string;
+  floor: string;
+  raider: string;
+  droptype: string;
+}
+
 @Component({
   selector: 'app-add-item-drop',
   templateUrl: './add-item-drop.component.html',
@@ -17,12 +32,15 @@ export class AddItemDropComponent {
   redirectto = '../';
 
   // tslint:disable-next-line: no-use-before-declare
-  Si = new SavageItem;
+  Si = new SavageItem();
   // tslint:disable-next-line: no-use-before-declare
   SavageItems: SavI[];
   submitted = false;
+  displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private http: HttpClient) {
+    const baseUrl = document.getElementsByTagName('base')[0].href;
+
     http.get<SavageItem[]>(baseUrl + 'api/ItemDrop/GetRecentItemDrops').subscribe(result => {
      this.SavageItems = result;
    }, error => console.error(error));
@@ -41,7 +59,7 @@ export class AddItemDropComponent {
       () => {
           console.log('The POST observable is now completed.');
       });
-      if (!this.submitanother) {
+    if (!this.submitanother) {
         window.location.href = this.redirectto;
       } else {
         window.location.reload();
@@ -92,19 +110,7 @@ export class AddItemDropComponent {
       () => {
           console.log('The POST observable is now completed.');
       });
-      window.location.reload();
+    window.location.reload();
   }
 }
-class SavageItem {
-  id: number;
-  dateReceived: string;
-  floor: string;
-  raider: string;
-  droptype: string;
-}
-interface SavI {
-  dateReceived: string;
-  floor: string;
-  raider: string;
-  droptype: string;
-}
+

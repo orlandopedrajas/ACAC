@@ -14,7 +14,8 @@ export class EdenSavage3Component {
   raiders = ['Lan Mantear', 'Hades Carmine', 'Yumi Rin', 'Aerilyn Elessedil', 'Shelly Duncan', 'Thomas Silverstar', 'Val Phoenix', 'La Ki'];
   floortoclear = '';
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private http: HttpClient) {
+    const baseUrl = document.getElementsByTagName('base')[0].href;
     http.get<EquipmentItem[]>(baseUrl + 'api/ItemDrop/xFloor3_Equipment').subscribe(result => {
       this.Floor3_Equipments = result;
     }, error => console.error(error));
@@ -23,7 +24,7 @@ export class EdenSavage3Component {
       this.Floor3_EquipmentUpgrades = result;
       }, error => console.error(error));
 
-     http.get<EquipmentItem[]>(baseUrl + 'api/ItemDrop/xFloor3_WeaponUpgrade').subscribe(result => {
+    http.get<EquipmentItem[]>(baseUrl + 'api/ItemDrop/xFloor3_WeaponUpgrade').subscribe(result => {
        this.Floor3_WeaponUpgrades = result;
      }, error => console.error(error));
   }

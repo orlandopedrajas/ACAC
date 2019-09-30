@@ -1,24 +1,41 @@
 <h1>Deleted Item Drops</h1>
 <p><img class='main' src="assets/img/ffxiv_12032018_011418.png"></p>
-<p *ngIf="!SavageItems"><em>Loading...</em></p>
 
-<table class='table' *ngIf="SavageItems">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Floor</th>
-      <th>Raider</th>
-      <th>Drop</th>
-      <th>Date Deleted</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let SavageItem of SavageItems">
-      <td>{{ SavageItem.dateReceived }}</td>
-      <td>{{ SavageItem.floor }}</td>
-      <td>{{ SavageItem.raider }}</td>
-      <td>{{ SavageItem.droptype }}</td>
-      <td>{{ SavageItem.dateArchived }}</td>
-    </tr>
-  </tbody>
-</table>
+<mat-table [dataSource]='SavageItems'>
+    <!--- Note that these columns can be defined in any order.
+         The actual rendered columns are set as a property on the row definition" -->
+ 
+   <!-- Position Column -->
+   <ng-container matColumnDef="dateReceived" >
+       <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+       <mat-cell *matCellDef="let element"> {{element.dateReceived}} </mat-cell>
+     </ng-container>
+   
+     <!-- Name Column -->
+     <ng-container matColumnDef="floor">
+       <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
+       <mat-cell *matCellDef="let element"> {{ element.floor }} </mat-cell>
+     </ng-container>
+   
+     <!-- Weight Column -->
+     <ng-container matColumnDef="raider">
+       <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
+       <mat-cell *matCellDef="let element"> {{element.raider}} </mat-cell>
+     </ng-container>
+   
+     <!-- Symbol Column -->
+     <ng-container matColumnDef="droptype">
+       <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
+       <mat-cell *matCellDef="let element"> {{element.droptype}} </mat-cell>
+     </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="datearchived">
+        <mat-header-cell *matHeaderCellDef> Date Archived </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.dateArchived}} </mat-cell>
+      </ng-container>
+ 
+   
+     <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+ </mat-table>
