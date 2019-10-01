@@ -2,11 +2,13 @@ import { Component, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export interface SavageItem {
-  dateReceived: string;
+  dateReceived: Date;
   floor: string;
   raider: string;
   droptype: string;
   id: string;
+  img: string;
+  name: string;
 }
 @Component({
   selector: 'app-item-drop-history',
@@ -21,6 +23,11 @@ export class ItemDropHistoryComponent {
     const baseUrl = document.getElementsByTagName('base')[0].href;
     http.get<SavageItem[]>(baseUrl + 'api/ItemDrop/xItemDrops').subscribe(result => {
      this.SavageItems = result;
+     // tslint:disable-next-line: only-arrow-functions
+     this.SavageItems.forEach(function(value) {
+        value.img = value.raider.split(',')[1];
+        value.name = value.raider.split(',')[0];
+     });
    }, error => console.error(error));
   }
 

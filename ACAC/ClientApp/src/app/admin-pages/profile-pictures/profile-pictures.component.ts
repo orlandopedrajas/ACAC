@@ -14,24 +14,15 @@ export class Raiderprofiles {
 
 export class ProfilePicturesComponent {
 
-  raiderprofiles: { img: string, name: string } [] = [
-    { img: 'assets/img/no-profile.png', name: 'Aerilyn Elessedil' },
-    { img: 'assets/img/no-profile.png', name: 'Hades Carmine' },
-    { img: 'assets/img/no-profile.png', name: 'La Ki' },
-    { img: 'assets/img/no-profile.png', name: 'Lan Mantear' },
-    { img: 'assets/img/no-profile.png', name: 'Shelly Duncan' },
-    { img: 'assets/img/no-profile.png', name: 'Thomas Silverstar' },
-    { img: 'assets/img/no-profile.png', name: 'Val Phoenix' },
-    { img: 'assets/img/no-profile.png', name: 'Yumi Rin' }
-  ];
+  raiderprofiles: { img: string, name: string } [];
 
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
 
     http.get<{ img: string, name: string }[]>(baseUrl + 'api/ItemDrop/GetProfiles').subscribe(result => {
-     // if (result) {
-        // this.raiderprofiles = result;
-     // }
+     if (result) {
+         this.raiderprofiles = result;
+     }
    }, error => console.error(error));
 
   }

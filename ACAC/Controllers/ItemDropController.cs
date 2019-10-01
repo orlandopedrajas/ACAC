@@ -21,7 +21,13 @@ namespace ACAC.Controllers
             try
             {
                 DbHandler Dbh = new DbHandler();
-                return Dbh.xGetProfiles();
+                if (Dbh.TableExists("profiles"))
+                {
+                    return Dbh.xGetProfiles();
+                }
+                else {
+                    return Enumerable.Empty<profiles>();
+                }
             }
             catch {return Enumerable.Empty<profiles>();}
         }
@@ -138,10 +144,7 @@ namespace ACAC.Controllers
             foreach(profiles p in _profiles)
             {
                 DbHandler Dbh = new DbHandler();
-                if (Dbh.TableExists("profiles"))
-                {
-                    Dbh.InsertUpdateProfile(p);
-                }                
+                Dbh.InsertUpdateProfile(p);               
             }
             return Ok();
         }
@@ -506,6 +509,14 @@ namespace ACAC.Controllers
                                 return true;
                             case "profiles":
                                 Db.CreateTable<profiles>();
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Aerilyn Elessedil" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Hades Carmine" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="La Ki" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Lan Mantear" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Shelly Duncan" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Thomas Silverstar" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Val Phoenix" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Yumi Rin" });
                                 return true;
                             default:
                                 return false;
@@ -523,8 +534,13 @@ namespace ACAC.Controllers
                         xDrops = Db.Query<xItemDrop>("Select * from xItemDrop order by Date(dateReceived) desc, Floor desc");
                     }
 
+                    IEnumerable<profiles> p = xGetProfiles();
                     foreach (xItemDrop x in xDrops)
                     {
+                        //var itemToRemove = li8.Single(r => r.raider == x);
+                        var profilepic = p.Single(r => r.name == x.raider);
+                        x.raider += "," + profilepic.img;
+
                         switch (x.floor)
                         {
                             case "Eden Savage Floor 1":
@@ -774,8 +790,7 @@ namespace ACAC.Controllers
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
-                    string q = "INSERT INTO profiles (img, name) VALUES('" + _p.img + "', '" + _p.name + "') ON CONFLICT(name) DO UPDATE SET img=exclude.img;";
-                    Db.Execute(q);
+                    Db.InsertOrReplace(_p);
                 }
             }
             public void ResetTable(string tableName)
@@ -789,15 +804,15 @@ namespace ACAC.Controllers
                     }
                     using (var Db = new SQLite.SQLiteConnection(DbPath))
                     {
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.xItemDrop>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor1_Equipment>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor2_Equipment>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor2_EquipmentUpgrade>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor3_Equipment>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor3_EquipmentUpgrade>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor3_WeaponUpgrade>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor4_Equipment>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor4_WeaponCoffer>();
+                        Db.CreateTable<xItemDrop>();
+                        Db.CreateTable<Floor1_Equipment>();
+                        Db.CreateTable<Floor2_Equipment>();
+                        Db.CreateTable<Floor2_EquipmentUpgrade>();
+                        Db.CreateTable<Floor3_Equipment>();
+                        Db.CreateTable<Floor3_EquipmentUpgrade>();
+                        Db.CreateTable<Floor3_WeaponUpgrade>();
+                        Db.CreateTable<Floor4_Equipment>();
+                        Db.CreateTable<Floor4_WeaponCoffer>();
                     }
                 }
                 else
@@ -944,6 +959,7 @@ namespace ACAC.Controllers
         public class profiles
         {
             public string img { get; set; }
+            [PrimaryKey]
             public string name { get; set;}
         }
     }
