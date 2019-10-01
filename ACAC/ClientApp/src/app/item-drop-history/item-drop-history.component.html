@@ -8,7 +8,7 @@
    <!-- Position Column -->
    <ng-container matColumnDef="dateReceived" >
        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-       <mat-cell *matCellDef="let element"> {{element.dateReceived}} </mat-cell>
+       <mat-cell *matCellDef="let element"> <h6>{{element.dateReceived}}</h6> </mat-cell>
      </ng-container>
    
      <!-- Name Column -->
@@ -20,13 +20,20 @@
      <!-- Weight Column -->
      <ng-container matColumnDef="raider">
        <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
-       <mat-cell *matCellDef="let element"> {{element.raider}} </mat-cell>
+       <mat-cell *matCellDef="let element">
+          <mat-list>
+              <mat-list-item >
+                  <img matListAvatar
+                  src='{{ element.img }}'>                  
+              </mat-list-item>
+            </mat-list>
+       </mat-cell>
      </ng-container>
    
      <!-- Symbol Column -->
      <ng-container matColumnDef="droptype">
        <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
-       <mat-cell *matCellDef="let element"> {{element.droptype}} </mat-cell>
+       <mat-cell *matCellDef="let element"> <h6>{{element.droptype}}</h6> </mat-cell>
      </ng-container>
 
           <!-- Symbol Column -->
