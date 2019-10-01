@@ -28,30 +28,48 @@
 </mat-menu>
 
 <mat-menu #raiders="matMenu">
-    <button mat-menu-item [routerLink]='["/raiders/aerilyn-elessedil"]'>
-      <mat-icon aria-hidden="false">face</mat-icon> Aerilyn Elessedil
-    </button>
-    <button mat-menu-item [routerLink]='["/raiders/hades-carmine"]'>
-      <mat-icon aria-hidden="false">face</mat-icon> Hades Carmine
-    </button>
-    <button mat-menu-item [routerLink]='["/raiders/la-ki"]'>
-      <mat-icon aria-hidden="false">face</mat-icon> La Ki
-    </button>
-    <button mat-menu-item [routerLink]='["/raiders/lan-mantear"]'>
-      <mat-icon aria-hidden="false">face</mat-icon> Lan Mantear
-    </button>
-    <button mat-menu-item [routerLink]='["/raiders/shelly-duncan"]'>
-      <mat-icon aria-hidden="false">face</mat-icon> Shelly Duncan
-    </button>
-    <button mat-menu-item [routerLink]='["/raiders/thomas-silverstar"]'>
-      <mat-icon aria-hidden="false">face</mat-icon> Thomas Silverstar
-    </button>
-    <button mat-menu-item [routerLink]='["/raiders/val-phoenix"]'>
-      <mat-icon aria-hidden="false">face</mat-icon> Val Phoenix
-    </button>
-    <button mat-menu-item [routerLink]='["/raiders/yumi-rin"]'>
-      <mat-icon aria-hidden="false">face</mat-icon> Yumi Rin
-    </button>
+    <mat-list>
+      <mat-list-item [routerLink]='["/raiders/aerilyn-elessedil"]'>
+          <img matListAvatar
+          src='{{ ae }}'>
+          <button mat-menu-item >Aerilyn Elessedil</button>
+      </mat-list-item>
+      <mat-list-item [routerLink]='["/raiders/hades-carmine"]'>
+          <img matListAvatar
+          src='{{ hc }}'>
+          <button mat-menu-item>Hades Carmine</button>
+      </mat-list-item>
+      <mat-list-item [routerLink]='["/raiders/la-ki"]'>
+          <img matListAvatar
+          src='{{ lk }}'>
+          <button mat-menu-item >La Ki</button>
+      </mat-list-item>
+      <mat-list-item [routerLink]='["/raiders/lan-mantear"]'>
+          <img matListAvatar
+          src='{{ lm }}'>
+          <button mat-menu-item>Lan Mantear</button>
+      </mat-list-item>
+      <mat-list-item [routerLink]='["/raiders/shelly-duncan"]'>
+          <img matListAvatar
+          src='{{ sd }}'>
+          <button mat-menu-item>Shelly Duncan</button>
+      </mat-list-item>
+      <mat-list-item [routerLink]='["/raiders/thomas-silverstar"]'>
+          <img matListAvatar
+          src='{{ ts }}'>
+          <button mat-menu-item>Thomas Silverstar</button>
+      </mat-list-item>
+      <mat-list-item [routerLink]='["/raiders/val-phoenix"]'>
+          <img matListAvatar
+          src='{{ vp }}'>
+          <button mat-menu-item>Val Phoenix</button>
+      </mat-list-item>
+      <mat-list-item [routerLink]='["/raiders/yumi-rin"]'>
+          <img matListAvatar
+          src='{{ yr }}'>
+          <button mat-menu-item>Yumi Rin</button>
+      </mat-list-item>
+    </mat-list>
 </mat-menu>
 
 <mat-menu #adminpages="matMenu">
@@ -63,6 +81,9 @@
     </button>
     <button mat-menu-item [routerLink]='["/admin-pages/manage-lists"]'>
       <mat-icon aria-hidden="false">view_list</mat-icon> Manage Lists
+    </button>
+    <button mat-menu-item [routerLink]='["/admin-pages/profile-pictures/profile-pictures"]'>
+      <mat-icon aria-hidden="false">portrait</mat-icon> Profile Pictures
     </button>
   </mat-menu>
 

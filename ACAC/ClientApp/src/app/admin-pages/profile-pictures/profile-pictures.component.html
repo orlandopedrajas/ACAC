@@ -1,0 +1,12 @@
+<form (ngSubmit)="onSubmit()" #addForm="ngForm">
+    <mat-list>
+        <mat-list-item *ngFor="let raiders of raiderprofiles">
+            <img matListAvatar
+            src='{{ raiders.img }}'>
+            <p matLine> {{ raiders.name }}
+            <input type="text" class="form-control" [(ngModel)]="raiders.img" name="raider" value="{{ raiders.img }}" [ngModelOptions]="{standalone: true}"></p>
+        </mat-list-item>
+    </mat-list>
+    <button type="submit">Save</button>
+</form>
+

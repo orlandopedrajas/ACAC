@@ -16,6 +16,23 @@ namespace ACAC.Controllers
     public class ItemDropController : Controller
     {
         [HttpGet("[action]")]
+        public IEnumerable<profiles> GetProfiles()
+        {
+            try
+            {
+                DbHandler Dbh = new DbHandler();
+                if (Dbh.TableExists("profiles"))
+                {
+                    return Dbh.xGetProfiles();
+                }
+                else {
+                    return Enumerable.Empty<profiles>();
+                }
+            }
+            catch {return Enumerable.Empty<profiles>();}
+        }
+
+        [HttpGet("[action]")]
         public IEnumerable<xItemDrop> xItemDrops()
         {
 
@@ -119,6 +136,17 @@ namespace ACAC.Controllers
                 Dbh.ResetTable("Floor4_WeaponCoffer");
             }
             return Dbh.CurrentFloor4_WeaponCofferRaiders();
+        }
+        [HttpPost("[action]")]
+        public IActionResult saveProfiles([FromBody] profiles[] _profiles)
+        {
+            if (_profiles == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");
+            foreach(profiles p in _profiles)
+            {
+                DbHandler Dbh = new DbHandler();
+                Dbh.InsertUpdateProfile(p);               
+            }
+            return Ok();
         }
         [HttpPost("[action]")]
         public IActionResult addDrop([FromBody] xItemDrop x)
@@ -479,6 +507,17 @@ namespace ACAC.Controllers
                             case "xItemDropArchive":
                                 Db.CreateTable<xItemDropArchive>();
                                 return true;
+                            case "profiles":
+                                Db.CreateTable<profiles>();
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Aerilyn Elessedil" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Hades Carmine" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="La Ki" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Lan Mantear" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Shelly Duncan" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Thomas Silverstar" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Val Phoenix" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Yumi Rin" });
+                                return true;
                             default:
                                 return false;
                         }
@@ -495,8 +534,13 @@ namespace ACAC.Controllers
                         xDrops = Db.Query<xItemDrop>("Select * from xItemDrop order by Date(dateReceived) desc, Floor desc");
                     }
 
+                    IEnumerable<profiles> p = xGetProfiles();
                     foreach (xItemDrop x in xDrops)
                     {
+                        //var itemToRemove = li8.Single(r => r.raider == x);
+                        var profilepic = p.Single(r => r.name == x.raider);
+                        x.raider += "," + profilepic.img;
+
                         switch (x.floor)
                         {
                             case "Eden Savage Floor 1":
@@ -742,6 +786,13 @@ namespace ACAC.Controllers
                     Db.Insert(ItemX);
                 }
             }
+            public void InsertUpdateProfile(profiles _p)
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    Db.InsertOrReplace(_p);
+                }
+            }
             public void ResetTable(string tableName)
             {
                 if (tableName == "hardreset")
@@ -753,15 +804,15 @@ namespace ACAC.Controllers
                     }
                     using (var Db = new SQLite.SQLiteConnection(DbPath))
                     {
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.xItemDrop>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor1_Equipment>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor2_Equipment>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor2_EquipmentUpgrade>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor3_Equipment>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor3_EquipmentUpgrade>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor3_WeaponUpgrade>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor4_Equipment>();
-                        Db.CreateTable<ACAC.Controllers.ItemDropController.Floor4_WeaponCoffer>();
+                        Db.CreateTable<xItemDrop>();
+                        Db.CreateTable<Floor1_Equipment>();
+                        Db.CreateTable<Floor2_Equipment>();
+                        Db.CreateTable<Floor2_EquipmentUpgrade>();
+                        Db.CreateTable<Floor3_Equipment>();
+                        Db.CreateTable<Floor3_EquipmentUpgrade>();
+                        Db.CreateTable<Floor3_WeaponUpgrade>();
+                        Db.CreateTable<Floor4_Equipment>();
+                        Db.CreateTable<Floor4_WeaponCoffer>();
                     }
                 }
                 else
@@ -841,6 +892,13 @@ namespace ACAC.Controllers
                     return Db.Query<Floor4_WeaponCoffer>("Select * from Floor4_WeaponCoffer");
                 }
             }
+            public IEnumerable<profiles> xGetProfiles()
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    return Db.Query<profiles>("Select * from profiles");
+                }
+            }
         }
         public class xItemDrop
         {
@@ -897,6 +955,12 @@ namespace ACAC.Controllers
         {
             public string listtype { get; set; }
             public string raiders { get; set; }
+        }
+        public class profiles
+        {
+            public string img { get; set; }
+            [PrimaryKey]
+            public string name { get; set;}
         }
     }
 }
