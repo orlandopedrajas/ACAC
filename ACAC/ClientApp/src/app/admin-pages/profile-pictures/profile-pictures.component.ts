@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class Raiderprofiles {
   img: string;
   name: string;
+  banner: string;
 }
 
 @Component({
