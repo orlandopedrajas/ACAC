@@ -491,7 +491,7 @@ namespace ACAC.Controllers
         public class DbHandler
         {
             string DbPath = Path.Combine(AppContext.BaseDirectory, "ACAC.db");
-
+            
             public bool TableExists(string tableName)
             {
                 using (var Db = new SQLiteConnection(DbPath))
@@ -509,14 +509,14 @@ namespace ACAC.Controllers
                                 return true;
                             case "profiles":
                                 Db.CreateTable<profiles>();
-                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Aerilyn Elessedil" });
-                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Hades Carmine" });
-                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="La Ki" });
-                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Lan Mantear" });
-                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Shelly Duncan" });
-                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Thomas Silverstar" });
-                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Val Phoenix" });
-                                Db.Insert(new profiles{ img="assets/img/no-profile.png", name="Yumi Rin" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", banner="", name="Aerilyn Elessedil" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", banner="", name="Hades Carmine" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", banner="", name="La Ki" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", banner="", name="Lan Mantear" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", banner="", name="Shelly Duncan" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", banner="", name="Thomas Silverstar" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", banner="", name="Val Phoenix" });
+                                Db.Insert(new profiles{ img="assets/img/no-profile.png", banner="", name="Yumi Rin" });
                                 return true;
                             default:
                                 return false;
@@ -790,7 +790,14 @@ namespace ACAC.Controllers
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
-                    Db.InsertOrReplace(_p);
+                    try
+                    {
+                        Db.InsertOrReplace(_p);
+                    }
+                    catch{
+                        Db.CreateTable<profiles>();
+                        Db.InsertOrReplace(_p);
+                    }
                 }
             }
             public void ResetTable(string tableName)
@@ -959,6 +966,7 @@ namespace ACAC.Controllers
         public class profiles
         {
             public string img { get; set; }
+            public string banner {get; set;}
             [PrimaryKey]
             public string name { get; set;}
         }
