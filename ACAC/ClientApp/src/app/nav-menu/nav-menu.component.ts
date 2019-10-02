@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class NavMenuComponent {
   isExpanded = false;
   show = false;
-  raiderprofiles: { img: string, name: string } [];
+  raiderprofiles: { raidername: string, raiderimg: string, raiderbanner: string } [];
 
   lm = 'assets/img/no-profile.png';
   hc = 'assets/img/no-profile.png';
@@ -23,41 +23,41 @@ export class NavMenuComponent {
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
 
-    http.get<{ img: any, name: any }[]>(baseUrl + 'api/ItemDrop/GetProfiles').subscribe(result => {
+    http.get<{ raidername: string, raiderimg: string, raiderbanner: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result => {
      if (result) {
         this.raiderprofiles = result;
         this.raiderprofiles.forEach((value) => {
-            switch (value.name) {
+            switch (value.raidername) {
               case 'Aerilyn Elessedil': {
-                this.ae = value.img;
+                this.ae = value.raiderimg;
                 break;
                }
                case 'Hades Carmine': {
-                this.hc = value.img;
+                this.hc = value.raiderimg;
                 break;
                }
                case 'La Ki': {
-                this.lk = value.img;
+                this.lk = value.raiderimg;
                 break;
                }
                case 'Lan Mantear': {
-                this.lm = value.img;
+                this.lm = value.raiderimg;
                 break;
                }
                case 'Shelly Duncan': {
-                this.sd = value.img;
+                this.sd = value.raiderimg;
                 break;
                }
                case 'Thomas Silverstar': {
-                this.ts = value.img;
+                this.ts = value.raiderimg;
                 break;
                }
                case 'Val Phoenix': {
-                this.vp = value.img;
+                this.vp = value.raiderimg;
                 break;
                }
               case 'Yumi Rin': {
-               this.yr = value.img;
+               this.yr = value.raiderimg;
                break;
               }
             }

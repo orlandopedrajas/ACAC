@@ -4,8 +4,9 @@ img.main {
     margin-left: auto;
     margin-right: auto;
     height: 75%;
-    width: 75%
+    width: 75%;
 }
+
 img.floor-icon{
     display: block;
     height: 56px;

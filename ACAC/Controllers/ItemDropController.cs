@@ -8,13 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 using SQLite;
 
 
-
-
 namespace ACAC.Controllers
 {
     [Route("api/[controller]")]
     public class ItemDropController : Controller
     {
+
         [HttpGet("[action]")]
         public IEnumerable<profiles> GetProfiles()
         {
@@ -966,9 +965,9 @@ namespace ACAC.Controllers
         public class profiles
         {
             public string img { get; set; }
-            public string banner {get; set;}
+            public string banner { get; set; }
             [PrimaryKey]
-            public string name { get; set;}
+            public string name { get; set; }
         }
     }
 }
