@@ -1,12 +1,30 @@
 <form (ngSubmit)="onSubmit()" #addForm="ngForm">
-    <mat-list>
-        <mat-list-item *ngFor="let raiders of raiderprofiles">
-            <img matListAvatar
-            src='{{ raiders.img }}'>
-            <p matLine> {{ raiders.name }}
-            <input type="text" class="form-control" [(ngModel)]="raiders.img" name="raider" value="{{ raiders.img }}" [ngModelOptions]="{standalone: true}"></p>
-        </mat-list-item>
-    </mat-list>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor="let raiders of raiderprofiles">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-list>
+                        <mat-list-item>
+                            <img matListAvatar src='{{ raiders.img }}'>
+                            <p matLine> {{ raiders.name }}</p>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-form-field>
+                <input matInput placeholder="Profile Url" [(ngModel)]="raiders.img" name="raider" value="{{ raiders.img }}" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+            <mat-list>
+                    <mat-list-item>
+                        <img matListAvatar src='{{ raiders.banner }}'>
+                    </mat-list-item>
+                </mat-list>
+            <mat-form-field>
+                    <input matInput placeholder="Page Banner"  [(ngModel)]="raiders.banner" name="raider" value="{{ raiders.banner }}" [ngModelOptions]="{standalone: true}">
+            </mat-form-field>
+        </mat-expansion-panel>
+    </mat-accordion>
     <button type="submit">Save</button>
 </form>
+
 

@@ -18,6 +18,7 @@ export class HadesCarmineComponent {
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
   SavageItems: SavageItem[];
   photo = 'assets/img/no-profile.png';
+  banner = '';
 
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
@@ -25,11 +26,12 @@ export class HadesCarmineComponent {
       this.SavageItems = result;
     }, error => console.error(error));
         // tslint:disable-next-line: deprecation
-    http.get<{ img: any, name: any }[]>(baseUrl + 'api/ItemDrop/GetProfiles').subscribe(result => {
+    http.get<{ img: any, banner: any, name: any }[]>(baseUrl + 'api/ItemDrop/GetProfiles').subscribe(result => {
       if (result) {
           result.forEach((value) => {
               if (value.name === 'Hades Carmine') {
                 this.photo = value.img;
+                this.banner = value.banner;
               }
           });
       }
