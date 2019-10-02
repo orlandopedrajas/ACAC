@@ -1,46 +1,37 @@
-<div class="container">
-  <h1>Add Item Drop</h1>
-  <form (ngSubmit)="onSubmit()" #addForm="ngForm">
-    <div class="form-group">
-      <label for="dateReceived">Date</label>
-      <input type="date" class="form-control" id="dateReceived"
-              required
-              [(ngModel)]="Si.dateReceived" name="dateReceived">
-    </div>
+<h1 class='bannertext'>Add Item Drop</h1>
 
-    <div class="form-group">
-      <label for="floor">Floor</label>
-      <select class="form-control" id="floor" 
-              required
-              [(ngModel)]="Si.floor" name="floor">
-        <option *ngFor="let _floor of floors" [value]="_floor">{{_floor}}</option>
-      </select>
-    </div>
+<form (ngSubmit)="onSubmit()" #addForm="ngForm">
 
-    <div class="form-group">
-      <label for="raider">Raider</label>
-      <select class="form-control" id="raider"
-              (change)="raiderchange($event)"
-              required
-              [(ngModel)]="Si.raider" name="raider">
-        <option *ngFor="let _raider of raiders" [value]="_raider">{{_raider}}</option>
-      </select>
-    </div>
+<div class="form-container">
 
-    <div class="form-group">
-        <label for="droptype">Drop</label>
-        <select class="form-control" id="droptype" 
-                required
-                [(ngModel)]="Si.droptype" name="droptype">
-          <option *ngFor="let _drop of drops" [value]="_drop">{{_drop}}</option>
-        </select>
-    </div>
-    
-    <input type="checkbox" (change)="toggleChange($event)" checked=true> Add another
-    <button type="submit" class="btn btn-success" [disabled]="!addForm.form.valid">Submit</button>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Choose Date Received" required [(ngModel)]="Si.dateReceived" name="dateReceived">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-select placeholder="Floor" required [(ngModel)]="Si.floor" name="floor">
+      <mat-option *ngFor="let _floor of floors" [value]="_floor">{{ _floor }}</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-  </form>
-</div>
+  <mat-form-field>
+      <mat-select placeholder="Raider" required [(ngModel)]="Si.raider" name="raider">
+        <mat-option *ngFor="let _raider of raiders" [value]="_raider">{{ _raider }}</mat-option>
+      </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+      <mat-select placeholder="Drop Type" required [(ngModel)]="Si.droptype" name="droptype">
+        <mat-option *ngFor="let _drop of drops" [value]="_drop">{{ _drop }}</mat-option>
+      </mat-select>
+  </mat-form-field>
+  <mat-checkbox (change)="toogleChange($event)" checked='true'>Add another</mat-checkbox>
+  <button mat-raised-button type="submit" [disabled]="!addForm.form.valid">Submit</button>
+</div>  
+  
+</form>
 
 <h2>Recent Drops</h2>
 <mat-table [dataSource]='SavageItems'>
