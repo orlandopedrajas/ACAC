@@ -19,7 +19,7 @@
   </mat-form-field>
 
   <mat-form-field>
-      <mat-select placeholder="Raider" required [(ngModel)]="Si.raidername" name="raider">
+      <mat-select placeholder="Raider" required [(ngModel)]="Si.raidername" name="raider"  (selectionChange)="raiderchange()">
         <mat-option *ngFor="let _raider of raiders" [value]="_raider">{{ _raider }}</mat-option>
       </mat-select>
   </mat-form-field>
@@ -29,7 +29,7 @@
         <mat-option *ngFor="let _drop of drops" [value]="_drop">{{ _drop }}</mat-option>
       </mat-select>
   </mat-form-field>
-  <mat-checkbox (selectionChange)="toogleChange($event)" checked='true'>Add another</mat-checkbox>
+  <mat-checkbox (change)="toggleChange($event)" checked='true'>Add another</mat-checkbox>
   <button mat-raised-button type="submit" color="primary" [disabled]="!addForm.form.valid">Submit</button>
 </div>  
   

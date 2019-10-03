@@ -46,7 +46,7 @@ export class AddItemDropComponent {
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
 
-    http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result => {
+    http.get<any[]>(baseUrl + 'api/ACAC/GetRecentRaidItems').subscribe(result => {
      this.SavageItems = result;
    }, error => console.error(error));
   }
@@ -72,34 +72,9 @@ export class AddItemDropComponent {
     }
   }
 
-  onSubmit() {
-    this.submitted = true;
-    const headerJson = {'Content-Type': 'application/json'};
-    const header = new HttpHeaders(headerJson);
-    this.Si.id = 0;
-    this.http.post('./api/ACAC/addDrop', JSON.stringify(this.Si), {headers: header}).subscribe(
-      (val) => { console.log('POST call successful value returned in body', val); },
-      response => {
-          console.log('POST call in error', response);
-      },
-      () => {
-          console.log('The POST observable is now completed.');
-      });
-    if (!this.submitanother) {
-        window.location.href = this.redirectto;
-      } else {
-        window.location.reload();
-      }
-  }
-  toggleChange(option, event) {
-    console.log(event);
-    if (event.target.checked) {
-      this.submitanother = true;
-    } else { this.submitanother = false; }
-  }
-
   raiderchange(event: any) {
-    switch (event.target.value) {
+
+    switch (this.Si.raidername) {
       case 'Aerilyn Elessedil':
         this.redirectto = './raiders/aerilyn-elessedil';
         break;
@@ -126,6 +101,33 @@ export class AddItemDropComponent {
         break;
     }
   }
+
+  onSubmit() {
+    this.submitted = true;
+    const headerJson = {'Content-Type': 'application/json'};
+    const header = new HttpHeaders(headerJson);
+    this.Si.id = 0;
+    this.http.post('./api/ACAC/addDrop', JSON.stringify(this.Si), {headers: header}).subscribe(
+      (val) => { console.log('POST call successful value returned in body', val); },
+      response => {
+          console.log('POST call in error', response);
+      },
+      () => {
+          console.log('The POST observable is now completed.');
+      });
+    if (!this.submitanother) {
+        console.log(this.redirectto);
+        window.location.href = this.redirectto;
+      } else {
+         window.location.reload();
+      }
+  }
+  toggleChange(event) {
+    if (event.checked) {
+      this.submitanother = true;
+    } else { this.submitanother = false; }
+  }
+
   OnRemoveItem(id: any) {
     const headerJson = {'Content-Type': 'application/json'};
     const header = new HttpHeaders(headerJson);
