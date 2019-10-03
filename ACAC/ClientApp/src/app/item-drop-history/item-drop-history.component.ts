@@ -1,13 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-export interface SavageItem {
-  dateReceived: string;
-  floor: string;
-  raider: string;
-  droptype: string;
-  id: string;
-}
 @Component({
   selector: 'app-item-drop-history',
   templateUrl: './item-drop-history.component.html',
@@ -15,12 +8,16 @@ export interface SavageItem {
 })
 
 export class ItemDropHistoryComponent {
-  SavageItems: SavageItem[];
+
+  SavageItems: any[];
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
+
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
-    http.get<SavageItem[]>(baseUrl + 'api/ItemDrop/xItemDrops').subscribe(result => {
-     this.SavageItems = result;
+    http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result => {
+      console.log(result);
+      this.SavageItems = result;
+
    }, error => console.error(error));
   }
 
@@ -28,7 +25,7 @@ export class ItemDropHistoryComponent {
     const headerJson = {'Content-Type': 'application/json'};
     const header = new HttpHeaders(headerJson);
 
-    this.http.post('./api/ItemDrop/DeleteItemById', JSON.stringify(id), {headers: header}).subscribe(
+    this.http.post('./api/ACAC/DeleteItemById', JSON.stringify(id), {headers: header}).subscribe(
       (val) => { console.log('POST call successful value returned in body', val); },
       response => {
           console.log('POST call in error', response);

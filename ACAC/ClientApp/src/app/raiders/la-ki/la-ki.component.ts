@@ -17,11 +17,24 @@ export interface SavageItem {
 export class LaKiComponent {
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
   SavageItems: SavageItem[];
+  photo = 'assets/img/no-profile.png';
+  banner = 'assets/img/la/f8b26b309898576c98471cc3664f6e00.jpg';
 
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
     http.get<SavageItem[]>(baseUrl + 'api/ItemDrop/ItemHistoryByRaider?xRaider=La Ki').subscribe(result => {
       this.SavageItems = result;
+    }, error => console.error(error));
+        // tslint:disable-next-line: deprecation
+    http.get<{ img: any, banner: any, name: any }[]>(baseUrl + 'api/ItemDrop/GetProfiles').subscribe(result => {
+      if (result) {
+          result.forEach((value) => {
+              if (value.name === 'La Ki') {
+                this.photo = value.img;
+                this.banner = value.banner;
+              }
+          });
+      }
     }, error => console.error(error));
   }
 }

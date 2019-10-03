@@ -12,14 +12,16 @@ img.main {
 body { 
     font-family: Roboto, Arial, sans-serif;
     margin: 0;
-  }
-  
-  .basic-container {
-    padding: 30px;
-  }
-  
-  .version-info {
-    font-size: 8pt;
-    float: right;
-  }
-  
+}
+    
+h1.bannertext {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center
+}
+
+p.toRight
+{
+  float: right;
+}

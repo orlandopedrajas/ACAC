@@ -1,4 +1,4 @@
-<h1>Item History</h1>
+<h1 class='bannertext'>Item History</h1>
 <p><img class='main' src="assets/img/ffxiv_12032018_011418.png"></p>
 
 <mat-table [dataSource]='SavageItems'>
@@ -8,25 +8,32 @@
    <!-- Position Column -->
    <ng-container matColumnDef="dateReceived" >
        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-       <mat-cell *matCellDef="let element"> {{element.dateReceived}} </mat-cell>
+       <mat-cell *matCellDef="let element"> <h6>{{ element.receiveddate | date:'fullDate' }}</h6> </mat-cell>
      </ng-container>
    
      <!-- Name Column -->
      <ng-container matColumnDef="floor">
        <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-       <mat-cell *matCellDef="let element"> <img class='floor-icon' src='{{ element.floor }}'> </mat-cell>
+       <mat-cell *matCellDef="let element"> <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
      </ng-container>
    
      <!-- Weight Column -->
      <ng-container matColumnDef="raider">
        <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
-       <mat-cell *matCellDef="let element"> {{element.raider}} </mat-cell>
+       <mat-cell *matCellDef="let element">
+          <mat-list>
+              <mat-list-item >
+                  <img matListAvatar
+                  src='{{ element.profile.raiderimg }}'>                  
+              </mat-list-item>
+            </mat-list>
+       </mat-cell>
      </ng-container>
    
      <!-- Symbol Column -->
      <ng-container matColumnDef="droptype">
        <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
-       <mat-cell *matCellDef="let element"> {{element.droptype}} </mat-cell>
+       <mat-cell *matCellDef="let element"> <h6>{{element.raidItem}}</h6> </mat-cell>
      </ng-container>
 
           <!-- Symbol Column -->
