@@ -3,17 +3,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class SavageItem {
   id: number;
-  dateReceived: string;
-  floor: string;
-  raider: string;
-  droptype: string;
+  Receiveddate: Date;
+  Raidfloorname: string;
+  raidername: string;
+  raidItem: string;
 }
 
 export interface SavI {
-  dateReceived: string;
-  floor: string;
-  raider: string;
-  droptype: string;
+  Receiveddate: Date;
+  Raidfloorname: string;
+  raidername: string;
+  raidItem: string;
 }
 
 @Component({
@@ -41,7 +41,7 @@ export class AddItemDropComponent {
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
 
-    http.get<SavageItem[]>(baseUrl + 'api/ItemDrop/GetRecentItemDrops').subscribe(result => {
+    http.get<SavageItem[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result => {
      this.SavageItems = result;
    }, error => console.error(error));
   }
@@ -51,7 +51,7 @@ export class AddItemDropComponent {
     const headerJson = {'Content-Type': 'application/json'};
     const header = new HttpHeaders(headerJson);
     this.Si.id = 0;
-    this.http.post('./api/ItemDrop/addDrop', JSON.stringify(this.Si), {headers: header}).subscribe(
+    this.http.post('./api/ACAC/addDrop', JSON.stringify(this.Si), {headers: header}).subscribe(
       (val) => { console.log('POST call successful value returned in body', val); },
       response => {
           console.log('POST call in error', response);

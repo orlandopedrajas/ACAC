@@ -8,13 +8,13 @@
    <!-- Position Column -->
    <ng-container matColumnDef="dateReceived" >
        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-       <mat-cell *matCellDef="let element"> <h6>{{element.dateReceived}}</h6> </mat-cell>
+       <mat-cell *matCellDef="let element"> <h6>{{ element.receiveddate | date:'fullDate' }}</h6> </mat-cell>
      </ng-container>
    
      <!-- Name Column -->
      <ng-container matColumnDef="floor">
        <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-       <mat-cell *matCellDef="let element"> <img class='floor-icon' src='{{ element.floor }}'> </mat-cell>
+       <mat-cell *matCellDef="let element"> <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
      </ng-container>
    
      <!-- Weight Column -->
@@ -24,7 +24,7 @@
           <mat-list>
               <mat-list-item >
                   <img matListAvatar
-                  src='{{ element.img }}'>                  
+                  src='{{ element.profile.raiderimg }}'>                  
               </mat-list-item>
             </mat-list>
        </mat-cell>
@@ -33,7 +33,7 @@
      <!-- Symbol Column -->
      <ng-container matColumnDef="droptype">
        <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
-       <mat-cell *matCellDef="let element"> <h6>{{element.droptype}}</h6> </mat-cell>
+       <mat-cell *matCellDef="let element"> <h6>{{element.raidItem}}</h6> </mat-cell>
      </ng-container>
 
           <!-- Symbol Column -->
