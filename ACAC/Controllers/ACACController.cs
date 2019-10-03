@@ -56,11 +56,10 @@ namespace ACAC.Controllers
                 {
                     foreach (RaidItem ri in Dbh.GetAllRaidItems())
                     {
-                        profile p = Dbh.GetRaiderProfile(ri.raidername);
                         li.Add(new Customraiditem
                         {
                             id = ri.id,
-                            Profile = p,
+                            Profile = Dbh.GetRaiderProfile(ri.raidername).Single(r => r.raidername == ri.raidername),
                             raidername = ri.raidername,
                             RaidfloorImage = GetFloorImage(ri.Raidfloorname),
                             Raidfloorname = ri.Raidfloorname,
@@ -73,11 +72,11 @@ namespace ACAC.Controllers
                 {
                     foreach (RaidItem ri in Dbh.GetRaidItemsByRaider(XRaider))
                     {
-                        profile p = Dbh.GetRaiderProfile(ri.raidername);
+                        
                         li.Add(new Customraiditem
                         {
                             id = ri.id,
-                            Profile = p,
+                            Profile = Dbh.GetRaiderProfile(ri.raidername).Single(r => r.raidername == XRaider),
                             raidername = ri.raidername,
                             RaidfloorImage = GetFloorImage(ri.Raidfloorname),
                             Raidfloorname = ri.Raidfloorname,
@@ -104,6 +103,17 @@ namespace ACAC.Controllers
         }
 
         #endregion
+
+        [HttpPost("[action]")]
+        public IActionResult DeleteItemById([FromBody] string id)
+        {
+            Databasehandler Dbh = new Databasehandler();
+            if (Dbh.TableExists("xItemDropArchive"))
+            {
+                Dbh.DeleteItemByID(id);
+            }
+            return Ok();
+        }
 
         private string GetFloorImage(string Floorname)
         {
@@ -173,11 +183,11 @@ namespace ACAC.Controllers
                     return Db.Query<profile>("Select * from profile");
                 }
             }
-            public profile GetRaiderProfile(string XRaider)
+            public IEnumerable<profile> GetRaiderProfile(string XRaider)
             {
                 using (var Db = new SQLiteConnection(DbPath))
                 {
-                    return Db.ExecuteScalar<profile>("Select * From profile where raidername='" + XRaider + "'");
+                    return Db.Query<profile>("Select * From profile where raidername='" + XRaider + "'");
                 }
             }
             public IEnumerable<RaidItem> GetRaidItemsByRaider(string XRaider)
@@ -210,7 +220,27 @@ namespace ACAC.Controllers
                     return Db.Query<RaidItem>("Select * From RaidItem");
                 }
             }
-
+            public void DeleteItemByID(string id)
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    IEnumerable<RaidItem> xids = Db.Query<RaidItem>("Select * From RaidItem where id=" + id);
+                    foreach (RaidItem xid in xids)
+                    {
+                        Archivedraiditem Xida = new Archivedraiditem
+                        {
+                            Archiveddate = DateTime.Now.ToString(),
+                            Receiveddate = xid.Receiveddate,
+                            raidItem = xid.raidItem,
+                            Raidfloorname = xid.Raidfloorname,
+                            id = xid.id,
+                            raidername = xid.raidername
+                        };
+                        Db.Insert(Xida);
+                        Db.Execute("Delete from RaidItem where id=" + id);
+                    }
+                }
+            }
             public void AddItemDrop(RaidItem xItem)
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
