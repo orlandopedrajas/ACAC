@@ -18,10 +18,18 @@ h1.bannertext {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  text-align: center
+  text-align: center;
 }
 
 p.toRight
 {
   float: right;
+}
+img.floor-icon{
+  height: 56px;
+  width: 56px;
+}
+.toLeft
+{
+  float: left;
 }

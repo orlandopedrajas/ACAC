@@ -8,13 +8,13 @@
    <!-- Position Column -->
    <ng-container matColumnDef="dateReceived" >
        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-       <mat-cell *matCellDef="let element"> <h6>{{ element.receiveddate | date:'fullDate' }}</h6> </mat-cell>
+       <mat-cell *matCellDef="let element"> <h6>{{ element.receiveddate | date:'shortDate' }}</h6> </mat-cell>
      </ng-container>
    
      <!-- Name Column -->
      <ng-container matColumnDef="floor">
        <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-       <mat-cell *matCellDef="let element"> <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
+       <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
      </ng-container>
    
      <!-- Weight Column -->
@@ -23,8 +23,11 @@
        <mat-cell *matCellDef="let element">
           <mat-list>
               <mat-list-item >
+                <div class="toLeft">
                   <img matListAvatar
-                  src='{{ element.profile.raiderimg }}'>                  
+                  src='{{ element.profile.raiderimg }}' 
+                  alt='{{ element.profile.raidername }}'>
+                </div>               
               </mat-list-item>
             </mat-list>
        </mat-cell>
