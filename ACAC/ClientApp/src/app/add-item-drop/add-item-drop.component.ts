@@ -24,26 +24,52 @@ export interface SavI {
 
 export class AddItemDropComponent {
 
-  raiders = ['Lan Mantear', 'Hades Carmine', 'Yumi Rin', 'Aerilyn Elessedil', 'Shelly Duncan', 'Thomas Silverstar', 'Val Phoenix', 'La Ki'];
-  floors = ['Eden Savage Floor 1', 'Eden Savage Floor 2', 'Eden Savage Floor 3', 'Eden Savage Floor 4'];
+  raiders = ['Aerilyn Elessedil', 'Hades Carmine', 'La Ki', 'Lan Mantear', 'Shelly Duncan', 'Thomas Silverstar', 'Val Phoenix', 'Yumi Rin'];
+  floors = [
+    {value: 'Eden Savage Floor 1', viewValue: 'Eden Savage Floor 1'},
+    {value: 'Eden Savage Floor 2', viewValue: 'Eden Savage Floor 2'},
+    {value: 'Eden Savage Floor 3', viewValue: 'Eden Savage Floor 3'},
+    {value: 'Eden Savage Floor 4', viewValue: 'Eden Savage Floor 4'}];
+  drops = [  ];
   // tslint:disable-next-line: max-line-length
-  drops = ['Accessory Coffer', 'Chest Coffer', 'Deepshadow Coating', 'Deepshadow Twine', 'Deepshadow Solvent', 'Equipment Coffer', 'Lightweight Tomestone', 'Weapon Coffer'];
+  // drops = ['Accessory Coffer', 'Chest Coffer', 'Deepshadow Coating', 'Deepshadow Twine', 'Deepshadow Solvent', 'Equipment Coffer', 'Lightweight Tomestone', 'Weapon Coffer'];
   submitanother = true;
   redirectto = '../';
 
   // tslint:disable-next-line: no-use-before-declare
   Si = new SavageItem();
   // tslint:disable-next-line: no-use-before-declare
-  SavageItems: SavI[];
+  SavageItems: any[];
   submitted = false;
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
 
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
 
-    http.get<SavageItem[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result => {
+    http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result => {
      this.SavageItems = result;
    }, error => console.error(error));
+  }
+
+  toggleChangeFloor() {
+    switch (this.Si.Raidfloorname) {
+      case 'Eden Savage Floor 1': {
+        this.drops = ['Accessory Coffer'];
+        break;
+      }
+      case 'Eden Savage Floor 2': {
+        this.drops = ['Deepshadow Coating', 'Equipment Coffer', 'Lightweight Tomestone'];
+        break;
+      }
+      case 'Eden Savage Floor 3': {
+        this.drops = ['Equipment Coffer', 'Deepshadow Twine', 'Deepshadow Solvent'];
+        break;
+      }
+      case 'Eden Savage Floor 4': {
+        this.drops = ['Chest Coffer', 'Weapon Coffer'];
+        break;
+      }
+    }
   }
 
   onSubmit() {
@@ -65,11 +91,13 @@ export class AddItemDropComponent {
         window.location.reload();
       }
   }
-  toggleChange(event) {
+  toggleChange(option, event) {
+    console.log(event);
     if (event.target.checked) {
       this.submitanother = true;
     } else { this.submitanother = false; }
   }
+
   raiderchange(event: any) {
     switch (event.target.value) {
       case 'Aerilyn Elessedil':
@@ -102,7 +130,7 @@ export class AddItemDropComponent {
     const headerJson = {'Content-Type': 'application/json'};
     const header = new HttpHeaders(headerJson);
 
-    this.http.post('./api/ItemDrop/DeleteItemById', JSON.stringify(id), {headers: header}).subscribe(
+    this.http.post('./api/ACAC/DeleteItemById', JSON.stringify(id), {headers: header}).subscribe(
       (val) => { console.log('POST call successful value returned in body', val); },
       response => {
           console.log('POST call in error', response);

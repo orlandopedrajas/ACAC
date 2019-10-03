@@ -40,10 +40,24 @@ namespace ACAC.Controllers
             }
             return Ok();
         }
-        
+
         #endregion
 
         #region "Get Raid Items"
+
+        [HttpGet("[action]")]
+        public IEnumerable<Archivedraiditem> GetArchivedRaidItems()
+        {
+            Databasehandler Dbh = new Databasehandler();
+            if (Dbh.TableExists("Archivedraiditem"))
+            {
+                return Dbh.GetArchivedItems();
+            }
+            else
+            {
+                return Enumerable.Empty<Archivedraiditem>();
+            }
+        }
 
         [HttpGet("[action]")]
         public IEnumerable<Customraiditem> GetRaidItems(string XRaider)
@@ -97,8 +111,23 @@ namespace ACAC.Controllers
         public IActionResult addDrop([FromBody] RaidItem x)
         {
             if (x == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");
-            Databasehandler Dbh = new Databasehandler();
+            
+            Databasehandler Dbh = new Databasehandler();                      
             Dbh.AddItemDrop(x);
+
+            if (x.raidItem != "Lightweight Tomestone")
+            {
+                if (Dbh.GetRoundRobin().Count(r => r.raidername == x.raidername 
+                                                && r.Raidfloorname == x.Raidfloorname
+                                                && r.Raiditem == x.raidItem) == 0)
+                {
+                    Dbh.AddRoundRobin(new RoundrobinEntry { raidername = x.raidername,
+                                                            Raidfloorname = x.Raidfloorname,
+                                                            Raiditem = x.raidItem                    
+                                                            });
+                }
+            }
+           
             return Ok();
         }
 
@@ -108,7 +137,7 @@ namespace ACAC.Controllers
         public IActionResult DeleteItemById([FromBody] string id)
         {
             Databasehandler Dbh = new Databasehandler();
-            if (Dbh.TableExists("xItemDropArchive"))
+            if (Dbh.TableExists("Archivedraiditem"))
             {
                 Dbh.DeleteItemByID(id);
             }
@@ -220,6 +249,13 @@ namespace ACAC.Controllers
                     return Db.Query<RaidItem>("Select * From RaidItem");
                 }
             }
+            public IEnumerable<Archivedraiditem> GetArchivedItems()
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    return Db.Query<Archivedraiditem>("Select * From Archivedraiditem");
+                }
+            }
             public void DeleteItemByID(string id)
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
@@ -248,14 +284,38 @@ namespace ACAC.Controllers
                     Db.Insert(xItem);
                 }
             }
-
+            public void AddRoundRobin(RoundrobinEntry XItem)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    Db.Insert(XItem);
+                }
+            }
+            public IEnumerable<RoundrobinEntry> GetRoundRobin()
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    if (TableExists("RoundrobinEntry"))
+                    {
+                        return Db.Query<RoundrobinEntry>("Select * From RoundrobinEntry");
+                    }
+                    else { return Enumerable.Empty<RoundrobinEntry>(); }
+                    
+                }
+            }
         }
         #endregion
         #region " Round-robin Lists "
 
         public class RoundrobinEntry
         {
-            public string Listtype { get; set; }
+            public string Raiditem { get; set; }
+            public string Raidfloorname { get; set; }
+            public string raidername { get; set; }
+        }
+
+        public class Displayroundrobinentry: RoundrobinEntry
+        {
             public profile raider { get; set; }
         }
 
@@ -289,6 +349,7 @@ namespace ACAC.Controllers
             public string raiderimg { get; set; }
             public string raiderbanner { get; set; }
         }
+
         #endregion
     }
 }

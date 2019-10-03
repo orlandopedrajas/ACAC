@@ -11,8 +11,10 @@
   </mat-form-field>
   
   <mat-form-field>
-    <mat-select placeholder="Floor" required [(ngModel)]="Si.Raidfloorname" name="floor">
-      <mat-option *ngFor="let _floor of floors" [value]="_floor">{{ _floor }}</mat-option>
+    <mat-select placeholder="Savage Floor" required [(ngModel)]="Si.Raidfloorname" name="floor" (selectionChange)="toggleChangeFloor()">
+      <mat-option *ngFor="let _floor of floors" [value]="_floor.value">
+        {{ _floor.viewValue }}
+      </mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -27,8 +29,8 @@
         <mat-option *ngFor="let _drop of drops" [value]="_drop">{{ _drop }}</mat-option>
       </mat-select>
   </mat-form-field>
-  <mat-checkbox (change)="toogleChange($event)" checked='true'>Add another</mat-checkbox>
-  <button mat-raised-button type="submit" [disabled]="!addForm.form.valid">Submit</button>
+  <mat-checkbox (selectionChange)="toogleChange($event)" checked='true'>Add another</mat-checkbox>
+  <button mat-raised-button type="submit" color="primary" [disabled]="!addForm.form.valid">Submit</button>
 </div>  
   
 </form>
@@ -41,13 +43,13 @@
    <!-- Position Column -->
    <ng-container matColumnDef="dateReceived" >
        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-       <mat-cell *matCellDef="let element"> {{element.Receiveddate}} </mat-cell>
+       <mat-cell *matCellDef="let element"> {{element.receiveddate | date:'shortDate'}} </mat-cell>
      </ng-container>
    
      <!-- Name Column -->
      <ng-container matColumnDef="floor">
        <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-       <mat-cell *matCellDef="let element"> {{ element.Raidfloorname }} </mat-cell>
+       <mat-cell *matCellDef="let element"> {{ element.raidfloorname }} </mat-cell>
      </ng-container>
    
      <!-- Weight Column -->
