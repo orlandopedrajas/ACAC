@@ -58,7 +58,35 @@ namespace ACAC.Controllers
                 return Enumerable.Empty<Archivedraiditem>();
             }
         }
+        [HttpGet("[action]")]
+        public IEnumerable<Customraiditem> GetRecentRaidItems()
+        {
+            Databasehandler Dbh = new Databasehandler();
+            if (Dbh.TableExists("RaidItem"))
+            {
+                List<Customraiditem> li = new List<Customraiditem>();
 
+                foreach (RaidItem ri in Dbh.GetRecentRaidItems())
+                {
+                    li.Add(new Customraiditem
+                    {
+                        id = ri.id,
+                        Profile = Dbh.GetRaiderProfile(ri.raidername).Single(r => r.raidername == ri.raidername),
+                        raidername = ri.raidername,
+                        RaidfloorImage = GetFloorImage(ri.Raidfloorname),
+                        Raidfloorname = ri.Raidfloorname,
+                        raidItem = ri.raidItem,
+                        Receiveddate = ri.Receiveddate
+                    });
+                }
+                
+                return li;
+            }
+            else
+            {
+                return Enumerable.Empty<Customraiditem>();
+            }
+        }
         [HttpGet("[action]")]
         public IEnumerable<Customraiditem> GetRaidItems(string XRaider)
         {
@@ -224,7 +252,7 @@ namespace ACAC.Controllers
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
                     RaidItem a = new RaidItem();
-                    return Db.Query<RaidItem>("Select * From RaidItem where raidername='" + XRaider + "'");
+                    return Db.Query<RaidItem>("Select * From RaidItem where raidername='" + XRaider + "' order by Receiveddate desc, raidfloorname desc");
                 }
             }
             public void InsertUpdateProfile(profile _p)
@@ -246,7 +274,14 @@ namespace ACAC.Controllers
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
-                    return Db.Query<RaidItem>("Select * From RaidItem");
+                    return Db.Query<RaidItem>("Select * From RaidItem order by Receiveddate desc, raidfloorname desc");
+                }
+            }
+            public IEnumerable<RaidItem> GetRecentRaidItems()
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    return Db.Query<RaidItem>("Select * From RaidItem order by Receiveddate desc, raidfloorname desc LIMIT 5");
                 }
             }
             public IEnumerable<Archivedraiditem> GetArchivedItems()
@@ -291,13 +326,13 @@ namespace ACAC.Controllers
                     Db.Insert(XItem);
                 }
             }
-            public IEnumerable<RoundrobinEntry> GetRoundRobin()
+            public IEnumerable<RoundrobinEntry> GetRoundRobin(string XRaiditem, string XRaidfloorname)
             {
                 using (var Db = new SQLiteConnection(DbPath))
                 {
                     if (TableExists("RoundrobinEntry"))
                     {
-                        return Db.Query<RoundrobinEntry>("Select * From RoundrobinEntry");
+                        return Db.Query<RoundrobinEntry>("Select * From RoundrobinEntry where Raidfloorname='" + XRaidfloorname + "' and Raiditem='" + XRaiditem + "'");
                     }
                     else { return Enumerable.Empty<RoundrobinEntry>(); }
                     
