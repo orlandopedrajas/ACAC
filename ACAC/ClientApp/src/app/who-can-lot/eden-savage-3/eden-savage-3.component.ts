@@ -8,35 +8,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 
 export class EdenSavage3Component {
-  Floor3_Equipments: EquipmentItem[];
-  Floor3_EquipmentUpgrades: EquipmentItem[];
-  Floor3_WeaponUpgrades: EquipmentItem[];
-  raiders = ['Lan Mantear', 'Hades Carmine', 'Yumi Rin', 'Aerilyn Elessedil', 'Shelly Duncan', 'Thomas Silverstar', 'Val Phoenix', 'La Ki'];
-  floortoclear = '';
 
+  Items1: any[];
+  Items2: any[];
+  Items3: any[];
+  displayedColumns: string[] = ['raiditem'];
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
-    http.get<EquipmentItem[]>(baseUrl + 'api/ItemDrop/xFloor3_Equipment').subscribe(result => {
-      this.Floor3_Equipments = result;
-    }, error => console.error(error));
+    http.get<any[]>(baseUrl + 'api/ACAC/GetRoundRobinList?XRaidfloorname=Eden Savage Floor 3').subscribe(result => {
 
-    http.get<EquipmentItem[]>(baseUrl + 'api/ItemDrop/xFloor3_EquipmentUpgrade').subscribe(result => {
-      this.Floor3_EquipmentUpgrades = result;
-      }, error => console.error(error));
+      this.Items1 = result.filter(r => r.raiditem === 'Equipment Coffer');
+      this.Items2 = result.filter(r => r.raiditem === 'Deepshadow Twine');
+      this.Items3 = result.filter(r => r.raiditem === 'Deepshadow Solvent');
 
-    http.get<EquipmentItem[]>(baseUrl + 'api/ItemDrop/xFloor3_WeaponUpgrade').subscribe(result => {
-       this.Floor3_WeaponUpgrades = result;
      }, error => console.error(error));
   }
 }
 
-interface SavageItem {
-  dateReceived: string;
-  floor: string;
-  raider: string;
-  droptype: string;
-}
-
-interface EquipmentItem {
-  raider: string;
-}

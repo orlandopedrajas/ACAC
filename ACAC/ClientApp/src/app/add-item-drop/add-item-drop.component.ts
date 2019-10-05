@@ -3,17 +3,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class SavageItem {
   id: number;
-  dateReceived: string;
-  floor: string;
-  raider: string;
-  droptype: string;
+  Receiveddate: Date;
+  Raidfloorname: string;
+  raidername: string;
+  raidItem: string;
 }
 
 export interface SavI {
-  dateReceived: string;
-  floor: string;
-  raider: string;
-  droptype: string;
+  Receiveddate: Date;
+  Raidfloorname: string;
+  raidername: string;
+  raidItem: string;
 }
 
 @Component({
@@ -24,54 +24,67 @@ export interface SavI {
 
 export class AddItemDropComponent {
 
-  raiders = ['Lan Mantear', 'Hades Carmine', 'Yumi Rin', 'Aerilyn Elessedil', 'Shelly Duncan', 'Thomas Silverstar', 'Val Phoenix', 'La Ki'];
-  floors = ['Eden Savage Floor 1', 'Eden Savage Floor 2', 'Eden Savage Floor 3', 'Eden Savage Floor 4'];
+  raiders: any[];
+  floors = [
+    {value: 'Eden Savage Floor 1', viewValue: 'Eden Savage Floor 1'},
+    {value: 'Eden Savage Floor 2', viewValue: 'Eden Savage Floor 2'},
+    {value: 'Eden Savage Floor 3', viewValue: 'Eden Savage Floor 3'},
+    {value: 'Eden Savage Floor 4', viewValue: 'Eden Savage Floor 4'}];
+  drops = [  ];
   // tslint:disable-next-line: max-line-length
-  drops = ['Accessory Coffer', 'Chest Coffer', 'Deepshadow Coating', 'Deepshadow Twine', 'Deepshadow Solvent', 'Equipment Coffer', 'Lightweight Tomestone', 'Weapon Coffer'];
+  // drops = ['Accessory Coffer', 'Chest Coffer', 'Deepshadow Coating', 'Deepshadow Twine', 'Deepshadow Solvent', 'Equipment Coffer', 'Lightweight Tomestone', 'Weapon Coffer'];
   submitanother = true;
   redirectto = '../';
 
   // tslint:disable-next-line: no-use-before-declare
   Si = new SavageItem();
   // tslint:disable-next-line: no-use-before-declare
-  SavageItems: SavI[];
+  SavageItems: any[];
   submitted = false;
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
 
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
 
-    http.get<SavageItem[]>(baseUrl + 'api/ItemDrop/GetRecentItemDrops').subscribe(result => {
+    http.get<any[]>(baseUrl + 'api/ACAC/GetRecentRaidItems').subscribe(result => {
      this.SavageItems = result;
    }, error => console.error(error));
   }
 
-  onSubmit() {
-    this.submitted = true;
-    const headerJson = {'Content-Type': 'application/json'};
-    const header = new HttpHeaders(headerJson);
-    this.Si.id = 0;
-    this.http.post('./api/ItemDrop/addDrop', JSON.stringify(this.Si), {headers: header}).subscribe(
-      (val) => { console.log('POST call successful value returned in body', val); },
-      response => {
-          console.log('POST call in error', response);
-      },
-      () => {
-          console.log('The POST observable is now completed.');
-      });
-    if (!this.submitanother) {
-        window.location.href = this.redirectto;
-      } else {
-        window.location.reload();
+  toggleChangeFloor() {
+    switch (this.Si.Raidfloorname) {
+      case 'Eden Savage Floor 1': {
+        this.drops = ['Accessory Coffer'];
+        break;
       }
+      case 'Eden Savage Floor 2': {
+        this.drops = ['Deepshadow Coating', 'Equipment Coffer', 'Lightweight Tomestone'];
+        break;
+      }
+      case 'Eden Savage Floor 3': {
+        this.drops = ['Equipment Coffer', 'Deepshadow Twine', 'Deepshadow Solvent'];
+        break;
+      }
+      case 'Eden Savage Floor 4': {
+        this.drops = ['Chest Coffer', 'Weapon Coffer'];
+        break;
+      }
+    }
   }
-  toggleChange(event) {
-    if (event.target.checked) {
-      this.submitanother = true;
-    } else { this.submitanother = false; }
+
+  raiditemchange() {
+    const baseUrl = document.getElementsByTagName('base')[0].href;
+    this.http.get<any[]>(baseUrl + 'api/ACAC/GetRoundRobinList?XRaidfloorname=' + this.Si.Raidfloorname).subscribe(result => {
+      console.log(result);
+      this.raiders = result.filter(r => r.raiditem === this.Si.raidItem);
+      console.log(this.raiders);
+
+     }, error => console.error(error));
   }
+
   raiderchange(event: any) {
-    switch (event.target.value) {
+
+    switch (this.Si.raidername) {
       case 'Aerilyn Elessedil':
         this.redirectto = './raiders/aerilyn-elessedil';
         break;
@@ -98,11 +111,38 @@ export class AddItemDropComponent {
         break;
     }
   }
+
+  onSubmit() {
+    this.submitted = true;
+    const headerJson = {'Content-Type': 'application/json'};
+    const header = new HttpHeaders(headerJson);
+    this.Si.id = 0;
+    this.http.post('./api/ACAC/addDrop', JSON.stringify(this.Si), {headers: header}).subscribe(
+      (val) => { console.log('POST call successful value returned in body', val); },
+      response => {
+          console.log('POST call in error', response);
+      },
+      () => {
+          console.log('The POST observable is now completed.');
+      });
+    if (!this.submitanother) {
+        console.log(this.redirectto);
+        window.location.href = this.redirectto;
+      } else {
+         window.location.reload();
+      }
+  }
+  toggleChange(event) {
+    if (event.checked) {
+      this.submitanother = true;
+    } else { this.submitanother = false; }
+  }
+
   OnRemoveItem(id: any) {
     const headerJson = {'Content-Type': 'application/json'};
     const header = new HttpHeaders(headerJson);
 
-    this.http.post('./api/ItemDrop/DeleteItemById', JSON.stringify(id), {headers: header}).subscribe(
+    this.http.post('./api/ACAC/DeleteItemById', JSON.stringify(id), {headers: header}).subscribe(
       (val) => { console.log('POST call successful value returned in body', val); },
       response => {
           console.log('POST call in error', response);

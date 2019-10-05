@@ -1,4 +1,4 @@
-<h1>Deleted Item Drops</h1>
+<h1 class='bannertext'>Deleted Item Drops</h1>
 <p><img class='main' src="assets/img/ffxiv_12032018_011418.png"></p>
 
 <mat-table [dataSource]='SavageItems'>
@@ -8,31 +8,31 @@
    <!-- Position Column -->
    <ng-container matColumnDef="dateReceived" >
        <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-       <mat-cell *matCellDef="let element"> {{element.dateReceived}} </mat-cell>
+       <mat-cell *matCellDef="let element"> {{element.receiveddate | date:'shortDate'}} </mat-cell>
      </ng-container>
    
      <!-- Name Column -->
      <ng-container matColumnDef="floor">
        <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-       <mat-cell *matCellDef="let element"> {{ element.floor }} </mat-cell>
+       <mat-cell *matCellDef="let element"> {{ element.raidfloorname }} </mat-cell>
      </ng-container>
    
      <!-- Weight Column -->
      <ng-container matColumnDef="raider">
        <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
-       <mat-cell *matCellDef="let element"> {{element.raider}} </mat-cell>
+       <mat-cell *matCellDef="let element"> {{element.raidername}} </mat-cell>
      </ng-container>
    
      <!-- Symbol Column -->
      <ng-container matColumnDef="droptype">
        <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
-       <mat-cell *matCellDef="let element"> {{element.droptype}} </mat-cell>
+       <mat-cell *matCellDef="let element"> {{element.raidItem}} </mat-cell>
      </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="datearchived">
         <mat-header-cell *matHeaderCellDef> Date Archived </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.dateArchived}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.archiveddate | date:'shortDate'}} </mat-cell>
       </ng-container>
  
    

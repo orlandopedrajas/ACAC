@@ -71,5 +71,3 @@ import { ProfilePicturesComponent } from './admin-pages/profile-pictures/profile
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-// platformBrowserDynamic().bootstrapModule(AppModule);
