@@ -24,7 +24,7 @@ export interface SavI {
 
 export class AddItemDropComponent {
 
-  raiders = ['Aerilyn Elessedil', 'Hades Carmine', 'La Ki', 'Lan Mantear', 'Shelly Duncan', 'Thomas Silverstar', 'Val Phoenix', 'Yumi Rin'];
+  raiders: any[];
   floors = [
     {value: 'Eden Savage Floor 1', viewValue: 'Eden Savage Floor 1'},
     {value: 'Eden Savage Floor 2', viewValue: 'Eden Savage Floor 2'},
@@ -70,6 +70,16 @@ export class AddItemDropComponent {
         break;
       }
     }
+  }
+
+  raiditemchange() {
+    const baseUrl = document.getElementsByTagName('base')[0].href;
+    this.http.get<any[]>(baseUrl + 'api/ACAC/GetRoundRobinList?XRaidfloorname=' + this.Si.Raidfloorname).subscribe(result => {
+      console.log(result);
+      this.raiders = result.filter(r => r.raiditem === this.Si.raidItem);
+      console.log(this.raiders);
+
+     }, error => console.error(error));
   }
 
   raiderchange(event: any) {

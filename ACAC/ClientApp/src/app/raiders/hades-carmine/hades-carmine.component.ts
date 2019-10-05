@@ -14,7 +14,9 @@ export class HadesCarmineComponent {
   banner = '';
 
   constructor(private http: HttpClient) {
+
     const baseUrl = document.getElementsByTagName('base')[0].href;
+
     http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems?XRaider=Hades Carmine').subscribe(result => {
       this.SavageItems = result;
     }, error => console.error(error));

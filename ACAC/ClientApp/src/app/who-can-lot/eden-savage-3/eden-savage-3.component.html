@@ -8,45 +8,69 @@
 
 <div class='container'>
   <div class='box'>
-    <table class='table' *ngIf="Floor3_Equipments">
-      <thead>
-        <tr>
-          <th>Equipment Coffer</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let Floor3_Equipment of Floor3_Equipments">
-          <td>{{ Floor3_Equipment.raider }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <mat-table [dataSource]='Items1'>
+          <ng-container matColumnDef="raiditem">
+             <mat-header-cell *matHeaderCellDef> Equipment Coffer </mat-header-cell>
+             <mat-cell *matCellDef="let element">
+                 <mat-list>
+                    <mat-list-item routerLink='{{ element.raider.pageroute }}'>
+                       <div class="toLeft">
+                         <img matListAvatar
+                         src='{{ element.raider.raiderimg }}' 
+                         alt='{{ element.raider.raidername }}'>
+                       </div>&nbsp;&nbsp;&nbsp;
+                       <p mat-Line>{{ element.raider.raidername }}</p>               
+                     </mat-list-item>
+                  </mat-list>
+             </mat-cell>
+           </ng-container>     
+            
+          <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+       </mat-table>
   </div>
   <div class='box'>
-    <table class='table' *ngIf="Floor3_EquipmentUpgrades">
-      <thead>
-        <tr>
-          <th>Deepshadow Twine</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let Floor3_EquipmentUpgrade of Floor3_EquipmentUpgrades">
-          <td>{{ Floor3_EquipmentUpgrade.raider }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <mat-table [dataSource]='Items2'>
+          <ng-container matColumnDef="raiditem">
+             <mat-header-cell *matHeaderCellDef > Deepshadow Twine </mat-header-cell>
+             <mat-cell *matCellDef="let element"> 
+                 <mat-list>
+                    <mat-list-item routerLink='{{ element.raider.pageroute }}'>
+                    <div class="toLeft">
+                      <img matListAvatar
+                      src='{{ element.raider.raiderimg }}' 
+                      alt='{{ element.raider.raidername }}'>
+                    </div>&nbsp;&nbsp;&nbsp;
+                    <p mat-Line>{{ element.raider.raidername }}</p>               
+                  </mat-list-item>
+                </mat-list>
+             </mat-cell>
+          </ng-container>     
+            
+          <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+       </mat-table>
   </div>
   <div class='box'>
-    <table class='table' *ngIf="Floor3_WeaponUpgrades">
-      <thead>
-        <tr>
-          <th>Deepshadow Solvent</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let Floor3_WeaponUpgrade of Floor3_WeaponUpgrades">
-          <td>{{ Floor3_WeaponUpgrade.raider }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <mat-table [dataSource]='Items3'>
+          <ng-container matColumnDef="raiditem">
+             <mat-header-cell *matHeaderCellDef > Deepshadow Solvent </mat-header-cell>
+             <mat-cell *matCellDef="let element"> 
+                 <mat-list>
+                    <mat-list-item routerLink='{{ element.raider.pageroute }}'>
+                    <div class="toLeft">
+                      <img matListAvatar
+                      src='{{ element.raider.raiderimg }}' 
+                      alt='{{ element.raider.raidername }}'>
+                    </div>&nbsp;&nbsp;&nbsp;
+                    <p mat-Line>{{ element.raider.raidername }}</p>               
+                  </mat-list-item>
+                </mat-list>
+             </mat-cell>
+          </ng-container>     
+            
+          <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+       </mat-table>
   </div>
 </div>

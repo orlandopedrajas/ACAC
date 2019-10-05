@@ -8,12 +8,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class ProfilePicturesComponent {
 
-  raiderprofiles: { raidername: string, raiderimg: string, raiderbanner: string } [];
+  raiderprofiles: any[];
 
   constructor(private http: HttpClient) {
-    http.get<{ raidername: string, raiderimg: string, raiderbanner }[]>('./api/ACAC/GetAllProfiles').subscribe(result => {
+    http.get<any[]>('./api/ACAC/GetAllProfiles').subscribe(result => {
      if (result) {
-         this.raiderprofiles = result;
+        this.raiderprofiles = result;
      }
    }, error => console.error(error));
 
