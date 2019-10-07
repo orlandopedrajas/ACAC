@@ -15,7 +15,6 @@ export class EdenSavage1Component {
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
     http.get<any[]>(baseUrl + 'api/ACAC/GetRoundRobinList?XRaidfloorname=Eden Savage Floor 1').subscribe(result => {
-      console.log(result);
       this.EquipmentItems = result;
      }, error => console.error(error));
   }

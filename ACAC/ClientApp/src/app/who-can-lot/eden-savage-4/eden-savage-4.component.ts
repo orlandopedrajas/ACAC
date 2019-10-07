@@ -22,4 +22,3 @@ export class EdenSavage4Component {
      }, error => console.error(error));
   }
 }
-

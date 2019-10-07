@@ -46,18 +46,4 @@ setlist($event, raidfloorname, raiditem) {
       });
     window.location.reload();
   }
-  OnMigrate() {
-    const headerJson = {'Content-Type': 'application/json'};
-    const header = new HttpHeaders(headerJson);
-
-    this.http.post('./api/ACAC/MigrateOldData', null, {headers: header}).subscribe(
-      (val) => { console.log('POST call successful value returned in body', val); },
-      response => {
-          console.log('POST call in error', response);
-      },
-      () => {
-          console.log('The POST observable is now completed.');
-      });
-    window.location.reload();
-  }
 }
