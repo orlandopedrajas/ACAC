@@ -1,117 +1,200 @@
-<h1>Manage Lists</h1>
+<h1 class='bannertext'>Manage Lists</h1>
 
-<h2>Floor 1</h2>
-<form (ngSubmit)="onOverrideFloor('Floor1_Equipment','eden-savage-1')">
-    <div class="form-group">
-        <label for="Floor1_Equipment">Override Accessory List</label>
-        <input type="text" class="form-control" id="Floor1_Equipment"
-                required
-                [(ngModel)]="lo.raiders" name="Floor1_Equipment">
-    </div>
-    <button type="submit" class="btn btn-success">Override Accessory List</button>
-</form>
-<p></p>
-<form (ngSubmit)="onClearFloor('Floor1_Equipment','eden-savage-1')">
-    <button type="submit" class="btn btn-success">Reset Accessories List</button>
-</form>
-
-<h2>Floor 2</h2>
-<form (ngSubmit)="onOverrideFloor('Floor2_Equipment','eden-savage-2')">
-    <div class="form-group">
-        <label for="Floor2_Equipment">Override Equipment Coffer List</label>
-        <input type="text" class="form-control" id="Floor2_Equipment"
-                required
-                [(ngModel)]="lo.raiders" name="Floor2_Equipment">
-    </div>
-    <button type="submit" class="btn btn-success">Override Equipment Coffer List</button>
-</form>
-<p></p>
-<form (ngSubmit)="onClearFloor('Floor2_Equipment','eden-savage-2')">
-    <button type="submit" class="btn btn-success">Reset Equipment Coffer List</button>
-</form>
-
-<form (ngSubmit)="onOverrideFloor('Floor2_EquipmentUpgrade','eden-savage-2')">
-    <div class="form-group">
-        <label for="Floor2_EquipmentUpgrade">Override Deepshadow Coating List</label>
-        <input type="text" class="form-control" id="Floor2_EquipmentUpgrade"
-                required
-                [(ngModel)]="lo.raiders" name="Floor2_EquipmentUpgrade">
-    </div>
-    <button type="submit" class="btn btn-success">Override Deepshadow Coating List</button>
-</form>
-<p></p>
-<form (ngSubmit)="onClearFloor('Floor2_EquipmentUpgrade','eden-savage-2')">
-    <button type="submit" class="btn btn-success">Reset Deepshadow Coating List</button>
-</form>
-
-<h2>Floor 3</h2>
-<form (ngSubmit)="onOverrideFloor('Floor3_Equipment','eden-savage-3')">
-    <div class="form-group">
-        <label for="Floor3_Equipment">Override Equipment Coffer List</label>
-        <input type="text" class="form-control" id="Floor3_Equipment"
-                required
-                [(ngModel)]="lo.raiders" name="Floor3_Equipment">
-    </div>
-    <button type="submit" class="btn btn-success">Override Equipment Coffer List</button>
-</form>
-<p></p>
-<form (ngSubmit)="onClearFloor('Floor3_Equipment','eden-savage-3')">
-    <button type="submit" class="btn btn-success">Reset Equipment Coffer List</button>
-</form>
-
-<form (ngSubmit)="onOverrideFloor('Floor3_EquipmentUpgrade','eden-savage-3')">
-    <div class="form-group">
-        <label for="Floor3_EquipmentUpgrade">Override Deepshadow Twine List</label>
-        <input type="text" class="form-control" id="Floor3_EquipmentUpgrade"
-                required
-                [(ngModel)]="lo.raiders" name="Floor3_EquipmentUpgrade">
-    </div>
-    <button type="submit" class="btn btn-success">Override Deepshadow Twine List</button>
-</form>
-<p></p>
-<form (ngSubmit)="onClearFloor('Floor3_EquipmentUpgrade','eden-savage-3')">
-    <button type="submit" class="btn btn-success">Reset Deepshadow Twine List</button>
-</form>
-
-<form (ngSubmit)="onOverrideFloor('Floor3_WeaponUpgrade','eden-savage-3')">
-    <div class="form-group">
-        <label for="Floor3_WeaponUpgrade">Override Deepshadow Solvent List</label>
-        <input type="text" class="form-control" id="Floor3_WeaponUpgrade"
-                required
-                [(ngModel)]="lo.raiders" name="Floor3_WeaponUpgrade">
-    </div>
-    <button type="submit" class="btn btn-success">Override Deepshadow Solvent List</button>
-</form>
-<p></p>
-<form (ngSubmit)="onClearFloor('Floor3_WeaponUpgrade','eden-savage-3')">
-    <button type="submit" class="btn btn-success">Reset Deepshadow Solvent List</button>
-</form>
-
-<h2>Floor 4</h2>
-<form (ngSubmit)="onOverrideFloor('Floor4_Equipment','eden-savage-4')">
-    <div class="form-group">
-        <label for="Floor4_Equipment">Override Chest Coffer List</label>
-        <input type="text" class="form-control" id="Floor4_Equipment"
-                required
-                [(ngModel)]="lo.raiders" name="Floor4_Equipment">
-    </div>
-    <button type="submit" class="btn btn-success">Override Chest Coffer List</button>
-</form>
-<p></p>
-<form (ngSubmit)="onClearFloor('Floor4_Equipment','eden-savage-4')">
-    <button type="submit" class="btn btn-success">Reset Chest Coffer List</button>
-</form>
-
-<form (ngSubmit)="onOverrideFloor('Floor4_WeaponCoffer','eden-savage-4')">
-    <div class="form-group">
-        <label for="Floor4_WeaponCoffer">Override Weapon Coffer List</label>
-        <input type="text" class="form-control" id="Floor4_WeaponCoffer"
-                required
-                [(ngModel)]="lo.raiders" name="Floor4_WeaponCoffer">
-    </div>
-    <button type="submit" class="btn btn-success">Override Weapon Coffer List</button>
-</form>
-<p></p>
-<form (ngSubmit)="onClearFloor('Floor4_WeaponCoffer','eden-savage-4')">
-    <button type="submit" class="btn btn-success">Reset Weapon Coffer List</button>
-</form>
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-list>
+          <mat-list-item>
+            <img matListAvatar
+                 src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/65-icon.jpg'>
+            <p mat-Line>&nbsp;&nbsp;&nbsp;Eden Savage Floor 1</p>
+          </mat-list-item>
+        </mat-list>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Accessory Coffer
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-selection-list [(ngModel)]="floor1accessories"
+                            (ngModelChange)="setlist($event,'Eden Savage Floor 1','Accessory Coffer')">
+          <mat-list-option *ngFor="let raiders of raiderprofiles" value='{{ raiders.raidername }}'>
+            <img matListAvatar
+                 src='{{ raiders.raiderimg }}'
+                 alt='{{ raiders.raidername }}'>
+            <p mat-Line>{{ raiders.raidername }}</p>
+          </mat-list-option>
+        </mat-selection-list>
+        <button mat-raised-button color="primary" (click)="OnSubmit()">Reset List</button>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-list>
+          <mat-list-item>
+            <img matListAvatar
+                 src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/66-icon.jpg'>
+            <p mat-Line>&nbsp;&nbsp;&nbsp;Eden Savage Floor 2</p>
+          </mat-list-item>
+        </mat-list>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Equipment Coffer
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-selection-list [(ngModel)]="floor2equipmentcoffer"
+                            (ngModelChange)="setlist($event,'Eden Savage Floor 2','Equipment Coffer')">
+          <mat-list-option *ngFor="let raiders of raiderprofiles" value='{{ raiders.raidername }}'>
+            <img matListAvatar
+                 src='{{ raiders.raiderimg }}'
+                 alt='{{ raiders.raidername }}'>
+            <p mat-Line>{{ raiders.raidername }}</p>
+          </mat-list-option>
+        </mat-selection-list>
+        <button mat-raised-button color="primary" (click)="OnSubmit()">Reset List</button>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Deepshadow Coating
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-selection-list [(ngModel)]="floor2deepshadowcoating"
+                            (ngModelChange)="setlist($event,'Eden Savage Floor 2','Deepshadow Coating')">
+          <mat-list-option *ngFor="let raiders of raiderprofiles" value='{{ raiders.raidername }}'>
+            <img matListAvatar
+                 src='{{ raiders.raiderimg }}'
+                 alt='{{ raiders.raidername }}'>
+            <p mat-Line>{{ raiders.raidername }}</p>
+          </mat-list-option>
+        </mat-selection-list>
+        <button mat-raised-button color="primary" (click)="OnSubmit()">Reset List</button>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-list>
+          <mat-list-item>
+            <img matListAvatar
+                 src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/67-icon.jpg'>
+            <p mat-Line>&nbsp;&nbsp;&nbsp;Eden Savage Floor 3</p>
+          </mat-list-item>
+        </mat-list>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Equipment Coffer
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-selection-list [(ngModel)]="floor3equipmentcoffer"
+                            (ngModelChange)="setlist($event,'Eden Savage Floor 3','Equipment Coffer')">
+          <mat-list-option *ngFor="let raiders of raiderprofiles" value='{{ raiders.raidername }}'>
+            <img matListAvatar
+                 src='{{ raiders.raiderimg }}'
+                 alt='{{ raiders.raidername }}'>
+            <p mat-Line>{{ raiders.raidername }}</p>
+          </mat-list-option>
+        </mat-selection-list>
+        <button mat-raised-button color="primary" (click)="OnSubmit()">Reset List</button>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Deepshadow Twine
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-selection-list [(ngModel)]="floor3deepshadowtwine"
+                            (ngModelChange)="setlist($event,'Eden Savage Floor 3','Deepshadow Twine')">
+          <mat-list-option *ngFor="let raiders of raiderprofiles" value='{{ raiders.raidername }}'>
+            <img matListAvatar
+                 src='{{ raiders.raiderimg }}'
+                 alt='{{ raiders.raidername }}'>
+            <p mat-Line>{{ raiders.raidername }}</p>
+          </mat-list-option>
+        </mat-selection-list>
+        <button mat-raised-button color="primary" (click)="OnSubmit()">Reset List</button>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Deepshadow Solvent
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-selection-list [(ngModel)]="floor3deepshadowsolvent"
+                            (ngModelChange)="setlist($event,'Eden Savage Floor 3','Deepshadow Solvent')">
+          <mat-list-option *ngFor="let raiders of raiderprofiles" value='{{ raiders.raidername }}'>
+            <img matListAvatar
+                 src='{{ raiders.raiderimg }}'
+                 alt='{{ raiders.raidername }}'>
+            <p mat-Line>{{ raiders.raidername }}</p>
+          </mat-list-option>
+        </mat-selection-list>
+        <button mat-raised-button color="primary" (click)="OnSubmit()">Reset List</button>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-list>
+          <mat-list-item>
+            <img matListAvatar
+                 src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/68-icon.jpg'>
+            <p mat-Line>&nbsp;&nbsp;&nbsp;Eden Savage Floor 4</p>
+          </mat-list-item>
+        </mat-list>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Chest Coffer
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-selection-list [(ngModel)]="floor4chestcoffer"
+                            (ngModelChange)="setlist($event,'Eden Savage Floor 4','Chest Coffer')">
+          <mat-list-option *ngFor="let raiders of raiderprofiles" value='{{ raiders.raidername }}'>
+            <img matListAvatar
+                 src='{{ raiders.raiderimg }}'
+                 alt='{{ raiders.raidername }}'>
+            <p mat-Line>{{ raiders.raidername }}</p>
+          </mat-list-option>
+        </mat-selection-list>
+        <button mat-raised-button color="primary" (click)="OnSubmit()">Reset List</button>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Weapon Coffer
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-selection-list [(ngModel)]="floor4weaponcoffer"
+                            (ngModelChange)="setlist($event,'Eden Savage Floor 4','Weapon Coffer')">
+          <mat-list-option *ngFor="let raiders of raiderprofiles" value='{{ raiders.raidername }}'>
+            <img matListAvatar
+                 src='{{ raiders.raiderimg }}'
+                 alt='{{ raiders.raidername }}'>
+            <p mat-Line>{{ raiders.raidername }}</p>
+          </mat-list-option>
+        </mat-selection-list>
+        <button mat-raised-button color="primary" (click)="OnSubmit()">Reset List</button>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-expansion-panel>
+</mat-accordion>

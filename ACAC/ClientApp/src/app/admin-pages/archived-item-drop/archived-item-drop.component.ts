@@ -16,12 +16,12 @@ export interface SavageItem {
 })
 
 export class ArchivedItemDropComponent {
-  SavageItems: SavageItem[];
+  SavageItems: any[];
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'datearchived'];
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
-    http.get<SavageItem[]>(baseUrl + 'api/ItemDrop/xItemDropArchives').subscribe(result => {
-     this.SavageItems = result;
+    http.get<any[]>(baseUrl + 'api/ACAC/GetArchivedRaidItems').subscribe(result => {
+      this.SavageItems = result;
    }, error => console.error(error));
   }
 }

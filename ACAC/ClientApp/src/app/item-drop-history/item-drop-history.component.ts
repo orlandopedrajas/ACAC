@@ -15,9 +15,7 @@ export class ItemDropHistoryComponent {
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
     http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result => {
-      console.log(result);
       this.SavageItems = result;
-
    }, error => console.error(error));
   }
 

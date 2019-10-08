@@ -6,32 +6,48 @@
 </ul>
 
 <div class='container'>
-  <div class='box'>
-    <table class='table' *ngIf="Floor4_Equipments">
-      <thead>
-        <tr>
-          <th>Equipment</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let Floor4_Equipment of Floor4_Equipments">
-          <td>{{ Floor4_Equipment.raider }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class='box'>
+      <mat-table [dataSource]='Items1'>
+        <ng-container matColumnDef="raiditem">
+           <mat-header-cell *matHeaderCellDef> Chest Coffer </mat-header-cell>
+           <mat-cell *matCellDef="let element">
+               <mat-list>
+                   <mat-list-item routerLink='{{ element.raider.pageroute }}'>
+                     <div class="toLeft">
+                       <img matListAvatar
+                       src='{{ element.raider.raiderimg }}' 
+                       alt='{{ element.raider.raidername }}'>
+                     </div>&nbsp;&nbsp;&nbsp;
+                     <p mat-Line>{{ element.raider.raidername }}</p>               
+                   </mat-list-item>
+                </mat-list>
+           </mat-cell>
+         </ng-container>     
+          
+        <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+     </mat-table>
+    </div>
+    <div class='box'>
+      <mat-table [dataSource]='Items2'>
+        <ng-container matColumnDef="raiditem">
+           <mat-header-cell *matHeaderCellDef > Weapon Coffer </mat-header-cell>
+           <mat-cell *matCellDef="let element"> 
+              <mat-list>
+                  <mat-list-item routerLink='{{ element.raider.pageroute }}'>
+                  <div class="toLeft">
+                    <img matListAvatar
+                    src='{{ element.raider.raiderimg }}' 
+                    alt='{{ element.raider.raidername }}'>
+                  </div>&nbsp;&nbsp;&nbsp;
+                  <p mat-Line>{{ element.raider.raidername }}</p>               
+                </mat-list-item>
+              </mat-list>
+           </mat-cell>
+        </ng-container>     
+          
+        <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+     </mat-table>
+    </div>
   </div>
-  <div class='box'>
-    <table class='table'*ngIf="Floor4_WeaponCoffers">
-      <thead>
-        <tr>
-          <th>Weapon Coffer</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let Floor4_WeaponCoffer of Floor4_WeaponCoffers">
-          <td>{{ Floor4_WeaponCoffer.raider }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
