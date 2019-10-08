@@ -2,11 +2,10 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 img.main {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    height: 75%;
-    width: 75%
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
 }
 
 body { 
@@ -31,10 +30,27 @@ img.floor-icon{
 }
 .toLeft
 {
-  float: left;
+  float: none;
 }
 
-
+.toLeftSide {
+  float: none;
+}
+.toRightSide {
+  float: none;
+}
 .basic-container {
   padding: 30px;
+}
+
+@media (min-width: 768px) {
+
+  .toLeftSide {
+    float: left;
+    width: 50%;
+  }
+  .toRightSide {
+    float: right;
+    width: 50%
+  }
 }
