@@ -9,19 +9,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class EdenSavage1Component {
 
-  Floor1_Equipments: EquipmentItem[];
-  raiders = ['Lan Mantear', 'Hades Carmine', 'Yumi Rin', 'Aerilyn Elessedil', 'Shelly Duncan', 'Thomas Silverstar', 'Val Phoenix', 'La Ki'];
-  res: object;
+  displayedColumns: string[] = ['raiditem'];
+  EquipmentItems: any[];
 
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
-    http.get<EquipmentItem[]>(baseUrl + 'api/ItemDrop/xFloor1_Equipment').subscribe(result => {
-     this.Floor1_Equipments = result;
+    http.get<any[]>(baseUrl + 'api/ACAC/GetRoundRobinList?XRaidfloorname=Eden Savage Floor 1').subscribe(result => {
+      this.EquipmentItems = result;
      }, error => console.error(error));
   }
-
-}
-
-interface EquipmentItem {
-  raider: string;
 }

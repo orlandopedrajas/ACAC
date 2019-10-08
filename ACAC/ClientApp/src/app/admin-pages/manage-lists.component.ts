@@ -1,12 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-export interface EquipmentItem {
-  raider: string;
-}
-export class OverrideList {
-    listtype: string;
-    raiders: string;
+
+export class Roundrobinreset {
+  raidfloorname: string;
+  raiditem: string;
+  raiders: any[];
 }
 
 @Component({
@@ -16,19 +15,28 @@ export class OverrideList {
 
 export class ManageListsComponent {
 
-  raiders = ['Lan Mantear', 'Hades Carmine', 'Yumi Rin', 'Aerilyn Elessedil', 'Shelly Duncan', 'Thomas Silverstar', 'Val Phoenix', 'La Ki'];
-  // tslint:disable-next-line: no-use-before-declare
-  lo = new OverrideList();
-  listtoclear = '';
+  raiderprofiles: any[];
+  roundrobinlist = new Roundrobinreset();
+
 
   constructor(private http: HttpClient) {
+    http.get<any[]>('./api/ACAC/GetAllProfiles').subscribe(result => {
+     if (result) {
+        this.raiderprofiles = result;
+     }
+   }, error => console.error(error));
   }
 
-  onClearFloor(lt: string, redirecto: string) {
+setlist($event, raidfloorname, raiditem) {
+  this.roundrobinlist.raiders = $event;
+  this.roundrobinlist.raidfloorname = raidfloorname;
+  this.roundrobinlist.raiditem = raiditem;
+}
+  OnSubmit() {
     const headerJson = {'Content-Type': 'application/json'};
     const header = new HttpHeaders(headerJson);
-    this.listtoclear = lt;
-    this.http.post('./api/ItemDrop/ResetDb', JSON.stringify(this.listtoclear), {headers: header}).subscribe(
+
+    this.http.post('./api/ACAC/RoundRobinReset', JSON.stringify(this.roundrobinlist), {headers: header}).subscribe(
       (val) => { console.log('POST call successful value returned in body', val); },
       response => {
           console.log('POST call in error', response);
@@ -36,22 +44,6 @@ export class ManageListsComponent {
       () => {
           console.log('The POST observable is now completed.');
       });
-    window.location.href = './who-can-lot/' + redirecto;
+    window.location.reload();
   }
-
-  onOverrideFloor(lt: string, redirecto: string) {
-    this.lo.listtype = lt;
-    const headerJson = {'Content-Type': 'application/json'};
-    const header = new HttpHeaders(headerJson);
-    this.http.post('./api/ItemDrop/OverrideList', JSON.stringify(this.lo), {headers: header}).subscribe(
-    (val) => { console.log('POST call successful value returned in body', val); },
-    response => {
-        console.log('POST call in error', response);
-    },
-    () => {
-        console.log('The POST observable is now completed.');
-    });
-    window.location.href = './who-can-lot/' + redirecto;
-  }
-
 }

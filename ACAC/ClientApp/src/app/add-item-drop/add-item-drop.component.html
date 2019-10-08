@@ -19,16 +19,26 @@
   </mat-form-field>
 
   <mat-form-field>
-      <mat-select placeholder="Raider" required [(ngModel)]="Si.raidername" name="raider"  (selectionChange)="raiderchange()">
-        <mat-option *ngFor="let _raider of raiders" [value]="_raider">{{ _raider }}</mat-option>
-      </mat-select>
-  </mat-form-field>
-
-  <mat-form-field>
-      <mat-select placeholder="Drop Type" required [(ngModel)]="Si.raidItem" name="droptype">
+      <mat-select placeholder="Drop Type" required [(ngModel)]="Si.raidItem" name="droptype" (selectionChange)="raiditemchange()">
         <mat-option *ngFor="let _drop of drops" [value]="_drop">{{ _drop }}</mat-option>
       </mat-select>
   </mat-form-field>
+
+  <mat-radio-group aria-label="Raider" required [(ngModel)]="Si.raidername" name="raider" (change)="raiderchange()">
+      <mat-radio-button *ngFor="let _raider of raiders" [value]="_raider.raidername">
+          <mat-list>
+              <mat-list-item>
+              <div class="toLeft">
+                <img matListAvatar
+                src='{{ _raider.raider.raiderimg }}' 
+                alt='{{ _raider.raider.raidername }}'>
+              </div>&nbsp;&nbsp;&nbsp;
+              <p mat-Line>{{ _raider.raider.raidername }}</p>               
+            </mat-list-item>
+          </mat-list>
+      </mat-radio-button>
+  </mat-radio-group>
+
   <mat-checkbox (change)="toggleChange($event)" checked='true'>Add another</mat-checkbox>
   <button mat-raised-button type="submit" color="primary" [disabled]="!addForm.form.valid">Submit</button>
 </div>  
