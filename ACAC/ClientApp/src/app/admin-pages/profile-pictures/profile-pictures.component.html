@@ -20,14 +20,37 @@
                     <mat-list-item>
                         <img matListAvatar src='{{ raiders.raiderbanner }}'>
                     </mat-list-item>
-                </mat-list>
+            </mat-list>
             <mat-form-field>
                     <input matInput placeholder="Page Banner"  [(ngModel)]="raiders.raiderbanner" name="pagebanner__{{raiders.raidername}}" 
                     value="{{ raiders.raiderbanner }}">
             </mat-form-field>
         </mat-expansion-panel>
     </mat-accordion>
-
+<p>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Additional Settings
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Home Page
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-form-field>
+                        <input matInput placeholder="Homepage Image" [(ngModel)]="additionalsettings" name="homepageImage" value="{{ additionalsettings }}">
+                    </mat-form-field>              
+                </mat-expansion-panel>
+            </mat-accordion>
+        </mat-expansion-panel>
+    </mat-accordion>
+</p>
     <p class="toRight">
         <button mat-raised-button color="primary" type="submit">Save</button>
     </p>

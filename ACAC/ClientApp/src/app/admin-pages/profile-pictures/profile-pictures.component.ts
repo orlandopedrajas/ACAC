@@ -9,6 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ProfilePicturesComponent {
 
   raiderprofiles: any[];
+  additionalsettings: any;
 
   constructor(private http: HttpClient) {
     http.get<any[]>('./api/ACAC/GetAllProfiles').subscribe(result => {

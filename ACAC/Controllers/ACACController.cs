@@ -43,7 +43,7 @@ namespace ACAC.Controllers
 
         #endregion
 
-        #region "Get Raid Items"
+        #region "GET"
 
         [HttpGet("[action]")]
         public IEnumerable<Archivedraiditem> GetArchivedRaidItems()
@@ -56,6 +56,32 @@ namespace ACAC.Controllers
             else
             {
                 return Enumerable.Empty<Archivedraiditem>();
+            }
+        }
+        [HttpGet("[action]")]
+        public IEnumerable<Settings> GetAllSettings()
+        {
+            Databasehandler Dbh = new Databasehandler();
+            if (Dbh.TableExists("Settings"))
+            {
+                return Dbh.GetAllSettings();
+            }
+            else
+            {
+                return Enumerable.Empty<Settings>();
+            }
+        }
+        [HttpGet("[action]")] 
+        public IEnumerable<Settings> GetSettings(string nameSetting)
+        {
+            Databasehandler Dbh = new Databasehandler();
+            if (Dbh.TableExists("Settings"))
+            {
+                return Dbh.GetSetting(nameSetting);
+            }
+            else
+            {
+                return Enumerable.Empty<Settings>();
             }
         }
         [HttpGet("[action]")]
@@ -250,6 +276,20 @@ namespace ACAC.Controllers
             }
             else { return Enumerable.Empty<Displayroundrobinentry>(); }
         }
+        [HttpGet("[action]")]
+        public IEnumerable<ACACUser> ValidateUser(string userName, string password)
+        {
+            Databasehandler Dbh = new Databasehandler();
+            if (Dbh.TableExists("ACACUser"))
+            {
+               return Dbh.Validateuser(userName, password);
+            }
+            else { return Enumerable.Empty<ACACUser>(); }
+        }
+        #endregion
+
+        #region "POST"
+
         [HttpPost("[action]")]
         public IActionResult RoundRobinReset([FromBody] Roundrobinreset XRoundrobinreset)
         {
@@ -275,7 +315,6 @@ namespace ACAC.Controllers
             }
             return Ok();
         }
-        #endregion
 
         [HttpPost("[action]")]
         public IActionResult addDrop([FromBody] RaidItem x)
@@ -348,7 +387,10 @@ namespace ACAC.Controllers
             }
             return Ok();
         }
+
         #endregion
+
+    #endregion
 
         #region "dB Handler"
         public class Olddb
@@ -407,6 +449,12 @@ namespace ACAC.Controllers
                                 Db.Insert(new profile { raiderimg = "https://img2.finalfantasyxiv.com/f/3f7234df431e4f6b75a65ec116494239_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1569950644", raiderbanner = "assets/img/img.png", raidername = "Val Phoenix", pageroute = "/raiders/val-phoenix" });
                                 Db.Insert(new profile { raiderimg = "https://img2.finalfantasyxiv.com/f/84263e7ebe2d0bcc2d03ee6fe83bbd69_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1569951336", raiderbanner = "assets/img/img.png", raidername = "Yumi Rin", pageroute = "/raiders/yumi-rin" });
                                 return true;
+                            case "Settings":
+                                Db.CreateTable<Settings>();
+                                Db.Insert(new ACACUser { username = "sanoken",
+                                                         password ="babeth2019",
+                                                         role ="admin" });
+                                return true;
                             default:
                                 return false;
                         }
@@ -455,6 +503,20 @@ namespace ACAC.Controllers
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
                     return Db.Query<RaidItem>("Select * From RaidItem order by Receiveddate desc, raidfloorname desc");
+                }
+            }
+            public IEnumerable<Settings> GetAllSettings()
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    return Db.Query<Settings>("Select * From Settings");
+                }
+            }
+            public IEnumerable<Settings> GetSetting(string nameSetting)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    return Db.Query<Settings>("Select * From Settings where nameSetting='" + nameSetting + "'");
                 }
             }
             public IEnumerable<RaidItem> GetRecentRaidItems()
@@ -506,7 +568,6 @@ namespace ACAC.Controllers
                     Db.Insert(XItem);
                 }
             }
-            
             public IEnumerable<RoundrobinEntry> GetRoundRobin(string XRaiditem, string XRaidfloorname)
             {
                 using (var Db = new SQLiteConnection(DbPath))
@@ -519,7 +580,6 @@ namespace ACAC.Controllers
                     
                 }
             }
-            
             public IEnumerable<RoundrobinEntry> GetRoundRobin(string XRaidfloorname)
             {
                 using (var Db = new SQLiteConnection(DbPath))
@@ -538,6 +598,17 @@ namespace ACAC.Controllers
                 {
                     Db.Execute("Delete From RoundrobinEntry where Raiditem='" + 
                                 XRaiditem + "' and Raidfloorname='" + XRaidfloorname + "'");
+                }
+            }
+            public IEnumerable<ACACUser> Validateuser(string username, string password)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    if (TableExists("ACACUser"))
+                    {
+                        return Db.Query<ACACUser>("Select * from ACACUser where username='" + username + "' and password='" + password + "'");
+                    }
+                    else { return Enumerable.Empty<ACACUser>(); }
                 }
             }
         }
@@ -570,7 +641,6 @@ namespace ACAC.Controllers
             public string raidItem { get; set; }
             public string raidername { get; set; }
         }
-
         public class Customraiditem : RaidItem
         {
             public profile Profile { get; set; }
@@ -580,6 +650,9 @@ namespace ACAC.Controllers
         {
             public string Archiveddate { get; set; }
         }
+
+       #endregion
+
         public class profile
         {
             [PrimaryKey]
@@ -594,6 +667,17 @@ namespace ACAC.Controllers
             public string raiditem { get; set; }
             public string[] raiders { get; set; }
         }
-        #endregion
+        public class Settings
+        {
+            public string nameSetting { get; set; }
+            public string valueSetting { get; set; }
+        }
+        public class ACACUser
+        {
+            public string username { get; set; }
+            public string password { get; set; }
+            public string role { get; set; }
+        }
+
     }
 }
