@@ -1,5 +1,11 @@
-import { Component  } from '@angular/core';
+import { Component, Inject  } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
+export interface DialogData {
+  username: string;
+  password: string;
+}
 
 @Component({
   selector: 'app-nav-menu',
@@ -9,7 +15,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class NavMenuComponent {
   isExpanded = false;
   show = false;
-  raiderprofiles: { raidername: string, raiderimg: string, raiderbanner: string } [];
+
+  username: string;
+  password: string;
 
   lm = 'assets/img/no-profile.png';
   hc = 'assets/img/no-profile.png';
@@ -20,7 +28,7 @@ export class NavMenuComponent {
   vp = 'assets/img/no-profile.png';
   lk = 'assets/img/no-profile.png';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public dialog: MatDialog) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
 
     http.get<{ raidername: string, raiderimg: string, raiderbanner: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result => {
@@ -67,11 +75,37 @@ export class NavMenuComponent {
 
   }
 
+  openDialog(): void {
+    // tslint:disable-next-line: no-use-before-declare
+    const dialogRef = this.dialog.open(ValidateUserComponent, {
+      width: '300px',
+      data: {username: this.username, password: this.password }
+    });
+  }
   collapse() {
     this.isExpanded = false;
   }
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+}
+
+@Component({
+  selector: 'app-validate-user',
+  templateUrl: './validate-user.component.html',
+  styleUrls: ['./validate-user.component.css']
+})
+export class ValidateUserComponent {
+  hide = true;
+  ACACAuth: any;
+
+  // tslint:disable-next-line: max-line-length
+  constructor(public dialogRef: MatDialogRef<NavMenuComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+  validate(): void {
+
   }
 }

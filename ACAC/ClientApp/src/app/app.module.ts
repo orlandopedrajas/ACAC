@@ -11,7 +11,7 @@ import { MatTableModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { NavMenuComponent, ValidateUserComponent } from './nav-menu/nav-menu.component';
 
 import { DemoMaterialModule } from './material-module';
 import { EdenSavage1Component } from './who-can-lot/eden-savage-1/eden-savage-1.component';
@@ -31,6 +31,7 @@ import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
 import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/archived-item-drop.component';
 import { ManageListsComponent } from './admin-pages/manage-lists.component';
 import { ProfilePicturesComponent } from './admin-pages/profile-pictures/profile-pictures.component';
+
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ProfilePicturesComponent } from './admin-pages/profile-pictures/profile
     AddItemDropComponent,
     ArchivedItemDropComponent,
     ManageListsComponent,
-    ProfilePicturesComponent
+    ProfilePicturesComponent,
+    ValidateUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +70,7 @@ import { ProfilePicturesComponent } from './admin-pages/profile-pictures/profile
     DemoMaterialModule
   ],
   providers: [],
+  entryComponents: [ValidateUserComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

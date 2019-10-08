@@ -277,14 +277,19 @@ namespace ACAC.Controllers
             else { return Enumerable.Empty<Displayroundrobinentry>(); }
         }
         [HttpGet("[action]")]
-        public IEnumerable<ACACUser> ValidateUser(string userName, string password)
+        public IEnumerable<ACACUser> ValidateUser(string userName, string password, bool logout)
         {
             Databasehandler Dbh = new Databasehandler();
-            if (Dbh.TableExists("ACACUser"))
+            ACACUser u = Dbh.GetLoginStatus(userName, password).Single(r => r.username == userName);
+
+            if (u != null)
             {
-               return Dbh.Validateuser(userName, password);
+
             }
-            else { return Enumerable.Empty<ACACUser>(); }
+            else
+            {
+                return Enumerable.Empty<ACACUser>();
+            }         
         }
         #endregion
 
@@ -600,15 +605,40 @@ namespace ACAC.Controllers
                                 XRaiditem + "' and Raidfloorname='" + XRaidfloorname + "'");
                 }
             }
-            public IEnumerable<ACACUser> Validateuser(string username, string password)
+            public bool Validateuser(string username, string password)
             {
                 using (var Db = new SQLiteConnection(DbPath))
                 {
+
                     if (TableExists("ACACUser"))
                     {
-                        return Db.Query<ACACUser>("Select * from ACACUser where username='" + username + "' and password='" + password + "'");
+                        if (Db.ExecuteScalar<int>("SELECT count(*) from ACACUser where username='" + username + "' and password='" + password + "'") > 0)
+                        {
+                            return true;
+                        }
+                        else { return false; }
                     }
-                    else { return Enumerable.Empty<ACACUser>(); }
+                    else { return false; }
+                }
+            }
+            public IEnumerable<ACACUser> GetLoginStatus(string username, string password)
+            {
+                if (Validateuser(username, password))
+                {
+                    using (var Db = new SQLiteConnection(DbPath))
+                    {
+                        return Db.Query<ACACUser>("Select * From ACACUser where username='" + username + "'");
+                    }
+                }
+                else
+                { return Enumerable.Empty<ACACUser>(); }
+            }
+
+            public void ToggleLoginStatus(ACACUser u)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    Db.InsertOrReplace(u);
                 }
             }
         }
@@ -674,9 +704,12 @@ namespace ACAC.Controllers
         }
         public class ACACUser
         {
+            [PrimaryKey]
             public string username { get; set; }
             public string password { get; set; }
             public string role { get; set; }
+            public bool loggedIn { get; set; }
+            public DateTime expirationDate { get; set; }
         }
 
     }
