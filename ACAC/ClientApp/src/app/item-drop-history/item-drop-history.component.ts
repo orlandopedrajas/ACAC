@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-item-drop-history',
@@ -9,14 +10,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class ItemDropHistoryComponent {
 
+  loggedIn = false;
   SavageItems: any[];
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
 
-  constructor(private http: HttpClient) {
+  constructor(private cookieService: CookieService, private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
     http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result => {
       this.SavageItems = result;
    }, error => console.error(error));
+
+    if (cookieService.get('userInfo').length > 0) {
+      this.loggedIn = true;
+    } else { this.loggedIn = false; }
+
   }
 
   OnRemoveItem(id: any) {

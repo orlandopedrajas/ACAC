@@ -114,6 +114,34 @@ namespace ACAC.Controllers
             }
         }
         [HttpGet("[action]")]
+        public IEnumerable<Customraiditem> GetRaidItemsByFloor(string XFloor)
+        {
+            Databasehandler Dbh = new Databasehandler();
+            if (Dbh.TableExists("RaidItem"))
+            {
+                List<Customraiditem> li = new List<Customraiditem>();
+                foreach (RaidItem ri in Dbh.GetRaidItemsByFloor(XFloor))
+                {
+
+                    li.Add(new Customraiditem
+                    {
+                        id = ri.id,
+                        Profile = Dbh.GetRaiderProfile(ri.raidername).Single(r => r.raidername == ri.raidername),
+                        raidername = ri.raidername,
+                        RaidfloorImage = GetFloorImage(ri.Raidfloorname),
+                        Raidfloorname = ri.Raidfloorname,
+                        raidItem = ri.raidItem,
+                        Receiveddate = ri.Receiveddate
+                    });
+                }
+                return li;
+            }
+            else
+            {
+                return Enumerable.Empty<Customraiditem>();
+            }
+        }
+        [HttpGet("[action]")]
         public IEnumerable<Customraiditem> GetRaidItems(string XRaider)
         {
             Databasehandler Dbh = new Databasehandler();
@@ -277,20 +305,22 @@ namespace ACAC.Controllers
             else { return Enumerable.Empty<Displayroundrobinentry>(); }
         }
         [HttpGet("[action]")]
-        public IEnumerable<ACACUser> ValidateUser(string userName, string password, bool logout)
+        public ACACUser ValidateUser(string userName, string password, bool logout)
         {
             Databasehandler Dbh = new Databasehandler();
             ACACUser u = Dbh.GetLoginStatus(userName, password).Single(r => r.username == userName);
 
             if (u != null)
             {
-
+                u.loggedIn = !logout;
+                return u;
             }
             else
             {
-                return Enumerable.Empty<ACACUser>();
-            }         
+                return null;
+            }
         }
+
         #endregion
 
         #region "POST"
@@ -454,8 +484,8 @@ namespace ACAC.Controllers
                                 Db.Insert(new profile { raiderimg = "https://img2.finalfantasyxiv.com/f/3f7234df431e4f6b75a65ec116494239_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1569950644", raiderbanner = "assets/img/img.png", raidername = "Val Phoenix", pageroute = "/raiders/val-phoenix" });
                                 Db.Insert(new profile { raiderimg = "https://img2.finalfantasyxiv.com/f/84263e7ebe2d0bcc2d03ee6fe83bbd69_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1569951336", raiderbanner = "assets/img/img.png", raidername = "Yumi Rin", pageroute = "/raiders/yumi-rin" });
                                 return true;
-                            case "Settings":
-                                Db.CreateTable<Settings>();
+                            case "ACACUser":
+                                Db.CreateTable<ACACUser>();
                                 Db.Insert(new ACACUser { username = "sanoken",
                                                          password ="babeth2019",
                                                          role ="admin" });
@@ -486,6 +516,14 @@ namespace ACAC.Controllers
                 {
                     RaidItem a = new RaidItem();
                     return Db.Query<RaidItem>("Select * From RaidItem where raidername='" + XRaider + "' order by Receiveddate desc, raidfloorname desc");
+                }
+            }
+            public IEnumerable<RaidItem> GetRaidItemsByFloor(string XFloor)
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    RaidItem a = new RaidItem();
+                    return Db.Query<RaidItem>("Select * From RaidItem where Raidfloorname='" + XFloor + "' order by Receiveddate desc");
                 }
             }
             public void InsertUpdateProfile(profile _p)

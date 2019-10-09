@@ -31,6 +31,7 @@ import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
 import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/archived-item-drop.component';
 import { ManageListsComponent } from './admin-pages/manage-lists.component';
 import { ProfilePicturesComponent } from './admin-pages/profile-pictures/profile-pictures.component';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -69,7 +70,7 @@ import { ProfilePicturesComponent } from './admin-pages/profile-pictures/profile
     MatNativeDateModule,
     DemoMaterialModule
   ],
-  providers: [],
+  providers: [ CookieService ],
   entryComponents: [ValidateUserComponent],
   bootstrap: [AppComponent]
 })

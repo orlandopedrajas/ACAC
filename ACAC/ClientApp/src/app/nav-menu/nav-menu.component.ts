@@ -1,6 +1,7 @@
-import { Component, Inject  } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, Inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { CookieService } from 'ngx-cookie-service';
 
 export interface DialogData {
   username: string;
@@ -13,8 +14,10 @@ export interface DialogData {
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
+  loggedIn = false;
   isExpanded = false;
   show = false;
+  raiderprofiles: any[];
 
   username: string;
   password: string;
@@ -28,7 +31,7 @@ export class NavMenuComponent {
   vp = 'assets/img/no-profile.png';
   lk = 'assets/img/no-profile.png';
 
-  constructor(private http: HttpClient, public dialog: MatDialog) {
+  constructor(private cookieService: CookieService, private http: HttpClient, public dialog: MatDialog) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
 
     http.get<{ raidername: string, raiderimg: string, raiderbanner: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result => {
@@ -73,14 +76,22 @@ export class NavMenuComponent {
      }
    }, error => console.error(error));
 
+    if (cookieService.get('userInfo').length > 0) {
+      this.loggedIn = true;
+    } else { this.loggedIn = false; }
+
   }
 
   openDialog(): void {
-    // tslint:disable-next-line: no-use-before-declare
+     // tslint:disable-next-line: no-use-before-declare
     const dialogRef = this.dialog.open(ValidateUserComponent, {
       width: '300px',
       data: {username: this.username, password: this.password }
     });
+  }
+  Onlogout(): void {
+     this.cookieService.delete('userInfo');
+     window.location.reload();
   }
   collapse() {
     this.isExpanded = false;
@@ -98,14 +109,26 @@ export class NavMenuComponent {
 })
 export class ValidateUserComponent {
   hide = true;
-  ACACAuth: any;
+  userInfo: any = this.cookieService.get('userInfo');
 
   // tslint:disable-next-line: max-line-length
-  constructor(public dialogRef: MatDialogRef<NavMenuComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  constructor(private cookieService: CookieService, private http: HttpClient,
+              public dialogRef: MatDialogRef<NavMenuComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
-  validate(): void {
 
+  validate(): void {
+    const baseUrl = document.getElementsByTagName('base')[0].href;
+    // tslint:disable-next-line: max-line-length
+    this.http.get<any>(baseUrl + 'api/ACAC/ValidateUser?userName=' +
+    this.data.username + '&password=' + this.data.password + '&logout=false').subscribe(result => {
+      if (result) {
+        this.cookieService.set('userInfo', result);
+        this.userInfo = this.cookieService.get('userInfo');
+      }
+    }, error => console.error(error));
+    window.location.reload();
   }
 }
