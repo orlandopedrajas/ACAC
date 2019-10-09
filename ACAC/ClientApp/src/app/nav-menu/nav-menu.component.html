@@ -73,17 +73,28 @@
 </mat-menu>
 
 <mat-menu #adminpages="matMenu">
-    <button mat-menu-item [routerLink]='["/add-item-drop"]'>
-      <mat-icon aria-hidden="false" aria-label="Item Drop History">add</mat-icon>  Add Drop
-    </button>
     <button mat-menu-item [routerLink]='["/admin-pages/archived-item-drop/archived-item-drop"]'>
       <mat-icon aria-hidden="false">archive</mat-icon> Removed Items
-    </button>
-    <button mat-menu-item [routerLink]='["/admin-pages/manage-lists"]'>
-      <mat-icon aria-hidden="false">view_list</mat-icon> Manage Lists
     </button>
     <button mat-menu-item [routerLink]='["/admin-pages/profile-pictures/profile-pictures"]'>
       <mat-icon aria-hidden="false">portrait</mat-icon> Profile Pictures
     </button>
+    <div *ngIf="loggedIn; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock>
+      <button mat-menu-item [routerLink]='["/add-item-drop"]'>
+        <mat-icon aria-hidden="false" aria-label="Item Drop History">add</mat-icon>  Add Drop
+      </button>      
+      <button mat-menu-item [routerLink]='["/admin-pages/manage-lists"]'>
+        <mat-icon aria-hidden="false">view_list</mat-icon> Manage Lists
+      </button>
+      <button mat-menu-item (click)="Onlogout()">
+        <mat-icon aria-hidden="false">vpn_key</mat-icon>Logout
+      </button>
+    </ng-template>
+    <ng-template #elseBlock>
+      <button mat-menu-item (click)="openDialog()">
+        <mat-icon aria-hidden="false">vpn_key</mat-icon>Login
+      </button>
+    </ng-template>
   </mat-menu>
 

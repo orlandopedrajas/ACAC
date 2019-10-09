@@ -66,7 +66,17 @@ export class AddItemDropComponent {
         break;
       }
       case 'Eden Savage Floor 4': {
-        this.drops = ['Chest Coffer', 'Weapon Coffer'];
+        this.drops = ['Chest Coffer', 'Weapon Coffer',
+                      'Skyslipper Key', 'Book of Grace',
+                      'Edengrace Tathlums', 'Edengrace Spear',
+                      'Edengrace Shield', 'Edenrace Rod',
+                      'Edengrace Revolver', 'Edengrace Rapier',
+                      'Edengrace Manatrigger', 'Edengrace Planisphere',
+                      'Edengrace Knuckles', 'Edengrace Knives',
+                      'Edengrace Harp Bow', 'Edengrace Greatsword',
+                      'Edengrace Cane', 'Edengrace Blade',
+                      'Edengrace Battleaxe', 'Edengrace Bastard Sword',
+                      'Word of Grace'];
         break;
       }
     }
@@ -75,10 +85,12 @@ export class AddItemDropComponent {
   raiditemchange() {
     const baseUrl = document.getElementsByTagName('base')[0].href;
     this.http.get<any[]>(baseUrl + 'api/ACAC/GetRoundRobinList?XRaidfloorname=' + this.Si.Raidfloorname).subscribe(result => {
-      console.log(result);
-      this.raiders = result.filter(r => r.raiditem === this.Si.raidItem);
-      console.log(this.raiders);
 
+      if (result.filter(r => r.raiditem === this.Si.raidItem).length === 0) {
+        this.raiders = result.filter(r => r.raiditem === 'Other Items');
+      } else {
+        this.raiders = result.filter(r => r.raiditem === this.Si.raidItem);
+      }
      }, error => console.error(error));
   }
 
