@@ -52,61 +52,114 @@
     </div>
   </div>
 
-  <h1 class='bannertext'>Eden Savage Floor 4 Drops History</h1>
+  <br><br>
+  <mat-accordion>
+      <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Chest Coffer: Drops History
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-table [dataSource]='history1'>
+              <!--- Note that these columns can be defined in any order.
+                   The actual rendered columns are set as a property on the row definition" -->
+           
+             <!-- Position Column -->
+             <ng-container matColumnDef="dateReceived" >
+                <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
+              </ng-container>
+            
+              <!-- Name Column -->
+              <ng-container matColumnDef="floor">
+                <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
+                <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
+              </ng-container>
+            
+              <!-- Weight Column -->
+              <ng-container matColumnDef="raider">
+                <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <mat-list>
+                      <mat-list-item >
+                        <div class="toLeft">
+                          <img matListAvatar
+                          src='{{ element.profile.raiderimg }}' 
+                          alt='{{ element.profile.raidername }}'>
+                        </div>               
+                      </mat-list-item>
+                    </mat-list>
+                </mat-cell>
+              </ng-container>
+            
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="droptype">
+                <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.raidItem}} </mat-cell>
+              </ng-container>
+          
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element"></mat-cell>
+              </ng-container>
+            
+              <mat-header-row  *matHeaderRowDef="displayedColumns1"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns1;"></mat-row>
+          </mat-table>          
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Weapon Coffer: Drop History
+            </mat-panel-title>
+          </mat-expansion-panel-header>   
+          <mat-table [dataSource]='history2'>
+              <!--- Note that these columns can be defined in any order.
+                   The actual rendered columns are set as a property on the row definition" -->
+           
+             <!-- Position Column -->
+             <ng-container matColumnDef="dateReceived" >
+                <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
+              </ng-container>
+            
+              <!-- Name Column -->
+              <ng-container matColumnDef="floor">
+                <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
+                <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
+              </ng-container>
+            
+              <!-- Weight Column -->
+              <ng-container matColumnDef="raider">
+                <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <mat-list>
+                      <mat-list-item >
+                        <div class="toLeft">
+                          <img matListAvatar
+                          src='{{ element.profile.raiderimg }}' 
+                          alt='{{ element.profile.raidername }}'>
+                        </div>               
+                      </mat-list-item>
+                    </mat-list>
+                </mat-cell>
+              </ng-container>
+            
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="droptype">
+                <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.raidItem}} </mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element"></mat-cell>
+              </ng-container>
 
-<mat-table [dataSource]='SavageItems'>
-    <!--- Note that these columns can be defined in any order.
-         The actual rendered columns are set as a property on the row definition" -->
- 
-   <!-- Position Column -->
-   <ng-container matColumnDef="dateReceived" >
-      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
-    </ng-container>
-  
-    <!-- Name Column -->
-    <ng-container matColumnDef="floor">
-      <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-      <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
-    </ng-container>
-  
-    <!-- Weight Column -->
-    <ng-container matColumnDef="raider">
-      <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <mat-list>
-            <mat-list-item >
-              <div class="toLeft">
-                <img matListAvatar
-                src='{{ element.profile.raiderimg }}' 
-                alt='{{ element.profile.raidername }}'>
-              </div>               
-            </mat-list-item>
-          </mat-list>
-      </mat-cell>
-    </ng-container>
-  
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="droptype">
-      <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.raidItem}} </mat-cell>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <div *ngIf="loggedIn; then thenBlock else elseBlock"></div>
-    <ng-template #thenBlock>
-        <ng-container matColumnDef="id">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element"><mat-icon (click)='OnRemoveItem(element.id)'>remove_circle_outline</mat-icon></mat-cell>
-        </ng-container>
-    </ng-template>
-    <ng-template #elseBlock>
-        <ng-container matColumnDef="id">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element"></mat-cell>
-        </ng-container>
-    </ng-template>
-  
-    <mat-header-row  *matHeaderRowDef="displayedColumns1"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns1;"></mat-row>
- </mat-table>
+              <mat-header-row  *matHeaderRowDef="displayedColumns1"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns1;"></mat-row>
+          </mat-table>             
+      </mat-expansion-panel>
+  </mat-accordion>
+<br><br>

@@ -209,7 +209,7 @@ namespace ACAC.Controllers
                                 raidername = p.raidername,
                                 Raidfloorname = XRaidfloorname,
                                 Raiditem = "Accessory Coffer"
-                            });
+                            });                            
                         }
                         foreach (RoundrobinEntry re in rres)
                         {
@@ -234,6 +234,13 @@ namespace ACAC.Controllers
                                 raidername = p.raidername,
                                 Raidfloorname = XRaidfloorname,
                                 Raiditem = "Deepshadow Coating"
+                            });
+                            li.Add(new Displayroundrobinentry
+                            {
+                                raider = p,
+                                raidername = p.raidername,
+                                Raidfloorname = XRaidfloorname,
+                                Raiditem = "Other Items"
                             });
                         }
                         foreach (RoundrobinEntry re in rres)
@@ -291,11 +298,21 @@ namespace ACAC.Controllers
                                 Raidfloorname = XRaidfloorname,
                                 Raiditem = "Weapon Coffer"
                             });
+                            li.Add(new Displayroundrobinentry
+                            {
+                                raider = p,
+                                raidername = p.raidername,
+                                Raidfloorname = XRaidfloorname,
+                                Raiditem = "Other Items"
+                            });
                         }
                         foreach (RoundrobinEntry re in rres)
                         {
-                            var itemToRemove = li.Single(r => r.raidername == re.raidername && r.Raiditem == re.Raiditem);
-                            li.Remove(itemToRemove);
+                            try {
+                                var itemToRemove = li.Single(r => r.raidername == re.raidername && r.Raiditem == re.Raiditem);
+                                li.Remove(itemToRemove);
+                            }
+                            catch {}
                         }
                         return li;
                     default:
@@ -523,7 +540,7 @@ namespace ACAC.Controllers
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
                     RaidItem a = new RaidItem();
-                    return Db.Query<RaidItem>("Select * From RaidItem where Raidfloorname='" + XFloor + "' order by Receiveddate desc");
+                    return Db.Query<RaidItem>("Select * From RaidItem where Raidfloorname='" + XFloor + "' order by raidername desc");
                 }
             }
             public void InsertUpdateProfile(profile _p)
