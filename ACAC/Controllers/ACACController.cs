@@ -114,6 +114,34 @@ namespace ACAC.Controllers
             }
         }
         [HttpGet("[action]")]
+        public IEnumerable<Customraiditem> GetRaidItemsByFloor(string XFloor)
+        {
+            Databasehandler Dbh = new Databasehandler();
+            if (Dbh.TableExists("RaidItem"))
+            {
+                List<Customraiditem> li = new List<Customraiditem>();
+                foreach (RaidItem ri in Dbh.GetRaidItemsByFloor(XFloor))
+                {
+
+                    li.Add(new Customraiditem
+                    {
+                        id = ri.id,
+                        Profile = Dbh.GetRaiderProfile(ri.raidername).Single(r => r.raidername == ri.raidername),
+                        raidername = ri.raidername,
+                        RaidfloorImage = GetFloorImage(ri.Raidfloorname),
+                        Raidfloorname = ri.Raidfloorname,
+                        raidItem = ri.raidItem,
+                        Receiveddate = ri.Receiveddate
+                    });
+                }
+                return li;
+            }
+            else
+            {
+                return Enumerable.Empty<Customraiditem>();
+            }
+        }
+        [HttpGet("[action]")]
         public IEnumerable<Customraiditem> GetRaidItems(string XRaider)
         {
             Databasehandler Dbh = new Databasehandler();
@@ -181,7 +209,7 @@ namespace ACAC.Controllers
                                 raidername = p.raidername,
                                 Raidfloorname = XRaidfloorname,
                                 Raiditem = "Accessory Coffer"
-                            });
+                            });                            
                         }
                         foreach (RoundrobinEntry re in rres)
                         {
@@ -207,11 +235,21 @@ namespace ACAC.Controllers
                                 Raidfloorname = XRaidfloorname,
                                 Raiditem = "Deepshadow Coating"
                             });
+                            li.Add(new Displayroundrobinentry
+                            {
+                                raider = p,
+                                raidername = p.raidername,
+                                Raidfloorname = XRaidfloorname,
+                                Raiditem = "Other Items"
+                            });
                         }
                         foreach (RoundrobinEntry re in rres)
                         {
-                            var itemToRemove = li.Single(r => r.raidername == re.raidername && r.Raiditem == re.Raiditem);
-                            li.Remove(itemToRemove);
+                            try {
+                                var itemToRemove = li.Single(r => r.raidername == re.raidername && r.Raiditem == re.Raiditem);
+                                li.Remove(itemToRemove);
+                            }
+                            catch {}
                         }
                         return li;
                     case "Eden Savage Floor 3":
@@ -263,11 +301,21 @@ namespace ACAC.Controllers
                                 Raidfloorname = XRaidfloorname,
                                 Raiditem = "Weapon Coffer"
                             });
+                            li.Add(new Displayroundrobinentry
+                            {
+                                raider = p,
+                                raidername = p.raidername,
+                                Raidfloorname = XRaidfloorname,
+                                Raiditem = "Other Items"
+                            });
                         }
                         foreach (RoundrobinEntry re in rres)
                         {
-                            var itemToRemove = li.Single(r => r.raidername == re.raidername && r.Raiditem == re.Raiditem);
-                            li.Remove(itemToRemove);
+                            try {
+                                var itemToRemove = li.Single(r => r.raidername == re.raidername && r.Raiditem == re.Raiditem);
+                                li.Remove(itemToRemove);
+                            }
+                            catch {}
                         }
                         return li;
                     default:
@@ -277,14 +325,23 @@ namespace ACAC.Controllers
             else { return Enumerable.Empty<Displayroundrobinentry>(); }
         }
         [HttpGet("[action]")]
-        public IEnumerable<ACACUser> ValidateUser(string userName, string password)
+        public genericResponse startLogin(string userName, string password)
         {
             Databasehandler Dbh = new Databasehandler();
-            if (Dbh.TableExists("ACACUser"))
+            genericResponse g = new genericResponse();
+            g.gString = Guid.NewGuid().ToString();
+            if (Dbh.Validateuser(userName,password, g.gString))
             {
-               return Dbh.Validateuser(userName, password);
+                return g;
+            } else {
+                return new genericResponse();
             }
-            else { return Enumerable.Empty<ACACUser>(); }
+        }
+        [HttpGet("[action]")]
+        public bool validate(string g)
+        {
+            Databasehandler Dbh = new Databasehandler();
+            return Dbh.validate(g);
         }
         #endregion
 
@@ -449,8 +506,8 @@ namespace ACAC.Controllers
                                 Db.Insert(new profile { raiderimg = "https://img2.finalfantasyxiv.com/f/3f7234df431e4f6b75a65ec116494239_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1569950644", raiderbanner = "assets/img/img.png", raidername = "Val Phoenix", pageroute = "/raiders/val-phoenix" });
                                 Db.Insert(new profile { raiderimg = "https://img2.finalfantasyxiv.com/f/84263e7ebe2d0bcc2d03ee6fe83bbd69_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1569951336", raiderbanner = "assets/img/img.png", raidername = "Yumi Rin", pageroute = "/raiders/yumi-rin" });
                                 return true;
-                            case "Settings":
-                                Db.CreateTable<Settings>();
+                            case "ACACUser":
+                                Db.CreateTable<ACACUser>();
                                 Db.Insert(new ACACUser { username = "sanoken",
                                                          password ="babeth2019",
                                                          role ="admin" });
@@ -481,6 +538,14 @@ namespace ACAC.Controllers
                 {
                     RaidItem a = new RaidItem();
                     return Db.Query<RaidItem>("Select * From RaidItem where raidername='" + XRaider + "' order by Receiveddate desc, raidfloorname desc");
+                }
+            }
+            public IEnumerable<RaidItem> GetRaidItemsByFloor(string XFloor)
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    RaidItem a = new RaidItem();
+                    return Db.Query<RaidItem>("Select * From RaidItem where Raidfloorname='" + XFloor + "' order by raidername desc");
                 }
             }
             public void InsertUpdateProfile(profile _p)
@@ -600,15 +665,52 @@ namespace ACAC.Controllers
                                 XRaiditem + "' and Raidfloorname='" + XRaidfloorname + "'");
                 }
             }
-            public IEnumerable<ACACUser> Validateuser(string username, string password)
+            public bool validate(string g)
             {
                 using (var Db = new SQLiteConnection(DbPath))
                 {
+
                     if (TableExists("ACACUser"))
                     {
-                        return Db.Query<ACACUser>("Select * from ACACUser where username='" + username + "' and password='" + password + "'");
+                        if (Db.ExecuteScalar<int>("SELECT count(*) from ACACUser where _guid='" + g + "'") > 0)
+                        {
+                            return true;
+                        }
+                        else { return false; }
                     }
-                    else { return Enumerable.Empty<ACACUser>(); }
+                    else { return false; }
+                }
+            }
+            public bool Validateuser(string username, string password, string g)
+            {
+                ACACUser u = new ACACUser
+                {
+                    username = username,
+                    password = password,
+                    _guid = g
+                };
+
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+
+                    if (TableExists("ACACUser"))
+                    {
+                        if (Db.ExecuteScalar<int>("SELECT count(*) from ACACUser where username='" + u.username + "' and password='" + u.password + "'") > 0)
+                        {
+                            try
+                            {
+                                Db.InsertOrReplace(u);
+                            }
+                            catch
+                            {
+                                Db.CreateTable<ACACUser>();
+                                Db.InsertOrReplace(u);
+                            }
+                            return true;
+                        }
+                        else { return false; }
+                    }
+                    else { return false; }
                 }
             }
         }
@@ -652,7 +754,10 @@ namespace ACAC.Controllers
         }
 
        #endregion
-
+        public class genericResponse
+        {
+            public string gString { get; set; }
+        }
         public class profile
         {
             [PrimaryKey]
@@ -674,10 +779,13 @@ namespace ACAC.Controllers
         }
         public class ACACUser
         {
+            [PrimaryKey]
             public string username { get; set; }
             public string password { get; set; }
             public string role { get; set; }
+            public bool loggedIn { get; set; }
+            public DateTime expirationDate { get; set; }
+            public string _guid { get; set; }
         }
-
     }
 }
