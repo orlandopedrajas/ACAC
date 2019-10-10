@@ -10,20 +10,25 @@ import { CookieService } from 'ngx-cookie-service';
 
 export class ItemDropHistoryComponent {
 
-  loggedIn = false;
+  loggedin;
   SavageItems: any[];
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
 
   constructor(private cookieService: CookieService, private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
-    http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result => {
-      this.SavageItems = result;
-   }, error => console.error(error));
+    this.http.get<any>(baseUrl + 'api/ACAC/validate?g=' + cookieService.get('loggedin')).subscribe(result => {
+      if (result) {
+        this.loggedin = true;
+      } else {
+        this.cookieService.delete('loggedin');
+        this.loggedin = false;
+      }
 
-    if (cookieService.get('userInfo').length > 0) {
-      this.loggedIn = true;
-    } else { this.loggedIn = false; }
+      http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result1 => {
+        this.SavageItems = result1;
+      }, error => console.error(error));
 
+    }, error => console.error(error));
   }
 
   OnRemoveItem(id: any) {

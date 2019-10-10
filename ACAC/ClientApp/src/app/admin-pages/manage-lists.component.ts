@@ -18,7 +18,6 @@ export class ManageListsComponent {
   raiderprofiles: any[];
   roundrobinlist = new Roundrobinreset();
 
-
   constructor(private http: HttpClient) {
     http.get<any[]>('./api/ACAC/GetAllProfiles').subscribe(result => {
      if (result) {

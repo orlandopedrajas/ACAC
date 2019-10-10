@@ -245,8 +245,11 @@ namespace ACAC.Controllers
                         }
                         foreach (RoundrobinEntry re in rres)
                         {
-                            var itemToRemove = li.Single(r => r.raidername == re.raidername && r.Raiditem == re.Raiditem);
-                            li.Remove(itemToRemove);
+                            try {
+                                var itemToRemove = li.Single(r => r.raidername == re.raidername && r.Raiditem == re.Raiditem);
+                                li.Remove(itemToRemove);
+                            }
+                            catch {}
                         }
                         return li;
                     case "Eden Savage Floor 3":
@@ -322,22 +325,24 @@ namespace ACAC.Controllers
             else { return Enumerable.Empty<Displayroundrobinentry>(); }
         }
         [HttpGet("[action]")]
-        public ACACUser ValidateUser(string userName, string password, bool logout)
+        public genericResponse startLogin(string userName, string password)
         {
             Databasehandler Dbh = new Databasehandler();
-            ACACUser u = Dbh.GetLoginStatus(userName, password).Single(r => r.username == userName);
-
-            if (u != null)
+            genericResponse g = new genericResponse();
+            g.gString = Guid.NewGuid().ToString();
+            if (Dbh.Validateuser(userName,password, g.gString))
             {
-                u.loggedIn = !logout;
-                return u;
-            }
-            else
-            {
-                return null;
+                return g;
+            } else {
+                return new genericResponse();
             }
         }
-
+        [HttpGet("[action]")]
+        public bool validate(string g)
+        {
+            Databasehandler Dbh = new Databasehandler();
+            return Dbh.validate(g);
+        }
         #endregion
 
         #region "POST"
@@ -660,14 +665,14 @@ namespace ACAC.Controllers
                                 XRaiditem + "' and Raidfloorname='" + XRaidfloorname + "'");
                 }
             }
-            public bool Validateuser(string username, string password)
+            public bool validate(string g)
             {
                 using (var Db = new SQLiteConnection(DbPath))
                 {
 
                     if (TableExists("ACACUser"))
                     {
-                        if (Db.ExecuteScalar<int>("SELECT count(*) from ACACUser where username='" + username + "' and password='" + password + "'") > 0)
+                        if (Db.ExecuteScalar<int>("SELECT count(*) from ACACUser where _guid='" + g + "'") > 0)
                         {
                             return true;
                         }
@@ -676,24 +681,36 @@ namespace ACAC.Controllers
                     else { return false; }
                 }
             }
-            public IEnumerable<ACACUser> GetLoginStatus(string username, string password)
+            public bool Validateuser(string username, string password, string g)
             {
-                if (Validateuser(username, password))
+                ACACUser u = new ACACUser
                 {
-                    using (var Db = new SQLiteConnection(DbPath))
-                    {
-                        return Db.Query<ACACUser>("Select * From ACACUser where username='" + username + "'");
-                    }
-                }
-                else
-                { return Enumerable.Empty<ACACUser>(); }
-            }
+                    username = username,
+                    password = password,
+                    _guid = g
+                };
 
-            public void ToggleLoginStatus(ACACUser u)
-            {
                 using (var Db = new SQLiteConnection(DbPath))
                 {
-                    Db.InsertOrReplace(u);
+
+                    if (TableExists("ACACUser"))
+                    {
+                        if (Db.ExecuteScalar<int>("SELECT count(*) from ACACUser where username='" + u.username + "' and password='" + u.password + "'") > 0)
+                        {
+                            try
+                            {
+                                Db.InsertOrReplace(u);
+                            }
+                            catch
+                            {
+                                Db.CreateTable<ACACUser>();
+                                Db.InsertOrReplace(u);
+                            }
+                            return true;
+                        }
+                        else { return false; }
+                    }
+                    else { return false; }
                 }
             }
         }
@@ -737,7 +754,10 @@ namespace ACAC.Controllers
         }
 
        #endregion
-
+        public class genericResponse
+        {
+            public string gString { get; set; }
+        }
         public class profile
         {
             [PrimaryKey]
@@ -765,7 +785,7 @@ namespace ACAC.Controllers
             public string role { get; set; }
             public bool loggedIn { get; set; }
             public DateTime expirationDate { get; set; }
+            public string _guid { get; set; }
         }
-
     }
 }
