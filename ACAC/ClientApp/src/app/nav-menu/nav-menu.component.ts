@@ -14,7 +14,7 @@ export interface DialogData {
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-  loggedIn = false;
+  loggedIn: any;
   isExpanded = false;
   show = false;
   raiderprofiles: any[];
@@ -33,54 +33,54 @@ export class NavMenuComponent {
 
   constructor(private cookieService: CookieService, private http: HttpClient, public dialog: MatDialog) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
-
-    http.get<{ raidername: string, raiderimg: string, raiderbanner: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result => {
-     if (result) {
-        this.raiderprofiles = result;
-        this.raiderprofiles.forEach((value) => {
-            switch (value.raidername) {
-              case 'Aerilyn Elessedil': {
-                this.ae = value.raiderimg;
-                break;
+    this.loggedIn = cookieService.get('loggedin');
+    this.http.get<any>(baseUrl + 'api/ACAC/validate?g=' + this.loggedIn).subscribe(result => {
+      if (!result) {
+        this.cookieService.delete('loggedin');
+      }
+      http.get<{ raidername: string, raiderimg: string, raiderbanner: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result => {
+        if (result) {
+           this.raiderprofiles = result;
+           this.raiderprofiles.forEach((value) => {
+               switch (value.raidername) {
+                 case 'Aerilyn Elessedil': {
+                   this.ae = value.raiderimg;
+                   break;
+                  }
+                  case 'Hades Carmine': {
+                   this.hc = value.raiderimg;
+                   break;
+                  }
+                  case 'La Ki': {
+                   this.lk = value.raiderimg;
+                   break;
+                  }
+                  case 'Lan Mantear': {
+                   this.lm = value.raiderimg;
+                   break;
+                  }
+                  case 'Shelly Duncan': {
+                   this.sd = value.raiderimg;
+                   break;
+                  }
+                  case 'Thomas Silverstar': {
+                   this.ts = value.raiderimg;
+                   break;
+                  }
+                  case 'Val Phoenix': {
+                   this.vp = value.raiderimg;
+                   break;
+                  }
+                 case 'Yumi Rin': {
+                  this.yr = value.raiderimg;
+                  break;
+                 }
                }
-               case 'Hades Carmine': {
-                this.hc = value.raiderimg;
-                break;
-               }
-               case 'La Ki': {
-                this.lk = value.raiderimg;
-                break;
-               }
-               case 'Lan Mantear': {
-                this.lm = value.raiderimg;
-                break;
-               }
-               case 'Shelly Duncan': {
-                this.sd = value.raiderimg;
-                break;
-               }
-               case 'Thomas Silverstar': {
-                this.ts = value.raiderimg;
-                break;
-               }
-               case 'Val Phoenix': {
-                this.vp = value.raiderimg;
-                break;
-               }
-              case 'Yumi Rin': {
-               this.yr = value.raiderimg;
-               break;
-              }
-            }
-        });
-     }
-   }, error => console.error(error));
-
-    if (cookieService.get('userInfo').length > 0) {
-      this.loggedIn = true;
-    } else { this.loggedIn = false; }
-
-  }
+           });
+        }
+       }, error => console.error(error));
+  }, error => console.error(error));
+}
 
   openDialog(): void {
      // tslint:disable-next-line: no-use-before-declare
@@ -90,7 +90,7 @@ export class NavMenuComponent {
     });
   }
   Onlogout(): void {
-     this.cookieService.delete('userInfo');
+     this.cookieService.delete('loggedin');
      window.location.reload();
   }
   collapse() {
@@ -109,8 +109,6 @@ export class NavMenuComponent {
 })
 export class ValidateUserComponent {
   hide = true;
-  userInfo: any = this.cookieService.get('userInfo');
-
   // tslint:disable-next-line: max-line-length
   constructor(private cookieService: CookieService, private http: HttpClient,
               public dialogRef: MatDialogRef<NavMenuComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
@@ -121,13 +119,11 @@ export class ValidateUserComponent {
 
   validate(): void {
     const baseUrl = document.getElementsByTagName('base')[0].href;
+
     // tslint:disable-next-line: max-line-length
-    this.http.get<any>(baseUrl + 'api/ACAC/ValidateUser?userName=' +
-    this.data.username + '&password=' + this.data.password + '&logout=false').subscribe(result => {
-      if (result) {
-        this.cookieService.set('userInfo', result);
-        this.userInfo = this.cookieService.get('userInfo');
-      }
+    this.http.get<any>(baseUrl + 'api/ACAC/startLogin?userName=' +
+    this.data.username + '&password=' + this.data.password).subscribe(result => {
+        this.cookieService.set('loggedin', result.gString);
     }, error => console.error(error));
     window.location.reload();
   }

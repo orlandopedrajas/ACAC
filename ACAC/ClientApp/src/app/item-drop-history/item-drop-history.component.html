@@ -40,13 +40,14 @@
     </ng-container>
 
     <!-- Symbol Column -->
-    <div *ngIf="loggedIn; then thenBlock else elseBlock"></div>
-    <ng-template #thenBlock>
-        <ng-container matColumnDef="id">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element"><mat-icon (click)='OnRemoveItem(element.id)'>remove_circle_outline</mat-icon></mat-cell>
-        </ng-container>
-    </ng-template>
+    <div *ngIf="loggedin; else elseBlock">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <mat-icon (click)='OnRemoveItem(element.id)'>remove_circle_outline</mat-icon>
+        </mat-cell>
+      </ng-container>
+    </div>
     <ng-template #elseBlock>
         <ng-container matColumnDef="id">
           <mat-header-cell *matHeaderCellDef></mat-header-cell>
