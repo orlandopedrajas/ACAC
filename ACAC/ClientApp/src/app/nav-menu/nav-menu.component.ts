@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 
 export interface DialogData {
@@ -38,6 +38,7 @@ export class NavMenuComponent {
       if (!result) {
         this.cookieService.delete('loggedin');
       }
+      // tslint:disable-next-line: no-shadowed-variable
       http.get<{ raidername: string, raiderimg: string, raiderbanner: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result => {
         if (result) {
            this.raiderprofiles = result;
@@ -124,7 +125,8 @@ export class ValidateUserComponent {
     this.http.get<any>(baseUrl + 'api/ACAC/startLogin?userName=' +
     this.data.username + '&password=' + this.data.password).subscribe(result => {
         this.cookieService.set('loggedin', result.gString);
+        window.location.reload();
     }, error => console.error(error));
-    window.location.reload();
+
   }
 }
