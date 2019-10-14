@@ -197,6 +197,17 @@ namespace ACAC.Controllers
                 List<Displayroundrobinentry> li = new List<Displayroundrobinentry>();
                 IEnumerable <RoundrobinEntry> rres = Dbh.GetRoundRobin(XRaidfloorname);
 
+                foreach (profile p in Dbh.GetProfiles())
+                {
+                    li.Add(new Displayroundrobinentry
+                    {
+                        raider = p,
+                        raidername = p.raidername,
+                        Raidfloorname = XRaidfloorname,
+                        Raiditem = "Other Items"
+                    });
+                }
+
                 switch (XRaidfloorname)
                 {
                     case "Eden Savage Floor 1":
@@ -211,11 +222,13 @@ namespace ACAC.Controllers
                                 Raiditem = "Accessory Coffer"
                             });                            
                         }
+
                         foreach (RoundrobinEntry re in rres)
                         {
                             var itemToRemove = li.Single(r => r.raidername == re.raidername && r.Raiditem == re.Raiditem);
                             li.Remove(itemToRemove);
                         }
+
                         return li;
                     case "Eden Savage Floor 2":
 
@@ -234,13 +247,6 @@ namespace ACAC.Controllers
                                 raidername = p.raidername,
                                 Raidfloorname = XRaidfloorname,
                                 Raiditem = "Deepshadow Coating"
-                            });
-                            li.Add(new Displayroundrobinentry
-                            {
-                                raider = p,
-                                raidername = p.raidername,
-                                Raidfloorname = XRaidfloorname,
-                                Raiditem = "Other Items"
                             });
                         }
                         foreach (RoundrobinEntry re in rres)
@@ -300,13 +306,6 @@ namespace ACAC.Controllers
                                 raidername = p.raidername,
                                 Raidfloorname = XRaidfloorname,
                                 Raiditem = "Weapon Coffer"
-                            });
-                            li.Add(new Displayroundrobinentry
-                            {
-                                raider = p,
-                                raidername = p.raidername,
-                                Raidfloorname = XRaidfloorname,
-                                Raiditem = "Other Items"
                             });
                         }
                         foreach (RoundrobinEntry re in rres)

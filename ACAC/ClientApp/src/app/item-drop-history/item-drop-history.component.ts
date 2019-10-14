@@ -11,8 +11,12 @@ import { CookieService } from 'ngx-cookie-service';
 export class ItemDropHistoryComponent {
 
   loggedin;
-  SavageItems: any[];
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
+
+  floor1: any[];
+  floor2: any[];
+  floor3: any[];
+  floor4: any[];
 
   constructor(private cookieService: CookieService, private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
@@ -25,7 +29,11 @@ export class ItemDropHistoryComponent {
       }
 
       http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result1 => {
-        this.SavageItems = result1;
+        this.floor1 = result1.filter(r => r.raidfloorname === 'Eden Savage Floor 1');
+        this.floor2 = result1.filter(r => r.raidfloorname === 'Eden Savage Floor 2');
+        this.floor3 = result1.filter(r => r.raidfloorname === 'Eden Savage Floor 3');
+        this.floor4 = result1.filter(r => r.raidfloorname === 'Eden Savage Floor 4');
+
       }, error => console.error(error));
 
     }, error => console.error(error));

@@ -15,6 +15,7 @@ export class EdenSavage4Component {
 
   history1: any[];
   history2: any[];
+  history3: any[];
 
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
@@ -28,6 +29,8 @@ export class EdenSavage4Component {
     http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItemsByFloor?XFloor=Eden Savage Floor 4').subscribe(result => {
       this.history1 = result.filter(r => r.raidItem === 'Chest Coffer').sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1);
       this.history2 = result.filter(r => r.raidItem === 'Weapon Coffer').sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1);
+      this.history3 = result.filter(r => r.raidItem !== 'Weapon Coffer' && r.raidItem !== 'Chest Coffer')
+                            .sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1);
     }, error => console.error(error));
   }
 }
