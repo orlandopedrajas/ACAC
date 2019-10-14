@@ -16,7 +16,6 @@ export class EdenSavage3Component {
   history1: any[];
   history2: any[];
   history3: any[];
-  displayedColumns1: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
   displayedColumns: string[] = ['raiditem'];
 
   profiles1: any[] = [''];

@@ -54,116 +54,6 @@
 </div>
 
 <br><br>
-  <mat-accordion>
-      <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Equipment Coffer: Drops History
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-table [dataSource]='history1'>
-              <!--- Note that these columns can be defined in any order.
-                   The actual rendered columns are set as a property on the row definition" -->
-           
-             <!-- Position Column -->
-             <ng-container matColumnDef="dateReceived" >
-                <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
-              </ng-container>
-            
-              <!-- Name Column -->
-              <ng-container matColumnDef="floor">
-                <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-                <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
-              </ng-container>
-            
-              <!-- Weight Column -->
-              <ng-container matColumnDef="raider">
-                <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                  <mat-list>
-                      <mat-list-item >
-                        <div class="toLeft">
-                          <img matListAvatar
-                          src='{{ element.profile.raiderimg }}' 
-                          alt='{{ element.profile.raidername }}'>
-                        </div>               
-                      </mat-list-item>
-                    </mat-list>
-                </mat-cell>
-              </ng-container>
-            
-              <!-- Symbol Column -->
-              <ng-container matColumnDef="droptype">
-                <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.raidItem}} </mat-cell>
-              </ng-container>
-          
-              <!-- Symbol Column -->
-              <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element"></mat-cell>
-              </ng-container>
-            
-              <mat-header-row  *matHeaderRowDef="displayedColumns1"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns1;"></mat-row>
-          </mat-table>          
-      </mat-expansion-panel>
-      <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              Deepshadow Coating: Drop History
-            </mat-panel-title>
-          </mat-expansion-panel-header>   
-          <mat-table [dataSource]='history2'>
-              <!--- Note that these columns can be defined in any order.
-                   The actual rendered columns are set as a property on the row definition" -->
-           
-             <!-- Position Column -->
-             <ng-container matColumnDef="dateReceived" >
-                <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
-              </ng-container>
-            
-              <!-- Name Column -->
-              <ng-container matColumnDef="floor">
-                <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-                <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
-              </ng-container>
-            
-              <!-- Weight Column -->
-              <ng-container matColumnDef="raider">
-                <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                  <mat-list>
-                      <mat-list-item >
-                        <div class="toLeft">
-                          <img matListAvatar
-                          src='{{ element.profile.raiderimg }}' 
-                          alt='{{ element.profile.raidername }}'>
-                        </div>               
-                      </mat-list-item>
-                    </mat-list>
-                </mat-cell>
-              </ng-container>
-            
-              <!-- Symbol Column -->
-              <ng-container matColumnDef="droptype">
-                <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.raidItem}} </mat-cell>
-              </ng-container>
-          
-              <ng-container matColumnDef="id">
-                <mat-header-cell *matHeaderCellDef></mat-header-cell>
-                <mat-cell *matCellDef="let element"></mat-cell>
-              </ng-container>
-
-              <mat-header-row  *matHeaderRowDef="displayedColumns1"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: displayedColumns1;"></mat-row>
-          </mat-table>             
-      </mat-expansion-panel>
-  </mat-accordion>
-<br>
 <div>
   <mat-accordion>
       <mat-expansion-panel>
@@ -224,6 +114,56 @@
             </mat-expansion-panel-header>
             <mat-accordion>
               <mat-expansion-panel *ngFor="let item of itemsbyProfile2">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                      <mat-list>
+                        <mat-list-item routerLink='{{ item[0].profile.pageroute }}'>
+                          <div class="toLeft">
+                            <img matListAvatar
+                            src='{{ item[0].profile.raiderimg }}' 
+                            alt='{{ item[0].profile.raidername }}'>
+                          </div>&nbsp;&nbsp;&nbsp;
+                          <p mat-Line>{{ item[0].profile.raidername }}</p>               
+                        </mat-list-item>
+                      </mat-list>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-table [dataSource]='item'>
+                    <ng-container cdkColumnDef="Date">
+                      <mat-header-cell *cdkHeaderCellDef> Date </mat-header-cell>
+                      <mat-cell *cdkCellDef="let row"> {{row.receiveddate | date:'shortDate'}} </mat-cell>
+                    </ng-container>
+                    <ng-container cdkColumnDef="Floor">
+                      <mat-header-cell *cdkHeaderCellDef> Floor </mat-header-cell>
+                      <mat-cell *cdkCellDef="let row"> {{row.raidfloorname}} </mat-cell>
+                    </ng-container>   
+                    <ng-container cdkColumnDef="Raider">
+                      <mat-header-cell *cdkHeaderCellDef> Raider </mat-header-cell>
+                      <mat-cell *cdkCellDef="let row"> {{row.raidername}} </mat-cell>
+                    </ng-container>
+                    <ng-container cdkColumnDef="Drop">
+                        <mat-header-cell *cdkHeaderCellDef> Drop </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.raidItem}} </mat-cell>
+                      </ng-container>
+                    <mat-header-row *cdkHeaderRowDef="['Date', 'Floor', 'Raider', 'Drop']"></mat-header-row>
+                    <mat-row *cdkRowDef="let row; columns: ['Date', 'Floor', 'Raider', 'Drop']"></mat-row>
+                </mat-table>
+              </mat-expansion-panel>
+            </mat-accordion>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+<br>
+<div>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Other: Drops History by Raider
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-accordion>
+              <mat-expansion-panel *ngFor="let item of itemsbyProfile3">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                       <mat-list>

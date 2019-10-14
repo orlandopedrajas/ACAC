@@ -1,60 +1,276 @@
 <h1 class='bannertext'>Item History</h1>
 <p><img class='main' src="assets/img/ffxiv_12032018_011418.png"></p>
-
-<mat-table [dataSource]='SavageItems'>
-    <!--- Note that these columns can be defined in any order.
-         The actual rendered columns are set as a property on the row definition" -->
- 
-   <!-- Position Column -->
-   <ng-container matColumnDef="dateReceived" >
-      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
-    </ng-container>
-  
-    <!-- Name Column -->
-    <ng-container matColumnDef="floor">
-      <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-      <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
-    </ng-container>
-  
-    <!-- Weight Column -->
-    <ng-container matColumnDef="raider">
-      <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <mat-list>
-            <mat-list-item >
+<br><br>
+<div>
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-list>
+            <mat-list-item>
               <div class="toLeft">
-                <img matListAvatar
-                src='{{ element.profile.raiderimg }}' 
-                alt='{{ element.profile.raidername }}'>
-              </div>               
+                <img matListAvatar 
+                src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/65-icon.jpg'
+                alt='Eden Savage Floor 1'>
+              </div>&nbsp;&nbsp;
+              <div>Eden Savage Floor 1</div>
             </mat-list-item>
           </mat-list>
-      </mat-cell>
-    </ng-container>
-  
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="droptype">
-      <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.raidItem}} </mat-cell>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <div *ngIf="loggedin; else elseBlock">
-      <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let element">
-          <mat-icon (click)='OnRemoveItem(element.id)'>remove_circle_outline</mat-icon>
-        </mat-cell>
-      </ng-container>
-    </div>
-    <ng-template #elseBlock>
-        <ng-container matColumnDef="id">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element"></mat-cell>
-        </ng-container>
-    </ng-template>
-  
-    <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
- </mat-table>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-table [dataSource]='floor1' >
+          <ng-container matColumnDef="dateReceived">
+              <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="floor">
+              <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
+              <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="raider">
+              <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <mat-list>
+                    <mat-list-item >
+                      <div class="toLeft">
+                        <img matListAvatar
+                        src='{{ element.profile.raiderimg }}' 
+                        alt='{{ element.profile.raidername }}'>
+                      </div>               
+                    </mat-list-item>
+                  </mat-list>
+              </mat-cell>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="droptype">
+              <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.raidItem}} </mat-cell>
+            </ng-container>
+        
+            <!-- Symbol Column -->
+            <div *ngIf="loggedin; else elseBlock">
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <mat-icon (click)='OnRemoveItem(element.id)'>remove_circle_outline</mat-icon>
+                </mat-cell>
+              </ng-container>
+            </div>
+            <ng-template #elseBlock>
+                <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let element"></mat-cell>
+                </ng-container>
+            </ng-template>
+          
+            <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-list>
+                <mat-list-item>
+                  <div class="toLeft">
+                    <img matListAvatar 
+                    src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/66-icon.jpg'
+                    alt='Eden Savage Floor 2'>
+                  </div>&nbsp;&nbsp;
+                  <div>Eden Savage Floor 2</div>
+                </mat-list-item>
+              </mat-list>
+            </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-table [dataSource]='floor2' >
+          <ng-container matColumnDef="dateReceived">
+              <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="floor">
+              <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
+              <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="raider">
+              <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <mat-list>
+                    <mat-list-item >
+                      <div class="toLeft">
+                        <img matListAvatar
+                        src='{{ element.profile.raiderimg }}' 
+                        alt='{{ element.profile.raidername }}'>
+                      </div>               
+                    </mat-list-item>
+                  </mat-list>
+              </mat-cell>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="droptype">
+              <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.raidItem}} </mat-cell>
+            </ng-container>
+        
+            <!-- Symbol Column -->
+            <div *ngIf="loggedin; else elseBlock2">
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <mat-icon (click)='OnRemoveItem(element.id)'>remove_circle_outline</mat-icon>
+                </mat-cell>
+              </ng-container>
+            </div>
+            <ng-template #elseBlock2>
+                <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let element"></mat-cell>
+                </ng-container>
+            </ng-template>
+          
+            <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-list>
+                <mat-list-item>
+                  <div class="toLeft">
+                    <img matListAvatar 
+                    src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/67-icon.jpg'
+                    alt='Eden Savage Floor 3'>
+                  </div>&nbsp;&nbsp;
+                  <div>Eden Savage Floor 3</div>
+                </mat-list-item>
+              </mat-list>
+            </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-table [dataSource]='floor3' >
+          <ng-container matColumnDef="dateReceived">
+              <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="floor">
+              <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
+              <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="raider">
+              <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <mat-list>
+                    <mat-list-item >
+                      <div class="toLeft">
+                        <img matListAvatar
+                        src='{{ element.profile.raiderimg }}' 
+                        alt='{{ element.profile.raidername }}'>
+                      </div>               
+                    </mat-list-item>
+                  </mat-list>
+              </mat-cell>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="droptype">
+              <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.raidItem}} </mat-cell>
+            </ng-container>
+        
+            <!-- Symbol Column -->
+            <div *ngIf="loggedin; else elseBlock3">
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <mat-icon (click)='OnRemoveItem(element.id)'>remove_circle_outline</mat-icon>
+                </mat-cell>
+              </ng-container>
+            </div>
+            <ng-template #elseBlock3>
+                <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let element"></mat-cell>
+                </ng-container>
+            </ng-template>
+          
+            <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-list>
+                <mat-list-item>
+                  <div class="toLeft">
+                    <img matListAvatar 
+                    src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/68-icon.jpg'
+                    alt='Eden Savage Floor 4'>
+                  </div>&nbsp;&nbsp;
+                  <div>Eden Savage Floor 4</div>
+                </mat-list-item>
+              </mat-list>
+            </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-table [dataSource]='floor4' >
+          <ng-container matColumnDef="dateReceived">
+              <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="floor">
+              <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
+              <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="raider">
+              <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <mat-list>
+                    <mat-list-item >
+                      <div class="toLeft">
+                        <img matListAvatar
+                        src='{{ element.profile.raiderimg }}' 
+                        alt='{{ element.profile.raidername }}'>
+                      </div>               
+                    </mat-list-item>
+                  </mat-list>
+              </mat-cell>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="droptype">
+              <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.raidItem}} </mat-cell>
+            </ng-container>
+        
+            <!-- Symbol Column -->
+            <div *ngIf="loggedin; else elseBlock4">
+              <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <mat-icon (click)='OnRemoveItem(element.id)'>remove_circle_outline</mat-icon>
+                </mat-cell>
+              </ng-container>
+            </div>
+            <ng-template #elseBlock4>
+                <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                  <mat-cell *matCellDef="let element"></mat-cell>
+                </ng-container>
+            </ng-template>
+          
+            <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<br><br>

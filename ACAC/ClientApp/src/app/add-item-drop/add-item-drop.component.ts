@@ -25,6 +25,8 @@ export interface SavI {
 export class AddItemDropComponent {
 
   raiders: any[];
+  override = false;
+
   floors = [
     {value: 'Eden Savage Floor 1', viewValue: 'Eden Savage Floor 1'},
     {value: 'Eden Savage Floor 2', viewValue: 'Eden Savage Floor 2'},
@@ -85,11 +87,14 @@ export class AddItemDropComponent {
   raiditemchange() {
     const baseUrl = document.getElementsByTagName('base')[0].href;
     this.http.get<any[]>(baseUrl + 'api/ACAC/GetRoundRobinList?XRaidfloorname=' + this.Si.Raidfloorname).subscribe(result => {
-
-      if (result.filter(r => r.raiditem === this.Si.raidItem).length === 0) {
+      if (this.override) {
         this.raiders = result.filter(r => r.raiditem === 'Other Items');
       } else {
-        this.raiders = result.filter(r => r.raiditem === this.Si.raidItem);
+        if (result.filter(r => r.raiditem === this.Si.raidItem).length === 0) {
+          this.raiders = result.filter(r => r.raiditem === 'Other Items');
+        } else {
+          this.raiders = result.filter(r => r.raiditem === this.Si.raidItem);
+        }
       }
      }, error => console.error(error));
   }
@@ -138,10 +143,9 @@ export class AddItemDropComponent {
           console.log('The POST observable is now completed.');
       });
     if (!this.submitanother) {
-        console.log(this.redirectto);
         window.location.href = this.redirectto;
       } else {
-         window.location.reload();
+        window.location.reload();
       }
   }
   toggleChange(event) {
@@ -149,7 +153,12 @@ export class AddItemDropComponent {
       this.submitanother = true;
     } else { this.submitanother = false; }
   }
-
+  toggleOverrideChange(event) {
+    if (event.checked) {
+      this.override = true;
+    } else { this.override = false; }
+    this.raiditemchange();
+  }
   OnRemoveItem(id: any) {
     const headerJson = {'Content-Type': 'application/json'};
     const header = new HttpHeaders(headerJson);
@@ -165,4 +174,3 @@ export class AddItemDropComponent {
     window.location.reload();
   }
 }
-
