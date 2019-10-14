@@ -238,4 +238,154 @@
           </mat-table>             
       </mat-expansion-panel>      
   </mat-accordion>
+<br>
+<div>
+  <mat-accordion>
+      <mat-expansion-panel>
+          <mat-expansion-panel-header>
+              <mat-panel-title>
+                  Equipment Coffer: Drops History by Raider
+              </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-accordion>
+            <mat-expansion-panel *ngFor="let item of itemsbyProfile">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-list>
+                      <mat-list-item routerLink='{{ item[0].profile.pageroute }}'>
+                        <div class="toLeft">
+                          <img matListAvatar
+                          src='{{ item[0].profile.raiderimg }}' 
+                          alt='{{ item[0].profile.raidername }}'>
+                        </div>&nbsp;&nbsp;&nbsp;
+                        <p mat-Line>{{ item[0].profile.raidername }}</p>               
+                      </mat-list-item>
+                    </mat-list>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-table [dataSource]='item'>
+                  <ng-container cdkColumnDef="Date">
+                    <mat-header-cell *cdkHeaderCellDef> Date </mat-header-cell>
+                    <mat-cell *cdkCellDef="let row"> {{row.receiveddate | date:'shortDate'}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="Floor">
+                    <mat-header-cell *cdkHeaderCellDef> Floor </mat-header-cell>
+                    <mat-cell *cdkCellDef="let row"> {{row.raidfloorname}} </mat-cell>
+                  </ng-container>   
+                  <ng-container cdkColumnDef="Raider">
+                    <mat-header-cell *cdkHeaderCellDef> Raider </mat-header-cell>
+                    <mat-cell *cdkCellDef="let row"> {{row.raidername}} </mat-cell>
+                  </ng-container>
+                  <ng-container cdkColumnDef="Drop">
+                      <mat-header-cell *cdkHeaderCellDef> Drop </mat-header-cell>
+                      <mat-cell *cdkCellDef="let row"> {{row.raidItem}} </mat-cell>
+                    </ng-container>
+                  <mat-header-row *cdkHeaderRowDef="['Date', 'Floor', 'Raider', 'Drop']"></mat-header-row>
+                  <mat-row *cdkRowDef="let row; columns: ['Date', 'Floor', 'Raider', 'Drop']"></mat-row>
+              </mat-table>
+            </mat-expansion-panel>
+          </mat-accordion>
+      </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<br>
+<div>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Deepshadow Twine: Drops History by Raider
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-accordion>
+              <mat-expansion-panel *ngFor="let item of itemsbyProfile2">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                      <mat-list>
+                        <mat-list-item routerLink='{{ item[0].profile.pageroute }}'>
+                          <div class="toLeft">
+                            <img matListAvatar
+                            src='{{ item[0].profile.raiderimg }}' 
+                            alt='{{ item[0].profile.raidername }}'>
+                          </div>&nbsp;&nbsp;&nbsp;
+                          <p mat-Line>{{ item[0].profile.raidername }}</p>               
+                        </mat-list-item>
+                      </mat-list>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-table [dataSource]='item'>
+                    <ng-container cdkColumnDef="Date">
+                      <mat-header-cell *cdkHeaderCellDef> Date </mat-header-cell>
+                      <mat-cell *cdkCellDef="let row"> {{row.receiveddate | date:'shortDate'}} </mat-cell>
+                    </ng-container>
+                    <ng-container cdkColumnDef="Floor">
+                      <mat-header-cell *cdkHeaderCellDef> Floor </mat-header-cell>
+                      <mat-cell *cdkCellDef="let row"> {{row.raidfloorname}} </mat-cell>
+                    </ng-container>   
+                    <ng-container cdkColumnDef="Raider">
+                      <mat-header-cell *cdkHeaderCellDef> Raider </mat-header-cell>
+                      <mat-cell *cdkCellDef="let row"> {{row.raidername}} </mat-cell>
+                    </ng-container>
+                    <ng-container cdkColumnDef="Drop">
+                        <mat-header-cell *cdkHeaderCellDef> Drop </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.raidItem}} </mat-cell>
+                      </ng-container>
+                    <mat-header-row *cdkHeaderRowDef="['Date', 'Floor', 'Raider', 'Drop']"></mat-header-row>
+                    <mat-row *cdkRowDef="let row; columns: ['Date', 'Floor', 'Raider', 'Drop']"></mat-row>
+                </mat-table>
+              </mat-expansion-panel>
+            </mat-accordion>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+<br>
+<div>
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Deepshadow Solvent: Drops History by Raider
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-accordion>
+              <mat-expansion-panel *ngFor="let item of itemsbyProfile3">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                      <mat-list>
+                        <mat-list-item routerLink='{{ item[0].profile.pageroute }}'>
+                          <div class="toLeft">
+                            <img matListAvatar
+                            src='{{ item[0].profile.raiderimg }}' 
+                            alt='{{ item[0].profile.raidername }}'>
+                          </div>&nbsp;&nbsp;&nbsp;
+                          <p mat-Line>{{ item[0].profile.raidername }}</p>               
+                        </mat-list-item>
+                      </mat-list>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-table [dataSource]='item'>
+                    <ng-container cdkColumnDef="Date">
+                      <mat-header-cell *cdkHeaderCellDef> Date </mat-header-cell>
+                      <mat-cell *cdkCellDef="let row"> {{row.receiveddate | date:'shortDate'}} </mat-cell>
+                    </ng-container>
+                    <ng-container cdkColumnDef="Floor">
+                      <mat-header-cell *cdkHeaderCellDef> Floor </mat-header-cell>
+                      <mat-cell *cdkCellDef="let row"> {{row.raidfloorname}} </mat-cell>
+                    </ng-container>   
+                    <ng-container cdkColumnDef="Raider">
+                      <mat-header-cell *cdkHeaderCellDef> Raider </mat-header-cell>
+                      <mat-cell *cdkCellDef="let row"> {{row.raidername}} </mat-cell>
+                    </ng-container>
+                    <ng-container cdkColumnDef="Drop">
+                        <mat-header-cell *cdkHeaderCellDef> Drop </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.raidItem}} </mat-cell>
+                      </ng-container>
+                    <mat-header-row *cdkHeaderRowDef="['Date', 'Floor', 'Raider', 'Drop']"></mat-header-row>
+                    <mat-row *cdkRowDef="let row; columns: ['Date', 'Floor', 'Raider', 'Drop']"></mat-row>
+                </mat-table>
+              </mat-expansion-panel>
+            </mat-accordion>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
 <br><br>
