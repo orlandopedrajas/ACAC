@@ -33,8 +33,7 @@ export class AddItemDropComponent {
     {value: 'Eden Savage Floor 3', viewValue: 'Eden Savage Floor 3'},
     {value: 'Eden Savage Floor 4', viewValue: 'Eden Savage Floor 4'}];
   drops = [  ];
-  // tslint:disable-next-line: max-line-length
-  // drops = ['Accessory Coffer', 'Chest Coffer', 'Deepshadow Coating', 'Deepshadow Twine', 'Deepshadow Solvent', 'Equipment Coffer', 'Lightweight Tomestone', 'Weapon Coffer'];
+
   submitanother = true;
   redirectto = '../';
 

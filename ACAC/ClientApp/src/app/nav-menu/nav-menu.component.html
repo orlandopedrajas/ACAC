@@ -13,18 +13,32 @@
 </mat-menu>
 
 <mat-menu #savagefloors="matMenu">
-  <button mat-menu-item [routerLink]='["/who-can-lot/eden-savage-1"]'>
-    <mat-icon aria-hidden="false">looks_one</mat-icon> Eden Savage 1
-  </button>
-  <button mat-menu-item [routerLink]='["/who-can-lot/eden-savage-2"]'>
-    <mat-icon aria-hidden="false">looks_two</mat-icon> Eden Savage 2
-  </button>
-  <button mat-menu-item [routerLink]='["/who-can-lot/eden-savage-3"]'>
-    <mat-icon aria-hidden="false">looks_3</mat-icon> Eden Savage 3
-  </button>
-  <button mat-menu-item [routerLink]='["/who-can-lot/eden-savage-4"]'>
-    <mat-icon aria-hidden="false">looks_4</mat-icon> Eden Savage 4
-  </button>
+  <mat-list>
+    <mat-list-item  [routerLink]='["/who-can-lot/eden-savage-1"]'>
+      <img matListAvatar
+           src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/65-icon.jpg'
+           alt="Eden Savage Floor 1">
+           <button mat-menu-item>Eden Savage 1</button>
+    </mat-list-item>
+    <mat-list-item  [routerLink]='["/who-can-lot/eden-savage-2"]'>
+      <img matListAvatar
+           src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/66-icon.jpg'
+           alt="Eden Savage Floor 2">
+           <button mat-menu-item>Eden Savage 2</button>
+    </mat-list-item>
+    <mat-list-item  [routerLink]='["/who-can-lot/eden-savage-3"]'>
+      <img matListAvatar
+           src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/67-icon.jpg'
+           alt="Eden Savage Floor 3">
+           <button mat-menu-item>Eden Savage 3</button>
+    </mat-list-item>
+    <mat-list-item  [routerLink]='["/who-can-lot/eden-savage-4"]'>
+      <img matListAvatar
+           src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/68-icon.jpg'
+           alt="Eden Savage Floor 4">
+           <button mat-menu-item>Eden Savage 4</button>
+    </mat-list-item>
+  </mat-list>
 </mat-menu>
 
 <mat-menu #raiders="matMenu">
