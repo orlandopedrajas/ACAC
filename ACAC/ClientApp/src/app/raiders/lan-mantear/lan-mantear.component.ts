@@ -12,6 +12,7 @@ export class LanMantearComponent {
   SavageItems: any[];
   photo = 'assets/img/no-profile.png';
   banner = '';
+  activeclass = '';
 
   constructor(private http: HttpClient) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
@@ -25,10 +26,16 @@ export class LanMantearComponent {
          result.forEach((value) => {
              if (value.raidername === 'Lan Mantear') {
               this.photo = value.raiderimg;
-              this.banner = value.raiderbanner;
+              // this.banner = value.raiderbanner;
              }
          });
       }
+    }, error => console.error(error));
+
+    http.get<any[]>('https://xivapi.com/character/9401374').subscribe(result => {
+     console.log(result.Character.ActiveClassJob);
+      this.banner = result.Character.Portrait;
+     // this.activeclass = result.Character.ActiveClassJob.Name.toUpper();
     }, error => console.error(error));
   }
 }
