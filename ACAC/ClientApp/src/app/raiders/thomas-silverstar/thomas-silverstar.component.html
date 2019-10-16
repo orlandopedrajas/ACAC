@@ -1,52 +1,78 @@
-<mat-list>
-  <mat-list-item >
-      <img matListAvatar
-      src='{{ photo }}'>&nbsp;&nbsp;
-      <h2>Thomas Silverstar</h2>
-  </mat-list-item>
-</mat-list>
-<div class="toLeftSide"><img class='main' src='{{ banner }}'></div>
-
-<div class="toRigtSide">
-<mat-table [dataSource]='SavageItems'>
-    <!--- Note that these columns can be defined in any order.
-         The actual rendered columns are set as a property on the row definition" -->
- 
-   <!-- Position Column -->
-   <ng-container matColumnDef="dateReceived" >
-       <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-       <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
-     </ng-container>
-   
-     <!-- Name Column -->
-     <ng-container matColumnDef="floor">
-       <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-       <mat-cell *matCellDef="let element"> <div class="toLeft"><img class='floor-icon' src='{{ element.raidfloorImage }}'></div> </mat-cell>
-     </ng-container>
-
-     <!-- Symbol Column -->
-     <ng-container matColumnDef="raider">
-        <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-            <mat-list>
-                <mat-list-item >
-                  <div class="toLeft">
-                    <img matListAvatar
-                    src='{{ element.profile.raiderimg }}' 
-                    alt='{{ element.profile.raidername }}'>
-                  </div>               
-                </mat-list-item>
-              </mat-list>
-        </mat-cell>
-      </ng-container>
-     
-     <!-- Symbol Column -->
-     <ng-container matColumnDef="droptype">
-       <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
-       <mat-cell *matCellDef="let element"> {{element.raidItem}} </mat-cell>
-     </ng-container>
-   
-     <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
-     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
- </mat-table>
-</div>
+<p *ngIf="!characterprofile.avatar">Loading...</p>
+<div *ngIf="characterprofile.avatar">
+    <mat-list>
+        <mat-list-item >
+            <img matListAvatar
+            src='{{ characterprofile.avatar }}'>&nbsp;&nbsp;
+            <h2>{{ characterprofile.name }}</h2>
+        </mat-list-item>
+      </mat-list>
+      <div class="contentRow">
+      <div class="contentColumn1">
+      <div class="divrow">
+        <div class="divcolumn1">
+            <div><img src='{{ characterprofile.mainhand }}'></div>
+            <div><img src='{{ characterprofile.head }}'></div>
+            <div><img src='{{ characterprofile.body }}'></div>
+            <div><img src='{{ characterprofile.hands }}'></div>
+            <div><img src='{{ characterprofile.waist }}'></div>
+            <div><img src='{{ characterprofile.legs }}'></div>
+            <div><img src='{{ characterprofile.boots }}'></div>
+        </div>
+        <div class="divcolumn2"><div class="raiderImage"><img src='{{ characterprofile.portrait }}'></div></div>
+        <div class="divcolumn3">
+            <div><img src='{{ characterprofile.offhand }}'></div>
+            <div><img src='{{ characterprofile.earring }}'></div>
+            <div><img src='{{ characterprofile.necklace }}'></div>
+            <div><img src='{{ characterprofile.bracelet }}'></div>
+            <div><img src='{{ characterprofile.ring1 }}'></div>
+            <div><img src='{{ characterprofile.ring2 }}'></div>
+            <div><img src='{{ characterprofile.soulcrystal }}'></div>
+        </div>
+      </div>
+      </div>
+      <div class="contentColumn2">
+      <mat-table [dataSource]='SavageItems'>
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="dateReceived" >
+            <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
+          </ng-container>
+        
+          <!-- Name Column -->
+          <ng-container matColumnDef="floor">
+            <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
+            <mat-cell *matCellDef="let element"> <div class="toLeft"><img class='floor-icon' src='{{ element.raidfloorImage }}'></div> </mat-cell>
+          </ng-container>
+      
+           <!-- Symbol Column -->
+           <ng-container matColumnDef="raider">
+              <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                  <mat-list>
+                      <mat-list-item >
+                        <div class="toLeft">
+                          <img matListAvatar
+                          src='{{ element.profile.raiderimg }}' 
+                          alt='{{ element.profile.raidername }}'>
+                        </div>               
+                      </mat-list-item>
+                    </mat-list>
+              </mat-cell>
+            </ng-container>    
+        
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="droptype">
+            <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.raidItem}} </mat-cell>
+          </ng-container>
+        
+          <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      </div>
+      </div>
+      </div>

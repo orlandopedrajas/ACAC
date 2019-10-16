@@ -77,7 +77,7 @@ export class EdenSavage2Component {
           this.previousValue = value.raidername;
         }
       });
-      console.log(result);
+
       this.profiles3.forEach((value) => {
         if (value !== '') {
           // tslint:disable-next-line: max-line-length
