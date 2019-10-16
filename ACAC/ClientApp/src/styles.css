@@ -35,9 +35,8 @@ img.floor-icon{
 }
 
 .raiderImage img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  width: 220px;
+  height:300px;
 }
 
 .toLeftSide {
@@ -52,14 +51,22 @@ img.floor-icon{
 .raiderImage {
   float: none;
 }
+.contentColumn1
+{
+  float: none;
+}
+.contentColumn2
+{
+  float: none;
+}
+
 @media (min-width: 768px) {
   .raiderImage {
-    float: left;
+    float: none;
   }
   .raiderImage img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    width: 220px;
+    height:300px;
   }
   .toLeftSide {
     float: left;
@@ -69,4 +76,33 @@ img.floor-icon{
     float: right;
     width: 50%
   }
+  .contentColumn1
+  {
+    float: left;
+    width: 30%;
+  }
+  .contentColumn2
+  {
+    float: left;
+    width: 70%
+  }
+}
+
+.divcolumn1 {
+  float: left;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.divcolumn2 {
+  float: left;
+}
+
+.divcolumn3 {
+  float: left;
+  padding-left: 20px;
+}
+.divrow:after {
+  content: "";
+  display: table;
+  clear: both;
 }
