@@ -68,7 +68,6 @@ export class EdenSavage1Component {
             this.items.itemname = 'Accessory Coffer: Drops History by Raider';
             this.savagefloor.items.push(this.items);
 
-            console.log(this.savagefloor);
         }, error => console.error(error));
     }
 }
@@ -166,7 +165,7 @@ export class EdenSavage2Component {
             this.savagefloor.profiles.forEach((value) => {
                 if (value !== '') {
                 this.items.itemsbyprofile.push(this.savagefloor.history.filter(r => r.raidername === value)
-                                                     .sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1));
+                                         .sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1));
                 }
             });
 
