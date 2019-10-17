@@ -6,7 +6,7 @@ import { EdenSavage2Component } from './who-can-lot/eden-savage-2/eden-savage-2.
 import { EdenSavage3Component } from './who-can-lot/eden-savage-3/eden-savage-3.component';
 import { EdenSavage4Component } from './who-can-lot/eden-savage-4/eden-savage-4.component';
 import { HadesCarmineComponent } from './raiders/raider.component';
-import { LaKiComponent } from './raiders/la-ki/la-ki.component';
+import { LaKiComponent } from './raiders/raider.component';
 import { LanMantearComponent } from './raiders/raider.component';
 import { ShellyDuncanComponent } from './raiders/shelly-duncan/shelly-duncan.component';
 import { ThomasSilverstarComponent } from './raiders/thomas-silverstar/thomas-silverstar.component';

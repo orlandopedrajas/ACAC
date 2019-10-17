@@ -169,3 +169,22 @@ export class AerilynElessedilComponent {
       }, error => console.error(error));
     }
 }
+
+@Component({
+  selector: 'app-la-ki',
+  templateUrl: './raider.component.html',
+  styleUrls: ['./raider.component.css']
+})
+
+export class LaKiComponent {
+  displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
+  characterprofile = new Charprofile();
+
+  constructor(private http: HttpClient) {
+  const baseUrl = document.getElementsByTagName('base')[0].href;
+  http.get<any[]>('https://xivapi.com/character/24166474').subscribe(newObj => {
+      const result: any = newObj;
+      this.characterprofile.getRaider(http, result);
+    }, error => console.error(error));
+  }
+}
