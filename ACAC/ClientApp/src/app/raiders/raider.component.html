@@ -1,5 +1,5 @@
-<p *ngIf="!characterprofile.avatar">Loading...</p>
-<div *ngIf="characterprofile.avatar">
+<p *ngIf="!characterprofile.name">Loading...</p>
+<div *ngIf="characterprofile.name">
     <mat-list>
         <mat-list-item >
             <img matListAvatar
@@ -32,7 +32,7 @@
       </div>
       </div>
       <div class="contentColumn2">
-      <mat-table [dataSource]='SavageItems'>
+      <mat-table [dataSource]='characterprofile.SavageItems'>
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
       
@@ -75,4 +75,4 @@
       </mat-table>
       </div>
       </div>
-      </div>
+</div>
