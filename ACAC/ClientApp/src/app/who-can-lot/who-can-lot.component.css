@@ -7,16 +7,14 @@ img.main {
     height: 50%;
     width: 50%
 }
-
 .box {
     float: none;
     width: 100%;
 }
-@media (min-width: 768px) {
 
+@media (min-width: 768px) {
     .box {
         float: left;
         width: 33.33%;
     }
-  
-  }
+}

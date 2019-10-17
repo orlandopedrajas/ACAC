@@ -21,6 +21,8 @@ export class Charprofile {
     avatar: string;
     soulcrystal: string;
     SavageItems: any[];
+    freecompanyname: string;
+    freecompanyslogan: string;
 
     constructor() {    }
     public getRaider(http: HttpClient, result: any) {
@@ -44,6 +46,7 @@ export class Charprofile {
         try { this.getItemIcon('ring1', result.Character.GearSet.Gear.Ring1.ID, http); } catch (e) { }
         try { this.getItemIcon('ring2', result.Character.GearSet.Gear.Ring2.ID, http); } catch (e) { }
         try { this.getItemIcon ('soulcrystal', result.Character.GearSet.Gear.SoulCrystal.ID, http); } catch (e) { }
+        try { this.getFreeCompanyInfo (result.Character.FreeCompanyId, http); } catch (e) { }
 
         http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems?XRaider=' + this.name).subscribe(result1 => {
           this.SavageItems = result1;
@@ -52,6 +55,7 @@ export class Charprofile {
 
     getItemIcon(itemSlot, strItem, http: HttpClient) {
         http.get<any>('https://xivapi.com/item/' + strItem).subscribe(result => {
+          console.log(result);
           switch (itemSlot) {
             case 'mainhand': {
               this.mainhand = 'https://xivapi.com' + result.Icon;
@@ -112,6 +116,12 @@ export class Charprofile {
           }
         });
     }
+    getFreeCompanyInfo(strFC: string, http: HttpClient) {
+      http.get<any>('https://xivapi.com/freecompany/' + strFC).subscribe(result => {
+          this.freecompanyname = result.FreeCompany.Tag;
+          this.freecompanyslogan = result.FreeCompany.Slogan;
+      });
+    }
 }
 
 @Component({
@@ -125,7 +135,6 @@ export class LanMantearComponent {
     characterprofile = new Charprofile();
 
     constructor(private http: HttpClient) {
-    const baseUrl = document.getElementsByTagName('base')[0].href;
     http.get<any[]>('https://xivapi.com/character/9401374').subscribe(newObj => {
         const result: any = newObj;
         this.characterprofile.getRaider(http, result);
@@ -183,6 +192,80 @@ export class LaKiComponent {
   constructor(private http: HttpClient) {
   const baseUrl = document.getElementsByTagName('base')[0].href;
   http.get<any[]>('https://xivapi.com/character/24166474').subscribe(newObj => {
+      const result: any = newObj;
+      this.characterprofile.getRaider(http, result);
+    }, error => console.error(error));
+  }
+}
+
+@Component({
+  selector: 'app-shelly-duncan',
+  templateUrl: './raider.component.html',
+  styleUrls: ['./raider.component.css']
+})
+
+export class ShellyDuncanComponent {
+  displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
+  characterprofile = new Charprofile();
+
+  constructor(private http: HttpClient) {
+  const baseUrl = document.getElementsByTagName('base')[0].href;
+  http.get<any[]>('https://xivapi.com/character/17298413').subscribe(newObj => {
+      const result: any = newObj;
+      this.characterprofile.getRaider(http, result);
+    }, error => console.error(error));
+  }
+}
+
+@Component({
+  selector: 'app-thomas-silverstar',
+  templateUrl: './raider.component.html',
+  styleUrls: ['./raider.component.css']
+})
+
+export class ThomasSilverstarComponent {
+  displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
+  characterprofile = new Charprofile();
+
+  constructor(private http: HttpClient) {
+  const baseUrl = document.getElementsByTagName('base')[0].href;
+  http.get<any[]>('https://xivapi.com/character/9199289').subscribe(newObj => {
+      const result: any = newObj;
+      this.characterprofile.getRaider(http, result);
+    }, error => console.error(error));
+  }
+}
+
+@Component({
+  selector: 'app-val-phoenix',
+  templateUrl: './raider.component.html',
+  styleUrls: ['./raider.component.css']
+})
+
+export class ValPhoenixComponent {
+  displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
+  characterprofile = new Charprofile();
+
+  constructor(private http: HttpClient) {
+  const baseUrl = document.getElementsByTagName('base')[0].href;
+  http.get<any[]>('https://xivapi.com/character/7346455').subscribe(newObj => {
+      const result: any = newObj;
+      this.characterprofile.getRaider(http, result);
+    }, error => console.error(error));
+  }
+}
+@Component({
+  selector: 'app-yumi-rin',
+  templateUrl: './raider.component.html',
+  styleUrls: ['./raider.component.css']
+})
+export class YumiRinComponent {
+  displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
+  characterprofile = new Charprofile();
+
+  constructor(private http: HttpClient) {
+  const baseUrl = document.getElementsByTagName('base')[0].href;
+  http.get<any[]>('https://xivapi.com/character/9400141').subscribe(newObj => {
       const result: any = newObj;
       this.characterprofile.getRaider(http, result);
     }, error => console.error(error));

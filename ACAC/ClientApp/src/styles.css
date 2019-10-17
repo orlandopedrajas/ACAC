@@ -79,19 +79,19 @@ img.floor-icon{
   .contentColumn1
   {
     float: left;
-    width: 30%;
+    width: 45%;
   }
   .contentColumn2
   {
     float: left;
-    width: 70%
+    width: 55%
   }
 }
 
 .divcolumn1 {
   float: left;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 .divcolumn2 {
   float: left;
@@ -99,7 +99,7 @@ img.floor-icon{
 
 .divcolumn3 {
   float: left;
-  padding-left: 20px;
+  padding-left: 10px;
 }
 .divrow:after {
   content: "";
