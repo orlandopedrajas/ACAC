@@ -5,14 +5,14 @@ import { EdenSavage1Component } from './who-can-lot/eden-savage-1/eden-savage-1.
 import { EdenSavage2Component } from './who-can-lot/eden-savage-2/eden-savage-2.component';
 import { EdenSavage3Component } from './who-can-lot/eden-savage-3/eden-savage-3.component';
 import { EdenSavage4Component } from './who-can-lot/eden-savage-4/eden-savage-4.component';
-import { HadesCarmineComponent } from './raiders/hades-carmine/hades-carmine.component';
+import { HadesCarmineComponent } from './raiders/raider.component';
 import { LaKiComponent } from './raiders/la-ki/la-ki.component';
-import { LanMantearComponent } from './raiders/lan-mantear/lan-mantear.component';
+import { LanMantearComponent } from './raiders/raider.component';
 import { ShellyDuncanComponent } from './raiders/shelly-duncan/shelly-duncan.component';
 import { ThomasSilverstarComponent } from './raiders/thomas-silverstar/thomas-silverstar.component';
 import { ValPhoenixComponent } from './raiders/val-phoenix/val-phoenix.component';
 import { YumiRinComponent } from './raiders/yumi-rin/yumi-rin.component';
-import { AerilynElessedilComponent } from './raiders/aerilyn-elessedil/aerilyn-elessedil.component';
+import { AerilynElessedilComponent } from './raiders/raider.component';
 import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.component';
 import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
 import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/archived-item-drop.component';
