@@ -1,18 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { EdenSavage1Component } from './who-can-lot/who-can-lot.component';
-import { EdenSavage2Component } from './who-can-lot/who-can-lot.component';
-import { EdenSavage3Component } from './who-can-lot/who-can-lot.component';
-import { EdenSavage4Component } from './who-can-lot/who-can-lot.component';
-import { HadesCarmineComponent } from './raiders/raider.component';
-import { LaKiComponent } from './raiders/raider.component';
-import { LanMantearComponent } from './raiders/raider.component';
-import { ShellyDuncanComponent } from './raiders/raider.component';
-import { ThomasSilverstarComponent } from './raiders/raider.component';
-import { ValPhoenixComponent } from './raiders/raider.component';
-import { YumiRinComponent } from './raiders/raider.component';
-import { AerilynElessedilComponent } from './raiders/raider.component';
+
+import { EdenSavage1Component, EdenSavage2Component,
+         EdenSavage3Component, EdenSavage4Component } from './who-can-lot/who-can-lot.component';
+
+import { AerilynElessedilComponent, HadesCarmineComponent,
+         LaKiComponent, LanMantearComponent,
+         ShellyDuncanComponent, ThomasSilverstarComponent,
+         ValPhoenixComponent, YumiRinComponent } from './raiders/raider.component';
+
 import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.component';
 import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
 import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/archived-item-drop.component';

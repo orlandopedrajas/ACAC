@@ -1,11 +1,14 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export class Charprofile {
     name: string;
     portrait: string;
     activeclass: string;
     mainhand: string;
+    mainhandid: string;
+    mainhandname: string;
     head: string;
     body: string;
     hands: string;
@@ -55,10 +58,12 @@ export class Charprofile {
 
     getItemIcon(itemSlot, strItem, http: HttpClient) {
         http.get<any>('https://xivapi.com/item/' + strItem).subscribe(result => {
-          console.log(result);
+
           switch (itemSlot) {
             case 'mainhand': {
               this.mainhand = 'https://xivapi.com' + result.Icon;
+              this.mainhandid = strItem;
+              this.mainhandname = result.Name;
               break;
             }
             case 'head': {
@@ -116,12 +121,18 @@ export class Charprofile {
           }
         });
     }
+
     getFreeCompanyInfo(strFC: string, http: HttpClient) {
       http.get<any>('https://xivapi.com/freecompany/' + strFC).subscribe(result => {
           this.freecompanyname = result.FreeCompany.Tag;
           this.freecompanyslogan = result.FreeCompany.Slogan;
       });
     }
+}
+
+export interface TooltipData {
+  itemname: string;
+  itemicon: string;
 }
 
 @Component({
@@ -134,11 +145,25 @@ export class LanMantearComponent {
     displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
     characterprofile = new Charprofile();
 
-    constructor(private http: HttpClient) {
+    constructor(public http: HttpClient, public dialog: MatDialog) {
     http.get<any[]>('https://xivapi.com/character/9401374').subscribe(newObj => {
         const result: any = newObj;
         this.characterprofile.getRaider(http, result);
       }, error => console.error(error));
+    }
+
+
+    openToolTip(sitem: string) {
+
+      this.http.get<any>('https://xivapi.com/item/' + sitem).subscribe(result => {
+        console.log(result);
+        // tslint:disable-next-line: no-use-before-declare
+        this.dialog.open(TooltipComponent, {
+          data: { itemname: result.Name,
+                  itemicon: result.Icon
+                }
+       });
+      });
     }
 }
 
@@ -271,3 +296,15 @@ export class YumiRinComponent {
     }, error => console.error(error));
   }
 }
+
+@Component({
+  selector: 'app-tooltip',
+  templateUrl: './tooltip.html',
+  styleUrls: ['./tooltip.css']
+})
+export class TooltipComponent {
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: TooltipData) { }
+
+}
+
