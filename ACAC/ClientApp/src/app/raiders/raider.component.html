@@ -11,7 +11,7 @@
       <div class="contentColumn1">
       <div class="divrow">
         <div class="divcolumn1">
-            <div><a href="http://www.garlandtools.org/db/#item/25468/" class="eorzeadb_link"><img src='{{ characterprofile.mainhand }}'></a></div>
+            <div><button mat-raised-button (click)="openToolTip(characterprofile.mainhandid)"><img src='{{ characterprofile.mainhand }}'></button></div>
             <div><img src='{{ characterprofile.head }}'></div>
             <div><img src='{{ characterprofile.body }}'></div>
             <div><img src='{{ characterprofile.hands }}'></div>

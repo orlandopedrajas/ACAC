@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -13,19 +12,17 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavMenuComponent, ValidateUserComponent } from './nav-menu/nav-menu.component';
 
+
 import { DemoMaterialModule } from './material-module';
-import { EdenSavage1Component } from './who-can-lot/who-can-lot.component';
-import { EdenSavage2Component } from './who-can-lot/who-can-lot.component';
-import { EdenSavage3Component } from './who-can-lot/who-can-lot.component';
-import { EdenSavage4Component } from './who-can-lot/who-can-lot.component';
-import { AerilynElessedilComponent } from './raiders/raider.component';
-import { HadesCarmineComponent } from './raiders/raider.component';
-import { LaKiComponent } from './raiders/raider.component';
-import { LanMantearComponent } from './raiders/raider.component';
-import { ShellyDuncanComponent } from './raiders/raider.component';
-import { ThomasSilverstarComponent } from './raiders/raider.component';
-import { ValPhoenixComponent } from './raiders/raider.component';
-import { YumiRinComponent } from './raiders/raider.component';
+import { EdenSavage1Component, EdenSavage2Component,
+         EdenSavage3Component, EdenSavage4Component } from './who-can-lot/who-can-lot.component';
+
+import { AerilynElessedilComponent, HadesCarmineComponent,
+         LaKiComponent, LanMantearComponent,
+         ShellyDuncanComponent, ThomasSilverstarComponent,
+         ValPhoenixComponent, YumiRinComponent,
+         TooltipComponent } from './raiders/raider.component';
+
 import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.component';
 import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
 import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/archived-item-drop.component';
@@ -57,6 +54,7 @@ import { CookieService } from 'ngx-cookie-service';
     ManageListsComponent,
     ProfilePicturesComponent,
     ValidateUserComponent,
+    TooltipComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +69,7 @@ import { CookieService } from 'ngx-cookie-service';
     DemoMaterialModule
   ],
   providers: [ CookieService ],
-  entryComponents: [ValidateUserComponent],
+  entryComponents: [ValidateUserComponent, TooltipComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
