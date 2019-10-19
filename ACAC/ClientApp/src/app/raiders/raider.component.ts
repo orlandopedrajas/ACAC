@@ -2,27 +2,27 @@ import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+export class ItemData {
+  itemname: string;
+  itemid: string;
+  itemdata: any;
+  itemicon: string;
+}
+export interface TooltipData {
+  itemname: string;
+  itemicon: string;
+}
+export interface ItemList {
+  key: string;
+  itemdata: ItemData;
+}
 export class Charprofile {
     name: string;
     portrait: string;
     activeclass: string;
-    mainhand: string;
-    mainhandid: string;
-    mainhandname: string;
-    head: string;
-    body: string;
-    hands: string;
-    waist: string;
-    legs: string;
-    boots: string;
-    offhand: string;
-    earring: string;
-    necklace: string;
-    bracelet: string;
-    ring1: string;
-    ring2: string;
+    itemlist: ItemList[] = [];
+    itemlist2: ItemList[] = [];
     avatar: string;
-    soulcrystal: string;
     SavageItems: any[];
     freecompanyname: string;
     freecompanyslogan: string;
@@ -42,6 +42,7 @@ export class Charprofile {
         try { this.getItemIcon('waist', result.Character.GearSet.Gear.Waist.ID, http); } catch (e) { }
         try { this.getItemIcon('legs', result.Character.GearSet.Gear.Legs.ID, http); } catch (e) { }
         try { this.getItemIcon('boots', result.Character.GearSet.Gear.Feet.ID, http); } catch (e) { }
+        this.delay(1000);
         try { this.getItemIcon('offhand', result.Character.GearSet.Gear.OffHand.ID, http); } catch (e) { }
         try { this.getItemIcon('earring', result.Character.GearSet.Gear.Earrings.ID, http); } catch (e) { }
         try { this.getItemIcon('necklace', result.Character.GearSet.Gear.Necklace.ID, http); } catch (e) { }
@@ -49,90 +50,43 @@ export class Charprofile {
         try { this.getItemIcon('ring1', result.Character.GearSet.Gear.Ring1.ID, http); } catch (e) { }
         try { this.getItemIcon('ring2', result.Character.GearSet.Gear.Ring2.ID, http); } catch (e) { }
         try { this.getItemIcon ('soulcrystal', result.Character.GearSet.Gear.SoulCrystal.ID, http); } catch (e) { }
-        try { this.getFreeCompanyInfo (result.Character.FreeCompanyId, http); } catch (e) { }
+        try {
+
+          this.freecompanyname = result.FreeCompany.Name;
+          this.freecompanyslogan = result.FreeCompany.Slogan;
+
+         } catch (e) { }
 
         http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems?XRaider=' + this.name).subscribe(result1 => {
           this.SavageItems = result1;
         }, error => console.error(error));
     }
 
+      delay(ms: number) {
+       new Promise(resolve =>
+                        setTimeout(() => resolve(), ms)).then(() =>
+                        console.log('fired'));
+     }
     getItemIcon(itemSlot, strItem, http: HttpClient) {
+        let ida: ItemData;
         http.get<any>('https://xivapi.com/item/' + strItem).subscribe(result => {
 
-          switch (itemSlot) {
-            case 'mainhand': {
-              this.mainhand = 'https://xivapi.com' + result.Icon;
-              this.mainhandid = strItem;
-              this.mainhandname = result.Name;
-              break;
-            }
-            case 'head': {
-              this.head = 'https://xivapi.com' + result.Icon;
-              break;
-            }
-            case 'body': {
-              this.body = 'https://xivapi.com' + result.Icon;
-              break;
-            }
-            case 'hands': {
-              this.hands = 'https://xivapi.com' + result.Icon;
-              break;
-            }
-            case 'waist': {
-              this.waist = 'https://xivapi.com' + result.Icon;
-              break;
-            }
-            case 'legs': {
-              this.legs = 'https://xivapi.com' + result.Icon;
-              break;
-            }
-            case 'boots': {
-              this.boots = 'https://xivapi.com' + result.Icon;
-              break;
-            }
-            case 'offhand': {
-              this.offhand = 'https://xivapi.com' + result.Icon;
-              break;
-            }
-            case 'earring': {
-              this.earring = 'https://xivapi.com' + result.Icon;
-              break;
-            }
-            case 'necklace': {
-              this.necklace = 'https://xivapi.com' + result.Icon;
-              break;
-            }
-            case 'bracelet': {
-              this.bracelet = 'https://xivapi.com' + result.Icon;
-              break;
-            }
-            case 'ring1': {
-              this.ring1 = 'https://xivapi.com' + result.Icon;
-              break;
-            }
-            case 'ring2': {
-              this.ring2 = 'https://xivapi.com' + result.Icon;
-              break;
-            }
-            case 'soulcrystal': {
-              this.soulcrystal = 'https://xivapi.com' + result.Icon;
-              break;
-            }
-          }
+          ida = new ItemData();
+          ida.itemdata = result;
+          ida.itemid = strItem;
+          ida.itemicon = 'https://xivapi.com' + result.Icon;
+          ida.itemname = result.Name;
+
+          if (itemSlot === 'mainhand' || itemSlot === 'head"'
+           || itemSlot === 'head' || itemSlot === 'body'
+           || itemSlot === 'hands' || itemSlot === 'waist'
+           || itemSlot === 'legs' || itemSlot === 'boots') {
+            this.itemlist.push({key: itemSlot, itemdata: ida });
+           } else {
+             this.itemlist2.push({key: itemSlot, itemdata: ida }); }
+
         });
     }
-
-    getFreeCompanyInfo(strFC: string, http: HttpClient) {
-      http.get<any>('https://xivapi.com/freecompany/' + strFC).subscribe(result => {
-          this.freecompanyname = result.FreeCompany.Tag;
-          this.freecompanyslogan = result.FreeCompany.Slogan;
-      });
-    }
-}
-
-export interface TooltipData {
-  itemname: string;
-  itemicon: string;
 }
 
 @Component({
@@ -146,25 +100,37 @@ export class LanMantearComponent {
     characterprofile = new Charprofile();
 
     constructor(public http: HttpClient, public dialog: MatDialog) {
-    http.get<any[]>('https://xivapi.com/character/9401374').subscribe(newObj => {
+    http.get<any[]>('https://xivapi.com/character/9401374?data=fc').subscribe(newObj => {
         const result: any = newObj;
         this.characterprofile.getRaider(http, result);
       }, error => console.error(error));
     }
 
-
     openToolTip(sitem: string) {
 
-      this.http.get<any>('https://xivapi.com/item/' + sitem).subscribe(result => {
-        console.log(result);
-        // tslint:disable-next-line: no-use-before-declare
-        this.dialog.open(TooltipComponent, {
-          data: { itemname: result.Name,
-                  itemicon: result.Icon
-                }
-       });
+      let itemName: string;
+      let itemIcon: string;
+      this.characterprofile.itemlist.forEach((item) => {
+        if (item.key === sitem) {
+          itemName = item.itemdata.itemname;
+          itemIcon = item.itemdata.itemicon;
+        }
       });
+
+      this.characterprofile.itemlist2.forEach((item) => {
+        if (item.key === sitem) {
+          itemName = item.itemdata.itemname;
+          itemIcon = item.itemdata.itemicon;
+        }
+      });
+
+      // tslint:disable-next-line: no-use-before-declare
+      this.dialog.open(TooltipComponent, {
+        data: { itemname: itemName,
+                itemicon: itemIcon
+              }});
     }
+
 }
 
 @Component({
@@ -176,12 +142,37 @@ export class AerilynElessedilComponent {
     displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
     characterprofile = new Charprofile();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, public dialog: MatDialog) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
-    http.get<any[]>('https://xivapi.com/character/4477459').subscribe(newObj => {
+    http.get<any[]>('https://xivapi.com/character/4477459?data=fc').subscribe(newObj => {
         const result: any = newObj;
         this.characterprofile.getRaider(http, result);
       }, error => console.error(error));
+    }
+
+    openToolTip(sitem: string) {
+
+      let itemName: string;
+      let itemIcon: string;
+      this.characterprofile.itemlist.forEach((item) => {
+        if (item.key === sitem) {
+          itemName = item.itemdata.itemname;
+          itemIcon = item.itemdata.itemicon;
+        }
+      });
+
+      this.characterprofile.itemlist2.forEach((item) => {
+        if (item.key === sitem) {
+          itemName = item.itemdata.itemname;
+          itemIcon = item.itemdata.itemicon;
+        }
+      });
+
+      // tslint:disable-next-line: no-use-before-declare
+      this.dialog.open(TooltipComponent, {
+        data: { itemname: itemName,
+                itemicon: itemIcon
+              }});
     }
 }
 
@@ -195,12 +186,36 @@ export class AerilynElessedilComponent {
     displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
     characterprofile = new Charprofile();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, public dialog: MatDialog) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
-    http.get<any[]>('https://xivapi.com/character/10525190').subscribe(newObj => {
+    http.get<any[]>('https://xivapi.com/character/10525190?data=fc').subscribe(newObj => {
         const result: any = newObj;
         this.characterprofile.getRaider(http, result);
       }, error => console.error(error));
+    }
+    openToolTip(sitem: string) {
+
+      let itemName: string;
+      let itemIcon: string;
+      this.characterprofile.itemlist.forEach((item) => {
+        if (item.key === sitem) {
+          itemName = item.itemdata.itemname;
+          itemIcon = item.itemdata.itemicon;
+        }
+      });
+
+      this.characterprofile.itemlist2.forEach((item) => {
+        if (item.key === sitem) {
+          itemName = item.itemdata.itemname;
+          itemIcon = item.itemdata.itemicon;
+        }
+      });
+
+      // tslint:disable-next-line: no-use-before-declare
+      this.dialog.open(TooltipComponent, {
+        data: { itemname: itemName,
+                itemicon: itemIcon
+              }});
     }
 }
 
@@ -214,12 +229,36 @@ export class LaKiComponent {
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
   characterprofile = new Charprofile();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public dialog: MatDialog) {
   const baseUrl = document.getElementsByTagName('base')[0].href;
-  http.get<any[]>('https://xivapi.com/character/24166474').subscribe(newObj => {
+  http.get<any[]>('https://xivapi.com/character/24166474?data=fc').subscribe(newObj => {
       const result: any = newObj;
       this.characterprofile.getRaider(http, result);
     }, error => console.error(error));
+  }
+  openToolTip(sitem: string) {
+
+    let itemName: string;
+    let itemIcon: string;
+    this.characterprofile.itemlist.forEach((item) => {
+      if (item.key === sitem) {
+        itemName = item.itemdata.itemname;
+        itemIcon = item.itemdata.itemicon;
+      }
+    });
+
+    this.characterprofile.itemlist2.forEach((item) => {
+      if (item.key === sitem) {
+        itemName = item.itemdata.itemname;
+        itemIcon = item.itemdata.itemicon;
+      }
+    });
+
+    // tslint:disable-next-line: no-use-before-declare
+    this.dialog.open(TooltipComponent, {
+      data: { itemname: itemName,
+              itemicon: itemIcon
+            }});
   }
 }
 
@@ -233,12 +272,36 @@ export class ShellyDuncanComponent {
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
   characterprofile = new Charprofile();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public dialog: MatDialog) {
   const baseUrl = document.getElementsByTagName('base')[0].href;
-  http.get<any[]>('https://xivapi.com/character/17298413').subscribe(newObj => {
+  http.get<any[]>('https://xivapi.com/character/17298413?data=fc').subscribe(newObj => {
       const result: any = newObj;
       this.characterprofile.getRaider(http, result);
     }, error => console.error(error));
+  }
+  openToolTip(sitem: string) {
+
+    let itemName: string;
+    let itemIcon: string;
+    this.characterprofile.itemlist.forEach((item) => {
+      if (item.key === sitem) {
+        itemName = item.itemdata.itemname;
+        itemIcon = item.itemdata.itemicon;
+      }
+    });
+
+    this.characterprofile.itemlist2.forEach((item) => {
+      if (item.key === sitem) {
+        itemName = item.itemdata.itemname;
+        itemIcon = item.itemdata.itemicon;
+      }
+    });
+
+    // tslint:disable-next-line: no-use-before-declare
+    this.dialog.open(TooltipComponent, {
+      data: { itemname: itemName,
+              itemicon: itemIcon
+            }});
   }
 }
 
@@ -252,12 +315,36 @@ export class ThomasSilverstarComponent {
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
   characterprofile = new Charprofile();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public dialog: MatDialog) {
   const baseUrl = document.getElementsByTagName('base')[0].href;
-  http.get<any[]>('https://xivapi.com/character/9199289').subscribe(newObj => {
+  http.get<any[]>('https://xivapi.com/character/9199289?data=fc').subscribe(newObj => {
       const result: any = newObj;
       this.characterprofile.getRaider(http, result);
     }, error => console.error(error));
+  }
+  openToolTip(sitem: string) {
+
+    let itemName: string;
+    let itemIcon: string;
+    this.characterprofile.itemlist.forEach((item) => {
+      if (item.key === sitem) {
+        itemName = item.itemdata.itemname;
+        itemIcon = item.itemdata.itemicon;
+      }
+    });
+
+    this.characterprofile.itemlist2.forEach((item) => {
+      if (item.key === sitem) {
+        itemName = item.itemdata.itemname;
+        itemIcon = item.itemdata.itemicon;
+      }
+    });
+
+    // tslint:disable-next-line: no-use-before-declare
+    this.dialog.open(TooltipComponent, {
+      data: { itemname: itemName,
+              itemicon: itemIcon
+            }});
   }
 }
 
@@ -271,12 +358,36 @@ export class ValPhoenixComponent {
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
   characterprofile = new Charprofile();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public dialog: MatDialog) {
   const baseUrl = document.getElementsByTagName('base')[0].href;
-  http.get<any[]>('https://xivapi.com/character/7346455').subscribe(newObj => {
+  http.get<any[]>('https://xivapi.com/character/7346455?data=fc').subscribe(newObj => {
       const result: any = newObj;
       this.characterprofile.getRaider(http, result);
     }, error => console.error(error));
+  }
+  openToolTip(sitem: string) {
+
+    let itemName: string;
+    let itemIcon: string;
+    this.characterprofile.itemlist.forEach((item) => {
+      if (item.key === sitem) {
+        itemName = item.itemdata.itemname;
+        itemIcon = item.itemdata.itemicon;
+      }
+    });
+
+    this.characterprofile.itemlist2.forEach((item) => {
+      if (item.key === sitem) {
+        itemName = item.itemdata.itemname;
+        itemIcon = item.itemdata.itemicon;
+      }
+    });
+
+    // tslint:disable-next-line: no-use-before-declare
+    this.dialog.open(TooltipComponent, {
+      data: { itemname: itemName,
+              itemicon: itemIcon
+            }});
   }
 }
 @Component({
@@ -288,12 +399,36 @@ export class YumiRinComponent {
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
   characterprofile = new Charprofile();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public dialog: MatDialog) {
   const baseUrl = document.getElementsByTagName('base')[0].href;
-  http.get<any[]>('https://xivapi.com/character/9400141').subscribe(newObj => {
+  http.get<any[]>('https://xivapi.com/character/9400141?data=fc').subscribe(newObj => {
       const result: any = newObj;
       this.characterprofile.getRaider(http, result);
     }, error => console.error(error));
+  }
+  openToolTip(sitem: string) {
+
+    let itemName: string;
+    let itemIcon: string;
+    this.characterprofile.itemlist.forEach((item) => {
+      if (item.key === sitem) {
+        itemName = item.itemdata.itemname;
+        itemIcon = item.itemdata.itemicon;
+      }
+    });
+
+    this.characterprofile.itemlist2.forEach((item) => {
+      if (item.key === sitem) {
+        itemName = item.itemdata.itemname;
+        itemIcon = item.itemdata.itemicon;
+      }
+    });
+
+    // tslint:disable-next-line: no-use-before-declare
+    this.dialog.open(TooltipComponent, {
+      data: { itemname: itemName,
+              itemicon: itemIcon
+            }});
   }
 }
 
