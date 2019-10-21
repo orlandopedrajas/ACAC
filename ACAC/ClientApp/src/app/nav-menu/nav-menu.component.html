@@ -87,6 +87,9 @@
 </mat-menu>
 
 <mat-menu #adminpages="matMenu">
+    <button mat-menu-item [routerLink]='["/nine/nine"]'>
+      <mat-icon aria-hidden="false">portrait</mat-icon> Nine
+    </button>
     <button mat-menu-item [routerLink]='["/admin-pages/archived-item-drop/archived-item-drop"]'>
       <mat-icon aria-hidden="false">archive</mat-icon> Removed Items
     </button>
