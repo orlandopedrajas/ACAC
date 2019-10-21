@@ -60,7 +60,7 @@ img.floor-icon{
   float: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .raiderImage {
     float: none;
   }
@@ -79,12 +79,12 @@ img.floor-icon{
   .contentColumn1
   {
     float: left;
-    width: 50%;
+    width: 60%;
   }
   .contentColumn2
   {
     float: left;
-    width: 50%
+    width: 40%
   }
 }
 

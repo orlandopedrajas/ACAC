@@ -1,4 +1,4 @@
-<mat-select placeholder="Nine Member" [(ngModel)]="charid"  (selectionChange)="memberChange()">
+<mat-select placeholder="Select a Nine Member" [(ngModel)]="charid"  (selectionChange)="memberChange($event)">
     <mat-option *ngFor='let ninemember of ninemembers' [value]="ninemember.value">
         {{ ninemember.viewValue }}
     </mat-option>
@@ -6,6 +6,3 @@
 <div *ngIf='charid'>
     <app-character-info [characterid]='charid'></app-character-info>
 </div>
-
-
-

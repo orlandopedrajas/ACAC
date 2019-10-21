@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 export interface DialogData {
   username: string;
