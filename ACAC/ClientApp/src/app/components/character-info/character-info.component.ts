@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { TooltipComponent } from '../tooltip/tooltip.component';
+
 
 export class ItemData {
   itemname: string;
@@ -96,22 +97,24 @@ export class Charprofile {
     styleUrls: ['./character-info.component.css']
 })
 
-export class CharacterInfoComponent implements OnInit {
+export class CharacterInfoComponent implements OnInit, OnChanges {
 
     @Input() characterid: string;
 
     displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
-    characterprofile = new Charprofile();
+    characterprofile: Charprofile;
 
-    ngOnInit() {
-      console.log('OnInit - Child Characterid: ' + this.characterid);
+    ngOnInit() { }
+
+    ngOnChanges() {
+
+      this.characterprofile = new Charprofile();
       this.http.get<any[]>('https://xivapi.com/character/' + this.characterid + '?data=fc').subscribe(newObj => {
         const result: any = newObj;
         this.characterprofile.getRaider(this.http, result);
-     }, error => console.error(error));
+      }, error => console.error(error));
     }
-
-    constructor(public http: HttpClient, private dialog: MatDialog) { }
+    constructor(public http: HttpClient, private dialog: MatDialog) {    }
 
     openToolTip(sitem: string) {
 

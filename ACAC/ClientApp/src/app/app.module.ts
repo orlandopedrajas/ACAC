@@ -29,6 +29,9 @@ import { ManageListsComponent } from './admin-pages/manage-lists.component';
 import { ProfilePicturesComponent } from './admin-pages/profile-pictures/profile-pictures.component';
 import { CookieService } from 'ngx-cookie-service';
 import { CharacterInfoComponent } from './components/character-info/character-info.component';
+import { ItemDropComponent } from './components/item-drop/item-drop.component';
+import { RoundRobinListComponent } from './components/round-robin-list/round-robin-list.component';
+import { ItemDropByFloorComponent } from './components/item-drop-by-floor/item-drop-by-floor.component';
 import { NineComponent } from './nine/nine.component';
 
 
@@ -57,6 +60,9 @@ import { NineComponent } from './nine/nine.component';
     ValidateUserComponent,
     TooltipComponent,
     CharacterInfoComponent,
+    ItemDropComponent,
+    RoundRobinListComponent,
+    ItemDropByFloorComponent,
     NineComponent,
   ],
   imports: [

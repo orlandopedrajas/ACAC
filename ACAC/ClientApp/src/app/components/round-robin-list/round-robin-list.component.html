@@ -1,0 +1,23 @@
+<div class='container'>
+    <div *ngFor="let roundrobinlist of roundrobinlists" class='box'>
+        <mat-table [dataSource]='roundrobinlist.EquipmentItems'>
+            <ng-container matColumnDef="raiditem">
+                <mat-header-cell *matHeaderCellDef> {{ roundrobinlist.listname }} </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-list>
+                        <mat-list-item routerLink='{{ element.raider.pageroute }}'>
+                            <div class="toLeft">
+                            <img matListAvatar
+                            src='{{ element.raider.raiderimg }}' 
+                            alt='{{ element.raider.raidername }}'>
+                            </div>&nbsp;&nbsp;&nbsp;
+                            <p mat-Line>{{ element.raider.raidername }}</p>               
+                        </mat-list-item>
+                        </mat-list>
+                </mat-cell>
+                </ng-container>     
+            <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </div>
+</div>

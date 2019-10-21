@@ -1,86 +1,14 @@
-<img class='main' src='{{ savagefloor.floorbanner }}'>
-<h1 class='bannertext'>{{ savagefloor.floortitle }}</h1>
+<img class='main' src='{{ Floorbanner }}'>
+<h1 class='bannertext'>{{ Floortitle }}</h1>
 <div>
     <ul>
-        <li *ngFor="let msg of savagefloor.floormessage">
+        <li *ngFor="let msg of Floormessage">
             {{ msg }}
         </li>
     </ul>    
 </div>
 
-<div class='container'>
-    <div *ngFor="let roundrobinlist of savagefloor.roundrobinlist" class='box'>
-        <mat-table [dataSource]='roundrobinlist.EquipmentItems'>
-            <ng-container matColumnDef="raiditem">
-                <mat-header-cell *matHeaderCellDef> {{ roundrobinlist.listname }} </mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                    <mat-list>
-                        <mat-list-item routerLink='{{ element.raider.pageroute }}'>
-                            <div class="toLeft">
-                            <img matListAvatar
-                            src='{{ element.raider.raiderimg }}' 
-                            alt='{{ element.raider.raidername }}'>
-                            </div>&nbsp;&nbsp;&nbsp;
-                            <p mat-Line>{{ element.raider.raidername }}</p>               
-                        </mat-list-item>
-                        </mat-list>
-                </mat-cell>
-                </ng-container>     
-            <mat-header-row  *matHeaderRowDef="savagefloor.displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: savagefloor.displayedColumns;"></mat-row>
-        </mat-table>
-    </div>
+<div *ngIf='Floorname'>
+    <app-round-robin-list [Floorname]='Floorname'></app-round-robin-list>
 </div>
-
-<br><br>
-
-<div *ngFor="let items of savagefloor.items">
-    <mat-accordion>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    {{ items.itemname }}
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-accordion>
-                <mat-expansion-panel *ngFor="let item of items.itemsbyprofile">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <mat-list>
-                        <mat-list-item routerLink='{{ item[0].profile.pageroute }}'>
-                            <div class="toLeft">
-                            <img matListAvatar
-                            src='{{ item[0].profile.raiderimg }}' 
-                            alt='{{ item[0].profile.raidername }}'>
-                            </div>&nbsp;&nbsp;&nbsp;
-                            <p mat-Line>{{ item[0].profile.raidername }}</p>               
-                        </mat-list-item>
-                        </mat-list>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-table [dataSource]='item'>
-                    <ng-container cdkColumnDef="Date">
-                        <mat-header-cell *cdkHeaderCellDef> Date </mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"> {{row.receiveddate | date:'shortDate'}} </mat-cell>
-                    </ng-container>
-                    <ng-container cdkColumnDef="Floor">
-                        <mat-header-cell *cdkHeaderCellDef> Floor </mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"> {{row.raidfloorname}} </mat-cell>
-                    </ng-container>   
-                    <ng-container cdkColumnDef="Raider">
-                        <mat-header-cell *cdkHeaderCellDef> Raider </mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"> {{row.raidername}} </mat-cell>
-                    </ng-container>
-                    <ng-container cdkColumnDef="Drop">
-                        <mat-header-cell *cdkHeaderCellDef> Drop </mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"> {{row.raidItem}} </mat-cell>
-                        </ng-container>
-                    <mat-header-row *cdkHeaderRowDef="['Date', 'Floor', 'Raider', 'Drop']"></mat-header-row>
-                    <mat-row *cdkRowDef="let row; columns: ['Date', 'Floor', 'Raider', 'Drop']"></mat-row>
-                </mat-table>
-                </mat-expansion-panel>
-            </mat-accordion>
-        </mat-expansion-panel>
-    </mat-accordion>
-</div>
-<br><br>
+<app-item-drop-by-floor [Displaytype]="'2'" [Floorname]='Floorname'></app-item-drop-by-floor>

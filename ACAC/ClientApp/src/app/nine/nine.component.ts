@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { MatDialog } from '@angular/material/dialog';
 
 export interface NineMembers {
     value: string;
@@ -24,13 +22,10 @@ export class NineComponent {
     ];
     charid: string;
 
-    constructor( public http: HttpClient, private dialog: MatDialog) {
+    constructor() {
         this.charid = null;
-        // this.charid = '14593575';
     }
 
-    memberChange() {
-
-    }
+    memberChange(event) {    }
 }
 
