@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TooltipComponent } from '../components/tooltip/tooltip.component';
 
 export class ItemData {
   itemname: string;
@@ -17,6 +18,7 @@ export interface ItemList {
   itemdata: ItemData;
 }
 export class Charprofile {
+
     name: string;
     portrait: string;
     activeclass: string;
@@ -35,21 +37,20 @@ export class Charprofile {
         this.portrait = result.Character.Portrait;
         this.avatar = result.Character.Avatar;
 
-        try { this.getItemIcon('mainhand', result.Character.GearSet.Gear.MainHand.ID, http); } catch (e) { }
-        try { this.getItemIcon('head', result.Character.GearSet.Gear.Head.ID, http); } catch (e) { }
-        try { this.getItemIcon('body', result.Character.GearSet.Gear.Body.ID, http); } catch (e) { }
-        try { this.getItemIcon('hands', result.Character.GearSet.Gear.Hands.ID, http); } catch (e) { }
-        try { this.getItemIcon('waist', result.Character.GearSet.Gear.Waist.ID, http); } catch (e) { }
-        try { this.getItemIcon('legs', result.Character.GearSet.Gear.Legs.ID, http); } catch (e) { }
-        try { this.getItemIcon('boots', result.Character.GearSet.Gear.Feet.ID, http); } catch (e) { }
-        this.delay(1000);
-        try { this.getItemIcon('offhand', result.Character.GearSet.Gear.OffHand.ID, http); } catch (e) { }
-        try { this.getItemIcon('earring', result.Character.GearSet.Gear.Earrings.ID, http); } catch (e) { }
-        try { this.getItemIcon('necklace', result.Character.GearSet.Gear.Necklace.ID, http); } catch (e) { }
-        try { this.getItemIcon('bracelet', result.Character.GearSet.Gear.Bracelets.ID, http); } catch (e) { }
-        try { this.getItemIcon('ring1', result.Character.GearSet.Gear.Ring1.ID, http); } catch (e) { }
-        try { this.getItemIcon('ring2', result.Character.GearSet.Gear.Ring2.ID, http); } catch (e) { }
-        try { this.getItemIcon ('soulcrystal', result.Character.GearSet.Gear.SoulCrystal.ID, http); } catch (e) { }
+        try { this.getItemIcon(1, 'mainhand', result.Character.GearSet.Gear.MainHand.ID, http); } catch (e) { }
+        try { this.getItemIcon(2, 'head', result.Character.GearSet.Gear.Head.ID, http); } catch (e) { }
+        try { this.getItemIcon(3, 'body', result.Character.GearSet.Gear.Body.ID, http); } catch (e) { }
+        try { this.getItemIcon(4, 'hands', result.Character.GearSet.Gear.Hands.ID, http); } catch (e) { }
+        try { this.getItemIcon(5, 'waist', result.Character.GearSet.Gear.Waist.ID, http); } catch (e) { }
+        try { this.getItemIcon(6, 'legs', result.Character.GearSet.Gear.Legs.ID, http); } catch (e) { }
+        try { this.getItemIcon(7, 'boots', result.Character.GearSet.Gear.Feet.ID, http); } catch (e) { }
+        try { this.getItemIcon(1, 'offhand', result.Character.GearSet.Gear.OffHand.ID, http); } catch (e) { }
+        try { this.getItemIcon(2, 'earring', result.Character.GearSet.Gear.Earrings.ID, http); } catch (e) { }
+        try { this.getItemIcon(3, 'necklace', result.Character.GearSet.Gear.Necklace.ID, http); } catch (e) { }
+        try { this.getItemIcon(4, 'bracelet', result.Character.GearSet.Gear.Bracelets.ID, http); } catch (e) { }
+        try { this.getItemIcon(5, 'ring1', result.Character.GearSet.Gear.Ring1.ID, http); } catch (e) { }
+        try { this.getItemIcon(6, 'ring2', result.Character.GearSet.Gear.Ring2.ID, http); } catch (e) { }
+        try { this.getItemIcon(7, 'soulcrystal', result.Character.GearSet.Gear.SoulCrystal.ID, http); } catch (e) { }
         try {
 
           this.freecompanyname = result.FreeCompany.Name;
@@ -67,8 +68,10 @@ export class Charprofile {
                         setTimeout(() => resolve(), ms)).then(() =>
                         console.log('fired'));
      }
-    getItemIcon(itemSlot, strItem, http: HttpClient) {
+    getItemIcon(orderby, itemSlot, strItem, http: HttpClient) {
         let ida: ItemData;
+        const rndnum = Math.floor(Math.random() * 100) + 1 ;
+        this.delay(rndnum);
         http.get<any>('https://xivapi.com/item/' + strItem).subscribe(result => {
 
           ida = new ItemData();
@@ -81,9 +84,12 @@ export class Charprofile {
            || itemSlot === 'head' || itemSlot === 'body'
            || itemSlot === 'hands' || itemSlot === 'waist'
            || itemSlot === 'legs' || itemSlot === 'boots') {
-            this.itemlist.push({key: itemSlot, itemdata: ida });
+            this.itemlist.push({key: orderby, itemdata: ida });
+            this.itemlist = this.itemlist.sort((a, b) => (a.key > b.key) ? 1 : -1);
            } else {
-             this.itemlist2.push({key: itemSlot, itemdata: ida }); }
+             this.itemlist2.push({key: orderby, itemdata: ida });
+             this.itemlist2 = this.itemlist2.sort((a, b) => (a.key > b.key) ? 1 : -1);
+            }
 
         });
     }
@@ -110,13 +116,23 @@ export class LanMantearComponent {
 
       let itemName: string;
       let itemIcon: string;
+
       this.characterprofile.itemlist.forEach((item) => {
-        if (item.key === sitem) {
-          itemName = item.itemdata.itemname;
-          itemIcon = item.itemdata.itemicon;
-        }
+          if (item.key === sitem) {
+            itemName = item.itemdata.itemname;
+            itemIcon = item.itemdata.itemicon;
+          }
       });
 
+      // tslint:disable-next-line: no-use-before-declare
+      this.dialog.open(TooltipComponent, {
+        data: { itemname: itemName,
+                itemicon: itemIcon
+              }});
+    }
+    openToolTip2(sitem: string) {
+      let itemName: string;
+      let itemIcon: string;
       this.characterprofile.itemlist2.forEach((item) => {
         if (item.key === sitem) {
           itemName = item.itemdata.itemname;
@@ -154,13 +170,23 @@ export class AerilynElessedilComponent {
 
       let itemName: string;
       let itemIcon: string;
+
       this.characterprofile.itemlist.forEach((item) => {
-        if (item.key === sitem) {
-          itemName = item.itemdata.itemname;
-          itemIcon = item.itemdata.itemicon;
-        }
+          if (item.key === sitem) {
+            itemName = item.itemdata.itemname;
+            itemIcon = item.itemdata.itemicon;
+          }
       });
 
+      // tslint:disable-next-line: no-use-before-declare
+      this.dialog.open(TooltipComponent, {
+        data: { itemname: itemName,
+                itemicon: itemIcon
+              }});
+    }
+    openToolTip2(sitem: string) {
+      let itemName: string;
+      let itemIcon: string;
       this.characterprofile.itemlist2.forEach((item) => {
         if (item.key === sitem) {
           itemName = item.itemdata.itemname;
@@ -197,13 +223,23 @@ export class AerilynElessedilComponent {
 
       let itemName: string;
       let itemIcon: string;
+
       this.characterprofile.itemlist.forEach((item) => {
-        if (item.key === sitem) {
-          itemName = item.itemdata.itemname;
-          itemIcon = item.itemdata.itemicon;
-        }
+          if (item.key === sitem) {
+            itemName = item.itemdata.itemname;
+            itemIcon = item.itemdata.itemicon;
+          }
       });
 
+      // tslint:disable-next-line: no-use-before-declare
+      this.dialog.open(TooltipComponent, {
+        data: { itemname: itemName,
+                itemicon: itemIcon
+              }});
+    }
+    openToolTip2(sitem: string) {
+      let itemName: string;
+      let itemIcon: string;
       this.characterprofile.itemlist2.forEach((item) => {
         if (item.key === sitem) {
           itemName = item.itemdata.itemname;
@@ -240,13 +276,23 @@ export class LaKiComponent {
 
     let itemName: string;
     let itemIcon: string;
+
     this.characterprofile.itemlist.forEach((item) => {
-      if (item.key === sitem) {
-        itemName = item.itemdata.itemname;
-        itemIcon = item.itemdata.itemicon;
-      }
+        if (item.key === sitem) {
+          itemName = item.itemdata.itemname;
+          itemIcon = item.itemdata.itemicon;
+        }
     });
 
+    // tslint:disable-next-line: no-use-before-declare
+    this.dialog.open(TooltipComponent, {
+      data: { itemname: itemName,
+              itemicon: itemIcon
+            }});
+  }
+  openToolTip2(sitem: string) {
+    let itemName: string;
+    let itemIcon: string;
     this.characterprofile.itemlist2.forEach((item) => {
       if (item.key === sitem) {
         itemName = item.itemdata.itemname;
@@ -283,13 +329,23 @@ export class ShellyDuncanComponent {
 
     let itemName: string;
     let itemIcon: string;
+
     this.characterprofile.itemlist.forEach((item) => {
-      if (item.key === sitem) {
-        itemName = item.itemdata.itemname;
-        itemIcon = item.itemdata.itemicon;
-      }
+        if (item.key === sitem) {
+          itemName = item.itemdata.itemname;
+          itemIcon = item.itemdata.itemicon;
+        }
     });
 
+    // tslint:disable-next-line: no-use-before-declare
+    this.dialog.open(TooltipComponent, {
+      data: { itemname: itemName,
+              itemicon: itemIcon
+            }});
+  }
+  openToolTip2(sitem: string) {
+    let itemName: string;
+    let itemIcon: string;
     this.characterprofile.itemlist2.forEach((item) => {
       if (item.key === sitem) {
         itemName = item.itemdata.itemname;
@@ -326,13 +382,23 @@ export class ThomasSilverstarComponent {
 
     let itemName: string;
     let itemIcon: string;
+
     this.characterprofile.itemlist.forEach((item) => {
-      if (item.key === sitem) {
-        itemName = item.itemdata.itemname;
-        itemIcon = item.itemdata.itemicon;
-      }
+        if (item.key === sitem) {
+          itemName = item.itemdata.itemname;
+          itemIcon = item.itemdata.itemicon;
+        }
     });
 
+    // tslint:disable-next-line: no-use-before-declare
+    this.dialog.open(TooltipComponent, {
+      data: { itemname: itemName,
+              itemicon: itemIcon
+            }});
+  }
+  openToolTip2(sitem: string) {
+    let itemName: string;
+    let itemIcon: string;
     this.characterprofile.itemlist2.forEach((item) => {
       if (item.key === sitem) {
         itemName = item.itemdata.itemname;
@@ -369,13 +435,23 @@ export class ValPhoenixComponent {
 
     let itemName: string;
     let itemIcon: string;
+
     this.characterprofile.itemlist.forEach((item) => {
-      if (item.key === sitem) {
-        itemName = item.itemdata.itemname;
-        itemIcon = item.itemdata.itemicon;
-      }
+        if (item.key === sitem) {
+          itemName = item.itemdata.itemname;
+          itemIcon = item.itemdata.itemicon;
+        }
     });
 
+    // tslint:disable-next-line: no-use-before-declare
+    this.dialog.open(TooltipComponent, {
+      data: { itemname: itemName,
+              itemicon: itemIcon
+            }});
+  }
+  openToolTip2(sitem: string) {
+    let itemName: string;
+    let itemIcon: string;
     this.characterprofile.itemlist2.forEach((item) => {
       if (item.key === sitem) {
         itemName = item.itemdata.itemname;
@@ -410,13 +486,23 @@ export class YumiRinComponent {
 
     let itemName: string;
     let itemIcon: string;
+
     this.characterprofile.itemlist.forEach((item) => {
-      if (item.key === sitem) {
-        itemName = item.itemdata.itemname;
-        itemIcon = item.itemdata.itemicon;
-      }
+        if (item.key === sitem) {
+          itemName = item.itemdata.itemname;
+          itemIcon = item.itemdata.itemicon;
+        }
     });
 
+    // tslint:disable-next-line: no-use-before-declare
+    this.dialog.open(TooltipComponent, {
+      data: { itemname: itemName,
+              itemicon: itemIcon
+            }});
+  }
+  openToolTip2(sitem: string) {
+    let itemName: string;
+    let itemIcon: string;
     this.characterprofile.itemlist2.forEach((item) => {
       if (item.key === sitem) {
         itemName = item.itemdata.itemname;
@@ -430,16 +516,5 @@ export class YumiRinComponent {
               itemicon: itemIcon
             }});
   }
-}
-
-@Component({
-  selector: 'app-tooltip',
-  templateUrl: './tooltip.html',
-  styleUrls: ['./tooltip.css']
-})
-export class TooltipComponent {
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: TooltipData) { }
-
 }
 

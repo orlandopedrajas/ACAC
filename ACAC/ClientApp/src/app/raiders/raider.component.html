@@ -1,4 +1,4 @@
-<p *ngIf="!characterprofile.name">Loading...</p>
+<p *ngIf="!characterprofile.name"><mat-progress-bar mode="indeterminate"></mat-progress-bar></p>
 <div *ngIf="characterprofile.name">
     <mat-list>
         <mat-list-item >
@@ -18,7 +18,7 @@
         <div class="divcolumn2"><div class="raiderImage"><img src='{{ characterprofile.portrait }}'></div></div>
         <div class="divcolumn3">
             <div *ngFor='let item of characterprofile.itemlist2'>
-                <button mat-button (click)="openToolTip(item.key)"><img src='{{ item.itemdata.itemicon }}'></button>
+                <button mat-button (click)="openToolTip2(item.key)"><img src='{{ item.itemdata.itemicon }}'></button>
             </div>
         </div>
       </div>

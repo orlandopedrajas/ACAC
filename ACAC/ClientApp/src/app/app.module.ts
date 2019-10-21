@@ -20,15 +20,16 @@ import { EdenSavage1Component, EdenSavage2Component,
 import { AerilynElessedilComponent, HadesCarmineComponent,
          LaKiComponent, LanMantearComponent,
          ShellyDuncanComponent, ThomasSilverstarComponent,
-         ValPhoenixComponent, YumiRinComponent,
-         TooltipComponent } from './raiders/raider.component';
-
+         ValPhoenixComponent, YumiRinComponent } from './raiders/raider.component';
+import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.component';
 import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
 import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/archived-item-drop.component';
 import { ManageListsComponent } from './admin-pages/manage-lists.component';
 import { ProfilePicturesComponent } from './admin-pages/profile-pictures/profile-pictures.component';
 import { CookieService } from 'ngx-cookie-service';
+import { CharacterInfoComponent } from './components/character-info/character-info.component';
+import { NineComponent } from './nine/nine.component';
 
 
 @NgModule({
@@ -55,6 +56,8 @@ import { CookieService } from 'ngx-cookie-service';
     ProfilePicturesComponent,
     ValidateUserComponent,
     TooltipComponent,
+    CharacterInfoComponent,
+    NineComponent,
   ],
   imports: [
     BrowserModule,
