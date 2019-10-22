@@ -14,7 +14,6 @@ import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.
 import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
 import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/archived-item-drop.component';
 import { ManageListsComponent } from './admin-pages/manage-lists.component';
-import { ProfilePicturesComponent } from './admin-pages/profile-pictures/profile-pictures.component';
 import { NineComponent } from './nine/nine.component';
 
 const routes: Routes = [
@@ -35,7 +34,6 @@ const routes: Routes = [
   { path: 'add-item-drop', component: AddItemDropComponent },
   { path: 'admin-pages/manage-lists', component: ManageListsComponent },
   { path: 'admin-pages/archived-item-drop/archived-item-drop', component: ArchivedItemDropComponent },
-  { path: 'admin-pages/profile-pictures/profile-pictures', component: ProfilePicturesComponent },
   { path: 'nine/nine', component: NineComponent }
 ];
 

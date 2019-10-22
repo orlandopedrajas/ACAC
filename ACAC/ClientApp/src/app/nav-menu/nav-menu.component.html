@@ -93,9 +93,6 @@
     <button mat-menu-item [routerLink]='["/admin-pages/archived-item-drop/archived-item-drop"]'>
       <mat-icon aria-hidden="false">archive</mat-icon> Removed Items
     </button>
-    <button mat-menu-item [routerLink]='["/admin-pages/profile-pictures/profile-pictures"]'>
-      <mat-icon aria-hidden="false">portrait</mat-icon> Profile Pictures
-    </button>
     <div *ngIf="loggedIn; then thenBlock else elseBlock"></div>
     <ng-template #thenBlock>
       <button mat-menu-item [routerLink]='["/add-item-drop"]'>

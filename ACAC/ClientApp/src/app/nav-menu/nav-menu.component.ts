@@ -1,13 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
-import { Router } from '@angular/router';
-
-export interface DialogData {
-  username: string;
-  password: string;
-}
+import { ValidateUserComponent } from '../components/validate-user/validate-user.component';
 
 @Component({
   selector: 'app-nav-menu',
@@ -101,33 +96,5 @@ export class NavMenuComponent {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
-  }
-}
-
-@Component({
-  selector: 'app-validate-user',
-  templateUrl: './validate-user.component.html',
-  styleUrls: ['./validate-user.component.css']
-})
-export class ValidateUserComponent {
-  hide = true;
-  // tslint:disable-next-line: max-line-length
-  constructor(private cookieService: CookieService, private http: HttpClient,
-              public dialogRef: MatDialogRef<NavMenuComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  validate(): void {
-    const baseUrl = document.getElementsByTagName('base')[0].href;
-
-    // tslint:disable-next-line: max-line-length
-    this.http.get<any>(baseUrl + 'api/ACAC/startLogin?userName=' +
-    this.data.username + '&password=' + this.data.password).subscribe(result => {
-        this.cookieService.set('loggedin', result.gString);
-        window.location.reload();
-    }, error => console.error(error));
-
   }
 }

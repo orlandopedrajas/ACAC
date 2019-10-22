@@ -9,6 +9,9 @@ export class ItemData {
   itemid: string;
   itemdata: any;
   itemicon: string;
+  itemuicategory: string;
+  itemlevel: string;
+  levelequip: string;
 }
 
 export interface ItemList {
@@ -25,6 +28,8 @@ export class Charprofile {
     itemlist: ItemList[] = [];
     itemlist2: ItemList[] = [];
     avatar: string;
+    server: string;
+    dc: string;
     freecompanyname: string;
     freecompanyslogan: string;
     jobicon: string;
@@ -33,6 +38,8 @@ export class Charprofile {
     public getRaider(http: HttpClient, result: any) {
 
         this.name = result.Character.Name;
+        this.server = result.Character.Server;
+        this.dc = result.Character.DC;
         this.portrait = result.Character.Portrait;
         this.avatar = result.Character.Avatar;
         this.level = result.Character.ActiveClassJob.Level;
@@ -63,7 +70,7 @@ export class Charprofile {
     delay(ms: number) {
         new Promise(resolve =>
                         setTimeout(() => resolve(), ms)).then(() =>
-                        console.log('fired'));
+                        console.log('launch'));
     }
 
     getItemIcon(orderby, itemSlot, strItem, http: HttpClient) {
@@ -77,6 +84,9 @@ export class Charprofile {
         ida.itemid = strItem;
         ida.itemicon = 'https://xivapi.com' + result.Icon;
         ida.itemname = result.Name;
+        ida.itemuicategory = result.ItemUICategory.Name;
+        ida.itemlevel = result.LevelItem;
+        ida.levelequip = result.LevelEquip;
 
         if (itemSlot === 'mainhand' || itemSlot === 'head"'
             || itemSlot === 'head' || itemSlot === 'body'
@@ -92,19 +102,17 @@ export class Charprofile {
         });
     }
 
-    getJobIcon(jobname)
-    {
-      console.log(jobname.toLowerCase());
+    getJobIcon(jobname) {
       if (jobname.toLowerCase().includes('dancer') ) {
           return  'https://xivapi.com/cj/1/dancer.png';
       }
-      if (jobname.toLowerCase().includes('bluemage')) {
+      if (jobname.toLowerCase().includes('blue mage')) {
         return 'https://xivapi.com/cj/1/bluemage.png';
       }
       if (jobname.toLowerCase().includes('gunbreaker')) {
         return 'https://xivapi.com/cj/1/gunbreaker.png';
       }
-      if (jobname.toLowerCase().includes('darkknight')) {
+      if (jobname.toLowerCase().includes('dark knight')) {
         return 'https://xivapi.com/cj/1/darkknight.png';
       }
       if (jobname.toLowerCase().includes('astrologian')) {
@@ -134,7 +142,7 @@ export class Charprofile {
       if (jobname.toLowerCase().includes('armorer')) {
         return 'https://xivapi.com/cj/1/armorer.png';
       }
-      if (jobname.toLowerCase().includes('blackmage')) {
+      if (jobname.toLowerCase().includes('black mage')) {
         return 'https://xivapi.com/cj/1/blackmage.png';
       }
       if (jobname.toLowerCase().includes('thaumaturge')) {
@@ -149,7 +157,7 @@ export class Charprofile {
       if (jobname.toLowerCase().includes('carpenter')) {
         return 'https://xivapi.com/cj/1/carpenter.png';
       }
-      if (jobname.toLowerCase().includes('whitemage')) {
+      if (jobname.toLowerCase().includes('white mage')) {
         return 'https://xivapi.com/cj/1/whitemage.png';
       }
       if (jobname.toLowerCase().includes('conjurer')) {
@@ -200,7 +208,7 @@ export class Charprofile {
       if (jobname.toLowerCase().includes('weaver')) {
         return 'https://xivapi.com/cj/1/weaver.png';
       }
-      if (jobname.toLowerCase().includes('redmage')) {
+      if (jobname.toLowerCase().includes('red mage')) {
         return 'https://xivapi.com/cj/1/redmage.png';
       }
     }
@@ -225,6 +233,7 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
 
       this.characterprofile = new Charprofile();
       this.http.get<any[]>('https://xivapi.com/character/' + this.characterid + '?data=fc').subscribe(newObj => {
+
         const result: any = newObj;
         this.characterprofile.getRaider(this.http, result);
       }, error => console.error(error));
@@ -232,37 +241,35 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
     constructor(public http: HttpClient, private dialog: MatDialog) {    }
 
     openToolTip(sitem: string) {
-
-      let itemName: string;
-      let itemIcon: string;
-
-      this.characterprofile.itemlist.forEach((item) => {
-          if (item.key === sitem) {
-            itemName = item.itemdata.itemname;
-            itemIcon = item.itemdata.itemicon;
-          }
-      });
-
-      // tslint:disable-next-line: no-use-before-declare
-      this.dialog.open(TooltipComponent, {
-        data: { itemname: itemName,
-                itemicon: itemIcon
-              }});
+      this.openDialog(this.characterprofile.itemlist, sitem);
     }
     openToolTip2(sitem: string) {
+      this.openDialog(this.characterprofile.itemlist2, sitem);
+    }
+    openDialog(il, sitem) {
       let itemName: string;
       let itemIcon: string;
-      this.characterprofile.itemlist2.forEach((item) => {
+      let itemUICategory: string;
+      let levelEquip: string;
+      let itemLevel: string;
+
+      il.forEach((item) => {
         if (item.key === sitem) {
+          console.log(item);
           itemName = item.itemdata.itemname;
           itemIcon = item.itemdata.itemicon;
+          itemUICategory = item.itemdata.itemuicategory;
+          levelEquip = item.itemdata.levelequip;
+          itemLevel = item.itemdata.itemlevel;
         }
       });
-
       // tslint:disable-next-line: no-use-before-declare
       this.dialog.open(TooltipComponent, {
         data: { itemname: itemName,
-                itemicon: itemIcon
+                itemicon: itemIcon,
+                itemuicategory: itemUICategory,
+                itemlevel: itemLevel,
+                levelequip: levelEquip
               }});
     }
 }

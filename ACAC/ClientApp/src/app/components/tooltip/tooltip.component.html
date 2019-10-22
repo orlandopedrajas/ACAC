@@ -1,8 +1,11 @@
-<div>
-    <div>
-        <img src='{{ data.itemicon }}'>
-    </div>
-    <div>
-        <h3>{{ data.itemname }}</h3>
-    </div>
-</div>
+<mat-card class='tooltip-card'>
+    <mat-card-header>
+        <div mat-avatar class='divColumn1'><img src='{{ data.itemicon }}'></div>
+        <mat-card-title>{{ data.itemname }}</mat-card-title>
+        <mat-card-subtitle>{{ data.itemuicategory }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-card-subtitle>Item Level {{ data.itemlevel }}</mat-card-subtitle>
+        <p>Lv. {{ data.levelequip }}</p>
+    </mat-card-content>
+</mat-card>
