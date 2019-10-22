@@ -255,7 +255,7 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
 
       il.forEach((item) => {
         if (item.key === sitem) {
-          console.log(item);
+
           itemName = item.itemdata.itemname;
           itemIcon = item.itemdata.itemicon;
           itemUICategory = item.itemdata.itemuicategory;

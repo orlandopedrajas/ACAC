@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material';
+import { ConfirmationDialogComponent } from '../components/confirmation-dialog/confirmation-dialog.component';
 
 export class SavageItem {
   id: number;
@@ -44,14 +47,16 @@ export class AddItemDropComponent {
   submitted = false;
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
 
-  constructor(private http: HttpClient) {
-    const baseUrl = document.getElementsByTagName('base')[0].href;
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar, public dialog: MatDialog) {
+    this.getRecentRaidItems();
+  }
 
-    http.get<any[]>(baseUrl + 'api/ACAC/GetRecentRaidItems').subscribe(result => {
+  getRecentRaidItems() {
+    const baseUrl = document.getElementsByTagName('base')[0].href;
+    this.http.get<any[]>(baseUrl + 'api/ACAC/GetRecentRaidItems').subscribe(result => {
      this.SavageItems = result;
    }, error => console.error(error));
   }
-
   toggleChangeFloor() {
     switch (this.Si.Raidfloorname) {
       case 'Eden Savage Floor 1': {
@@ -144,7 +149,12 @@ export class AddItemDropComponent {
     if (!this.submitanother) {
         window.location.href = this.redirectto;
       } else {
-        window.location.reload();
+        const snackBarRef = this._snackBar.open(this.Si.raidItem + ' added for ' + this.Si.raidername, 'Done',
+        { duration: 3000 });
+        snackBarRef.afterDismissed().subscribe(() => {
+          this.getRecentRaidItems();
+          this.raiditemchange();
+        });
       }
   }
   toggleChange(event) {
@@ -159,17 +169,18 @@ export class AddItemDropComponent {
     this.raiditemchange();
   }
   OnRemoveItem(id: any) {
-    const headerJson = {'Content-Type': 'application/json'};
-    const header = new HttpHeaders(headerJson);
-
-    this.http.post('./api/ACAC/DeleteItemById', JSON.stringify(id), {headers: header}).subscribe(
-      (val) => { console.log('POST call successful value returned in body', val); },
-      response => {
-          console.log('POST call in error', response);
-      },
-      () => {
-          console.log('The POST observable is now completed.');
-      });
-    window.location.reload();
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: 'Do you confirm the delete of this data?'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const headerJson = {'Content-Type': 'application/json'};
+        const header = new HttpHeaders(headerJson);
+        this.http.post('./api/ACAC/DeleteItemById', JSON.stringify(id), {headers: header}).subscribe(
+          (val) => {  }, response => { }, () => { this.getRecentRaidItems(); }
+        );
+      }
+    });
   }
 }

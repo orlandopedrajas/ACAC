@@ -33,7 +33,7 @@ import { ItemDropComponent } from './components/item-drop/item-drop.component';
 import { RoundRobinListComponent } from './components/round-robin-list/round-robin-list.component';
 import { ItemDropByFloorComponent } from './components/item-drop-by-floor/item-drop-by-floor.component';
 import { NineComponent } from './nine/nine.component';
-
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +63,7 @@ import { NineComponent } from './nine/nine.component';
     RoundRobinListComponent,
     ItemDropByFloorComponent,
     NineComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +78,10 @@ import { NineComponent } from './nine/nine.component';
     DemoMaterialModule
   ],
   providers: [ CookieService ],
-  entryComponents: [ValidateUserComponent, TooltipComponent],
+  entryComponents: [ValidateUserComponent,
+                    TooltipComponent,
+                    ConfirmationDialogComponent
+                  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
