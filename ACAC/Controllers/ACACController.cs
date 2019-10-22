@@ -587,7 +587,7 @@ namespace ACAC.Controllers
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
-                    return Db.Query<RaidItem>("Select * From RaidItem order by Receiveddate desc, raidfloorname desc LIMIT 5");
+                    return Db.Query<RaidItem>("Select * From RaidItem order by Receiveddate desc LIMIT 15");
                 }
             }
             public IEnumerable<Archivedraiditem> GetArchivedItems()

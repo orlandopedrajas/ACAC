@@ -10,7 +10,8 @@ import { MatTableModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { NavMenuComponent, ValidateUserComponent } from './nav-menu/nav-menu.component';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { ValidateUserComponent } from './components/validate-user/validate-user.component';
 
 
 import { DemoMaterialModule } from './material-module';
@@ -26,14 +27,13 @@ import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.
 import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
 import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/archived-item-drop.component';
 import { ManageListsComponent } from './admin-pages/manage-lists.component';
-import { ProfilePicturesComponent } from './admin-pages/profile-pictures/profile-pictures.component';
 import { CookieService } from 'ngx-cookie-service';
 import { CharacterInfoComponent } from './components/character-info/character-info.component';
 import { ItemDropComponent } from './components/item-drop/item-drop.component';
 import { RoundRobinListComponent } from './components/round-robin-list/round-robin-list.component';
 import { ItemDropByFloorComponent } from './components/item-drop-by-floor/item-drop-by-floor.component';
 import { NineComponent } from './nine/nine.component';
-
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +56,6 @@ import { NineComponent } from './nine/nine.component';
     AddItemDropComponent,
     ArchivedItemDropComponent,
     ManageListsComponent,
-    ProfilePicturesComponent,
     ValidateUserComponent,
     TooltipComponent,
     CharacterInfoComponent,
@@ -64,6 +63,7 @@ import { NineComponent } from './nine/nine.component';
     RoundRobinListComponent,
     ItemDropByFloorComponent,
     NineComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,7 +78,10 @@ import { NineComponent } from './nine/nine.component';
     DemoMaterialModule
   ],
   providers: [ CookieService ],
-  entryComponents: [ValidateUserComponent, TooltipComponent],
+  entryComponents: [ValidateUserComponent,
+                    TooltipComponent,
+                    ConfirmationDialogComponent
+                  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

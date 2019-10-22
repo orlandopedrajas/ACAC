@@ -1,6 +1,8 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { MatDialog } from '@angular/material';
+import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
     selector: 'app-item-drop-by-floor',
@@ -20,11 +22,14 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
 
     ngOnInit() {}
     ngOnChanges() {
+        this.GetItems();
+    }
+
+    GetItems() {
 
         this.drops = null;
         this.floors = null;
         const baseUrl = document.getElementsByTagName('base')[0].href;
-
         switch (this.Displaytype) {
             case '0': {
                 this.drops = [];
@@ -113,7 +118,6 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
                 break;
             }
         }
-
     }
 
     GenerateArrayItem(result, filter) {
@@ -143,19 +147,20 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
         });
         return itemsbyprofile;
     }
-
     OnRemoveItem(id: any) {
-        const headerJson = {'Content-Type': 'application/json'};
-        const header = new HttpHeaders(headerJson);
-        this.http.post('./api/ACAC/DeleteItemById', JSON.stringify(id), {headers: header}).subscribe(
-          (val) => { console.log('POST call successful value returned in body', val); },
-          response => {
-              console.log('POST call in error', response);
-          },
-          () => {
-              console.log('The POST observable is now completed.');
-          });
-        window.location.reload();
-      }
-    constructor(private http: HttpClient, private cookieService: CookieService) {}
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+          width: '350px',
+          data: 'Do you confirm the delete of this data?'
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            const headerJson = {'Content-Type': 'application/json'};
+            const header = new HttpHeaders(headerJson);
+            this.http.post('./api/ACAC/DeleteItemById', JSON.stringify(id), {headers: header}).subscribe((val) => {  }, response => { },
+              () => { this.GetItems(); }
+            );
+          }
+        });
+    }
+    constructor(private http: HttpClient, private cookieService: CookieService, public dialog: MatDialog) {}
 }

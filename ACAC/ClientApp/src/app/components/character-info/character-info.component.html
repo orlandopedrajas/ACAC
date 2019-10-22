@@ -2,12 +2,13 @@
 <div *ngIf="characterprofile.name">
     <mat-list>
         <mat-list-item>
-            <img matListAvatar
-            src='{{ characterprofile.avatar }}'>&nbsp;&nbsp;
-            <h2>{{ characterprofile.name }}</h2>&nbsp;&nbsp;<h6>~{{ characterprofile.freecompanyname }}</h6>
+            <img matListAvatar src='{{ characterprofile.avatar }}'>&nbsp;&nbsp;
+            <h2>{{ characterprofile.name }}&nbsp;&nbsp;</h2><h6>~{{ characterprofile.freecompanyname }}</h6>
         </mat-list-item>
         <mat-list-item>
-            <img matListAvatar src='{{ characterprofile.jobicon }}'>&nbsp;&nbsp;Level {{ characterprofile.level }}
+            <img matListAvatar src='{{ characterprofile.jobicon }}'>&nbsp;&nbsp;Level {{ characterprofile.level }}&nbsp;&nbsp;
+            <mat-icon>home</mat-icon>
+            <h5>{{ characterprofile.server }}&nbsp;&nbsp;({{ characterprofile.dc }})</h5>
         </mat-list-item>
     </mat-list>
     <div class="contentColumn1">

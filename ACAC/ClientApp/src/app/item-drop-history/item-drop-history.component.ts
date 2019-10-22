@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./item-drop-history.component.css']
 })
 
-export class ItemDropHistoryComponent {
-
-}
+export class ItemDropHistoryComponent { }
