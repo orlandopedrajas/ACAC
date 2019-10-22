@@ -102,7 +102,7 @@ export class Charprofile {
         return 'https://xivapi.com/cj/1/bluemage.png';
       }
       if (jobname.toLowerCase().includes('gunbreaker')) {
-        return 'https://xivapi.com/cj/1/gunbreak.png';
+        return 'https://xivapi.com/cj/1/gunbreaker.png';
       }
       if (jobname.toLowerCase().includes('darkknight')) {
         return 'https://xivapi.com/cj/1/darkknight.png';
@@ -200,6 +200,9 @@ export class Charprofile {
       if (jobname.toLowerCase().includes('weaver')) {
         return 'https://xivapi.com/cj/1/weaver.png';
       }
+      if (jobname.toLowerCase().includes('redmage')) {
+        return 'https://xivapi.com/cj/1/redmage.png';
+      }
     }
 }
 
@@ -224,7 +227,6 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
       this.http.get<any[]>('https://xivapi.com/character/' + this.characterid + '?data=fc').subscribe(newObj => {
         const result: any = newObj;
         this.characterprofile.getRaider(this.http, result);
-        console.log(result);
       }, error => console.error(error));
     }
     constructor(public http: HttpClient, private dialog: MatDialog) {    }
