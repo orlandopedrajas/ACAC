@@ -21,9 +21,6 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
     ngOnInit() {}
     ngOnChanges() {
 
-        console.log('Display Type: ' + this.Displaytype);
-        console.log('Floorname: ' + this.Floorname);
-
         this.drops = null;
         this.floors = null;
         const baseUrl = document.getElementsByTagName('base')[0].href;
@@ -71,29 +68,12 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
             }
             case '2': {
                 this.dropsraider = [];
-                let previousvalue = '';
-                const profiles: any[] = [];
-                const itemsbyprofile: any[] = [];
                 switch (this.Floorname) {
                     case 'Eden Savage Floor 1': {
                         this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItemsByFloor?XFloor=Eden Savage Floor 1').subscribe(result => {
-                            result.sort((a, b) => (a.raidername > b.raidername) ? 1 : -1).forEach((value) => {
-                                if (previousvalue !== value.raidername) {
-                                        profiles.push(value.raidername);
-                                        previousvalue = value.raidername;
-                                }
-                            });
-
-                            profiles.forEach((value) => {
-                                if (value !== '') {
-                                    itemsbyprofile.push(result.filter(r => r.raidername === value)
-                                    .sort((a, b) => (a.receiveddate < b. receiveddate) ? 1 : -1));
-                                }
-                            });
-
-                            this.dropsraider.push({itemname: 'Accessory Coffer: Drops History by Raider', item: itemsbyprofile });
+                            this.dropsraider.push({itemname: 'Accessory Coffer: Drops History by Raider',
+                                                   item: this.GenerateArrayItem(result, 'Accessory Coffer') });
                         });
-                        console.log(this.dropsraider);
                         break;
                     }
                     case 'Eden Savage Floor 2': {
@@ -104,9 +84,7 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
                                                    item: this.GenerateArrayItem(result, 'Deepshadow Coating') });
                             this.dropsraider.push({itemname: 'Other: Drops History by Raider',
                                                    item: this.GenerateArrayItem(result, 'other') });
-
                         });
-                        console.log(this.dropsraider);
                         break;
                     }
                     case 'Eden Savage Floor 3': {
@@ -117,9 +95,7 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
                                                    item: this.GenerateArrayItem(result, 'Deepshadow Twine') });
                             this.dropsraider.push({itemname: 'Deepshadow Solvent: Drops History by Raider',
                                                    item: this.GenerateArrayItem(result, 'Deepshadow Solvent') });
-
                         });
-                        console.log(this.dropsraider);
                         break;
                     }
                     case 'Eden Savage Floor 4': {
@@ -130,9 +106,7 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
                                                    item: this.GenerateArrayItem(result, 'Weapon Coffer') });
                             this.dropsraider.push({itemname: 'Other: Drops History by Raider',
                                                    item: this.GenerateArrayItem(result, 'other') });
-
                         });
-                        console.log(this.dropsraider);
                         break;
                     }
                 }
@@ -148,7 +122,7 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
         const profiles: any[] = [];
         const itemsbyprofile: any[] = [];
         if (filter === 'other') {
-            history = result.filter(r => r.raidItem !== 'Equipment Coffer' 
+            history = result.filter(r => r.raidItem !== 'Equipment Coffer'
             && r.raidItem !== 'Deepshadow Coating' && r.raidItem !== 'Chest Coffer' && r.raidItem !== 'Weapon Coffer')
             .sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1);
         } else {

@@ -19,6 +19,7 @@ export interface ItemList {
 export class Charprofile {
 
     name: string;
+    level: string;
     portrait: string;
     activeclass: string;
     itemlist: ItemList[] = [];
@@ -26,14 +27,17 @@ export class Charprofile {
     avatar: string;
     freecompanyname: string;
     freecompanyslogan: string;
+    jobicon: string;
 
     constructor() {  }
     public getRaider(http: HttpClient, result: any) {
 
-        const baseUrl = document.getElementsByTagName('base')[0].href;
         this.name = result.Character.Name;
         this.portrait = result.Character.Portrait;
         this.avatar = result.Character.Avatar;
+        this.level = result.Character.ActiveClassJob.Level;
+        this.activeclass = result.Character.ActiveClassJob.Name.toUpperCase();
+        this.jobicon = this.getJobIcon(this.activeclass);
 
         try { this.getItemIcon(1, 'mainhand', result.Character.GearSet.Gear.MainHand.ID, http); } catch (e) { }
         try { this.getItemIcon(2, 'head', result.Character.GearSet.Gear.Head.ID, http); } catch (e) { }
@@ -50,10 +54,8 @@ export class Charprofile {
         try { this.getItemIcon(6, 'ring2', result.Character.GearSet.Gear.Ring2.ID, http); } catch (e) { }
         try { this.getItemIcon(7, 'soulcrystal', result.Character.GearSet.Gear.SoulCrystal.ID, http); } catch (e) { }
         try {
-
-        this.freecompanyname = result.FreeCompany.Name;
-        this.freecompanyslogan = result.FreeCompany.Slogan;
-
+          this.freecompanyname = result.FreeCompany.Name;
+          this.freecompanyslogan = result.FreeCompany.Slogan;
         } catch (e) { }
 
     }
@@ -88,6 +90,119 @@ export class Charprofile {
             }
 
         });
+    }
+
+    getJobIcon(jobname)
+    {
+      console.log(jobname.toLowerCase());
+      if (jobname.toLowerCase().includes('dancer') ) {
+          return  'https://xivapi.com/cj/1/dancer.png';
+      }
+      if (jobname.toLowerCase().includes('bluemage')) {
+        return 'https://xivapi.com/cj/1/bluemage.png';
+      }
+      if (jobname.toLowerCase().includes('gunbreaker')) {
+        return 'https://xivapi.com/cj/1/gunbreaker.png';
+      }
+      if (jobname.toLowerCase().includes('darkknight')) {
+        return 'https://xivapi.com/cj/1/darkknight.png';
+      }
+      if (jobname.toLowerCase().includes('astrologian')) {
+        return 'https://xivapi.com/cj/1/astrologian.png';
+      }
+      if (jobname.toLowerCase().includes('machinist')) {
+        return 'https://xivapi.com/cj/1/machinist.png';
+      }
+      if (jobname.toLowerCase().includes('alchemist')) {
+        return 'https://xivapi.com/cj/1/alcehmist.png';
+      }
+      if (jobname.toLowerCase().includes('summoner')) {
+        return 'https://xivapi.com/cj/1/summoner.png';
+      }
+      if (jobname.toLowerCase().includes('scholar')) {
+        return 'https://xivapi.com/cj/1/scholar.png';
+      }
+      if (jobname.toLowerCase().includes('arcanist')) {
+        return 'https://xivapi.com/cj/1/arcanist.png';
+      }
+      if (jobname.toLowerCase().includes('bard')) {
+        return 'https://xivapi.com/cj/1/bard.png';
+      }
+      if (jobname.toLowerCase().includes('archer')) {
+        return 'https://xivapi.com/cj/1/archer.png';
+      }
+      if (jobname.toLowerCase().includes('armorer')) {
+        return 'https://xivapi.com/cj/1/armorer.png';
+      }
+      if (jobname.toLowerCase().includes('blackmage')) {
+        return 'https://xivapi.com/cj/1/blackmage.png';
+      }
+      if (jobname.toLowerCase().includes('thaumaturge')) {
+        return 'https://xivapi.com/cj/1/thaumaturge.png';
+      }
+      if (jobname.toLowerCase().includes('blacksmith')) {
+        return 'https://xivapi.com/cj/1/blacksmith.png';
+      }
+      if (jobname.toLowerCase().includes('botanist')) {
+        return 'https://xivapi.com/cj/1/botanist.png';
+      }
+      if (jobname.toLowerCase().includes('carpenter')) {
+        return 'https://xivapi.com/cj/1/carpenter.png';
+      }
+      if (jobname.toLowerCase().includes('whitemage')) {
+        return 'https://xivapi.com/cj/1/whitemage.png';
+      }
+      if (jobname.toLowerCase().includes('conjurer')) {
+        return 'https://xivapi.com/cj/1/conjurer.png';
+      }
+      if (jobname.toLowerCase().includes('culinarian')) {
+        return 'https://xivapi.com/cj/1/culinarian.png';
+      }
+      if (jobname.toLowerCase().includes('dragoon')) {
+        return 'https://xivapi.com/cj/1/dragoon.png';
+      }
+      if (jobname.toLowerCase().includes('lancer')) {
+        return 'https://xivapi.com/cj/1/lancer.png';
+      }
+      if (jobname.toLowerCase().includes('fisher')) {
+        return 'https://xivapi.com/cj/1/fisher.png';
+      }
+      if (jobname.toLowerCase().includes('paladin')) {
+        return 'https://xivapi.com/cj/1/paladin.png';
+      }
+      if (jobname.toLowerCase().includes('gladiator')) {
+        return 'https://xivapi.com/cj/1/gladiator.png';
+      }
+      if (jobname.toLowerCase().includes('goldsmith')) {
+        return 'https://xivapi.com/cj/1/golsmith.png';
+      }
+      if (jobname.toLowerCase().includes('leatherworker')) {
+        return 'https://xivapi.com/cj/1/leatherworker.png';
+      }
+      if (jobname.toLowerCase().includes('warrior')) {
+        return 'https://xivapi.com/cj/1/warrior.png';
+      }
+      if (jobname.toLowerCase().includes('marauder')) {
+        return 'https://xivapi.com/cj/1/marauder.png';
+      }
+      if (jobname.toLowerCase().includes('miner')) {
+        return 'https://xivapi.com/cj/1/miner.png';
+      }
+      if (jobname.toLowerCase().includes('ninja')) {
+        return 'https://xivapi.com/cj/1/ninja.png';
+      }
+      if (jobname.toLowerCase().includes('rouge')) {
+        return 'https://xivapi.com/cj/1/rouge.png';
+      }
+      if (jobname.toLowerCase().includes('samurai')) {
+        return 'https://xivapi.com/cj/1/samurai.png';
+      }
+      if (jobname.toLowerCase().includes('weaver')) {
+        return 'https://xivapi.com/cj/1/weaver.png';
+      }
+      if (jobname.toLowerCase().includes('redmage')) {
+        return 'https://xivapi.com/cj/1/redmage.png';
+      }
     }
 }
 

@@ -15,7 +15,7 @@ export class ItemDropComponent implements OnInit, OnChanges {
 
     ngOnInit() {}
     ngOnChanges() {
-        console.log('OnChanges: Character Name:' + this.charactername);
+
         const baseUrl = document.getElementsByTagName('base')[0].href;
         this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems?XRaider=' + this.charactername).subscribe(result => {
             this.SavageItems = result;

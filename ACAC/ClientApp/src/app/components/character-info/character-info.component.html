@@ -1,10 +1,13 @@
 <p *ngIf="!characterprofile.name"><mat-progress-bar mode="indeterminate"></mat-progress-bar></p>
 <div *ngIf="characterprofile.name">
     <mat-list>
-        <mat-list-item >
+        <mat-list-item>
             <img matListAvatar
             src='{{ characterprofile.avatar }}'>&nbsp;&nbsp;
             <h2>{{ characterprofile.name }}</h2>&nbsp;&nbsp;<h6>~{{ characterprofile.freecompanyname }}</h6>
+        </mat-list-item>
+        <mat-list-item>
+            <img matListAvatar src='{{ characterprofile.jobicon }}'>&nbsp;&nbsp;Level {{ characterprofile.level }}
         </mat-list-item>
     </mat-list>
     <div class="contentColumn1">
