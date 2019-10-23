@@ -14,21 +14,21 @@
         <mat-cell *matCellDef="let element"> <div class="toLeft"><img class='floor-icon' src='{{ element.raidfloorImage }}'></div> </mat-cell>
     </ng-container>
 
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="raider">
-        <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
-        <mat-cell *matCellDef="let element">
-            <mat-list>
-                <mat-list-item >
-                    <div class="toLeft">
-                    <img matListAvatar
-                    src='{{ element.profile.raiderimg }}' 
-                    alt='{{ element.profile.raidername }}'>
-                    </div>               
-                </mat-list-item>
-                </mat-list>
-        </mat-cell>
-        </ng-container>    
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="raider">
+    <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+        <mat-list>
+            <mat-list-item>
+                <div class="toLeft">
+                <img matListAvatar
+                src='{{ element.profile.raiderimg }}' 
+                alt='{{ element.profile.raidername }}'>
+                </div>               
+            </mat-list-item>
+            </mat-list>
+    </mat-cell>
+    </ng-container>    
     
     <!-- Symbol Column -->
     <ng-container matColumnDef="droptype">

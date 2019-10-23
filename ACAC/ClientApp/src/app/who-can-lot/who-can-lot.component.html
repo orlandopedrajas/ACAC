@@ -1,14 +1,46 @@
-<img class='main' src='{{ Floorbanner }}'>
-<h1 class='bannertext'>{{ Floortitle }}</h1>
-<div>
-    <ul>
-        <li *ngFor="let msg of Floormessage">
-            {{ msg }}
-        </li>
-    </ul>    
-</div>
-
-<div *ngIf='Floorname'>
-    <app-round-robin-list [Floorname]='Floorname'></app-round-robin-list>
-</div>
-<app-item-drop-by-floor [Displaytype]="'2'" [Floorname]='Floorname'></app-item-drop-by-floor>
+<h1 class='bannertext'>Eden's Gate</h1>
+<mat-tab-group>
+    <mat-tab label="Resurrection">
+        <div>
+            <ul>
+                <li *ngFor="let msg of Floormessage">
+                    {{ msg }}
+                </li>
+            </ul>    
+        </div>        
+        <app-round-robin-list [Floorname]="'Eden Savage Floor 1'"></app-round-robin-list>
+        <app-item-drop-by-floor [Displaytype]="'2'" [Floorname]="'Eden Savage Floor 1'"></app-item-drop-by-floor>
+    </mat-tab>
+    <mat-tab label="Descent">
+        <div>
+            <ul>
+                <li >Round robin Equipment Coffers</li>
+                <li >Round robin Deepshadow Coating</li>
+                <li >Weapon Tomestone ... prioritize those who need it for primary weapon > free lot</li>
+            </ul>    
+        </div>
+        <app-round-robin-list [Floorname]="'Eden Savage Floor 2'"></app-round-robin-list>
+        <app-item-drop-by-floor [Displaytype]="'2'" [Floorname]="'Eden Savage Floor 2'"></app-item-drop-by-floor>  
+    </mat-tab>
+    <mat-tab label="Inundation">
+            <div>
+                <ul>
+                    <li >Round robin Equipment Coffers</li>
+                    <li >Round robin Deepshadow Twines</li>
+                    <li >Round robin Deepshadow Solvents priority DPS > Tanks > Heals, among those who have weapon to upgrade</li>
+                </ul>    
+            </div>
+            <app-round-robin-list [Floorname]="'Eden Savage Floor 3'"></app-round-robin-list>
+            <app-item-drop-by-floor [Displaytype]="'2'" [Floorname]="'Eden Savage Floor 3'"></app-item-drop-by-floor>  
+        </mat-tab>
+    <mat-tab label="Sepulture">
+            <div>
+                <ul>
+                    <li >Round robin Chest Coffers</li>
+                    <li >Round robin Weapon Coffers... priority DPS > Tanks > Heals</li>
+                </ul>    
+            </div>
+            <app-round-robin-list [Floorname]="'Eden Savage Floor 4'"></app-round-robin-list>
+            <app-item-drop-by-floor [Displaytype]="'2'" [Floorname]="'Eden Savage Floor 4'"></app-item-drop-by-floor>  
+        </mat-tab>
+</mat-tab-group>

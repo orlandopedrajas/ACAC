@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 
-import { EdenSavage1Component, EdenSavage2Component,
-         EdenSavage3Component, EdenSavage4Component } from './who-can-lot/who-can-lot.component';
+import { WhoCanLotComponent } from './who-can-lot/who-can-lot.component';
 
 import { AerilynElessedilComponent, HadesCarmineComponent,
          LaKiComponent, LanMantearComponent,
@@ -18,10 +17,7 @@ import { NineComponent } from './nine/nine.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'who-can-lot/eden-savage-1', component: EdenSavage1Component },
-  { path: 'who-can-lot/eden-savage-2', component: EdenSavage2Component },
-  { path: 'who-can-lot/eden-savage-3', component: EdenSavage3Component },
-  { path: 'who-can-lot/eden-savage-4', component: EdenSavage4Component },
+  { path: 'who-can-lot', component: WhoCanLotComponent },
   { path: 'raiders/yumi-rin', component: YumiRinComponent },
   { path: 'raiders/lan-mantear', component: LanMantearComponent },
   { path: 'raiders/thomas-silverstar', component: ThomasSilverstarComponent },
