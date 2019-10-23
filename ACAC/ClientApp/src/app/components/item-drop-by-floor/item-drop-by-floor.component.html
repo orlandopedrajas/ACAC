@@ -154,12 +154,32 @@
                     </ng-container>
                     <ng-container cdkColumnDef="Floor">
                         <mat-header-cell *cdkHeaderCellDef> Floor </mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"> {{row.raidfloorname}} </mat-cell>
+                        <mat-cell *cdkCellDef="let row">
+                            <mat-list>
+                                <mat-list-item>
+                                    <div class='toLeft'>
+                                        <img matListAvatar
+                                                src='{{ row.raidfloorImage }}'
+                                                alt='{{ row.raidfloorname }}'>
+                                    </div>
+                                </mat-list-item>
+                            </mat-list>
+                        </mat-cell>
                     </ng-container>   
                     <ng-container cdkColumnDef="Raider">
                         <mat-header-cell *cdkHeaderCellDef> Raider </mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"> {{row.raidername}} </mat-cell>
-                    </ng-container>
+                        <mat-cell *cdkCellDef="let row">
+                            <mat-list>
+                                <mat-list-item routerLink='{{ row.profile.pageroute }}'>
+                                    <div class='toLeft'>
+                                        <img matListAvatar
+                                                src='{{ row.profile.raiderimg }}'
+                                                alt='{{ row.profile.raidername }}'>
+                                    </div>
+                                </mat-list-item>
+                            </mat-list>
+                        </mat-cell>
+                    </ng-container>               
                     <ng-container cdkColumnDef="Drop">
                         <mat-header-cell *cdkHeaderCellDef> Drop </mat-header-cell>
                         <mat-cell *cdkCellDef="let row"> {{row.raidItem}} </mat-cell>
