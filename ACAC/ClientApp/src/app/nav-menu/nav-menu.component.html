@@ -7,38 +7,9 @@
   <button mat-menu-item [routerLink]='["/item-drop-history"]'>
     <mat-icon aria-hidden="false" aria-label="Item Drop History">history</mat-icon>  Item Drop History
   </button>
-  <button mat-menu-item [matMenuTriggerFor]="savagefloors"><mat-icon aria-hidden="false" aria-label="Who can lot?">work</mat-icon>Who can lot?</button>
+  <button mat-menu-item [routerLink]='["/who-can-lot"]'><mat-icon aria-hidden="false" aria-label="Who can lot?">work</mat-icon>Who can lot?</button>
   <button mat-menu-item [matMenuTriggerFor]="raiders"><mat-icon aria-hidden="false" aria-label="Raiders">emoji_people</mat-icon>Raiders</button>
   <button mat-menu-item [matMenuTriggerFor]="adminpages"><mat-icon aria-hidden="false" aria-label="Raiders">settings_applications</mat-icon></button>
-</mat-menu>
-
-<mat-menu #savagefloors="matMenu">
-  <mat-list>
-    <mat-list-item  [routerLink]='["/who-can-lot/eden-savage-1"]'>
-      <img matListAvatar
-           src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/65-icon.jpg'
-           alt="Eden Savage Floor 1">
-           <button mat-menu-item>Eden Savage 1</button>
-    </mat-list-item>
-    <mat-list-item  [routerLink]='["/who-can-lot/eden-savage-2"]'>
-      <img matListAvatar
-           src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/66-icon.jpg'
-           alt="Eden Savage Floor 2">
-           <button mat-menu-item>Eden Savage 2</button>
-    </mat-list-item>
-    <mat-list-item  [routerLink]='["/who-can-lot/eden-savage-3"]'>
-      <img matListAvatar
-           src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/67-icon.jpg'
-           alt="Eden Savage Floor 3">
-           <button mat-menu-item>Eden Savage 3</button>
-    </mat-list-item>
-    <mat-list-item  [routerLink]='["/who-can-lot/eden-savage-4"]'>
-      <img matListAvatar
-           src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/68-icon.jpg'
-           alt="Eden Savage Floor 4">
-           <button mat-menu-item>Eden Savage 4</button>
-    </mat-list-item>
-  </mat-list>
 </mat-menu>
 
 <mat-menu #raiders="matMenu">

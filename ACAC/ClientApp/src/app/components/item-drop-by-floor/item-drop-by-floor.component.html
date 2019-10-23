@@ -83,7 +83,7 @@
                     <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
                     <mat-cell *matCellDef="let element">
                         <mat-list>
-                            <mat-list-item >
+                            <mat-list-item routerLink='{{ element.profile.pageroute }}'>
                             <div class="toLeft">
                                 <img matListAvatar
                                 src='{{ element.profile.raiderimg }}' 
@@ -132,43 +132,63 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-accordion>
-                    <mat-expansion-panel *ngFor="let item of items.item">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            <mat-list>
-                            <mat-list-item routerLink='{{ item[0].profile.pageroute }}'>
-                                <div class="toLeft">
-                                <img matListAvatar
+                <mat-expansion-panel *ngFor="let item of items.item">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-list>
+                        <mat-list-item>
+                            <div class="toLeft">
+                            <img matListAvatar  routerLink='{{ item[0].profile.pageroute }}'
                                 src='{{ item[0].profile.raiderimg }}' 
                                 alt='{{ item[0].profile.raidername }}'>
-                                </div>&nbsp;&nbsp;&nbsp;
-                                <p mat-Line>{{ item[0].profile.raidername }}</p>               
-                            </mat-list-item>
+                            </div>&nbsp;&nbsp;&nbsp;
+                            <p mat-Line>{{ item[0].profile.raidername }}</p>               
+                        </mat-list-item>
+                        </mat-list>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-table [dataSource]='item'>
+                    <ng-container cdkColumnDef="Date">
+                        <mat-header-cell *cdkHeaderCellDef> Date </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.receiveddate | date:'shortDate'}} </mat-cell>
+                    </ng-container>
+                    <ng-container cdkColumnDef="Floor">
+                        <mat-header-cell *cdkHeaderCellDef> Floor </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row">
+                            <mat-list>
+                                <mat-list-item>
+                                    <div class='toLeft'>
+                                        <img matListAvatar
+                                                src='{{ row.raidfloorImage }}'
+                                                alt='{{ row.raidfloorname }}'>
+                                    </div>
+                                </mat-list-item>
                             </mat-list>
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <mat-table [dataSource]='item'>
-                        <ng-container cdkColumnDef="Date">
-                            <mat-header-cell *cdkHeaderCellDef> Date </mat-header-cell>
-                            <mat-cell *cdkCellDef="let row"> {{row.receiveddate | date:'shortDate'}} </mat-cell>
+                        </mat-cell>
+                    </ng-container>   
+                    <ng-container cdkColumnDef="Raider">
+                        <mat-header-cell *cdkHeaderCellDef> Raider </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row">
+                            <mat-list>
+                                <mat-list-item routerLink='{{ row.profile.pageroute }}'>
+                                    <div class='toLeft'>
+                                        <img matListAvatar
+                                                src='{{ row.profile.raiderimg }}'
+                                                alt='{{ row.profile.raidername }}'>
+                                    </div>
+                                </mat-list-item>
+                            </mat-list>
+                        </mat-cell>
+                    </ng-container>               
+                    <ng-container cdkColumnDef="Drop">
+                        <mat-header-cell *cdkHeaderCellDef> Drop </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.raidItem}} </mat-cell>
                         </ng-container>
-                        <ng-container cdkColumnDef="Floor">
-                            <mat-header-cell *cdkHeaderCellDef> Floor </mat-header-cell>
-                            <mat-cell *cdkCellDef="let row"> {{row.raidfloorname}} </mat-cell>
-                        </ng-container>   
-                        <ng-container cdkColumnDef="Raider">
-                            <mat-header-cell *cdkHeaderCellDef> Raider </mat-header-cell>
-                            <mat-cell *cdkCellDef="let row"> {{row.raidername}} </mat-cell>
-                        </ng-container>
-                        <ng-container cdkColumnDef="Drop">
-                            <mat-header-cell *cdkHeaderCellDef> Drop </mat-header-cell>
-                            <mat-cell *cdkCellDef="let row"> {{row.raidItem}} </mat-cell>
-                            </ng-container>
-                        <mat-header-row *cdkHeaderRowDef="['Date', 'Floor', 'Raider', 'Drop']"></mat-header-row>
-                        <mat-row *cdkRowDef="let row; columns: ['Date', 'Floor', 'Raider', 'Drop']"></mat-row>
-                    </mat-table>
-                    </mat-expansion-panel>
-                </mat-accordion>
+                    <mat-header-row *cdkHeaderRowDef="['Date', 'Floor', 'Raider', 'Drop']"></mat-header-row>
+                    <mat-row *cdkRowDef="let row; columns: ['Date', 'Floor', 'Raider', 'Drop']"></mat-row>
+                </mat-table>
+                </mat-expansion-panel>
+            </mat-accordion>
         </mat-expansion-panel>
     </mat-accordion>
 </div>

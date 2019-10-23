@@ -15,8 +15,7 @@ import { ValidateUserComponent } from './components/validate-user/validate-user.
 
 
 import { DemoMaterialModule } from './material-module';
-import { EdenSavage1Component, EdenSavage2Component,
-         EdenSavage3Component, EdenSavage4Component } from './who-can-lot/who-can-lot.component';
+import { WhoCanLotComponent } from './who-can-lot/who-can-lot.component';
 
 import { AerilynElessedilComponent, HadesCarmineComponent,
          LaKiComponent, LanMantearComponent,
@@ -40,10 +39,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     AppComponent,
     HomeComponent,
     NavMenuComponent,
-    EdenSavage1Component,
-    EdenSavage2Component,
-    EdenSavage3Component,
-    EdenSavage4Component,
+    WhoCanLotComponent,
     AerilynElessedilComponent,
     HadesCarmineComponent,
     LaKiComponent,

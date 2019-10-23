@@ -47,7 +47,9 @@ export class AddItemDropComponent {
   submitted = false;
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
 
-  constructor(private http: HttpClient, private _snackBar: MatSnackBar, public dialog: MatDialog) {
+  // tslint:disable-next-line: variable-name
+  constructor(private http: HttpClient, private _SnackBar: MatSnackBar, public dialog: MatDialog) {
+    this.Si.Receiveddate = new Date();
     this.getRecentRaidItems();
   }
 
@@ -139,17 +141,11 @@ export class AddItemDropComponent {
     const header = new HttpHeaders(headerJson);
     this.Si.id = 0;
     this.http.post('./api/ACAC/addDrop', JSON.stringify(this.Si), {headers: header}).subscribe(
-      (val) => { console.log('POST call successful value returned in body', val); },
-      response => {
-          console.log('POST call in error', response);
-      },
-      () => {
-          console.log('The POST observable is now completed.');
-      });
+      (val) => { }, response => { }, () => { });
     if (!this.submitanother) {
         window.location.href = this.redirectto;
       } else {
-        const snackBarRef = this._snackBar.open(this.Si.raidItem + ' added for ' + this.Si.raidername, 'Done',
+        const snackBarRef = this._SnackBar.open(this.Si.raidItem + ' added for ' + this.Si.raidername, 'Done',
         { duration: 3000 });
         snackBarRef.afterDismissed().subscribe(() => {
           this.getRecentRaidItems();
