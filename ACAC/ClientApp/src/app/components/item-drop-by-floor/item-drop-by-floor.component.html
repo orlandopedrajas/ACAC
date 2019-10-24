@@ -28,7 +28,17 @@
             <!-- Symbol Column -->
             <ng-container matColumnDef="droptype">
                 <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.raidItem}} </mat-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-list>
+                        <mat-list-item>
+                            <div class='toLeft'>
+                                <img matListAvatar
+                                        src='{{element.raidItemimage}}'
+                                        alt='{{element.raidItem}}'>
+                            </div>
+                        </mat-list-item>{{element.raidItemimage}}
+                    </mat-list>
+                </mat-cell>
             </ng-container>
         
             <!-- Symbol Column -->
@@ -75,7 +85,7 @@
                 </ng-container>
                 <ng-container matColumnDef="floor">
                     <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-                    <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
+                    <mat-cell *matCellDef="let element" ><img class='floor-icon' src='{{ element.raidfloorImage }}'></mat-cell>
                     </ng-container>
                 
                     <!-- Weight Column -->
@@ -97,7 +107,17 @@
                     <!-- Symbol Column -->
                     <ng-container matColumnDef="droptype">
                     <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.raidItem}} </mat-cell>
+                    <mat-cell *matCellDef="let element">
+                        <mat-list>
+                            <mat-list-item>
+                                <div class='toLeft'>
+                                    <img matListAvatar
+                                            src='{{element.raidItemimage}} '
+                                            alt='{{element.raidItem}}'>
+                                </div>
+                            </mat-list-item>{{element.raidItem}}
+                        </mat-list>   
+                    </mat-cell>
                     </ng-container>
                 
                     <!-- Symbol Column -->
@@ -128,7 +148,16 @@
         <mat-expansion-panel *ngFor='let items of dropsraider'>
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    {{ items.itemname }}
+                    <mat-list>
+                        <mat-list-item>
+                            <div class="toLeft">
+                                <img matListAvatar
+                                    src='{{ items.itemimage }}'
+                                    alt='{{ items.itemname }}'>
+                            </div>&nbsp;&nbsp;&nbsp;
+                            <p mat-Line>{{ items.itemname }}</p>
+                        </mat-list-item>
+                    </mat-list>                    
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <mat-accordion>
@@ -138,7 +167,7 @@
                         <mat-list>
                         <mat-list-item>
                             <div class="toLeft">
-                            <img matListAvatar  routerLink='{{ item[0].profile.pageroute }}'
+                            <img matListAvatar routerLink='{{ item[0].profile.pageroute }}'
                                 src='{{ item[0].profile.raiderimg }}' 
                                 alt='{{ item[0].profile.raidername }}'>
                             </div>&nbsp;&nbsp;&nbsp;
@@ -182,8 +211,18 @@
                     </ng-container>               
                     <ng-container cdkColumnDef="Drop">
                         <mat-header-cell *cdkHeaderCellDef> Drop </mat-header-cell>
-                        <mat-cell *cdkCellDef="let row"> {{row.raidItem}} </mat-cell>
-                        </ng-container>
+                        <mat-cell *cdkCellDef="let row">
+                            <mat-list>
+                                <mat-list-item>
+                                    <div class='toLeft'>
+                                        <img matListAvatar
+                                                src='{{row.raidItemimage}}'
+                                                alt='{{row.raidItem}}'>
+                                    </div>
+                                </mat-list-item>{{row.raidItem}}
+                            </mat-list>                             
+                        </mat-cell>
+                    </ng-container>
                     <mat-header-row *cdkHeaderRowDef="['Date', 'Floor', 'Raider', 'Drop']"></mat-header-row>
                     <mat-row *cdkRowDef="let row; columns: ['Date', 'Floor', 'Raider', 'Drop']"></mat-row>
                 </mat-table>
