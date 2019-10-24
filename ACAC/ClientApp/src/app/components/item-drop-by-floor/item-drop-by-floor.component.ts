@@ -76,40 +76,61 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
                 switch (this.Floorname) {
                     case 'Eden Savage Floor 1': {
                         this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItemsByFloor?XFloor=Eden Savage Floor 1').subscribe(result => {
-                            this.dropsraider.push({itemname: 'Accessory Coffer: Drops History by Raider',
+                            this.dropsraider.push({itemname: 'Accessory Coffer',
+                                                   // tslint:disable-next-line: max-line-length
+                                                   itemimage: 'https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08',
                                                    item: this.GenerateArrayItem(result, 'Accessory Coffer') });
                         });
                         break;
                     }
                     case 'Eden Savage Floor 2': {
                         this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItemsByFloor?XFloor=Eden Savage Floor 2').subscribe(result => {
-                            this.dropsraider.push({itemname: 'Equipment Coffer: Drops History by Raider',
-                                                   item: this.GenerateArrayItem(result, 'Equipment Coffer') });
-                            this.dropsraider.push({itemname: 'Deepshadow Coating: Drops History by Raider',
+                            this.dropsraider.push({itemname: 'Equipment Coffer',
+                                                   // tslint:disable-next-line: max-line-length
+                                                   itemimage: 'https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08',
+                                                   item: this.GenerateArrayItem(result, 'Equipment Coffer')});
+                            this.dropsraider.push({itemname: 'Deepshadow Coating',
+                                                   // tslint:disable-next-line: max-line-length
+                                                   itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/b/b9/Deepshadow_Coating_Icon.png/64px-Deepshadow_Coating_Icon.png',
                                                    item: this.GenerateArrayItem(result, 'Deepshadow Coating') });
-                            this.dropsraider.push({itemname: 'Other: Drops History by Raider',
+                            this.dropsraider.push({itemname: 'Other',
+                                                   // tslint:disable-next-line: max-line-length
+                                                   itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/c/c6/Book_of_Descent_Icon.png/40px-Book_of_Descent_Icon.png',
                                                    item: this.GenerateArrayItem(result, 'other') });
+                            console.log(this.dropsraider);
                         });
                         break;
                     }
                     case 'Eden Savage Floor 3': {
                         this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItemsByFloor?XFloor=Eden Savage Floor 3').subscribe(result => {
-                            this.dropsraider.push({itemname: 'Equipment Coffer: Drops History by Raider',
+                            this.dropsraider.push({itemname: 'Equipment Coffer',
+                                                   // tslint:disable-next-line: max-line-length
+                                                   itemimage: 'https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08',
                                                    item: this.GenerateArrayItem(result, 'Equipment Coffer') });
-                            this.dropsraider.push({itemname: 'Deepshadow Twine: Drops History by Raider',
+                            this.dropsraider.push({itemname: 'Deepshadow Twine',
+                                                   // tslint:disable-next-line: max-line-length
+                                                   itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/e/e8/Deepshadow_Twine_Icon.png/40px-Deepshadow_Twine_Icon.png',
                                                    item: this.GenerateArrayItem(result, 'Deepshadow Twine') });
-                            this.dropsraider.push({itemname: 'Deepshadow Solvent: Drops History by Raider',
+                            this.dropsraider.push({itemname: 'Deepshadow Solvent',
+                                                   // tslint:disable-next-line: max-line-length
+                                                   itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/f/f6/Deepshadow_Solvent_Icon.png/40px-Deepshadow_Solvent_Icon.png',
                                                    item: this.GenerateArrayItem(result, 'Deepshadow Solvent') });
                         });
                         break;
                     }
                     case 'Eden Savage Floor 4': {
                         this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItemsByFloor?XFloor=Eden Savage Floor 4').subscribe(result => {
-                            this.dropsraider.push({itemname: 'Chest Coffer: Drops History by Raider',
+                            this.dropsraider.push({itemname: 'Chest Coffer',
+                                                   // tslint:disable-next-line: max-line-length
+                                                   itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/0/03/Edengrace_Chest_Gear_Coffer_Icon.png/40px-Edengrace_Chest_Gear_Coffer_Icon.png',
                                                    item: this.GenerateArrayItem(result, 'Chest Coffer') });
-                            this.dropsraider.push({itemname: 'Weapon Coffer: Drops History by Raider',
+                            this.dropsraider.push({itemname: 'Weapon Coffer',
+                                                   // tslint:disable-next-line: max-line-length
+                                                   itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/f/ff/Edengrace_Weapon_Coffer_Icon.png/40px-Edengrace_Weapon_Coffer_Icon.png',
                                                    item: this.GenerateArrayItem(result, 'Weapon Coffer') });
-                            this.dropsraider.push({itemname: 'Other: Drops History by Raider',
+                            this.dropsraider.push({itemname: 'Other',
+                                                   // tslint:disable-next-line: max-line-length
+                                                   itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/5/5b/Book_of_Sepulture_Icon.png/40px-Book_of_Sepulture_Icon.png',
                                                    item: this.GenerateArrayItem(result, 'other') });
                         });
                         break;
