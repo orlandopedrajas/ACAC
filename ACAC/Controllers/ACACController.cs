@@ -251,7 +251,47 @@ namespace ACAC.Controllers
                 {
                     foreach (RaidItem ri in Dbh.GetRaidItemsByRaider(XRaider))
                     {
-                        
+                        switch (ri.raidItem)
+                        {
+                            case "Accessory Coffer":
+                                ri.raidItemimage = "https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08";
+                                break;
+                            case "Equipment Coffer":
+                                ri.raidItemimage = "https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08";
+                                break;
+                            case "Deepshadow Coating":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/b/b9/Deepshadow_Coating_Icon.png/64px-Deepshadow_Coating_Icon.png";
+                                break;
+                            case "Deepshadow Twine":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/e/e8/Deepshadow_Twine_Icon.png/40px-Deepshadow_Twine_Icon.png";
+                                break;
+                            case "Deepshadow Solvent":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/f/f6/Deepshadow_Solvent_Icon.png/40px-Deepshadow_Solvent_Icon.png";
+                                break;
+                            case "Chest Coffer":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/0/03/Edengrace_Chest_Gear_Coffer_Icon.png/40px-Edengrace_Chest_Gear_Coffer_Icon.png";
+                                break;
+                            case "Weapon Coffer":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/f/ff/Edengrace_Weapon_Coffer_Icon.png/40px-Edengrace_Weapon_Coffer_Icon.png";
+                                break;
+                            default:
+                                switch (ri.Raidfloorname)
+                                {
+                                    case "Eden Savage Floor 1":
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/5/5b/Book_of_Resurrection_Icon.png/40px-Book_of_Resurrection_Icon.png";
+                                        break;
+                                    case "Eden Savage Floor 2":
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/c/c6/Book_of_Descent_Icon.png/40px-Book_of_Descent_Icon.png";
+                                        break;
+                                    case "Eden Savage Floor 3":
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/2/20/Book_of_Inundation_Icon.png/40px-Book_of_Inundation_Icon.png";
+                                        break;
+                                    case "Eden Savage Floor 4":                                        
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/5/5b/Book_of_Sepulture_Icon.png/40px-Book_of_Sepulture_Icon.png";
+                                        break;
+                                }
+                               break;
+                        }
                         li.Add(new Customraiditem
                         {
                             id = ri.id,
@@ -260,6 +300,7 @@ namespace ACAC.Controllers
                             RaidfloorImage = GetFloorImage(ri.Raidfloorname),
                             Raidfloorname = ri.Raidfloorname,
                             raidItem = ri.raidItem,
+                            raidItemimage = ri.raidItemimage,
                             Receiveddate = ri.Receiveddate
                         });
                     }
