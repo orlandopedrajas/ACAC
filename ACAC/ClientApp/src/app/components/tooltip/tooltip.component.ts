@@ -7,5 +7,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     styleUrls: ['./tooltip.component.css']
 })
 export class TooltipComponent {
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+    arm = false;
+
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+        if (data.itemuicategory.toLowerCase().indexOf('arm') > -1) { this.arm = true; }
+    }
 }

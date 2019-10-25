@@ -12,6 +12,11 @@ export class ItemData {
   itemuicategory: string;
   itemlevel: string;
   levelequip: string;
+  canbehq: number;
+  damage: number;
+  autoattack: number;
+  delay: number;
+  stats: any[] = [];
 }
 
 export interface ItemList {
@@ -65,6 +70,7 @@ export class Charprofile {
           this.freecompanyslogan = result.FreeCompany.Slogan;
         } catch (e) { }
 
+
     }
 
     delay(ms: number) {
@@ -87,7 +93,31 @@ export class Charprofile {
         ida.itemuicategory = result.ItemUICategory.Name;
         ida.itemlevel = result.LevelItem;
         ida.levelequip = result.LevelEquip;
+        ida.canbehq = +result.CanBeHq;
+        if (ida.itemuicategory.toLowerCase().indexOf('arm') > -1) {
+          if (result.DamageMag > result.DamagePhys) {
+            ida.damage = +result.DamageMag;
+          } else { ida.damage = +result.DamagePhys; }
+          ida.delay = +result.DelayMs / 1000;
+          ida.autoattack = (ida.delay / 3 ) * ida.damage;
+        }
+        if (typeof result.Stats !== 'undefined') {
+          Object.keys(result.Stats).forEach((stat) => {
+            if (ida.canbehq) {
+              ida.stats.push({name: stat, nq: result.Stats[stat].NQ, hq: result.Stats[stat].HQ });
+            } else {
+              ida.stats.push({name: stat, nq: result.Stats[stat].NQ, hq: result.Stats[stat].NQ });
+            }
+          });
+        //  console.log(result.Stats);
+        //  console.log(Object.keys(result.Stats));
+        }
 
+      //  result.Stats.forEach((stat) => {
+      //    if (ida.canbehq === 0) {
+      //      ida.stats.push({hq: stat.NQ, id: stat.ID, nq: stat.NQ});
+      //    } else { ida.stats.push({hq: stat.HQ, id: stat.ID, nq: stat.NQ}); }
+     //   });
         if (itemSlot === 'mainhand' || itemSlot === 'head"'
             || itemSlot === 'head' || itemSlot === 'body'
             || itemSlot === 'hands' || itemSlot === 'waist'
@@ -230,11 +260,10 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
     ngOnInit() { }
 
     ngOnChanges() {
-
       this.characterprofile = new Charprofile();
       this.http.get<any[]>('https://xivapi.com/character/' + this.characterid + '?data=fc').subscribe(newObj => {
-
         const result: any = newObj;
+        console.log(newObj);
         this.characterprofile.getRaider(this.http, result);
       }, error => console.error(error));
     }
@@ -252,6 +281,11 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
       let itemUICategory: string;
       let levelEquip: string;
       let itemLevel: string;
+      let itemDamage: number;
+      let itemDelay: number;
+      let itemAutoAttack: number;
+
+      //console.log(il);
 
       il.forEach((item) => {
         if (item.key === sitem) {
@@ -261,6 +295,9 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
           itemUICategory = item.itemdata.itemuicategory;
           levelEquip = item.itemdata.levelequip;
           itemLevel = item.itemdata.itemlevel;
+          itemDamage = item.itemdata.damage;
+          itemDelay = item.itemdata.delay;
+          itemAutoAttack = item.itemdata.autoattack;
         }
       });
       // tslint:disable-next-line: no-use-before-declare
@@ -269,7 +306,10 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
                 itemicon: itemIcon,
                 itemuicategory: itemUICategory,
                 itemlevel: itemLevel,
-                levelequip: levelEquip
+                levelequip: levelEquip,
+                itemdamage: itemDamage,
+                itemdelay: itemDelay,
+                itemautoattack: itemAutoAttack
               }});
     }
 }
