@@ -97,7 +97,6 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
                                                    // tslint:disable-next-line: max-line-length
                                                    itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/c/c6/Book_of_Descent_Icon.png/40px-Book_of_Descent_Icon.png',
                                                    item: this.GenerateArrayItem(result, 'other') });
-                            console.log(this.dropsraider);
                         });
                         break;
                     }

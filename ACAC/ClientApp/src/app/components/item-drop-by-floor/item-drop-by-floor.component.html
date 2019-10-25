@@ -16,7 +16,7 @@
                 <mat-list>
                     <mat-list-item >
                         <div class="toLeft">
-                        <img matListAvatar
+                        <img matListAvatar routerLink='{{ element.profile.pageroute }}'
                         src='{{ element.profile.raiderimg }}' 
                         alt='{{ element.profile.raidername }}'>
                         </div>               
@@ -36,7 +36,7 @@
                                         src='{{element.raidItemimage}}'
                                         alt='{{element.raidItem}}'>
                             </div>
-                        </mat-list-item>{{element.raidItemimage}}
+                        </mat-list-item>{{element.raidItem}}
                     </mat-list>
                 </mat-cell>
             </ng-container>
@@ -93,9 +93,9 @@
                     <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
                     <mat-cell *matCellDef="let element">
                         <mat-list>
-                            <mat-list-item routerLink='{{ element.profile.pageroute }}'>
+                            <mat-list-item>
                             <div class="toLeft">
-                                <img matListAvatar
+                                <img matListAvatar routerLink='{{ element.profile.pageroute }}'
                                 src='{{ element.profile.raiderimg }}' 
                                 alt='{{ element.profile.raidername }}'>
                             </div>               
