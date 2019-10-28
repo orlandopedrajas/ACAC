@@ -7,7 +7,7 @@ import { WhoCanLotComponent } from './who-can-lot/who-can-lot.component';
 import { AerilynElessedilComponent, HadesCarmineComponent,
          LaKiComponent, LanMantearComponent,
          ShellyDuncanComponent, ThomasSilverstarComponent,
-         ValPhoenixComponent, YumiRinComponent } from './raiders/raider.component';
+         ValPhoenixComponent, YumiRinComponent, RaiderComponent } from './raiders/raider.component';
 
 import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.component';
 import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
@@ -18,6 +18,7 @@ import { NineComponent } from './nine/nine.component';
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'who-can-lot', component: WhoCanLotComponent },
+  { path: 'raiders', component: RaiderComponent },
   { path: 'raiders/yumi-rin', component: YumiRinComponent },
   { path: 'raiders/lan-mantear', component: LanMantearComponent },
   { path: 'raiders/thomas-silverstar', component: ThomasSilverstarComponent },

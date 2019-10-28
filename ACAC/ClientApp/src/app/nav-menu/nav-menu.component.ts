@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 import { ValidateUserComponent } from '../components/validate-user/validate-user.component';
@@ -81,10 +81,47 @@ export class NavMenuComponent {
 
   openDialog(): void {
      // tslint:disable-next-line: no-use-before-declare
-    const dialogRef = this.dialog.open(ValidateUserComponent, {
-      width: '300px',
-      data: {username: this.username, password: this.password }
-    });
+    // const dialogRef = this.dialog.open(ValidateUserComponent, {
+    //   width: '300px',
+    //   data: {username: this.username, password: this.password }
+    // });
+
+    // const DiscordOauth2 = require('discord-oauth2');
+    // oauth.tokenRequest({
+    //  client_id: '638422083788996619',
+    //  client_secret: 'oUDdYfJ2ZlQIgRyYW30L6j2kqTyUTqMm',
+    //  grant_type: 'authorization_code',
+    //  code: 'query code',
+    //  redirect_uri: 'http://acac.azurewebsites.net',
+    //  scrope: 'identify guilds'
+    // }).then(console.log);
+
+    const headerJson = {'Content-Type': 'application/x-www-form-urlencoded' };
+    const header = new HttpHeaders(headerJson);
+    const API_ENDPOINT = 'https://discordapp.com/api/v6';
+    const CLIENT_ID = '638422083788996619';
+    const CLIENT_SECRET = 'oUDdYfJ2ZlQIgRyYW30L6j2kqTyUTqMm';
+    const REDIRECT_URI = 'http://acac.azurewebsites.net';
+    const AuthUrl = 'https://discordapp.com/api/oauth2/authorize?' +
+                    'response_type=code' +
+                    '&client_id=' + CLIENT_ID +
+                    '&scope=identify' +
+                    '&prompt=consent';
+
+    window.location.href = AuthUrl;
+
+    // const data = {client_id: CLIENT_ID,
+    //            client_secret: CLIENT_SECRET,
+    //            grant_type: 'authorization_code',
+    //            code: 'query code',
+    //            redirect_uri: REDIRECT_URI,
+    //            scope: 'identify' };
+    // this.http.post(API_ENDPOINT, JSON.stringify(data),
+    // {headers: header}).subscribe((val) => { console.log(val);  }, response => { console.log(response); },
+    // () => {  }
+    // );
+
+    // console.log(data);
   }
   Onlogout(): void {
      this.cookieService.delete('loggedin');
