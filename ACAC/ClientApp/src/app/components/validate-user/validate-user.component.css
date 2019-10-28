@@ -4,3 +4,6 @@
 mat-card{
     min-width: 40%;
 }
+.incorrect {
+    color: red;
+}

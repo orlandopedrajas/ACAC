@@ -1,12 +1,17 @@
 <mat-card class='tooltip-card'>
     <mat-card-header>
-        <div mat-card-avatar class='divColumn1'><img src='{{ data.itemicon }}'></div>
-        <mat-card-title>{{ data.itemname }}</mat-card-title>
-        <mat-card-subtitle>{{ data.itemuicategory }}</mat-card-subtitle>
-        <mat-card-subtitle>Item Level {{ data.itemlevel }}</mat-card-subtitle>
+        <div mat-card-avatar class='divColumn1'><img src='https://xivapi.com{{ data.item.Item.Icon }}'></div>
+        <mat-card-title>{{ data.item.Item.Name }}</mat-card-title>
+        <mat-card-subtitle *ngIf="data.item.Mirage">
+            <img mat-card-avatar src='https://xivapi.com{{ data.item.Mirage.Icon }}'>&nbsp;&nbsp;{{ data.item.Mirage.Name }}
+        </mat-card-subtitle>
+        <mat-card-subtitle>{{ data.item.Item.ItemUICategory.Name }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
         <mat-list>
+            <mat-list-item>
+                <mat-card-subtitle>Item Level {{ data.item.Item.LevelItem }}</mat-card-subtitle>
+            </mat-list-item>
             <mat-list-item *ngIf="arm">
                 <div class="divTable" >
                     <div class="divTableHeading">
@@ -25,13 +30,17 @@
                     </div>
                 </div>   
             </mat-list-item>
-            <mat-list-item><p matLine>Lv. {{ data.levelequip }}</p></mat-list-item>
             <mat-list-item>
-                <p matLine>Bonuses</p>
+                <p matLine>{{ data.item.Item.ClassJobCategory.Name }}</p>
+                <p matLine>Lv. {{ data.item.Item.LevelEquip }}</p>
             </mat-list-item>
-        </mat-list>
-             
-        
-        
+            <mat-list-item *ngFor="let materia of data.item.Materia">
+                <mat-list-item>
+                    <img matListAvatar src='https://xivapi.com{{ materia.Icon }}'>
+                    &nbsp;&nbsp;
+                    <mat-card-subtitle>{{ materia.Name }}</mat-card-subtitle>
+                </mat-list-item>
+            </mat-list-item>
+        </mat-list>          
     </mat-card-content>
 </mat-card>

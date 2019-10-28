@@ -737,7 +737,15 @@ namespace ACAC.Controllers
                             id = xid.id,
                             raidername = xid.raidername
                         };
-                        Db.Insert(Xida);
+                        try
+                        {
+                            Db.Insert(Xida);
+                        }
+                        catch
+                        {
+                            Db.CreateTable<Archivedraiditem>();
+                            Db.Insert(Xida);
+                        }
                         Db.Execute("Delete from RaidItem where id=" + id);
                     }
                 }
@@ -746,7 +754,15 @@ namespace ACAC.Controllers
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
-                    Db.Insert(xItem);
+                    try
+                    {
+                        Db.Insert(xItem);
+                    }
+                    catch
+                    {
+                        Db.CreateTable<RaidItem>();
+                        Db.Insert(xItem);
+                    }
                 }
             }
             public void AddRoundRobin(RoundrobinEntry XItem)

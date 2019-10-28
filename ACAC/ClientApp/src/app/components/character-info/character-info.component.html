@@ -12,18 +12,30 @@
         </mat-list-item>
     </mat-list>
     <div class="contentColumn1">
-    <div class="divrow">
-      <div class="divcolumn1">
-          <div *ngFor='let item of characterprofile.itemlist'>
-              <button mat-button (click)="openToolTip(item.key)"><img src='{{ item.itemdata.itemicon }}'></button>
-          </div>
-      </div>
-      <div class="divcolumn2"><div class="raiderImage"><img src='{{ characterprofile.portrait }}'></div></div>
-      <div class="divcolumn3">
-          <div *ngFor='let item of characterprofile.itemlist2'>
-              <button mat-button (click)="openToolTip2(item.key)"><img src='{{ item.itemdata.itemicon }}'></button>
-          </div>
-      </div>
-    </div>
+        <div class="divrow">
+            <div class="divcolumn1">
+                <mat-list>
+                    <mat-list-item><img src='https://xivapi.com{{ characterprofile.mainhand.Item.Icon }}' (click)="openDialog(characterprofile.mainhand)"></mat-list-item>
+                    <mat-list-item *ngIf="characterprofile.head"><img src='https://xivapi.com{{ characterprofile.head.Item.Icon }}' (click)="openDialog(characterprofile.head)"></mat-list-item>
+                    <mat-list-item *ngIf="characterprofile.body"><img src='https://xivapi.com{{ characterprofile.body.Item.Icon }}' (click)="openDialog(characterprofile.body)"></mat-list-item>
+                    <mat-list-item *ngIf="characterprofile.hands"><img src='https://xivapi.com{{ characterprofile.hands.Item.Icon }}' (click)="openDialog(characterprofile.hands)"></mat-list-item>
+                    <mat-list-item *ngIf="characterprofile.wast"><img src='https://xivapi.com{{ characterprofile.waist.Item.Icon }}' (click)="openDialog(characterprofile.waist)"></mat-list-item>
+                    <mat-list-item *ngIf="characterprofile.legs"><img src='https://xivapi.com{{ characterprofile.legs.Item.Icon }}' (click)="openDialog(characterprofile.legs)"></mat-list-item>
+                    <mat-list-item *ngIf="characterprofile.feet"><img src='https://xivapi.com{{ characterprofile.feet.Item.Icon }}' (click)="openDialog(characterprofile.feet)"></mat-list-item>
+                </mat-list>
+            </div>
+            <div class="divcolumn2"><div class="raiderImage"><img src='{{ characterprofile.portrait }}'></div></div>
+            <div class="divcolumn3">
+                <mat-list>
+                    <mat-list-item *ngIf="characterprofile.offhand"><img src='https://xivapi.com{{ characterprofile.offhand.Item.Icon }}' (click)="openDialog(characterprofile.offhand)"></mat-list-item>
+                    <mat-list-item *ngIf="characterprofile.earrings"><img src='https://xivapi.com{{ characterprofile.earrings.Item.Icon }}' (click)="openDialog(characterprofile.earrings)"></mat-list-item>
+                    <mat-list-item *ngIf="characterprofile.necklace"><img src='https://xivapi.com{{ characterprofile.necklace.Item.Icon }}' (click)="openDialog(characterprofile.necklace)"></mat-list-item>
+                    <mat-list-item *ngIf="characterprofile.bracelets"><img src='https://xivapi.com{{ characterprofile.bracelets.Item.Icon }}' (click)="openDialog(characterprofile.bracelets)"></mat-list-item>
+                    <mat-list-item *ngIf="characterprofile.ring1"><img src='https://xivapi.com{{ characterprofile.ring1.Item.Icon }}' (click)="openDialog(characterprofile.ring1)"></mat-list-item>
+                    <mat-list-item *ngIf="characterprofile.ring2"><img src='https://xivapi.com{{ characterprofile.ring2.Item.Icon }}' (click)="openDialog(characterprofile.ring2)"></mat-list-item>
+                    <mat-list-item *ngIf="characterprofile.soulcrystal"><img src='https://xivapi.com{{ characterprofile.soulcrystal.Item.Icon }}' (click)="openDialog(characterprofile.soulcrystal)"></mat-list-item>
+                </mat-list>
+            </div>
+        </div>
     </div>
 </div>

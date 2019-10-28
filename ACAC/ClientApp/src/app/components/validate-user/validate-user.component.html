@@ -13,6 +13,7 @@
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
+            <p matline *ngIf="!validLogin" class="incorrect">* Invalid User/Pass. Try again.</p>
         </mat-card-content>
         <mat-card-actions align="end">
             <button  mat-raised-button color="primary" (click)="onNoClick()">Cancel</button>&nbsp;&nbsp;&nbsp;

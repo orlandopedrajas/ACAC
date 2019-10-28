@@ -16,6 +16,7 @@ export interface DialogData {
   })
   export class ValidateUserComponent {
     hide = true;
+    validLogin = true;
     // tslint:disable-next-line: max-line-length
     constructor(private cookieService: CookieService, private http: HttpClient,
                 public dialogRef: MatDialogRef<NavMenuComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
@@ -31,7 +32,12 @@ export interface DialogData {
       this.http.get<any>(baseUrl + 'api/ACAC/startLogin?userName=' +
       this.data.username + '&password=' + this.data.password).subscribe(result => {
           this.cookieService.set('loggedin', result.gString);
-          window.location.reload();
+          if (typeof result.gString === 'undefined' || result.gString === null) {
+            this.validLogin = false;
+          } else {
+            this.validLogin = true;
+            window.location.reload();
+          }
       }, error => console.error(error));
 
     }
