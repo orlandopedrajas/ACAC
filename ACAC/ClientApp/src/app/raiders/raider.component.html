@@ -1,10 +1,19 @@
-<div *ngIf='charid'>
-    <div class="divRow">
-        <div class="contentColumn1">
-                <app-character-info [characterid]='charid'></app-character-info>
+<mat-tab-group [selectedIndex]="raider.selected">
+    <mat-tab *ngFor="let char of raider.raider">
+        <ng-template mat-tab-label>
+            <mat-list>
+                <mat-list-item>
+                    <img matListAvatar src='{{ char.avatar }}'>     
+                </mat-list-item>
+            </mat-list>
+        </ng-template>
+        <div class="divRow">
+            <div class="contentColumn1">
+                <app-character-info [characterid]='char.characterid'></app-character-info>
+            </div>
+            <div class="contentColumn2">
+                <app-item-drop [charactername]='char.charactername'></app-item-drop>
+            </div>
         </div>
-        <div class="contentColumn2">
-                <app-item-drop [charactername]='charname'></app-item-drop>
-        </div>
-    </div>
-</div>
+    </mat-tab>
+</mat-tab-group>

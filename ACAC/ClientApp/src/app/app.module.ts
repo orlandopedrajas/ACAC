@@ -20,7 +20,7 @@ import { WhoCanLotComponent } from './who-can-lot/who-can-lot.component';
 import { AerilynElessedilComponent, HadesCarmineComponent,
          LaKiComponent, LanMantearComponent,
          ShellyDuncanComponent, ThomasSilverstarComponent,
-         ValPhoenixComponent, YumiRinComponent } from './raiders/raider.component';
+         ValPhoenixComponent, YumiRinComponent, RaiderComponent } from './raiders/raider.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.component';
 import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
@@ -40,6 +40,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     HomeComponent,
     NavMenuComponent,
     WhoCanLotComponent,
+    RaiderComponent,
     AerilynElessedilComponent,
     HadesCarmineComponent,
     LaKiComponent,
