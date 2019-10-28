@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material';
 import { ConfirmationDialogComponent } from '../components/confirmation-dialog/confirmation-dialog.component';
+import { CookieService } from 'ngx-cookie-service';
 
 export class SavageItem {
   id: number;
@@ -46,11 +47,23 @@ export class AddItemDropComponent {
   SavageItems: any[];
   submitted = false;
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
+  loggedin;
+
 
   // tslint:disable-next-line: variable-name
-  constructor(private http: HttpClient, private _SnackBar: MatSnackBar, public dialog: MatDialog) {
-    this.Si.Receiveddate = new Date();
-    this.getRecentRaidItems();
+  constructor(private cookieService: CookieService, private http: HttpClient, private _SnackBar: MatSnackBar, public dialog: MatDialog) {
+    const baseUrl = document.getElementsByTagName('base')[0].href;
+    this.http.get<any>(baseUrl + 'api/ACAC/validate?g=' + this.cookieService.get('loggedin'))
+             .subscribe(result => {
+    if (result) {
+      this.loggedin = true;
+      this.Si.Receiveddate = new Date();
+      this.getRecentRaidItems();
+    } else {
+            this.cookieService.delete('loggedin');
+            this.loggedin = false;
+            window.location.href = '/'; }
+            });
   }
 
   getRecentRaidItems() {
@@ -59,6 +72,7 @@ export class AddItemDropComponent {
      this.SavageItems = result;
    }, error => console.error(error));
   }
+
   toggleChangeFloor() {
     switch (this.Si.Raidfloorname) {
       case 'Eden Savage Floor 1': {

@@ -18,7 +18,8 @@ export class NineComponent {
         {value: '9401374', viewValue: 'Lan Mantear'},
         {value: '11320813', viewValue: 'Lizha Nuhla'},
         {value: '9768479', viewValue: 'Sonic Blue'},
-        {value: '9400141', viewValue: 'Yumi Rin'}
+        {value: '9400141', viewValue: 'Yumi Rin'},
+        {value: '26850205', viewValue: 'Faye Cooke'}
     ];
     charid: string;
 

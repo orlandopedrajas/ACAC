@@ -10,6 +10,7 @@ export class TooltipComponent {
     arm = false;
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
-        if (data.itemuicategory.toLowerCase().indexOf('arm') > -1) { this.arm = true; }
+        // if (data.itemuicategory.toLowerCase().indexOf('arm') > -1) { this.arm = true; }
+        //console.log(data);
     }
 }
