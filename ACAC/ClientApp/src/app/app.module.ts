@@ -33,6 +33,8 @@ import { RoundRobinListComponent } from './components/round-robin-list/round-rob
 import { ItemDropByFloorComponent } from './components/item-drop-by-floor/item-drop-by-floor.component';
 import { NineComponent } from './nine/nine.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { AuthorizeComponent } from './components/authorize/authorize.component';
+
 
 @NgModule({
   declarations: [
@@ -61,6 +63,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     ItemDropByFloorComponent,
     NineComponent,
     ConfirmationDialogComponent,
+    AuthorizeComponent,
   ],
   imports: [
     BrowserModule,

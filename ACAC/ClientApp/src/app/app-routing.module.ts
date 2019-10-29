@@ -14,6 +14,7 @@ import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
 import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/archived-item-drop.component';
 import { ManageListsComponent } from './admin-pages/manage-lists.component';
 import { NineComponent } from './nine/nine.component';
+import { AuthorizeComponent } from './components/authorize/authorize.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'raiders/val-phoenix', component: ValPhoenixComponent },
   { path: 'raiders/aerilyn-elessedil', component: AerilynElessedilComponent },
   { path: 'raiders/la-ki', component: LaKiComponent },
+  { path: 'authorize', component: AuthorizeComponent },
   { path: 'item-drop-history', component: ItemDropHistoryComponent },
   { path: 'add-item-drop', component: AddItemDropComponent },
   { path: 'admin-pages/manage-lists', component: ManageListsComponent },
