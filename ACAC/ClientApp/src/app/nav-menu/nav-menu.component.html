@@ -1,5 +1,11 @@
-<button mat-icon-button [matMenuTriggerFor]="acacmenu"><mat-icon>menu</mat-icon></button>
-
+<mat-list>
+  <mat-list-item [matMenuTriggerFor]="acacmenu">
+    <img matListAvatar src='{{ discordavatar }}'>
+    <button mat-menu-item (click)="openDialog()" *ngIf="!loggedIn">
+        <mat-icon aria-hidden="false">vpn_key</mat-icon>Login via Discord
+    </button>
+  </mat-list-item>
+</mat-list>
 <mat-menu #acacmenu="matMenu">
   <button mat-menu-item [routerLink]='["/"]'>
     <mat-icon aria-hidden="false" aria-label="Home">home</mat-icon>  Home
@@ -9,7 +15,8 @@
   </button>
   <button mat-menu-item [routerLink]='["/who-can-lot"]'><mat-icon aria-hidden="false" aria-label="Who can lot?">work</mat-icon>Who can lot?</button>
   <button mat-menu-item [matMenuTriggerFor]="raiders"><mat-icon aria-hidden="false" aria-label="Raiders">emoji_people</mat-icon>Raiders</button>
-  <button mat-menu-item [matMenuTriggerFor]="adminpages"><mat-icon aria-hidden="false" aria-label="Raiders">settings_applications</mat-icon></button>
+  <button mat-menu-item [matMenuTriggerFor]="adminpages" *ngIf="isAdmin"><mat-icon aria-hidden="false" aria-label="Raiders">settings_applications</mat-icon>Admin</button>
+  <button mat-menu-item (click)="Onlogout()" *ngIf="loggedIn"><mat-icon aria-hidden="false">vpn_key</mat-icon>Logout</button>
 </mat-menu>
 
 <mat-menu #raiders="matMenu">
@@ -64,22 +71,12 @@
     <button mat-menu-item [routerLink]='["/admin-pages/archived-item-drop/archived-item-drop"]'>
       <mat-icon aria-hidden="false">archive</mat-icon> Removed Items
     </button>
-    <div *ngIf="loggedIn; then thenBlock else elseBlock"></div>
-    <ng-template #thenBlock>
-      <button mat-menu-item [routerLink]='["/add-item-drop"]'>
-        <mat-icon aria-hidden="false" aria-label="Item Drop History">add</mat-icon>  Add Drop
-      </button>      
-      <button mat-menu-item [routerLink]='["/admin-pages/manage-lists"]'>
-        <mat-icon aria-hidden="false">view_list</mat-icon> Manage Lists
-      </button>
-      <button mat-menu-item (click)="Onlogout()">
-        <mat-icon aria-hidden="false">vpn_key</mat-icon>Logout
-      </button>
-    </ng-template>
-    <ng-template #elseBlock>
-      <button mat-menu-item (click)="openDialog()">
-        <mat-icon aria-hidden="false">vpn_key</mat-icon>Login
-      </button>
-    </ng-template>
+    <button mat-menu-item [routerLink]='["/add-item-drop"]'>
+      <mat-icon aria-hidden="false" aria-label="Item Drop History">add</mat-icon>  Add Drop
+    </button>      
+    <button mat-menu-item [routerLink]='["/admin-pages/manage-lists"]'>
+      <mat-icon aria-hidden="false">view_list</mat-icon> Manage Lists
+    </button>
+
   </mat-menu>
 

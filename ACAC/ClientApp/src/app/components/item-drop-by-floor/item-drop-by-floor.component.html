@@ -42,7 +42,7 @@
             </ng-container>
         
             <!-- Symbol Column -->
-            <div *ngIf="loggedin; else elseBlock">
+            <div *ngIf="isAdmin; else elseBlock">
                 <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let element">
@@ -121,7 +121,7 @@
                     </ng-container>
                 
                     <!-- Symbol Column -->
-                    <div *ngIf="loggedin; else elseBlock">
+                    <div *ngIf="isAdmin; else elseBlock">
                     <ng-container matColumnDef="id">
                         <mat-header-cell *matHeaderCellDef></mat-header-cell>
                         <mat-cell *matCellDef="let element">
