@@ -80,21 +80,7 @@ export class NavMenuComponent {
 }
 
   openDialog(): void {
-     // tslint:disable-next-line: no-use-before-declare
-    // const dialogRef = this.dialog.open(ValidateUserComponent, {
-    //   width: '300px',
-    //   data: {username: this.username, password: this.password }
-    // });
 
-    // const DiscordOauth2 = require('discord-oauth2');
-    // oauth.tokenRequest({
-    //  client_id: '638422083788996619',
-    //  client_secret: 'oUDdYfJ2ZlQIgRyYW30L6j2kqTyUTqMm',
-    //  grant_type: 'authorization_code',
-    //  code: 'query code',
-    //  redirect_uri: 'http://acac.azurewebsites.net',
-    //  scrope: 'identify guilds'
-    // }).then(console.log);
 
     const headerJson = {'Content-Type': 'application/x-www-form-urlencoded' };
     const header = new HttpHeaders(headerJson);
@@ -109,19 +95,6 @@ export class NavMenuComponent {
                     '&prompt=consent';
 
     window.location.href = AuthUrl;
-
-    // const data = {client_id: CLIENT_ID,
-    //            client_secret: CLIENT_SECRET,
-    //            grant_type: 'authorization_code',
-    //            code: 'query code',
-    //            redirect_uri: REDIRECT_URI,
-    //            scope: 'identify' };
-    // this.http.post(API_ENDPOINT, JSON.stringify(data),
-    // {headers: header}).subscribe((val) => { console.log(val);  }, response => { console.log(response); },
-    // () => {  }
-    // );
-
-    // console.log(data);
   }
   Onlogout(): void {
      this.cookieService.delete('loggedin');
