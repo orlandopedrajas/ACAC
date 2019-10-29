@@ -11,8 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { ValidateUserComponent } from './components/validate-user/validate-user.component';
-
 
 import { DemoMaterialModule } from './material-module';
 import { WhoCanLotComponent } from './who-can-lot/who-can-lot.component';
@@ -55,7 +53,6 @@ import { AuthorizeComponent } from './components/authorize/authorize.component';
     AddItemDropComponent,
     ArchivedItemDropComponent,
     ManageListsComponent,
-    ValidateUserComponent,
     TooltipComponent,
     CharacterInfoComponent,
     ItemDropComponent,
@@ -78,8 +75,7 @@ import { AuthorizeComponent } from './components/authorize/authorize.component';
     DemoMaterialModule
   ],
   providers: [ CookieService ],
-  entryComponents: [ValidateUserComponent,
-                    TooltipComponent,
+  entryComponents: [TooltipComponent,
                     ConfirmationDialogComponent
                   ],
   bootstrap: [AppComponent]

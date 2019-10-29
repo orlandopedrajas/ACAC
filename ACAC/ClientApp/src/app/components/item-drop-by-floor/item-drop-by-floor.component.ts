@@ -43,15 +43,16 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
         this.IsAdmin();
         switch (this.Displaytype) {
             case '0': {
-                this.drops = [];
+//                this.drops = [];
                 this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result1 => {
                     this.drops = result1;
                 }, error => console.error(error));
                 break;
             }
             case '1': {
-                this.floors = [];
+
                 this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result1 => {
+                    this.floors = [];
                     this.floors.push({ floorname: 'Eden Savage Floor 1',
                                        flooricon: 'https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/65-icon.jpg',
                                        floor: result1.filter(r => r.raidfloorname === 'Eden Savage Floor 1') });
@@ -71,10 +72,11 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
                 break;
             }
             case '2': {
-                this.dropsraider = [];
+
                 switch (this.Floorname) {
                     case 'Eden Savage Floor 1': {
                         this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItemsByFloor?XFloor=Eden Savage Floor 1').subscribe(result => {
+                            this.dropsraider = [];
                             this.dropsraider.push({itemname: 'Accessory Coffer',
                                                    // tslint:disable-next-line: max-line-length
                                                    itemimage: 'https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08',
@@ -84,6 +86,7 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
                     }
                     case 'Eden Savage Floor 2': {
                         this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItemsByFloor?XFloor=Eden Savage Floor 2').subscribe(result => {
+                            this.dropsraider = [];
                             this.dropsraider.push({itemname: 'Equipment Coffer',
                                                    // tslint:disable-next-line: max-line-length
                                                    itemimage: 'https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08',
@@ -101,6 +104,7 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
                     }
                     case 'Eden Savage Floor 3': {
                         this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItemsByFloor?XFloor=Eden Savage Floor 3').subscribe(result => {
+                            this.dropsraider = [];
                             this.dropsraider.push({itemname: 'Equipment Coffer',
                                                    // tslint:disable-next-line: max-line-length
                                                    itemimage: 'https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08',
@@ -118,6 +122,7 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
                     }
                     case 'Eden Savage Floor 4': {
                         this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItemsByFloor?XFloor=Eden Savage Floor 4').subscribe(result => {
+                            this.dropsraider = [];
                             this.dropsraider.push({itemname: 'Chest Coffer',
                                                    // tslint:disable-next-line: max-line-length
                                                    itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/0/03/Edengrace_Chest_Gear_Coffer_Icon.png/40px-Edengrace_Chest_Gear_Coffer_Icon.png',

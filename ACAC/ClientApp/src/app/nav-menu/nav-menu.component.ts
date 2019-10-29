@@ -39,7 +39,7 @@ export class NavMenuComponent {
     if (this.discorduser.length === 0) {
       cookieService.deleteAll();
       this.loggedIn = false;
-      this.discordavatar = 'assets/img/no-profile.png';
+      this.discordavatar = 'assets/img/discord.png';
     } else {
        this.loggedIn = true;
        if (this.discorduser === 'Lan Mantear') { this.isAdmin = true; }

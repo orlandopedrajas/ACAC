@@ -1,3 +1,4 @@
+<p *ngIf="!drops && !floors && !dropsraider"><mat-progress-bar mode="indeterminate"></mat-progress-bar></p>
 <div *ngIf='drops'>
     <mat-table [dataSource]='drops' >
             <ng-container matColumnDef="dateReceived">
