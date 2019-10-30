@@ -47,7 +47,29 @@ export class AuthorizeComponent {
              .subscribe(result1 => {
                 this.cookieService.set('discorduser', result1.username);
                 this.cookieService.set('discordavatar', 'https://cdn.discordapp.com/avatars/' + result1.id + '/' + result1.avatar);
-                window.location.href = '/';
+
+                switch (result1.username) {
+                    case 'Aeri': {
+                        window.location.href = '/raiders/aerilyn-elessedil';
+                        break;
+                    }
+                    case 'Lan Mantear': {
+                        window.location.href = '/raiders/lan-mantear';
+                        break;
+                    }
+                    case 'Doki': {
+                        window.location.href = '/raiders/la-ki';
+                        break;
+                    }
+                    case '༄YᑌᗰI࿐❤ 上海': {
+                        window.location.href = '/raiders/yumi-rin';
+                        break;
+                    }
+                    default: {
+                        window.location.href = '/';
+                        break;
+                    }
+                }
              }, error => {
                  console.log(error);
                  this.cookieService.deleteAll();

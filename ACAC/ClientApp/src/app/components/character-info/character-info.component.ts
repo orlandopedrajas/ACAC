@@ -133,8 +133,20 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
     constructor(public http: HttpClient, private dialog: MatDialog) {    }
 
     openDialog(sitem) {
+
       this.dialog.open(TooltipComponent, {
-         data: { item: sitem }}
-       );
+        data: { item: sitem }}
+      );
+
+      // console.log(sitem);
+
+      // this.http.get<any>('https://xivapi.com/item/' + sitem.Item.ID)
+      // .subscribe(result => {
+      //   this.dialog.open(TooltipComponent, {
+      //     data: { item: sitem,
+      //             item2: result }}
+      //   );
+      // });
+
     }
 }
