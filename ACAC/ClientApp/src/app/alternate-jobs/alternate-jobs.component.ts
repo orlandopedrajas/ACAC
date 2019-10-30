@@ -19,7 +19,7 @@ export class Jobalt {
 
 export class AlternateJobsComponent {
 
-    alternatejobs: any[] = [];
+    alternatejobs: any[];
     displayedColumns: string[] = ['raidername', 'alt1', 'alt2'];
     raiders: string[] = ['Aerilyn Elessedil',
                          'Hades Carmine',
@@ -58,17 +58,19 @@ export class AlternateJobsComponent {
     getJobAlternates() {
       const baseUrl = document.getElementsByTagName('base')[0].href;
       // tslint:disable-next-line: max-line-length
-      this.http.get<{ raidername: string, raiderimg: string, raiderbanner: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result1 => {
+      this.http.get<{ raidername: string, raiderimg: string, raiderbanner: string, pageroute: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result1 => {
         this.http.get<any[]>(baseUrl + 'api/ACAC/GetAllJOBAlternates').subscribe(result => {
-            console.log(result);
+            this.alternatejobs = [];
             result.forEach((value) => {
-                this.alternatejobs.push({profile: result.filter(r => r.raidername === value.raidername),
-                                         alternate: value}); 
+                let a = result1.filter(r => r.raidername === value.raidername);
+                this.alternatejobs.push({raidername: value.raidername,
+                                         alt1: value.alt1,
+                                         alt2: value.alt2,
+                                         raiderimg: a[0].raiderimg,
+                                         raiderbanner: a[0].raiderbanner,
+                                         pageroute: a[0].pageroute });
             });
-             // this.alternatejobs = result;
-             //itemsbyprofile.push(history.filter(r => r.raidername === value)
-            // .sort((a, b) => (a.receiveddate < b. receiveddate) ? 1 : -1));
-            console.log(this.alternatejobs);
+            //console.log(this.alternatejobs);
            }, error => console.error(error));
         });
 
