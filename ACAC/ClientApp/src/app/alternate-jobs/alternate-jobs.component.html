@@ -4,14 +4,14 @@
         <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
         <mat-cell *matCellDef="let element">
             <mat-list>
-                <mat-list-item >
-                    <div class="toLeft">
-                    <img matListAvatar routerLink='{{ element.pageroute }}'
-                    src='{{ element.raiderimg }}' 
-                    alt='{{ element.raidername }}'>
-                    </div>               
-                </mat-list-item>
-                </mat-list></mat-cell>
+            <mat-list-item >
+                <div class="toLeft">
+                <img matListAvatar routerLink='{{ element.pageroute }}'
+                src='{{ element.raiderimg }}' 
+                alt='{{ element.raidername }}'>
+                </div>               
+            </mat-list-item>
+        </mat-list></mat-cell>
     </ng-container>
     <ng-container matColumnDef="alt1" >
         <mat-header-cell *matHeaderCellDef> Alt 1 </mat-header-cell>

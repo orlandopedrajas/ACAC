@@ -64,8 +64,8 @@ export class AlternateJobsComponent {
             result.forEach((value) => {
                 let a = result1.filter(r => r.raidername === value.raidername);
                 this.alternatejobs.push({raidername: value.raidername,
-                                         alt1: value.alt1,
-                                         alt2: value.alt2,
+                                         alt1: this.getJobIcon(value.alt1),
+                                         alt2: this.getJobIcon(value.alt2),
                                          raiderimg: a[0].raiderimg,
                                          raiderbanner: a[0].raiderbanner,
                                          pageroute: a[0].pageroute });
@@ -74,6 +74,23 @@ export class AlternateJobsComponent {
            }, error => console.error(error));
         });
 
+    }
+
+    getJobIcon(job): string {
+
+        switch(job) {
+            case 'Dark Knight': {
+                return 'assets/img/job_icons/01_TANK/DarkKnight.png';
+            }
+            case 'Paladin': {
+                return 'assets/img/job_icons/01_TANK/Paladin.png';
+            }
+            case 'Warrior': {
+                return 'assets/img/job_icons/01_TANK/DarkKnight.png';
+            }
+            
+            default: { return job; }
+        }
     }
 
     onSubmit() {
