@@ -15,6 +15,7 @@ import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/arch
 import { ManageListsComponent } from './admin-pages/manage-lists.component';
 import { NineComponent } from './nine/nine.component';
 import { AuthorizeComponent } from './components/authorize/authorize.component';
+import { AlternateJobsComponent } from './alternate-jobs/alternate-jobs.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -33,7 +34,8 @@ const routes: Routes = [
   { path: 'add-item-drop', component: AddItemDropComponent },
   { path: 'admin-pages/manage-lists', component: ManageListsComponent },
   { path: 'admin-pages/archived-item-drop/archived-item-drop', component: ArchivedItemDropComponent },
-  { path: 'nine/nine', component: NineComponent }
+  { path: 'nine/nine', component: NineComponent },
+  { path: 'weapon-alternates', component: AlternateJobsComponent }
 ];
 
 @NgModule({

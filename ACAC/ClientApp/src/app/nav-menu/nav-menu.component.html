@@ -1,9 +1,10 @@
 <mat-list>
-  <mat-list-item [matMenuTriggerFor]="acacmenu">
-    <img matListAvatar src='{{ discordavatar }}'>
-    <button mat-menu-item (click)="openDialog()" *ngIf="!loggedIn">Login via Discord</button>
+  <mat-list-item>
+      <img [matMenuTriggerFor]="acacmenu" matListAvatar src='{{ discordavatar }}'>
+      <div *ngIf="!loggedIn"><button mat-menu-item (click)="openDialog()">Login via Discord</button></div>
   </mat-list-item>
 </mat-list>
+
 <mat-menu #acacmenu="matMenu">
   <button mat-menu-item [routerLink]='["/"]'>
     <mat-icon aria-hidden="false" aria-label="Home">home</mat-icon>  Home
@@ -12,6 +13,7 @@
     <mat-icon aria-hidden="false" aria-label="Item Drop History">history</mat-icon>  Item Drop History
   </button>
   <button mat-menu-item [routerLink]='["/who-can-lot"]'><mat-icon aria-hidden="false" aria-label="Who can lot?">work</mat-icon>Who can lot?</button>
+  <button mat-menu-item [routerLink]='["/weapon-alternates"]'><mat-icon aria-hidden="false" aria-label="Weapon Alternates">sports_cricket</mat-icon>Weapon Alternate</button>
   <button mat-menu-item [matMenuTriggerFor]="raiders"><mat-icon aria-hidden="false" aria-label="Raiders">emoji_people</mat-icon>Raiders</button>
   <button mat-menu-item [matMenuTriggerFor]="adminpages" *ngIf="isAdmin"><mat-icon aria-hidden="false" aria-label="Raiders">settings_applications</mat-icon>Admin</button>
   <button mat-menu-item (click)="Onlogout()" *ngIf="loggedIn"><mat-icon aria-hidden="false">vpn_key</mat-icon>Logout</button>

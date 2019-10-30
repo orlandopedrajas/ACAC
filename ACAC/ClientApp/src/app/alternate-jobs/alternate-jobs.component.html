@@ -1,0 +1,53 @@
+<h1 class='bannertext'>Weapon Alternates</h1>
+<mat-table [dataSource]='alternatejobs'>
+    <ng-container matColumnDef="raidername" >
+        <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <mat-list>
+            <mat-list-item >
+                <div class="toLeft">
+                <img matListAvatar routerLink='{{ element.pageroute }}'
+                src='{{ element.raiderimg }}' 
+                alt='{{ element.raidername }}'>
+                </div>               
+            </mat-list-item>
+        </mat-list></mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="alt1" >
+        <mat-header-cell *matHeaderCellDef> Alt 1 </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.alt1}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="alt2" >
+        <mat-header-cell *matHeaderCellDef> Alt 2 </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.alt2}} </mat-cell>
+    </ng-container>
+    <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<br><br>
+<div *ngIf="isAdmin">
+    <form (ngSubmit)="onSubmit()" #addForm="ngForm">
+        <mat-form-field>
+            <mat-select placeholder="Raider" required [(ngModel)]="JAlt.raidername" name="raider" >
+                <mat-option *ngFor="let raider of raiders" [value]="raider">
+                {{ raider }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="alt1" required [(ngModel)]="JAlt.alt1" name="alt1" >
+                <mat-option *ngFor="let job of jobs" [value]="job">
+                {{ job }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="alt2" required [(ngModel)]="JAlt.alt2" name="alt2" >
+                <mat-option *ngFor="let job of jobs" [value]="job">
+                {{ job }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>    
+        <button mat-raised-button type="submit" color="primary" [disabled]="!addForm.form.valid" >Submit</button>
+    </form>
+</div>

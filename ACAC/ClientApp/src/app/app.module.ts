@@ -32,6 +32,7 @@ import { ItemDropByFloorComponent } from './components/item-drop-by-floor/item-d
 import { NineComponent } from './nine/nine.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { AuthorizeComponent } from './components/authorize/authorize.component';
+import { AlternateJobsComponent } from './alternate-jobs/alternate-jobs.component';
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { AuthorizeComponent } from './components/authorize/authorize.component';
     NineComponent,
     ConfirmationDialogComponent,
     AuthorizeComponent,
+    AlternateJobsComponent,
   ],
   imports: [
     BrowserModule,

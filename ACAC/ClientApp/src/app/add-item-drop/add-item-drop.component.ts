@@ -94,7 +94,7 @@ export class AddItemDropComponent {
         this.drops = ['Chest Coffer', 'Weapon Coffer',
                       'Skyslipper Key', 'Book of Grace',
                       'Edengrace Tathlums', 'Edengrace Spear',
-                      'Edengrace Shield', 'Edenrace Rod',
+                      'Edengrace Shield', 'Edengrace Rod',
                       'Edengrace Revolver', 'Edengrace Rapier',
                       'Edengrace Manatrigger', 'Edengrace Planisphere',
                       'Edengrace Knuckles', 'Edengrace Knives',

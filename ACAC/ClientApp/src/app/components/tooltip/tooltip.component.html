@@ -23,16 +23,15 @@
                     </div>
                     <div class="divTableBody">
                         <div class="divTableRow">
-                            <div class="divTableCell">{{ data.itemdamage }}</div>
-                            <div class="divTableCell">{{ data.itemautoattack | number: '3.0-2' }}</div>
-                            <div class="divTableCell">{{ data.itemdelay }}</div>
+                            <div class="divTableCell">{{ itemdamage }}</div>
+                            <div class="divTableCell">{{ itemautoattack | number: '3.0-2' }}</div>
+                            <div class="divTableCell">{{ itemdelayms }}</div>
                         </div>
                     </div>
                 </div>   
             </mat-list-item>
             <mat-list-item>
                 <p matLine>{{ data.item.Item.ClassJobCategory.Name }}</p>
-                <p matLine>Lv. {{ data.item.Item.LevelEquip }}</p>
             </mat-list-item>
             <mat-list-item *ngFor="let materia of data.item.Materia">
                 <mat-list-item>

@@ -29,6 +29,22 @@ namespace ACAC.Controllers
             }
             catch { return Enumerable.Empty<profile>(); }
         }
+
+        [HttpGet("[action]")]
+        public IEnumerable<JOBAlternate> GetAllJOBAlternates()
+        {
+            try
+            {
+                Databasehandler Dbh = new Databasehandler();
+                if (Dbh.TableExists("JOBAlternate"))
+                {
+                    return Dbh.GetAllJOBAlternates();
+                }
+                else {return Enumerable.Empty<JOBAlternate>(); }
+            }
+            catch { return Enumerable.Empty<JOBAlternate>(); }
+        }
+
         [HttpPost("[action]")]
         public IActionResult saveProfiles([FromBody] profile[] _profile)
         {
@@ -523,6 +539,15 @@ namespace ACAC.Controllers
         }
 
         [HttpPost("[action]")]
+        public IActionResult AddJobAlt([FromBody] JOBAlternate x)
+        {
+            if (x == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");            
+            Databasehandler Dbh = new Databasehandler();        
+            Dbh.InsertUpdateJobAlternate(x);
+            return Ok();
+        }
+
+        [HttpPost("[action]")]
         public IActionResult DeleteItemById([FromBody] string id)
         {
             Databasehandler Dbh = new Databasehandler();
@@ -635,6 +660,9 @@ namespace ACAC.Controllers
                                                          password ="babeth2019",
                                                          role ="admin" });
                                 return true;
+                            case "JOBAlternate":
+                                Db.CreateTable<JOBAlternate>();
+                                return true;
                             default:
                                 return false;
                         }
@@ -667,7 +695,6 @@ namespace ACAC.Controllers
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
-                    RaidItem a = new RaidItem();
                     return Db.Query<RaidItem>("Select * From RaidItem where Raidfloorname='" + XFloor + "' order by raidername desc");
                 }
             }
@@ -683,6 +710,28 @@ namespace ACAC.Controllers
                     {
                         Db.CreateTable<profile>();
                         Db.InsertOrReplace(_p);
+                    }
+                }
+            }
+            public IEnumerable<JOBAlternate> GetAllJOBAlternates()
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    return Db.Query<JOBAlternate>("Select * From JOBAlternate");
+                }
+            }
+            public void InsertUpdateJobAlternate(JOBAlternate ja)
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    try
+                    {
+                        Db.InsertOrReplace(ja);
+                    }
+                    catch
+                    {
+                        Db.CreateTable<JOBAlternate>();
+                        Db.InsertOrReplace(ja);
                     }
                 }
             }
@@ -926,6 +975,12 @@ namespace ACAC.Controllers
             public bool loggedIn { get; set; }
             public DateTime expirationDate { get; set; }
             public string _guid { get; set; }
+        }
+        public class JOBAlternate
+        {
+            public string raidername { get; set; }
+            public string alt1 { get; set; }
+            public string alt2 { get; set; }
         }
     }
 }
