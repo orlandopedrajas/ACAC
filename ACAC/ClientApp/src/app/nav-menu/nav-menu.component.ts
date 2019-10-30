@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
-import { ValidateUserComponent } from '../components/validate-user/validate-user.component';
 
 @Component({
   selector: 'app-nav-menu',
@@ -10,7 +9,11 @@ import { ValidateUserComponent } from '../components/validate-user/validate-user
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-  loggedIn: any;
+  loggedIn: boolean;
+  isAdmin: boolean;
+  discorduser: string;
+  discordavatar: string;
+
   isExpanded = false;
   show = false;
   raiderprofiles: any[];
@@ -27,67 +30,67 @@ export class NavMenuComponent {
   vp = 'assets/img/no-profile.png';
   lk = 'assets/img/no-profile.png';
 
+
   constructor(private cookieService: CookieService, private http: HttpClient, public dialog: MatDialog) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
-    this.loggedIn = cookieService.get('loggedin');
-    this.http.get<any>(baseUrl + 'api/ACAC/validate?g=' + this.loggedIn).subscribe(result => {
-      if (!result) {
-        this.cookieService.delete('loggedin');
-      }
-      // tslint:disable-next-line: no-shadowed-variable
-      http.get<{ raidername: string, raiderimg: string, raiderbanner: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result => {
-        if (result) {
-           this.raiderprofiles = result;
-           this.raiderprofiles.forEach((value) => {
-               switch (value.raidername) {
-                 case 'Aerilyn Elessedil': {
-                   this.ae = value.raiderimg;
-                   break;
-                  }
-                  case 'Hades Carmine': {
-                   this.hc = value.raiderimg;
-                   break;
-                  }
-                  case 'La Ki': {
-                   this.lk = value.raiderimg;
-                   break;
-                  }
-                  case 'Lan Mantear': {
-                   this.lm = value.raiderimg;
-                   break;
-                  }
-                  case 'Shelly Duncan': {
-                   this.sd = value.raiderimg;
-                   break;
-                  }
-                  case 'Thomas Silverstar': {
-                   this.ts = value.raiderimg;
-                   break;
-                  }
-                  case 'Val Phoenix': {
-                   this.vp = value.raiderimg;
-                   break;
-                  }
-                 case 'Yumi Rin': {
-                  this.yr = value.raiderimg;
+    this.isAdmin = false;
+    this.discorduser = cookieService.get('discorduser');
+    this.discordavatar = cookieService.get('discordavatar');
+    if (this.discorduser.length === 0) {
+      cookieService.deleteAll();
+      this.loggedIn = false;
+      this.discordavatar = 'assets/img/discord.png';
+    } else {
+       this.loggedIn = true;
+       if (this.discorduser === 'Lan Mantear') { this.isAdmin = true; }
+    }
+    // tslint:disable-next-line: no-shadowed-variable
+    http.get<{ raidername: string, raiderimg: string, raiderbanner: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result => {
+      if (result) {
+          this.raiderprofiles = result;
+          this.raiderprofiles.forEach((value) => {
+              switch (value.raidername) {
+                case 'Aerilyn Elessedil': {
+                  this.ae = value.raiderimg;
                   break;
-                 }
-               }
-           });
-        }
-       }, error => console.error(error));
-  }, error => console.error(error));
+                }
+                case 'Hades Carmine': {
+                  this.hc = value.raiderimg;
+                  break;
+                }
+                case 'La Ki': {
+                  this.lk = value.raiderimg;
+                  break;
+                }
+                case 'Lan Mantear': {
+                  this.lm = value.raiderimg;
+                  break;
+                }
+                case 'Shelly Duncan': {
+                  this.sd = value.raiderimg;
+                  break;
+                }
+                case 'Thomas Silverstar': {
+                  this.ts = value.raiderimg;
+                  break;
+                }
+                case 'Val Phoenix': {
+                  this.vp = value.raiderimg;
+                  break;
+                }
+                case 'Yumi Rin': {
+                this.yr = value.raiderimg;
+                break;
+                }
+              }
+          });
+      }
+      }, error => console.error(error));
 }
 
   openDialog(): void {
 
-
-    const headerJson = {'Content-Type': 'application/x-www-form-urlencoded' };
-    const header = new HttpHeaders(headerJson);
-    const API_ENDPOINT = 'https://discordapp.com/api/v6';
     const CLIENT_ID = '638422083788996619';
-    const CLIENT_SECRET = 'oUDdYfJ2ZlQIgRyYW30L6j2kqTyUTqMm';
-    const REDIRECT_URI = 'http://acac.azurewebsites.net';
     const AuthUrl = 'https://discordapp.com/api/oauth2/authorize?' +
                     'response_type=code' +
                     '&client_id=' + CLIENT_ID +
@@ -97,7 +100,7 @@ export class NavMenuComponent {
     window.location.href = AuthUrl;
   }
   Onlogout(): void {
-     this.cookieService.delete('loggedin');
+     this.cookieService.deleteAll();
      window.location.reload();
   }
   collapse() {

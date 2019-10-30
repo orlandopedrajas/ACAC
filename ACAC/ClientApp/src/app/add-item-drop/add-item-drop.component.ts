@@ -47,23 +47,26 @@ export class AddItemDropComponent {
   SavageItems: any[];
   submitted = false;
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
-  loggedin;
+  isAdmin: boolean;
 
+  IsAdmin(): boolean {
+  const discorduser = this.cookieService.get('discorduser');
+  if (discorduser.length === 0) {
+      this.cookieService.deleteAll();
+      return false;
+    } else {
+        if (discorduser === 'Lan Mantear') { return true;
+        } else { return false; }
+    }
+  }
 
   // tslint:disable-next-line: variable-name
   constructor(private cookieService: CookieService, private http: HttpClient, private _SnackBar: MatSnackBar, public dialog: MatDialog) {
-    const baseUrl = document.getElementsByTagName('base')[0].href;
-    this.http.get<any>(baseUrl + 'api/ACAC/validate?g=' + this.cookieService.get('loggedin'))
-             .subscribe(result => {
-    if (result) {
-      this.loggedin = true;
-      this.Si.Receiveddate = new Date();
-      this.getRecentRaidItems();
-    } else {
-            this.cookieService.delete('loggedin');
-            this.loggedin = false;
-            window.location.href = '/'; }
-            });
+      this.isAdmin = this.IsAdmin();
+      if (this.isAdmin) {
+        this.Si.Receiveddate = new Date();
+        this.getRecentRaidItems();
+      } else { window.location.href = '/'; }
   }
 
   getRecentRaidItems() {
@@ -150,6 +153,7 @@ export class AddItemDropComponent {
   }
 
   onSubmit() {
+    if (!this.isAdmin) { window.location.href = '/'; }
     this.submitted = true;
     const headerJson = {'Content-Type': 'application/json'};
     const header = new HttpHeaders(headerJson);
@@ -179,6 +183,7 @@ export class AddItemDropComponent {
     this.raiditemchange();
   }
   OnRemoveItem(id: any) {
+    if (!this.isAdmin) { window.location.href = '/'; }
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '350px',
       data: 'Do you confirm the delete of this data?'

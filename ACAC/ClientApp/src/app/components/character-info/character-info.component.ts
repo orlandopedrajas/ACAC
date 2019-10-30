@@ -123,7 +123,8 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
 
     ngOnChanges() {
       this.characterprofile = new Charprofile();
-      this.http.get<any[]>('https://xivapi.com/character/' + this.characterid + '?data=fc&extended=1').subscribe(newObj => {
+      this.http.get<any[]>('https://xivapi.com/character/' + this.characterid + '?data=fc&extended=1')
+      .subscribe(newObj => {
         const result: any = newObj;
         this.characterprofile.getRaider(this.http, result);
         // console.log(this.characterprofile);
