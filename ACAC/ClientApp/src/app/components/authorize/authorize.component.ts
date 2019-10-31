@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { RaiderIdentity } from '../ACACComponents';
 
 @Component({
     selector: 'app-authorize',
@@ -11,6 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class AuthorizeComponent {
     code: any;
     avatarImg: any;
+    raiderIdentity = new RaiderIdentity(this.cookieService);
 
     constructor(private route: ActivatedRoute,  private http: HttpClient, private cookieService: CookieService) {
 
@@ -20,16 +22,11 @@ export class AuthorizeComponent {
         });
 
         this.cookieService.deleteAll();
-
         const headerJson = {'Content-Type': 'application/x-www-form-urlencoded' };
         const header = new HttpHeaders(headerJson);
         const CLIENT_ID = '638422083788996619';
         const CLIENT_SECRET = 'oUDdYfJ2ZlQIgRyYW30L6j2kqTyUTqMm';
-        const API_ENDPOINT = 'https://discordapp.com/api/oauth2/token'; // ?' +
-                            // 'grant_type=authorization_code&' +
-                            // 'code=' + this.code + '&' +
-                            // 'client_id=' + CLIENT_ID + '&' +
-                            // 'client_secret=' + CLIENT_SECRET;
+        const API_ENDPOINT = 'https://discordapp.com/api/oauth2/token';
 
         const data = 'grant_type=authorization_code&' +
                      'code=' + this.code + '&' +
@@ -47,29 +44,7 @@ export class AuthorizeComponent {
              .subscribe(result1 => {
                 this.cookieService.set('discorduser', result1.username);
                 this.cookieService.set('discordavatar', 'https://cdn.discordapp.com/avatars/' + result1.id + '/' + result1.avatar);
-
-                switch (result1.username) {
-                    case 'Aeri': {
-                        window.location.href = '/raiders/aerilyn-elessedil';
-                        break;
-                    }
-                    case 'Lan Mantear': {
-                        window.location.href = '/raiders/lan-mantear';
-                        break;
-                    }
-                    case 'Doki': {
-                        window.location.href = '/raiders/la-ki';
-                        break;
-                    }
-                    case '༄YᑌᗰI࿐❤ 上海': {
-                        window.location.href = '/raiders/yumi-rin';
-                        break;
-                    }
-                    default: {
-                        window.location.href = '/';
-                        break;
-                    }
-                }
+                window.location.href = this.raiderIdentity.Raideridentity().raiderroute;
              }, error => {
                  console.log(error);
                  this.cookieService.deleteAll();

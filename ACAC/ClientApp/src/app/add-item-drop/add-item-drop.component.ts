@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material';
 import { ConfirmationDialogComponent } from '../components/confirmation-dialog/confirmation-dialog.component';
 import { CookieService } from 'ngx-cookie-service';
+import { RaiderIdentity, ThisRaider } from '../components/ACACComponents';
 
 export class SavageItem {
   id: number;
@@ -30,6 +31,7 @@ export class AddItemDropComponent {
 
   raiders: any[];
   override = false;
+  raiderIdentity: ThisRaider = new RaiderIdentity(this.cookieService).Raideridentity();
 
   floors = [
     {value: 'Eden Savage Floor 1', viewValue: 'Eden Savage Floor 1'},
@@ -47,23 +49,10 @@ export class AddItemDropComponent {
   SavageItems: any[];
   submitted = false;
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
-  isAdmin: boolean;
-
-  IsAdmin(): boolean {
-  const discorduser = this.cookieService.get('discorduser');
-  if (discorduser.length === 0) {
-      this.cookieService.deleteAll();
-      return false;
-    } else {
-        if (discorduser === 'Lan Mantear') { return true;
-        } else { return false; }
-    }
-  }
 
   // tslint:disable-next-line: variable-name
   constructor(private cookieService: CookieService, private http: HttpClient, private _SnackBar: MatSnackBar, public dialog: MatDialog) {
-      this.isAdmin = this.IsAdmin();
-      if (this.isAdmin) {
+      if (this.raiderIdentity.IsAdmin) {
         this.Si.Receiveddate = new Date();
         this.getRecentRaidItems();
       } else { window.location.href = '/'; }
@@ -153,7 +142,7 @@ export class AddItemDropComponent {
   }
 
   onSubmit() {
-    if (!this.isAdmin) { window.location.href = '/'; }
+    if (!this.raiderIdentity.IsAdmin) { window.location.href = '/'; }
     this.submitted = true;
     const headerJson = {'Content-Type': 'application/json'};
     const header = new HttpHeaders(headerJson);
@@ -183,7 +172,7 @@ export class AddItemDropComponent {
     this.raiditemchange();
   }
   OnRemoveItem(id: any) {
-    if (!this.isAdmin) { window.location.href = '/'; }
+    if (!this.raiderIdentity.IsAdmin) { window.location.href = '/'; }
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '350px',
       data: 'Do you confirm the delete of this data?'

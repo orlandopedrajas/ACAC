@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-
+import { RaiderIdentity, ThisRaider } from '../components/ACACComponents';
 
 export class Roundrobinreset {
   raidfloorname: string;
@@ -17,29 +17,18 @@ export class Roundrobinreset {
 export class ManageListsComponent {
 
   raiderprofiles: any[];
+  raiderIdentity: ThisRaider = new RaiderIdentity(this.cookieService).Raideridentity();
   roundrobinlist = new Roundrobinreset();
-  isAdmin: boolean;
 
-  IsAdmin(): boolean {
-  const discorduser = this.cookieService.get('discorduser');
-  if (discorduser.length === 0) {
-      this.cookieService.deleteAll();
-      return false;
-    } else {
-       if (discorduser === 'Lan Mantear') { return true;
-       } else { return false; }
-    }
-  }
   constructor(private http: HttpClient, private cookieService: CookieService) {
 
-    if (!this.IsAdmin()) { window.location.href = '/'; }
+    if (!this.raiderIdentity.IsAdmin) { window.location.href = '/'; }
     http.get<any[]>('./api/ACAC/GetAllProfiles').subscribe(result => {
      if (result) {
         this.raiderprofiles = result;
      }
    }, error => console.error(error));
   }
-
 
 
 setlist($event, raidfloorname, raiditem) {
