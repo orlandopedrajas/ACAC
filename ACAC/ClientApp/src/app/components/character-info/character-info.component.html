@@ -6,11 +6,20 @@
             <h2>{{ characterprofile.name }}&nbsp;&nbsp;</h2><h6>~{{ characterprofile.freecompanyname }}</h6>
         </mat-list-item>
         <mat-list-item>
-            <img matListAvatar src='{{ characterprofile.jobicon }}'>
-            <p matLine>Level {{ characterprofile.level }}</p>
-            <p matLine>{{ characterprofile.activeclass.split("/")[1] }}</p>
-            <mat-icon>home</mat-icon>
-            <h5>{{ characterprofile.server }}&nbsp;&nbsp;({{ characterprofile.dc }})</h5>
+            <table>
+                <tr>
+                    <td>
+                        <img matListAvatar src='{{ characterprofile.jobicon }}'>
+                    </td>
+                    <td>
+                        <p>Level {{ characterprofile.level }}</p>
+                        <p>{{ characterprofile.activeclass.split("/")[1] }}</p></td>
+                    <td>
+                        <mat-icon>home</mat-icon>
+                    </td>
+                    <td><h5>{{ characterprofile.server }}&nbsp;&nbsp;({{ characterprofile.dc }})</h5></td>
+                </tr>
+            </table>    
         </mat-list-item>
     </mat-list>
     <div class="contentColumn1">

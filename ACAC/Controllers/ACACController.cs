@@ -542,8 +542,9 @@ namespace ACAC.Controllers
         public IActionResult AddJobAlt([FromBody] JOBAlternate x)
         {
             if (x == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");            
-            Databasehandler Dbh = new Databasehandler();        
+            Databasehandler Dbh = new Databasehandler();
             Dbh.InsertUpdateJobAlternate(x);
+            //Dbh.DropTable("JOBAlternate");
             return Ok();
         }
 
@@ -622,6 +623,13 @@ namespace ACAC.Controllers
         {
             string DbPath = Path.Combine(AppContext.BaseDirectory, "ACAC2.db");
 
+            public void DropTable(string tablename)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    Db.Execute("Drop table " + tablename);
+                }
+            }
             public bool TableExists(string tableName)
             {
                 using (var Db = new SQLiteConnection(DbPath))

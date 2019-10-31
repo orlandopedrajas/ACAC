@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
+import { RaiderIdentity, ThisRaider } from '../ACACComponents';
 
 @Component({
     selector: 'app-item-drop-by-floor',
@@ -15,32 +16,21 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
     @Input() Displaytype: string; // 0 = all, 1 = group by floor, 2= group by drops > raider
     @Input() Floorname: string;
     displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
-    isAdmin: boolean;
+    raiderIdentity: ThisRaider = new RaiderIdentity(this.cookieService).Raideridentity();
     drops: any[] = null;
     floors: any[] = null;
     dropsraider: any[] = null;
 
     ngOnInit() {}
     ngOnChanges() {
-        this.isAdmin = this.IsAdmin();
         this.GetItems();
-    }
-    IsAdmin(): boolean {
-    const discorduser = this.cookieService.get('discorduser');
-    if (discorduser.length === 0) {
-        this.cookieService.deleteAll();
-        return false;
-        } else {
-            if (discorduser === 'Lan Mantear') { return true;
-            } else { return false; }
-        }
     }
     GetItems() {
 
         this.drops = null;
         this.floors = null;
         const baseUrl = document.getElementsByTagName('base')[0].href;
-        this.IsAdmin();
+
         switch (this.Displaytype) {
             case '0': {
 //                this.drops = [];
