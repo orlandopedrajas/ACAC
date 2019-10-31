@@ -978,6 +978,7 @@ namespace ACAC.Controllers
         }
         public class JOBAlternate
         {
+            [PrimaryKey]
             public string raidername { get; set; }
             public string alt1 { get; set; }
             public string alt2 { get; set; }

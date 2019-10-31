@@ -15,11 +15,38 @@
     </ng-container>
     <ng-container matColumnDef="alt1" >
         <mat-header-cell *matHeaderCellDef> Alt 1 </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.alt1}} </mat-cell>
+        <mat-cell *matCellDef="let element">
+            <mat-list>
+                <mat-list-item >
+                    <div class="toLeft">
+                    <img matListAvatar 
+                    src='{{ element.alt1img }}'>
+                    </div>               
+                </mat-list-item>
+            </mat-list>
+        </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="alt2" >
-        <mat-header-cell *matHeaderCellDef> Alt 2 </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.alt2}} </mat-cell>
+    <ng-container matColumnDef="alt2">
+        <mat-header-cell *matHeaderCellDef> Alt 2</mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index" >
+            <ng-container *ngIf="enableedit && element.raidername === thisraider; else viewonly">
+                <mat-select placeholder="Alternate 2" required [(ngModel)]="JAlt.alt2" name="i" >
+                    <mat-option *ngFor="let job of jobs" [value]="element.alt2">
+                    {{ job }}
+                    </mat-option>
+                </mat-select>
+            </ng-container>
+            <ng-template #viewonly>
+                <mat-list>
+                    <mat-list-item >
+                        <div class="toLeft">
+                        <img matListAvatar 
+                        src='{{ element.alt2img }}'>
+                        </div>               
+                    </mat-list-item>
+                </mat-list>
+            </ng-template>
+        </mat-cell>
     </ng-container>
     <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
