@@ -19,6 +19,8 @@ export class Jobalt {
 
 export class AlternateJobsComponent {
 
+    enableedit = false;
+    thisraider = 'Shelly Duncan';
     alternatejobs: any[];
     displayedColumns: string[] = ['raidername', 'alt1', 'alt2'];
     raiders: string[] = ['Aerilyn Elessedil',
@@ -64,8 +66,10 @@ export class AlternateJobsComponent {
             result.forEach((value) => {
                 let a = result1.filter(r => r.raidername === value.raidername);
                 this.alternatejobs.push({raidername: value.raidername,
-                                         alt1: this.getJobIcon(value.alt1),
-                                         alt2: this.getJobIcon(value.alt2),
+                                         alt1: value.alt1,
+                                         alt1img: this.getJobIcon(value.alt1),
+                                         alt2img: this.getJobIcon(value.alt2),
+                                         alt2: value.alt2,
                                          raiderimg: a[0].raiderimg,
                                          raiderbanner: a[0].raiderbanner,
                                          pageroute: a[0].pageroute });
@@ -80,15 +84,57 @@ export class AlternateJobsComponent {
 
         switch(job) {
             case 'Dark Knight': {
-                return 'assets/img/job_icons/01_TANK/DarkKnight.png';
+                return 'https://xivapi.com/cj/1/darkknight.png';
             }
             case 'Paladin': {
-                return 'assets/img/job_icons/01_TANK/Paladin.png';
+                return 'https://xivapi.com/cj/1/paladin.png';
             }
             case 'Warrior': {
-                return 'assets/img/job_icons/01_TANK/DarkKnight.png';
+                return 'https://xivapi.com/cj/1/warrior.png';
             }
-            
+            case 'Gunbreaker': {
+                return 'https://xivapi.com/cj/1/gunbreaker.png';
+            }
+            case 'Monk': {
+                return 'https://xivapi.com/cj/1/monk.png';
+            }
+            case 'Dragoon': {
+                return 'https://xivapi.com/cj/1/dragoon.png';
+            }
+            case 'Ninja': {
+                return 'https://xivapi.com/cj/1/ninja.png';
+            }
+            case 'Samurai': {
+                return 'https://xivapi.com/cj/1/samurai.png';
+            }
+            case 'Bard': {
+                return 'https://xivapi.com/cj/1/bard.png';
+            }
+            case 'Machinist': {
+                return 'https://xivapi.com/cj/1/machinist.png';
+            }
+            case 'Dancer': {
+                return 'https://xivapi.com/cj/1/dancer.png';
+            }
+            case 'Black Mage': {
+                return 'https://xivapi.com/cj/1/blackmage.png';
+            }
+            case 'Summoner': {
+                return 'https://xivapi.com/cj/1/summoner.png';
+            }
+            case 'Red Mage': {
+                return 'https://xivapi.com/cj/1/redmage.png';
+            }
+            case 'White Mage': {
+                return 'https://xivapi.com/cj/1/whitemage.png';
+            }
+            case 'Scholar': {
+                return 'https://xivapi.com/cj/1/scholar.png';
+            }
+            case 'Astrologian': {
+                return 'https://xivapi.com/cj/1/astrologian.png';
+            }
+
             default: { return job; }
         }
     }
