@@ -100,7 +100,9 @@ export class NavMenuComponent {
     window.location.href = AuthUrl;
   }
   Onlogout(): void {
-     this.cookieService.deleteAll();
+     this.cookieService.delete('discorduser', '/');
+     this.cookieService.delete('discordavatar', '/');
+     this.cookieService.deleteAll('/');
      window.location.reload();
   }
   collapse() {

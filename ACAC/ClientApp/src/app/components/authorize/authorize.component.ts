@@ -47,12 +47,16 @@ export class AuthorizeComponent {
                 window.location.href = this.raiderIdentity.Raideridentity().raiderroute;
              }, error => {
                  console.log(error);
-                 this.cookieService.deleteAll();
+                 this.cookieService.delete('discorduser', '/');
+                 this.cookieService.delete('discordavatar', '/');
+                 this.cookieService.deleteAll('/');
                  window.location.href = '/';
              });
          }, error => {
             console.log(error);
-            this.cookieService.deleteAll();
+            this.cookieService.delete('discorduser', '/');
+            this.cookieService.delete('discordavatar', '/');
+            this.cookieService.deleteAll('/');
             window.location.href = '/';
          });
 

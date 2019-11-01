@@ -61,7 +61,7 @@ export class AddItemDropComponent {
   getRecentRaidItems() {
     const baseUrl = document.getElementsByTagName('base')[0].href;
     this.http.get<any[]>(baseUrl + 'api/ACAC/GetRecentRaidItems').subscribe(result => {
-     this.SavageItems = result;
+     this.SavageItems = result; // .sort((a, b) => (a.raidfloorname < b.raidfloorname && a.receiveddate < b.receiveddate) ? 1 : -1);
    }, error => console.error(error));
   }
 
