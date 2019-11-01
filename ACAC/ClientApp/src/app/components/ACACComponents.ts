@@ -13,7 +13,9 @@ class RaiderIdentity {
 
     IsAdmin(raidername): boolean {
         if (raidername.length === 0) {
-            this.cookieService.deleteAll();
+            this.cookieService.delete('discorduser', '/');
+            this.cookieService.delete('discordavatar', '/');
+            this.cookieService.deleteAll('/');
             return false;
         } else {
             if (raidername === 'Lan Mantear' || raidername === 'Yumi Rin') { return true;

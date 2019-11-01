@@ -8,18 +8,12 @@
         <mat-list-item>
             <table>
                 <tr>
-                    <td>
-                        <img matListAvatar src='{{ characterprofile.jobicon }}'>
-                    </td>
-                    <td>
-                        <p>Level {{ characterprofile.level }}</p>
-                        <p>{{ characterprofile.activeclass.split("/")[1] }}</p></td>
-                    <td>
-                        <mat-icon>home</mat-icon>
-                    </td>
+                    <td><img matListAvatar src='{{ characterprofile.jobicon }}'></td>
+                    <td><h5>Level {{ characterprofile.level }} {{ characterprofile.activeclass.split("/")[1] }}</h5></td>
+                    <td><mat-icon>home</mat-icon></td>
                     <td><h5>{{ characterprofile.server }}&nbsp;&nbsp;({{ characterprofile.dc }})</h5></td>
                 </tr>
-            </table>    
+            </table>  
         </mat-list-item>
     </mat-list>
     <div class="contentColumn1">

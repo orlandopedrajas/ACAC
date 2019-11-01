@@ -21,11 +21,16 @@ export class ManageListsComponent {
   roundrobinlist = new Roundrobinreset();
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
-
+    this.http.get<any[]>('./api/ACAC/GetRoundRobinList?XRaidfloorname=Eden Savage Floor 1')
+             .subscribe(result => {
+               console.log(result);
+             });
     if (!this.raiderIdentity.IsAdmin) { window.location.href = '/'; }
+
     http.get<any[]>('./api/ACAC/GetAllProfiles').subscribe(result => {
      if (result) {
         this.raiderprofiles = result;
+        console.log(result);
      }
    }, error => console.error(error));
   }
