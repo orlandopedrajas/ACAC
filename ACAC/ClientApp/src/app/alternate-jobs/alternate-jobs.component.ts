@@ -42,7 +42,6 @@ export class AlternateJobsComponent {
     constructor(private cookieService: CookieService, private http: HttpClient,
                 // tslint:disable-next-line: variable-name
                 private _SnackBar: MatSnackBar, public dialog: MatDialog) {
-        // console.log(this.JAlt);
         this.getJobAlternates();
     }
 
@@ -68,7 +67,6 @@ export class AlternateJobsComponent {
                                          raiderbanner: a[0].raiderbanner,
                                          pageroute: a[0].pageroute });
             });
-            //console.log(this.alternatejobs);
            }, error => console.error(error));
         });
 

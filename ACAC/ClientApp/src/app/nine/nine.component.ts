@@ -26,7 +26,5 @@ export class NineComponent {
     constructor() {
         this.charid = null;
     }
-
-    memberChange(event) {    }
 }
 
