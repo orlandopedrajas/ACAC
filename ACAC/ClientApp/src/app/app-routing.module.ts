@@ -35,7 +35,7 @@ const routes: Routes = [
   { path: 'admin-pages/manage-lists', component: ManageListsComponent },
   { path: 'admin-pages/archived-item-drop/archived-item-drop', component: ArchivedItemDropComponent },
   { path: 'nine/nine', component: NineComponent },
-  { path: 'weapon-alternates', component: AlternateJobsComponent }
+  { path: 'weapon-alternates', component: AlternateJobsComponent },
 ];
 
 @NgModule({

@@ -33,6 +33,8 @@ import { NineComponent } from './nine/nine.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { AuthorizeComponent } from './components/authorize/authorize.component';
 import { AlternateJobsComponent } from './alternate-jobs/alternate-jobs.component';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -63,6 +65,7 @@ import { AlternateJobsComponent } from './alternate-jobs/alternate-jobs.componen
     ConfirmationDialogComponent,
     AuthorizeComponent,
     AlternateJobsComponent,
+    PieChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ import { AlternateJobsComponent } from './alternate-jobs/alternate-jobs.componen
     MatSidenavModule,
     MatTableModule,
     MatNativeDateModule,
-    DemoMaterialModule
+    DemoMaterialModule,
+    ChartsModule
   ],
   providers: [ CookieService ],
   entryComponents: [TooltipComponent,
