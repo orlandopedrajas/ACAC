@@ -875,7 +875,13 @@ namespace ACAC.Controllers
             {
                 using (var Db = new SQLiteConnection(DbPath))
                 {
-                    return Db.Query<DropsReportData>("Select raidername, count(raiderName) reportcount from RaidItem Where Raidfloorname='" + raidfloorname + "' Group by raidername");
+                    if (raidfloorname == "ALL")
+                    {
+                        return Db.Query<DropsReportData>("Select raidername, count(raiderName) reportcount from RaidItem Group by raidername");
+                    } 
+                    else{
+                        return Db.Query<DropsReportData>("Select raidername, count(raiderName) reportcount from RaidItem Where Raidfloorname='" + raidfloorname + "' Group by raidername");
+                    }
                 }
             }
             public bool validate(string g)
