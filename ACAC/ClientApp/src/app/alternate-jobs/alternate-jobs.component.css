@@ -21,3 +21,15 @@ display: none;
 input.form-right-align {
 -moz-appearance: textfield;
 }
+
+img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+  }
+.imgA1 {
+z-index: 1;
+}
+.imgB1 {
+z-index: 3;
+}

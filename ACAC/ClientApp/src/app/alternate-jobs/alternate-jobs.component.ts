@@ -55,12 +55,15 @@ export class AlternateJobsComponent {
       // tslint:disable-next-line: max-line-length
       this.http.get<{ raidername: string, raiderimg: string, raiderbanner: string, pageroute: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result1 => {
         this.http.get<any[]>(baseUrl + 'api/ACAC/GetAllJOBAlternates').subscribe(result => {
+           // console.log(result);
             this.alternatejobs = [];
             result.forEach((value) => {
                 const a = result1.filter(r => r.raidername === value.raidername);
                 this.alternatejobs.push({raidername: value.raidername,
                                          alt1: value.alt1,
                                          alt1img: this.getJobIcon(value.alt1),
+                                         hasalt1: value.hasalt1,
+                                         hasalt2: value.hasalt2,
                                          alt2img: this.getJobIcon(value.alt2),
                                          alt2: value.alt2,
                                          raiderimg: a[0].raiderimg,
