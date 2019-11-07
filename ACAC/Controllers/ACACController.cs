@@ -41,6 +41,16 @@ namespace ACAC.Controllers
             catch { return Enumerable.Empty<DropsReportData>(); }
         }
         [HttpGet("[action]")]
+        public IEnumerable<DropsReportData2> GetReportData2(string raidername)
+        {
+            try
+            {
+                Databasehandler Dbh = new Databasehandler();
+                return Dbh.GetReportData2(raidername);
+            }
+            catch { return Enumerable.Empty<DropsReportData2>(); }
+        }
+        [HttpGet("[action]")]
         public IEnumerable<JOBAlternate> GetAllJOBAlternates()
         {
             try
@@ -993,6 +1003,13 @@ namespace ACAC.Controllers
                     }
                 }
             }
+            public IEnumerable<DropsReportData2> GetReportData2(string raidername)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    return Db.Query<DropsReportData2>("Select raidfloorname, count(raidfloorname) reportcount from RaidItem where raidername='" + raidername + "' Group by raidfloorname");
+                }
+            }
             public bool validate(string g)
             {
                 using (var Db = new SQLiteConnection(DbPath))
@@ -1129,6 +1146,11 @@ namespace ACAC.Controllers
         public class DropsReportData
         {
             public string raidername { get; set; }
+            public string reportcount { get; set; }
+        }
+        public class DropsReportData2
+        { 
+            public string raidfloorname { get; set; }
             public string reportcount { get; set; }
         }
     }

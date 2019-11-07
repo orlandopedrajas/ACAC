@@ -11,7 +11,9 @@ import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 })
 export class PieChartComponent implements OnInit, OnChanges {
 
-    @Input() Floorname: string;
+    @Input() Filter: string;
+    @Input() Datatype: string;
+
     public pieChartOptions: ChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -48,15 +50,23 @@ export class PieChartComponent implements OnInit, OnChanges {
     constructor(private http: HttpClient) { }
     ngOnInit() { }
     ngOnChanges() {
-        this.loadChart();
+        switch (this.Datatype)
+        {
+            case '0': {
+                this.loadRaidFloor();
+                break;
+            }
+            case '1': {
+                this.loadRaider();
+                break;
+            }
+        }
      }
 
-    public loadChart(): void {
+     loadRaidFloor(): void {
         const baseUrl = document.getElementsByTagName('base')[0].href;
-        this.http.get<any[]>(baseUrl + 'api/ACAC/GetReportData?raidfloorname=' + this.Floorname)
+        this.http.get<any[]>(baseUrl + 'api/ACAC/GetReportData?raidfloorname=' + this.Filter)
         .subscribe(result => {
-            // console.log(this.Floorname);
-            // console.log(result);
             this.pieChartLabels = [];
             this.pieChartData = [];
             result.forEach((value) => {
@@ -91,6 +101,36 @@ export class PieChartComponent implements OnInit, OnChanges {
                     }
                 }
                 this.pieChartLabels.push(value.raidername);
+                this.pieChartData.push(+value.reportcount);
+            });
+        });
+    }
+    loadRaider(): void {
+        const baseUrl = document.getElementsByTagName('base')[0].href;
+        this.http.get<any[]>(baseUrl + 'api/ACAC/GetReportData2?raidername=' + this.Filter)
+        .subscribe(result => {
+            this.pieChartLabels = [];
+            this.pieChartData = [];
+            result.forEach((value) => {
+                switch (value.raidfloorname) {
+                    case 'Eden Savage Floor 1': {
+                        value.raidfloorname = 'Resurrection';
+                        break;
+                    }
+                    case 'Eden Savage Floor 2': {
+                        value.raidfloorname = 'Descent';
+                        break;
+                    }
+                    case 'Eden Savage Floor 3': {
+                        value.raidfloorname = 'Inundation';
+                        break;
+                    }
+                    case 'Eden Savage Floor 4': {
+                        value.raidfloorname = 'Sepulture';
+                        break;
+                    }
+                }
+                this.pieChartLabels.push(value.raidfloorname);
                 this.pieChartData.push(+value.reportcount);
             });
         });

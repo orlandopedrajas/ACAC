@@ -45,6 +45,9 @@ export class ACACRaider {
 })
 export class RaiderComponent {
   raider = new ACACRaider('0');
+  tabChanged(event) {
+    this.raider.selected = event.index;
+  }
 }
 
 @Component({
@@ -55,6 +58,9 @@ export class RaiderComponent {
 
 export class LanMantearComponent {
   raider = new ACACRaider('3');
+  tabChanged(event) {
+    this.raider.selected = event.index;
+  }
 }
 
 @Component({
@@ -64,6 +70,9 @@ export class LanMantearComponent {
 })
 export class AerilynElessedilComponent {
   raider = new ACACRaider('0');
+  tabChanged(event) {
+    this.raider.selected = event.index;
+  }
 }
 @Component({
     selector: 'app-hades-carmine',
@@ -71,8 +80,11 @@ export class AerilynElessedilComponent {
     styleUrls: ['./raider.component.css']
   })
 
-  export class HadesCarmineComponent {
+export class HadesCarmineComponent {
     raider = new ACACRaider('1');
+    tabChanged(event) {
+      this.raider.selected = event.index;
+    }
 }
 
 @Component({
@@ -83,6 +95,9 @@ export class AerilynElessedilComponent {
 
 export class LaKiComponent {
   raider = new ACACRaider('2');
+  tabChanged(event) {
+    this.raider.selected = event.index;
+  }
 }
 
 @Component({
@@ -93,7 +108,9 @@ export class LaKiComponent {
 
 export class ShellyDuncanComponent {
   raider = new ACACRaider('4');
-
+  tabChanged(event) {
+    this.raider.selected = event.index;
+  }
 }
 
 @Component({
@@ -104,6 +121,9 @@ export class ShellyDuncanComponent {
 
 export class ThomasSilverstarComponent {
   raider = new ACACRaider('5');
+  tabChanged(event) {
+    this.raider.selected = event.index;
+  }
 }
 
 @Component({
@@ -114,6 +134,9 @@ export class ThomasSilverstarComponent {
 
 export class ValPhoenixComponent {
   raider = new ACACRaider('6');
+  tabChanged(event) {
+    this.raider.selected = event.index;
+  }
 }
 @Component({
   selector: 'app-yumi-rin',
@@ -122,5 +145,8 @@ export class ValPhoenixComponent {
 })
 export class YumiRinComponent {
   raider = new ACACRaider('7');
+  tabChanged(event) {
+    this.raider.selected = event.index;
+  }
 }
 
