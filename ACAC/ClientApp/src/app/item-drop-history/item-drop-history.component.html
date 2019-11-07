@@ -1,6 +1,6 @@
 <h1 class='bannertext'>Item History</h1>
 <br><br>
-<app-pie-chart [Floorname]='savageFloor'></app-pie-chart>
+<app-pie-chart [Filter]='savageFloor' [Datatype]="'0'" ></app-pie-chart>
 <mat-tab-group (selectedTabChange)="tabChanged($event)">
     <mat-tab>
             <ng-template mat-tab-label>

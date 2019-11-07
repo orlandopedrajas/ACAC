@@ -1,4 +1,4 @@
-<mat-tab-group [selectedIndex]="raider.selected">
+<mat-tab-group [selectedIndex]="raider.selected" (selectedTabChange)="tabChanged($event)">
     <mat-tab *ngFor="let char of raider.raider">
         <ng-template mat-tab-label>
             <mat-list>
@@ -7,13 +7,14 @@
                 </mat-list-item>
             </mat-list>
         </ng-template>
-        <div class="divRow">
-            <div class="contentColumn1">
-                <app-character-info [characterid]='char.characterid'></app-character-info>
-            </div>
-            <div class="contentColumn2">
-                <app-item-drop [charactername]='char.charactername'></app-item-drop>
-            </div>
-        </div>
     </mat-tab>
 </mat-tab-group>
+<div class="divRow">
+    <div class="contentColumn1">
+        <app-character-info [characterid]='raider.raider[raider.selected].characterid'></app-character-info>
+    </div>
+    <div class="contentColumn2">
+        <app-pie-chart [Filter]='raider.raider[raider.selected].charactername' [Datatype]="'1'" ></app-pie-chart>
+        <app-item-drop [charactername]='raider.raider[raider.selected].charactername'></app-item-drop>
+    </div>
+</div>

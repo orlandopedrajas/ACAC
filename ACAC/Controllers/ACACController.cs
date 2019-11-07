@@ -41,6 +41,16 @@ namespace ACAC.Controllers
             catch { return Enumerable.Empty<DropsReportData>(); }
         }
         [HttpGet("[action]")]
+        public IEnumerable<DropsReportData2> GetReportData2(string raidername)
+        {
+            try
+            {
+                Databasehandler Dbh = new Databasehandler();
+                return Dbh.GetReportData2(raidername);
+            }
+            catch { return Enumerable.Empty<DropsReportData2>(); }
+        }
+        [HttpGet("[action]")]
         public IEnumerable<JOBAlternate> GetAllJOBAlternates()
         {
             try
@@ -735,7 +745,116 @@ namespace ACAC.Controllers
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
-                    return Db.Query<JOBAlternate>("Select * From JOBAlternate");
+                    //return Enumerable.Empty<JOBAlternate>();
+                    return Db.Query<JOBAlternate>(@"Select 
+                                                    j.raidername,
+                                                    j.alt1,
+                                                    j.alt2,
+                                                    case 
+                                                        when alt1 = 'Black Mage' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem in('Edenrace Rod','Edengrace Rod')) then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Paladin' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Bastard Sword') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Warrior' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Battleaxe') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt1 = 'Samurai' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Blade') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'White Mage' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Cane') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt1 = 'Dark Knight' THEN 
+	                                                            case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Greatsword') then 'Yes'  
+		                                                        else 'No' end  
+                                                        when alt1 = 'Bard' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Harp Bow') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt1 = 'Ninja' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Knives') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Monk' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Knuckles') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Gunbreaker' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Manatrigger') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Astrologian' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Planisphere') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Red Mage' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Rapier') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt1 = 'Machinist' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Revolver') then 'Yes' 
+		                                                        else 'No' end
+                                                        when alt1 = 'Dragoon' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Spear') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Scholar' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Word of Grace') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Summoner' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Book of Grace') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Dancer' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Tathlums') then 'Yes' 
+		                                                        else 'No' end else 'No' end  hasalt1,
+                                                    case 
+                                                        when alt2 = 'Black Mage' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem in('Edenrace Rod','Edengrace Rod')) then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt2 = 'Paladin' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Bastard Sword') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt2 = 'Warrior' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Battleaxe') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt2 = 'Samurai' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Blade') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt2 = 'White Mage' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Cane') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt2 = 'Dark Knight' THEN 
+	                                                            case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Greatsword') then 'Yes'  
+		                                                        else 'No' end  
+                                                        when alt2 = 'Bard' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Harp Bow') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt2 = 'Ninja' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Knives') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt2 = 'Monk' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Knuckles') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt2 = 'Gunbreaker' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Manatrigger') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt2 = 'Astrologian' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Planisphere') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt2 = 'Red Mage' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Rapier') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt2 = 'Machinist' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Revolver') then 'Yes' 
+		                                                        else 'No' end
+                                                        when alt2 = 'Dragoon' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Spear') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt2 = 'Scholar' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Word of Grace') then 'Yes' 
+		                                                        else 'No' end
+                                                        when alt2 = 'Summoner' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Book of Grace') then 'Yes' 
+		                                                        else 'No' end
+	                                                    when alt2 = 'Dancer' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Tathlums') then 'Yes' 
+		                                                        else 'No' end else 'No' end  hasalt2
+                                                    From JOBAlternate j");
                 }
             }
             public void InsertUpdateJobAlternate(JOBAlternate ja)
@@ -884,6 +1003,13 @@ namespace ACAC.Controllers
                     }
                 }
             }
+            public IEnumerable<DropsReportData2> GetReportData2(string raidername)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    return Db.Query<DropsReportData2>("Select raidfloorname, count(raidfloorname) reportcount from RaidItem where raidername='" + raidername + "' Group by raidfloorname");
+                }
+            }
             public bool validate(string g)
             {
                 using (var Db = new SQLiteConnection(DbPath))
@@ -1013,10 +1139,18 @@ namespace ACAC.Controllers
             public string raidername { get; set; }
             public string alt1 { get; set; }
             public string alt2 { get; set; }
+            public string hasalt1 { get; set; }
+  
+            public string hasalt2 { get; set; }
         }
         public class DropsReportData
         {
             public string raidername { get; set; }
+            public string reportcount { get; set; }
+        }
+        public class DropsReportData2
+        { 
+            public string raidfloorname { get; set; }
             public string reportcount { get; set; }
         }
     }

@@ -16,7 +16,7 @@
     <ng-container matColumnDef="alt1" >
         <mat-header-cell *matHeaderCellDef> Alt 1 </mat-header-cell>
         <mat-cell *matCellDef="let element; let i = index" >
-            <ng-container *ngIf="enableedit && element.raidername === this.raiderIdentity.raidername; else viewonly">
+            <ng-container *ngIf="enableedit && element.raidername === this.raiderIdentity.raidername && element.hasalt1 === 'No'; else viewonly">
                 <mat-select placeholder="Alternate 1" name="i" [(ngModel)]="element.alt1" (blur)="onBlur()"  (selectionChange)="onAltchange(element.raidername,element.alt1, element.alt2)">
                     <mat-option *ngFor="let job of jobs" [value]="job">
                     {{ job }}
@@ -27,9 +27,11 @@
                 <mat-list>
                     <mat-list-item >
                         <div class="toLeft">
-                        <img matListAvatar (click)="onEnableEdit(element.raidername)"
-                        src='{{ element.alt1img }}'>
-                        </div>               
+                            <img matListAvatar class="imgA1" (click)="onEnableEdit(element.raidername)"
+                            src='{{ element.alt1img }}'>
+                            <img  matListAvatar class="imgB1"
+                            src='assets/img/green-check.png' *ngIf="element.hasalt1 === 'Yes'" >
+                            </div>                    
                     </mat-list-item>
                 </mat-list>
             </ng-template>
@@ -38,7 +40,7 @@
     <ng-container matColumnDef="alt2">
         <mat-header-cell *matHeaderCellDef> Alt 2</mat-header-cell>
         <mat-cell *matCellDef="let element; let i = index" >
-            <ng-container *ngIf="enableedit && element.raidername === this.raiderIdentity.raidername; else viewonly">
+            <ng-container *ngIf="enableedit && element.raidername === this.raiderIdentity.raidername && element.hasalt2 === 'No'; else viewonly">
                 <mat-select placeholder="Alternate 2" name="i" [(ngModel)]="element.alt2"  (selectionChange)="onAltchange(element.raidername,element.alt1, element.alt2)">
                     <mat-option *ngFor="let job of jobs" [value]="job">
                     {{ job }}
@@ -49,8 +51,10 @@
                 <mat-list>
                     <mat-list-item >
                         <div class="toLeft">
-                        <img matListAvatar (click)="onEnableEdit(element.raidername)"
+                        <img matListAvatar class="imgA1" (click)="onEnableEdit(element.raidername)"
                         src='{{ element.alt2img }}'>
+                        <img  matListAvatar class="imgB1"
+                        src='assets/img/green-check.png' *ngIf="element.hasalt2 === 'Yes'" >
                         </div>               
                     </mat-list-item>
                 </mat-list>
