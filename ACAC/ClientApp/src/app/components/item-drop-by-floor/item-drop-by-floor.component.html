@@ -19,7 +19,7 @@
                         <div class="toLeft">
                         <img matListAvatar routerLink='{{ element.profile.pageroute }}'
                         src='{{ element.profile.raiderimg }}' 
-                        alt='{{ element.profile.raidername }}'>
+                        alt='{{ element.profile.raidername }}' class='pointer'>
                         </div>               
                     </mat-list-item>
                     </mat-list>
@@ -47,7 +47,7 @@
                 <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <mat-icon (click)='OnRemoveItem(element.id)'>remove_circle_outline</mat-icon>
+                    <mat-icon (click)='OnRemoveItem(element.id)' class='pointer'>remove_circle_outline</mat-icon>
                 </mat-cell>
                 </ng-container>
             </div>
@@ -98,7 +98,7 @@
                             <div class="toLeft">
                                 <img matListAvatar routerLink='{{ element.profile.pageroute }}'
                                 src='{{ element.profile.raiderimg }}' 
-                                alt='{{ element.profile.raidername }}'>
+                                alt='{{ element.profile.raidername }}' class='pointer' >
                             </div>               
                             </mat-list-item>
                         </mat-list>
@@ -126,7 +126,7 @@
                     <ng-container matColumnDef="id">
                         <mat-header-cell *matHeaderCellDef></mat-header-cell>
                         <mat-cell *matCellDef="let element">
-                        <mat-icon (click)='OnRemoveItem(element.id)'>remove_circle_outline</mat-icon>
+                        <mat-icon (click)='OnRemoveItem(element.id)' class='pointer' >remove_circle_outline</mat-icon>
                         </mat-cell>
                     </ng-container>
                     </div>
@@ -170,7 +170,7 @@
                             <div class="toLeft">
                             <img matListAvatar routerLink='{{ item[0].profile.pageroute }}'
                                 src='{{ item[0].profile.raiderimg }}' 
-                                alt='{{ item[0].profile.raidername }}'>
+                                alt='{{ item[0].profile.raidername }}' class='pointer' >
                             </div>&nbsp;&nbsp;&nbsp;
                             <p mat-Line>{{ item[0].profile.raidername }}</p>               
                         </mat-list-item>
@@ -204,7 +204,7 @@
                                     <div class='toLeft'>
                                         <img matListAvatar
                                                 src='{{ row.profile.raiderimg }}'
-                                                alt='{{ row.profile.raidername }}'>
+                                                alt='{{ row.profile.raidername }}' class='pointer' >
                                     </div>
                                 </mat-list-item>
                             </mat-list>

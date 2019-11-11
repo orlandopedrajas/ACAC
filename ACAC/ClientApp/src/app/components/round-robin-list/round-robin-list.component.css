@@ -18,3 +18,7 @@ img.main {
         width: 33.33%;
     }
 }
+
+.pointer {
+    cursor: pointer;
+}
