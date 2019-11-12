@@ -1,6 +1,6 @@
 <mat-list>
   <mat-list-item>
-      <img [matMenuTriggerFor]="acacmenu" matListAvatar src='{{ discordavatar }}'>
+      <img [matMenuTriggerFor]="acacmenu" matListAvatar src='{{ discordavatar }}' class='pointer'>
       <div *ngIf="!loggedIn"><button mat-menu-item (click)="openDialog()">Login via Discord</button></div>
   </mat-list-item>
 </mat-list>

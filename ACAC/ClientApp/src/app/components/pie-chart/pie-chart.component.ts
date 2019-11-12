@@ -50,8 +50,7 @@ export class PieChartComponent implements OnInit, OnChanges {
     constructor(private http: HttpClient) { }
     ngOnInit() { }
     ngOnChanges() {
-        switch (this.Datatype)
-        {
+        switch (this.Datatype) {
             case '0': {
                 this.loadRaidFloor();
                 break;

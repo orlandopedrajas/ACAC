@@ -164,7 +164,7 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
     OnRemoveItem(id: any) {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
           width: '350px',
-          data: 'Do you confirm the delete of this data?'
+          data: 'Remove this item?'
         });
         dialogRef.afterClosed().subscribe(result => {
           if (result) {

@@ -29,7 +29,7 @@
                     <mat-list-item *ngIf="characterprofile.feet"><img src='https://xivapi.com{{ characterprofile.feet.Item.Icon }}' (click)="openDialog(characterprofile.feet)"></mat-list-item>
                 </mat-list>
             </div>
-            <div class="divcolumn2"><div class="raiderImage"><img src='{{ characterprofile.portrait }}'></div></div>
+            <div class="divcolumn2"><div class="raiderImage"><a href='{{ characterprofile.portrait }}' target='_blank'><img src='{{ characterprofile.portrait }}'></a></div></div>
             <div class="divcolumn3">
                 <mat-list>
                     <mat-list-item *ngIf="characterprofile.offhand"><img src='https://xivapi.com{{ characterprofile.offhand.Item.Icon }}' (click)="openDialog(characterprofile.offhand)"></mat-list-item>
