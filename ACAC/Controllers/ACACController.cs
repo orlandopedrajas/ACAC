@@ -31,6 +31,22 @@ namespace ACAC.Controllers
         }
 
         [HttpGet("[action]")]
+        public IEnumerable<Attendance> GetAllAttendance()
+        {
+            try
+            {
+                Databasehandler Dbh = new Databasehandler();
+                if (Dbh.TableExists("Attendance"))
+                {
+                    return Dbh.GetAllAttendance();
+                }
+                else { return Enumerable.Empty<Attendance>(); }
+            }
+            catch { return Enumerable.Empty<Attendance>(); }
+        }
+
+
+        [HttpGet("[action]")]
         public IEnumerable<DropsReportData> GetReportData(string raidfloorname)
         {
             try
@@ -76,7 +92,17 @@ namespace ACAC.Controllers
             }
             return Ok();
         }
-
+        [HttpPost("[action]")]
+        public IActionResult AddAttendance([FromBody] Attendance[] _attendance)
+        {
+            if (_attendance == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");
+            Databasehandler Dbh = new Databasehandler();
+            foreach (Attendance a in _attendance)
+            {
+                Dbh.AddAttendance(a);
+            }
+            return Ok();
+        }
         #endregion
 
         #region "GET"
@@ -691,6 +717,9 @@ namespace ACAC.Controllers
                             case "JOBAlternate":
                                 Db.CreateTable<JOBAlternate>();
                                 return true;
+                            case "Attendance":
+                                Db.CreateTable<Attendance>();
+                                return true;
                             default:
                                 return false;
                         }
@@ -879,6 +908,14 @@ namespace ACAC.Controllers
                     return Db.Query<RaidItem>("Select * From RaidItem order by Receiveddate desc, raidfloorname desc");
                 }
             }
+            public IEnumerable<Attendance> GetAllAttendance()
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    return Db.Query<Attendance>("Select * From Attendance order by Eventdate");
+                }
+            }
+
             public IEnumerable<Settings> GetAllSettings()
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
@@ -942,7 +979,7 @@ namespace ACAC.Controllers
                 {
                     try
                     {
-                        Db.Insert(xItem);
+                        Db.InsertOrReplace(xItem);
                     }
                     catch
                     {
@@ -951,6 +988,22 @@ namespace ACAC.Controllers
                     }
                 }
             }
+            public void AddAttendance(Attendance xItem)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    try
+                    {
+                        Db.Insert(xItem);
+                    }
+                    catch
+                    {
+                        Db.CreateTable<Attendance>();
+                        Db.Insert(xItem);
+                    }
+                }
+            }
+
             public void AddRoundRobin(RoundrobinEntry XItem)
             {
                 using (var Db = new SQLiteConnection(DbPath))
@@ -1152,6 +1205,14 @@ namespace ACAC.Controllers
         { 
             public string raidfloorname { get; set; }
             public string reportcount { get; set; }
+        }
+        public class Attendance
+        { 
+            [PrimaryKey, AutoIncrement]
+            public int id { get; set; }
+            public DateTime Eventdate { get; set; }
+            public string Raidername { get; set; }
+            public bool Attended { get; set; }
         }
     }
 }
