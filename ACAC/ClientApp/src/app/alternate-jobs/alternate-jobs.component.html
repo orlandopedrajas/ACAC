@@ -8,6 +8,7 @@
                 <div class="toLeft">
                 <img matListAvatar routerLink='{{ element.pageroute }}'
                 src='{{ element.raiderimg }}' 
+                matTooltip='{{element.raidername}}'
                 alt='{{ element.raidername }}'>
                 </div>               
             </mat-list-item>
@@ -28,9 +29,9 @@
                     <mat-list-item >
                         <div class="toLeft">
                             <img matListAvatar class="imgA1" (click)="onEnableEdit(element.raidername)"
-                            src='{{ element.alt1img }}'>
+                            src='{{ element.alt1img }}' matTooltip='{{element.alt1}}'>
                             <img  matListAvatar class="imgB1"
-                            src='assets/img/green-check.png' *ngIf="element.hasalt1 === 'Yes'" >
+                            src='assets/img/green-check.png' matTooltip='{{element.alt1}}' *ngIf="element.hasalt1 === 'Yes'" >
                             </div>                    
                     </mat-list-item>
                 </mat-list>
@@ -52,9 +53,9 @@
                     <mat-list-item >
                         <div class="toLeft">
                         <img matListAvatar class="imgA1" (click)="onEnableEdit(element.raidername)"
-                        src='{{ element.alt2img }}'>
+                        src='{{ element.alt2img }}' matTooltip='{{element.alt2}}'>
                         <img  matListAvatar class="imgB1"
-                        src='assets/img/green-check.png' *ngIf="element.hasalt2 === 'Yes'" >
+                        src='assets/img/green-check.png' matTooltip='{{element.alt2}}' *ngIf="element.hasalt2 === 'Yes'" >
                         </div>               
                     </mat-list-item>
                 </mat-list>

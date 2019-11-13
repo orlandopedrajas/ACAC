@@ -38,7 +38,8 @@ namespace ACAC.Controllers
                 Databasehandler Dbh = new Databasehandler();
                 if (Dbh.TableExists("Attendance"))
                 {
-                    return Dbh.GetAllAttendance();
+                    var obj = Dbh.GetAllAttendance();
+                    return obj;
                 }
                 else { return Enumerable.Empty<Attendance>(); }
             }
@@ -994,7 +995,16 @@ namespace ACAC.Controllers
                 {
                     try
                     {
-                        Db.Insert(xItem);
+                        if (Db.ExecuteScalar<int>("Select count(*) From Attendance where Raidername='" + xItem.Raidername + "' and Eventdate='" + xItem.Eventdate + "'") == 0)
+                        {
+                            Db.Insert(xItem);
+                        }
+                        else 
+                        {
+                            int attended;
+                            if (xItem.Attended) { attended = 1; } else { attended = 0; }
+                            Db.Execute("Update Attendance set Attended='" + attended + "' where Raidername='" + xItem.Raidername + "' and Eventdate='" + xItem.Eventdate + "'");
+                        }                        
                     }
                     catch
                     {
@@ -1210,7 +1220,7 @@ namespace ACAC.Controllers
         { 
             [PrimaryKey, AutoIncrement]
             public int id { get; set; }
-            public DateTime Eventdate { get; set; }
+            public string Eventdate { get; set; }
             public string Raidername { get; set; }
             public bool Attended { get; set; }
         }

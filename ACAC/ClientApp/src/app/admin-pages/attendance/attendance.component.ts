@@ -5,12 +5,12 @@ import { RaiderIdentity, ThisRaider } from '../../components/ACACComponents';
 
 export class Attendance {
     id: number;
-    Eventdate: Date;
+    Eventdate: string;
     Raidername: string;
     Attended: boolean;
 }
 export class IEvent {
-  eventdate: Date;
+  eventdate: string;
   aerilyn: boolean;
   hades: boolean;
   laki: boolean;
@@ -53,11 +53,14 @@ export class IEvent {
         const baseUrl = document.getElementsByTagName('base')[0].href;
         this.http.get<any[]>(baseUrl + 'api/ACAC/GetAllAttendance').subscribe(result => {
 
-         let currentdate = new Date('1900-01-01');
+         let currentdate;
          let ie = new IEvent();
-         result.sort((a, b) => (a.eventdate < b.eventdate) ? 1 : -1)
+         // console.log(result);
+         result.sort((a, b) => (new Date(a.eventdate) < new Date(b.eventdate)) ? 1 : -1)
          .forEach((value) => {
+            // console.log(value);
             if (currentdate !== value.eventdate) {
+              // console.log('Current Date: ' + currentdate + ' Event Date: ' + value.Eventdate);
               currentdate = value.eventdate;
               ie = new IEvent();
               ie.eventdate = currentdate;
@@ -100,7 +103,7 @@ export class IEvent {
             }
          });
 
-         console.log(this.thisAttendance);
+         // console.log(this.thisAttendance);
        }, error => console.error(error));
     }
     SaveAttendance() {
@@ -111,12 +114,16 @@ export class IEvent {
             const ae = new Attendance();
             ae.id = 0;
             ae.Raidername = value.Raidername;
-            ae.Eventdate = this.CurrentDate;
+            ae.Eventdate = this.CurrentDate.toString();
             ae.Attended = value.Attended;
+            // console.log(ae);
             alist.push(ae);
         });
         this.http.post('./api/ACAC/AddAttendance', JSON.stringify(alist), {headers: header}).subscribe((val) => {  }, response => { },
-        () => {  console.log(alist); this.GetAttendance(); }
+        () => {
+           // console.log(this.CurrentDate);
+           this.GetAttendance();
+        }
       );
 
     }
