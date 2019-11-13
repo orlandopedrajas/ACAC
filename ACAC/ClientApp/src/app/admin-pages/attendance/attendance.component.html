@@ -1,0 +1,96 @@
+<div class="divTable">
+    <div class="divTableBody">
+        <div class="divTableRow">
+            <div class="divTableCell">ID</div>
+            <div class="divTableCell">Event Date</div>
+            <div class="divTableCell">
+                <mat-list>
+                    <mat-list-item>
+                        <img matListAvatar src='https://img2.finalfantasyxiv.com/f/29afb530949056fe7581230e46ce25f8_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1572269901'>     
+                    </mat-list-item>
+                </mat-list>
+            </div>
+            <div class="divTableCell">
+                <mat-list>
+                    <mat-list-item>
+                        <img matListAvatar src='https://img2.finalfantasyxiv.com/f/971ab9839fea01f73e66af3faca1fe39_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1572267232'>     
+                    </mat-list-item>
+                </mat-list>
+            </div>
+            <div class="divTableCell">                
+                <mat-list>
+                    <mat-list-item>
+                        <img matListAvatar src='https://img2.finalfantasyxiv.com/f/d4a9e875d82fae5d760ea19e106cde42_b937560c841465f7c4bc8eb47ea7948afc0_96x96.jpg?1572270121'>     
+                    </mat-list-item>
+                </mat-list>
+            </div>
+            <div class="divTableCell">
+                <mat-list>
+                    <mat-list-item>
+                        <img matListAvatar src='https://img2.finalfantasyxiv.com/f/79bbfa3e3ffac4723c307a1ba522185f_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1572267127'>     
+                    </mat-list-item>
+                </mat-list>                
+            </div>
+            <div class="divTableCell">
+                <mat-list>
+                    <mat-list-item>
+                        <img matListAvatar src='https://img2.finalfantasyxiv.com/f/8343ee17af8fd3c4e5fb2bf918830e68_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1572267128'>     
+                    </mat-list-item>
+                </mat-list>                    
+            </div>
+            <div class="divTableCell">
+                <mat-list>
+                    <mat-list-item>
+                        <img matListAvatar src='https://img2.finalfantasyxiv.com/f/9f92216069dfc0b084b11bbb9fb24dcb_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1572267941'>     
+                    </mat-list-item>
+                </mat-list>                    
+            </div>
+            <div class="divTableCell">
+                <mat-list>
+                    <mat-list-item>
+                        <img matListAvatar src='https://img2.finalfantasyxiv.com/f/3f7234df431e4f6b75a65ec116494239_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1572270357'>     
+                    </mat-list-item>
+                </mat-list>    
+            </div>
+            <div class="divTableCell">
+                <mat-list>
+                    <mat-list-item>
+                        <img matListAvatar src='https://img2.finalfantasyxiv.com/f/84263e7ebe2d0bcc2d03ee6fe83bbd69_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1572267008'>     
+                    </mat-list-item>
+                </mat-list>    
+            </div>
+        </div>
+        <div class="divTableRow">
+            <div class="divTableCell"><button mat-button (click)='SaveAttendance()'>Save</button></div>
+            <div class="divTableCell">
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date" required [(ngModel)]="CurrentDate" name="CurrentDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </div>
+            <div class="divTableCell">
+                <mat-checkbox (change)="toggleAttended($event, 0)" [checked]='false'></mat-checkbox>
+            </div>
+            <div class="divTableCell">
+                <mat-checkbox (change)="toggleAttended($event, 1)" [checked]='false'></mat-checkbox>
+            </div>
+            <div class="divTableCell">
+                <mat-checkbox (change)="toggleAttended($event, 2)" [checked]='false'></mat-checkbox>
+            </div>
+            <div class="divTableCell">
+                <mat-checkbox (change)="toggleAttended($event, 3)" [checked]='false'></mat-checkbox>
+            </div>
+            <div class="divTableCell">
+                <mat-checkbox (change)="toggleAttended($event, 4)" [checked]='false'></mat-checkbox>
+            </div>
+            <div class="divTableCell">
+                <mat-checkbox (change)="toggleAttended($event, 5)" [checked]='false'></mat-checkbox>
+            </div>  
+            <div class="divTableCell">
+                <mat-checkbox (change)="toggleAttended($event, 6)" [checked]='false'></mat-checkbox>
+            </div>
+            <div class="divTableCell">
+                <mat-checkbox (change)="toggleAttended($event, 7)" [checked]='false'></mat-checkbox>
+            </div>
+        </div>
+    </div>
+</div>

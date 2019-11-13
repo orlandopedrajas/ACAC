@@ -35,6 +35,7 @@ import { AuthorizeComponent } from './components/authorize/authorize.component';
 import { AlternateJobsComponent } from './alternate-jobs/alternate-jobs.component';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { ChartsModule } from 'ng2-charts';
+import { AttendanceComponent } from './admin-pages/attendance/attendance.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { ChartsModule } from 'ng2-charts';
     AuthorizeComponent,
     AlternateJobsComponent,
     PieChartComponent,
+    AttendanceComponent,
   ],
   imports: [
     BrowserModule,
