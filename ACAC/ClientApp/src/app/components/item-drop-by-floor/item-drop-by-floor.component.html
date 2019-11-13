@@ -7,7 +7,7 @@
             </ng-container>
             <ng-container matColumnDef="floor">
                 <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-                <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}'> </mat-cell>
+                <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}' matTooltip='{{element.raidfloorname}}'> </mat-cell>
             </ng-container>
             
             <!-- Weight Column -->
@@ -18,7 +18,8 @@
                     <mat-list-item >
                         <div class="toLeft">
                         <img matListAvatar routerLink='{{ element.profile.pageroute }}'
-                        src='{{ element.profile.raiderimg }}' 
+                        src='{{ element.profile.raiderimg }}'
+                        matTooltip='{{ element.profile.raidername }}' 
                         alt='{{ element.profile.raidername }}' class='pointer'>
                         </div>               
                     </mat-list-item>
@@ -35,7 +36,8 @@
                             <div class='toLeft'>
                                 <img matListAvatar
                                         src='{{element.raidItemimage}}'
-                                        alt='{{element.raidItem}}'>
+                                        alt='{{element.raidItem}}'
+                                        matTooltip='{{element.raidItem}}'>
                             </div>
                         </mat-list-item>{{element.raidItem}}
                     </mat-list>
@@ -72,7 +74,8 @@
                             <div class="toLeft">
                             <img matListAvatar 
                             src='{{ floor.flooricon }}'
-                            alt='{{ floor.floorname}}'>
+                            alt='{{ floor.floorname}}'
+                            matTooltip='{{floor.floorname}}'>
                             </div>&nbsp;&nbsp;
                             <div>{{ floor.floorname }}</div>
                         </mat-list-item>
@@ -86,7 +89,7 @@
                 </ng-container>
                 <ng-container matColumnDef="floor">
                     <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-                    <mat-cell *matCellDef="let element" ><img class='floor-icon' src='{{ element.raidfloorImage }}'></mat-cell>
+                    <mat-cell *matCellDef="let element" ><img class='floor-icon' src='{{ element.raidfloorImage }}' matTooltip='{{element.raidfloorname}}'></mat-cell>
                     </ng-container>
                 
                     <!-- Weight Column -->
@@ -98,6 +101,7 @@
                             <div class="toLeft">
                                 <img matListAvatar routerLink='{{ element.profile.pageroute }}'
                                 src='{{ element.profile.raiderimg }}' 
+                                matTooltip='{{element.profile.raidername}}'
                                 alt='{{ element.profile.raidername }}' class='pointer' >
                             </div>               
                             </mat-list-item>
@@ -114,7 +118,8 @@
                                 <div class='toLeft'>
                                     <img matListAvatar
                                             src='{{element.raidItemimage}} '
-                                            alt='{{element.raidItem}}'>
+                                            alt='{{element.raidItem}}'
+                                            matTooltip='{{element.raidItem}}'>
                                 </div>
                             </mat-list-item>{{element.raidItem}}
                         </mat-list>   
@@ -154,7 +159,8 @@
                             <div class="toLeft">
                                 <img matListAvatar
                                     src='{{ items.itemimage }}'
-                                    alt='{{ items.itemname }}'>
+                                    alt='{{ items.itemname }}'
+                                    matTooltip ='{{items.itemname}}'>
                             </div>&nbsp;&nbsp;&nbsp;
                             <p mat-Line>{{ items.itemname }}</p>
                         </mat-list-item>
@@ -170,7 +176,8 @@
                             <div class="toLeft">
                             <img matListAvatar routerLink='{{ item[0].profile.pageroute }}'
                                 src='{{ item[0].profile.raiderimg }}' 
-                                alt='{{ item[0].profile.raidername }}' class='pointer' >
+                                alt='{{ item[0].profile.raidername }}' class='pointer'
+                                matTooltip='{{item[0].profile.raidername}}'>
                             </div>&nbsp;&nbsp;&nbsp;
                             <p mat-Line>{{ item[0].profile.raidername }}</p>               
                         </mat-list-item>
@@ -190,7 +197,8 @@
                                     <div class='toLeft'>
                                         <img matListAvatar
                                                 src='{{ row.raidfloorImage }}'
-                                                alt='{{ row.raidfloorname }}'>
+                                                alt='{{ row.raidfloorname }}'
+                                                matTooltip='{{row.raidfloorname}}'>
                                     </div>
                                 </mat-list-item>
                             </mat-list>
@@ -204,6 +212,7 @@
                                     <div class='toLeft'>
                                         <img matListAvatar
                                                 src='{{ row.profile.raiderimg }}'
+                                                matTooltip='{{row.profile.raidername}}'
                                                 alt='{{ row.profile.raidername }}' class='pointer' >
                                     </div>
                                 </mat-list-item>
@@ -218,6 +227,7 @@
                                     <div class='toLeft'>
                                         <img matListAvatar
                                                 src='{{row.raidItemimage}}'
+                                                matTooltip='{{row.raidItem}}'
                                                 alt='{{row.raidItem}}'>
                                     </div>
                                 </mat-list-item>{{row.raidItem}}
