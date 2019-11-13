@@ -9,7 +9,17 @@ export class Attendance {
     Raidername: string;
     Attended: boolean;
 }
-
+export class IEvent {
+  eventdate: Date;
+  aerilyn: boolean;
+  hades: boolean;
+  laki: boolean;
+  lan: boolean;
+  shelly: boolean;
+  thomas: boolean;
+  val: boolean;
+  yumi: boolean;
+}
 @Component({
     selector: 'app-attendance',
     templateUrl: './attendance.component.html',
@@ -19,7 +29,7 @@ export class Attendance {
   export class AttendanceComponent {
     raiderprofiles: any[];
     raiderIdentity: ThisRaider = new RaiderIdentity(this.cookieService).Raideridentity();
-    thisAttendance: any[];
+    thisAttendance: any[] = [];
     displayedColumns: string[] = ['Eventdate', 'Raidername', 'Attended'];
     obj: any[] = [{Raidername: 'Aerilyn Elessedil', Attended: false},
                     {Raidername: 'Hades Carmine', Attended: false},
@@ -37,12 +47,59 @@ export class Attendance {
 
     toggleAttended(event, num) {
         this.obj[num].Attended = event.checked;
-        // console.log(this.obj);
     }
     GetAttendance() {
+        this.thisAttendance = [];
         const baseUrl = document.getElementsByTagName('base')[0].href;
         this.http.get<any[]>(baseUrl + 'api/ACAC/GetAllAttendance').subscribe(result => {
-         this.thisAttendance = result; // .sort((a, b) => (a.raidfloorname < b.raidfloorname && a.receiveddate < b.receiveddate) ? 1 : -1);
+
+         let currentdate = new Date('1900-01-01');
+         let ie = new IEvent();
+         result.sort((a, b) => (a.eventdate < b.eventdate) ? 1 : -1)
+         .forEach((value) => {
+            if (currentdate !== value.eventdate) {
+              currentdate = value.eventdate;
+              ie = new IEvent();
+              ie.eventdate = currentdate;
+            }
+            // console.log(value);
+            switch (value.raidername) {
+              case 'Aerilyn Elessedil': {
+                ie.aerilyn = value.attended;
+                break;
+              }
+              case 'Hades Carmine': {
+                ie.hades = value.attended;
+                break;
+              }
+              case 'La Ki': {
+                ie.laki = value.attended;
+                break;
+              }
+              case 'Lan Mantear': {
+                ie.lan = value.attended;
+                break;
+              }
+              case 'Shelly Duncan': {
+                ie.shelly = value.attended;
+                break;
+              }
+              case 'Thomas Silverstar': {
+                ie.thomas = value.attended;
+                break;
+              }
+              case 'Val Phoenix': {
+                ie.val = value.attended;
+                break;
+              }
+              case 'Yumi Rin': {
+                ie.yumi = value.attended;
+                this.thisAttendance.push(ie);
+                break;
+              }
+            }
+         });
+
          console.log(this.thisAttendance);
        }, error => console.error(error));
     }
@@ -59,7 +116,7 @@ export class Attendance {
             alist.push(ae);
         });
         this.http.post('./api/ACAC/AddAttendance', JSON.stringify(alist), {headers: header}).subscribe((val) => {  }, response => { },
-        () => {  console.log(alist); }
+        () => {  console.log(alist); this.GetAttendance(); }
       );
 
     }
