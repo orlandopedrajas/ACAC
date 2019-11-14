@@ -2,11 +2,13 @@
     <div>
         <div style="display: block">
         <canvas baseChart
-            [data]="doughnutChartData"
-            [labels]="doughnutChartLabels"
-            [options]="doughnutChartOptions"
-            [plugins]="doughnutChartPlugins"
-            [chartType]="doughnutChartType">
+            height="400"
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [chartType]="barChartType"
+            [legend]="barChartLegend">
         </canvas>
         </div>
     </div>
