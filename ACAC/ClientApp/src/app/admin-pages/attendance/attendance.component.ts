@@ -116,12 +116,10 @@ export class IEvent {
             ae.Raidername = value.Raidername;
             ae.Eventdate = this.CurrentDate.toString();
             ae.Attended = value.Attended;
-            // console.log(ae);
             alist.push(ae);
         });
         this.http.post('./api/ACAC/AddAttendance', JSON.stringify(alist), {headers: header}).subscribe((val) => {  }, response => { },
         () => {
-           // console.log(this.CurrentDate);
            this.GetAttendance();
         }
       );
