@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { RaiderIdentity, ThisRaider } from '../../components/ACACComponents';
+import { BuiltinType } from '@angular/compiler';
 
 export class Attendance {
     id: number;
@@ -27,6 +28,7 @@ export class IEvent {
   })
 
   export class AttendanceComponent {
+    isDisabled: boolean;
     raiderprofiles: any[];
     raiderIdentity: ThisRaider = new RaiderIdentity(this.cookieService).Raideridentity();
     thisAttendance: any[] = [];
@@ -43,6 +45,7 @@ export class IEvent {
     CurrentDate: Date;
     constructor(private http: HttpClient, private cookieService: CookieService) {
         this.GetAttendance();
+        this.isDisabled = false;
     }
 
     toggleAttended(event, num) {
@@ -106,7 +109,7 @@ export class IEvent {
          // console.log(this.thisAttendance);
        }, error => console.error(error));
     }
-    SaveAttendance() {
+    SaveAttendance(event) {
         const headerJson = {'Content-Type': 'application/json'};
         const header = new HttpHeaders(headerJson);
         const alist = [];
@@ -120,7 +123,8 @@ export class IEvent {
         });
         this.http.post('./api/ACAC/AddAttendance', JSON.stringify(alist), {headers: header}).subscribe((val) => {  }, response => { },
         () => {
-           this.GetAttendance();
+           this.isDisabled = true;
+           window.location.reload();
         }
       );
 

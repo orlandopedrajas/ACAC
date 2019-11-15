@@ -14,7 +14,8 @@
             [options]="barChartOptions"
             [plugins]="barChartPlugins"
             [chartType]="barChartType"
-            [legend]="barChartLegend">
+            [legend]="barChartLegend"
+            (chartClick)="chartClicked($event)">
         </canvas>
         </div>
     </div>

@@ -62,7 +62,7 @@
                     </mat-list>  
                 </mat-grid-tile>
             </mat-grid-tile-header>
-            <mat-grid-tile><button mat-raised-button color="primary" (click)='SaveAttendance()'>Save</button></mat-grid-tile>
+            <mat-grid-tile><button mat-raised-button color="primary" (click)='SaveAttendance()' [disabled]='isDisabled'>Save</button></mat-grid-tile>
             <mat-grid-tile>
                 <input matInput [matDatepicker]="picker" placeholder="Choose a date" required [(ngModel)]="CurrentDate" name="CurrentDate" style="width: 100px">
                 <mat-datepicker-toggle matSuffix [for]="picker">
