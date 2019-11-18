@@ -12,10 +12,11 @@
                 <app-character-info [characterid]='char.characterid'></app-character-info>
             </mat-tab>
         </mat-tab-group>
+        <app-fflog [charactername]='raider.raider[raider.selected].charactername' server='faerie'></app-fflog>
         <app-doughnut-chart [Filter]='raider.raider[raider.selected].charactername'></app-doughnut-chart>
     </div>
     <div class="contentColumn2">
-            <h5 align='center'>Item Distribution</h5>
+        <h5 align='center'>Item Distribution</h5>
         <app-pie-chart [Filter]='raider.raider[raider.selected].charactername' [Datatype]="'1'" ></app-pie-chart>
         <app-item-drop [charactername]='raider.raider[raider.selected].charactername'></app-item-drop>
     </div>

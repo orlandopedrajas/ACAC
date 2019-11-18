@@ -37,6 +37,7 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { AttendanceComponent } from './admin-pages/attendance/attendance.component';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
+import { FFLOGComponent } from './components/fflog/fflog.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-cha
     PieChartComponent,
     AttendanceComponent,
     DoughnutChartComponent,
+    FFLOGComponent,
   ],
   imports: [
     BrowserModule,

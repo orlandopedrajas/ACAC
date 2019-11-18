@@ -44,6 +44,7 @@ export class IEvent {
                  ];
     CurrentDate: Date;
     constructor(private http: HttpClient, private cookieService: CookieService) {
+        if (!this.raiderIdentity.IsAdmin) { window.location.href = '/'; }
         this.GetAttendance();
         this.isDisabled = false;
     }
@@ -58,17 +59,16 @@ export class IEvent {
 
          let currentdate;
          let ie = new IEvent();
-         // console.log(result);
+
          result.sort((a, b) => (new Date(a.eventdate) < new Date(b.eventdate)) ? 1 : -1)
          .forEach((value) => {
-            // console.log(value);
+
             if (currentdate !== value.eventdate) {
-              // console.log('Current Date: ' + currentdate + ' Event Date: ' + value.Eventdate);
               currentdate = value.eventdate;
               ie = new IEvent();
               ie.eventdate = currentdate;
             }
-            // console.log(value);
+
             switch (value.raidername) {
               case 'Aerilyn Elessedil': {
                 ie.aerilyn = value.attended;
@@ -106,7 +106,6 @@ export class IEvent {
             }
          });
 
-         // console.log(this.thisAttendance);
        }, error => console.error(error));
     }
     SaveAttendance(event) {
