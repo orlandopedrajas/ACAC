@@ -38,6 +38,7 @@ import { ChartsModule } from 'ng2-charts';
 import { AttendanceComponent } from './admin-pages/attendance/attendance.component';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
 import { FFLOGComponent } from './components/fflog/fflog.component';
+import { RaidFloorComponent } from './admin-pages/raid-floors/raid-floors.component';
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import { FFLOGComponent } from './components/fflog/fflog.component';
     AttendanceComponent,
     DoughnutChartComponent,
     FFLOGComponent,
+    RaidFloorComponent,
   ],
   imports: [
     BrowserModule,

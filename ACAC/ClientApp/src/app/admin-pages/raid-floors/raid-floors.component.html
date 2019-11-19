@@ -1,0 +1,12 @@
+
+<h1>Add new Raid content</h1>
+<form (ngSubmit)="onSubmit()" #addForm="ngForm" class="raid-floors-form">
+    <mat-form-field class="raid-floors-full-width">
+        <input matInput placeholder="Content Name" [(ngModel)]="contentname" name="cname" value="{{ contentname }}">
+    </mat-form-field>
+    <br><br>
+    <mat-form-field class="raid-floors-full-width">
+        <textarea matInput placeholder="Content Description" [(ngModel)]="contentdescription" name="cdescription" value="{{ contentdescription }}"></textarea>
+    </mat-form-field>
+    <button mat-raised-button type="submit" color="primary" [disabled]="!addForm.form.valid" >Submit</button>
+</form>
