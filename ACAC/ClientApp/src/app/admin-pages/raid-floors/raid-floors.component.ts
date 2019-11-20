@@ -19,7 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     // tslint:disable-next-line: variable-name
     constructor(private cookieService: CookieService, private http: HttpClient, private _SnackBar: MatSnackBar) {}
     ngOnInit() {
-
+      this.getRaidContent();
     }
 
     onSubmit() {
@@ -28,7 +28,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
       this.raidContent = [];
       this.raidContent.push({contentname: this.contentname,
-                             contentdescription: this.contentdescription});
+                             contentdescription: this.contentdescription,
+                             contentimg: '/assets/img/msq.png'});
       this.http.post('./api/ACAC/AddRaidContent', JSON.stringify(this.raidContent), {headers: header}).subscribe(
         (val) => { }, response => { }, () => {
           const snackBarRef = this._SnackBar.open(this.contentname + ' added.', 'Done', { duration: 3000 });
@@ -37,6 +38,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     }
 
     getRaidContent() {
-
+      const baseUrl = document.getElementsByTagName('base')[0].href;
+      this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidContent').subscribe(result => {
+        this.raidContent = result;
+        console.log(result);
+      });
     }
   }

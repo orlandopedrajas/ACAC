@@ -389,6 +389,7 @@ namespace ACAC.Controllers
         [HttpGet("[action]")]
         public IEnumerable<RaidContent> GetRaidContent(string raidContent)
         {
+            // if (raidContent.Length == 0) { raidContent = null; }
             Databasehandler Dbh = new Databasehandler();
             if (Dbh.TableExists("RaidContent"))
             {
@@ -1283,6 +1284,15 @@ namespace ACAC.Controllers
             [PrimaryKey]
             public string contentname { get; set; }
             public string contentdescription { get; set; }
+            public string contentimg { get; set; }
+        }
+        public class contentitem
+        {
+            [PrimaryKey, AutoIncrement]
+            public int id { get; set; }
+            public string contentname { get; set; }
+            public string contentitemname { get; set; }
+            public string contentitemimg { get; set; }
         }
     }
 }
