@@ -29,6 +29,59 @@ namespace ACAC.Controllers
             }
             catch { return Enumerable.Empty<profile>(); }
         }
+
+        [HttpGet("[action]")]
+        public IEnumerable<Attendance> GetAllAttendance()
+        {
+            try
+            {
+                Databasehandler Dbh = new Databasehandler();
+                if (Dbh.TableExists("Attendance"))
+                {
+                    var obj = Dbh.GetAllAttendance();
+                    return obj;
+                }
+                else { return Enumerable.Empty<Attendance>(); }
+            }
+            catch { return Enumerable.Empty<Attendance>(); }
+        }
+
+
+        [HttpGet("[action]")]
+        public IEnumerable<DropsReportData> GetReportData(string raidfloorname)
+        {
+            try
+            {
+                Databasehandler Dbh = new Databasehandler();
+                return Dbh.GetReportData(raidfloorname);
+            }
+            catch { return Enumerable.Empty<DropsReportData>(); }
+        }
+        [HttpGet("[action]")]
+        public IEnumerable<DropsReportData2> GetReportData2(string raidername)
+        {
+            try
+            {
+                Databasehandler Dbh = new Databasehandler();
+                return Dbh.GetReportData2(raidername);
+            }
+            catch { return Enumerable.Empty<DropsReportData2>(); }
+        }
+        [HttpGet("[action]")]
+        public IEnumerable<JOBAlternate> GetAllJOBAlternates()
+        {
+            try
+            {
+                Databasehandler Dbh = new Databasehandler();
+                if (Dbh.TableExists("JOBAlternate"))
+                {
+                    return Dbh.GetAllJOBAlternates();
+                }
+                else {return Enumerable.Empty<JOBAlternate>(); }
+            }
+            catch { return Enumerable.Empty<JOBAlternate>(); }
+        }
+
         [HttpPost("[action]")]
         public IActionResult saveProfiles([FromBody] profile[] _profile)
         {
@@ -40,7 +93,28 @@ namespace ACAC.Controllers
             }
             return Ok();
         }
-
+        [HttpPost("[action]")]
+        public IActionResult AddAttendance([FromBody] Attendance[] _attendance)
+        {
+            if (_attendance == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");
+            Databasehandler Dbh = new Databasehandler();
+            foreach (Attendance a in _attendance)
+            {
+                Dbh.AddAttendance(a);
+            }
+            return Ok();
+        }
+        [HttpPost("[action]")]
+        public IActionResult AddRaidContent([FromBody] RaidContent[] raidContent)
+        {
+            if (raidContent == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");
+            Databasehandler Dbh = new Databasehandler();
+            foreach (RaidContent r in raidContent)
+            {
+                Dbh.AddRaidContent(r);
+            }
+            return Ok();
+        }
         #endregion
 
         #region "GET"
@@ -122,7 +196,47 @@ namespace ACAC.Controllers
                 List<Customraiditem> li = new List<Customraiditem>();
                 foreach (RaidItem ri in Dbh.GetRaidItemsByFloor(XFloor))
                 {
-
+                    switch (ri.raidItem)
+                        {
+                            case "Accessory Coffer":
+                                ri.raidItemimage = "https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08";
+                                break;
+                            case "Equipment Coffer":
+                                ri.raidItemimage = "https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08";
+                                break;
+                            case "Deepshadow Coating":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/b/b9/Deepshadow_Coating_Icon.png/64px-Deepshadow_Coating_Icon.png";
+                                break;
+                            case "Deepshadow Twine":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/e/e8/Deepshadow_Twine_Icon.png/40px-Deepshadow_Twine_Icon.png";
+                                break;
+                            case "Deepshadow Solvent":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/f/f6/Deepshadow_Solvent_Icon.png/40px-Deepshadow_Solvent_Icon.png";
+                                break;
+                            case "Chest Coffer":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/0/03/Edengrace_Chest_Gear_Coffer_Icon.png/40px-Edengrace_Chest_Gear_Coffer_Icon.png";
+                                break;
+                            case "Weapon Coffer":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/f/ff/Edengrace_Weapon_Coffer_Icon.png/40px-Edengrace_Weapon_Coffer_Icon.png";
+                                break;
+                            default:
+                                switch (ri.Raidfloorname)
+                                {
+                                    case "Eden Savage Floor 1":
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/5/5b/Book_of_Resurrection_Icon.png/40px-Book_of_Resurrection_Icon.png";
+                                        break;
+                                    case "Eden Savage Floor 2":
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/c/c6/Book_of_Descent_Icon.png/40px-Book_of_Descent_Icon.png";
+                                        break;
+                                    case "Eden Savage Floor 3":
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/2/20/Book_of_Inundation_Icon.png/40px-Book_of_Inundation_Icon.png";
+                                        break;
+                                    case "Eden Savage Floor 4":                                        
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/5/5b/Book_of_Sepulture_Icon.png/40px-Book_of_Sepulture_Icon.png";
+                                        break;
+                                }
+                               break;
+                        }
                     li.Add(new Customraiditem
                     {
                         id = ri.id,
@@ -131,6 +245,7 @@ namespace ACAC.Controllers
                         RaidfloorImage = GetFloorImage(ri.Raidfloorname),
                         Raidfloorname = ri.Raidfloorname,
                         raidItem = ri.raidItem,
+                        raidItemimage = ri.raidItemimage,
                         Receiveddate = ri.Receiveddate
                     });
                 }
@@ -152,6 +267,47 @@ namespace ACAC.Controllers
                 {
                     foreach (RaidItem ri in Dbh.GetAllRaidItems())
                     {
+                        switch (ri.raidItem)
+                        {
+                            case "Accessory Coffer":
+                                ri.raidItemimage = "https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08";
+                                break;
+                            case "Equipment Coffer":
+                                ri.raidItemimage = "https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08";
+                                break;
+                            case "Deepshadow Coating":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/b/b9/Deepshadow_Coating_Icon.png/64px-Deepshadow_Coating_Icon.png";
+                                break;
+                            case "Deepshadow Twine":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/e/e8/Deepshadow_Twine_Icon.png/40px-Deepshadow_Twine_Icon.png";
+                                break;
+                            case "Deepshadow Solvent":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/f/f6/Deepshadow_Solvent_Icon.png/40px-Deepshadow_Solvent_Icon.png";
+                                break;
+                            case "Chest Coffer":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/0/03/Edengrace_Chest_Gear_Coffer_Icon.png/40px-Edengrace_Chest_Gear_Coffer_Icon.png";
+                                break;
+                            case "Weapon Coffer":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/f/ff/Edengrace_Weapon_Coffer_Icon.png/40px-Edengrace_Weapon_Coffer_Icon.png";
+                                break;
+                            default:
+                                switch (ri.Raidfloorname)
+                                {
+                                    case "Eden Savage Floor 1":
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/5/5b/Book_of_Resurrection_Icon.png/40px-Book_of_Resurrection_Icon.png";
+                                        break;
+                                    case "Eden Savage Floor 2":
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/c/c6/Book_of_Descent_Icon.png/40px-Book_of_Descent_Icon.png";
+                                        break;
+                                    case "Eden Savage Floor 3":
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/2/20/Book_of_Inundation_Icon.png/40px-Book_of_Inundation_Icon.png";
+                                        break;
+                                    case "Eden Savage Floor 4":                                        
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/5/5b/Book_of_Sepulture_Icon.png/40px-Book_of_Sepulture_Icon.png";
+                                        break;
+                                }
+                               break;
+                        }
                         li.Add(new Customraiditem
                         {
                             id = ri.id,
@@ -160,6 +316,7 @@ namespace ACAC.Controllers
                             RaidfloorImage = GetFloorImage(ri.Raidfloorname),
                             Raidfloorname = ri.Raidfloorname,
                             raidItem = ri.raidItem,
+                            raidItemimage = ri.raidItemimage,
                             Receiveddate = ri.Receiveddate
                         });
                     }
@@ -168,7 +325,47 @@ namespace ACAC.Controllers
                 {
                     foreach (RaidItem ri in Dbh.GetRaidItemsByRaider(XRaider))
                     {
-                        
+                        switch (ri.raidItem)
+                        {
+                            case "Accessory Coffer":
+                                ri.raidItemimage = "https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08";
+                                break;
+                            case "Equipment Coffer":
+                                ri.raidItemimage = "https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08";
+                                break;
+                            case "Deepshadow Coating":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/b/b9/Deepshadow_Coating_Icon.png/64px-Deepshadow_Coating_Icon.png";
+                                break;
+                            case "Deepshadow Twine":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/e/e8/Deepshadow_Twine_Icon.png/40px-Deepshadow_Twine_Icon.png";
+                                break;
+                            case "Deepshadow Solvent":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/f/f6/Deepshadow_Solvent_Icon.png/40px-Deepshadow_Solvent_Icon.png";
+                                break;
+                            case "Chest Coffer":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/0/03/Edengrace_Chest_Gear_Coffer_Icon.png/40px-Edengrace_Chest_Gear_Coffer_Icon.png";
+                                break;
+                            case "Weapon Coffer":
+                                ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/f/ff/Edengrace_Weapon_Coffer_Icon.png/40px-Edengrace_Weapon_Coffer_Icon.png";
+                                break;
+                            default:
+                                switch (ri.Raidfloorname)
+                                {
+                                    case "Eden Savage Floor 1":
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/5/5b/Book_of_Resurrection_Icon.png/40px-Book_of_Resurrection_Icon.png";
+                                        break;
+                                    case "Eden Savage Floor 2":
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/c/c6/Book_of_Descent_Icon.png/40px-Book_of_Descent_Icon.png";
+                                        break;
+                                    case "Eden Savage Floor 3":
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/2/20/Book_of_Inundation_Icon.png/40px-Book_of_Inundation_Icon.png";
+                                        break;
+                                    case "Eden Savage Floor 4":                                        
+                                        ri.raidItemimage = "https://ffxiv.gamerescape.com/w/images/thumb/5/5b/Book_of_Sepulture_Icon.png/40px-Book_of_Sepulture_Icon.png";
+                                        break;
+                                }
+                               break;
+                        }
                         li.Add(new Customraiditem
                         {
                             id = ri.id,
@@ -177,6 +374,7 @@ namespace ACAC.Controllers
                             RaidfloorImage = GetFloorImage(ri.Raidfloorname),
                             Raidfloorname = ri.Raidfloorname,
                             raidItem = ri.raidItem,
+                            raidItemimage = ri.raidItemimage,
                             Receiveddate = ri.Receiveddate
                         });
                     }
@@ -189,6 +387,16 @@ namespace ACAC.Controllers
             }
         }
         [HttpGet("[action]")]
+        public IEnumerable<RaidContent> GetRaidContent(string raidContent)
+        {
+            Databasehandler Dbh = new Databasehandler();
+            if (Dbh.TableExists("RaidContent"))
+            {
+                return Dbh.GetRaidContent(raidContent);
+            }
+            else { return Enumerable.Empty<RaidContent>(); }
+        }
+        [HttpGet("[action]")]
         public IEnumerable<Displayroundrobinentry> GetRoundRobinList(string XRaidfloorname)
         {
             Databasehandler Dbh = new Databasehandler();
@@ -196,6 +404,17 @@ namespace ACAC.Controllers
             {
                 List<Displayroundrobinentry> li = new List<Displayroundrobinentry>();
                 IEnumerable <RoundrobinEntry> rres = Dbh.GetRoundRobin(XRaidfloorname);
+
+                foreach (profile p in Dbh.GetProfiles())
+                {
+                    li.Add(new Displayroundrobinentry
+                    {
+                        raider = p,
+                        raidername = p.raidername,
+                        Raidfloorname = XRaidfloorname,
+                        Raiditem = "Other Items"
+                    });
+                }
 
                 switch (XRaidfloorname)
                 {
@@ -211,11 +430,13 @@ namespace ACAC.Controllers
                                 Raiditem = "Accessory Coffer"
                             });                            
                         }
+
                         foreach (RoundrobinEntry re in rres)
                         {
                             var itemToRemove = li.Single(r => r.raidername == re.raidername && r.Raiditem == re.Raiditem);
                             li.Remove(itemToRemove);
                         }
+
                         return li;
                     case "Eden Savage Floor 2":
 
@@ -226,7 +447,7 @@ namespace ACAC.Controllers
                                 raider = p,
                                 raidername = p.raidername,
                                 Raidfloorname = XRaidfloorname,
-                                Raiditem = "Equipment Coffer"
+                                Raiditem = "Equipment Coffer"                               
                             });
                             li.Add(new Displayroundrobinentry
                             {
@@ -234,13 +455,6 @@ namespace ACAC.Controllers
                                 raidername = p.raidername,
                                 Raidfloorname = XRaidfloorname,
                                 Raiditem = "Deepshadow Coating"
-                            });
-                            li.Add(new Displayroundrobinentry
-                            {
-                                raider = p,
-                                raidername = p.raidername,
-                                Raidfloorname = XRaidfloorname,
-                                Raiditem = "Other Items"
                             });
                         }
                         foreach (RoundrobinEntry re in rres)
@@ -300,13 +514,6 @@ namespace ACAC.Controllers
                                 raidername = p.raidername,
                                 Raidfloorname = XRaidfloorname,
                                 Raiditem = "Weapon Coffer"
-                            });
-                            li.Add(new Displayroundrobinentry
-                            {
-                                raider = p,
-                                raidername = p.raidername,
-                                Raidfloorname = XRaidfloorname,
-                                Raiditem = "Other Items"
                             });
                         }
                         foreach (RoundrobinEntry re in rres)
@@ -400,6 +607,16 @@ namespace ACAC.Controllers
         }
 
         [HttpPost("[action]")]
+        public IActionResult AddJobAlt([FromBody] JOBAlternate x)
+        {
+            if (x == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");            
+            Databasehandler Dbh = new Databasehandler();
+            Dbh.InsertUpdateJobAlternate(x);
+            //Dbh.DropTable("JOBAlternate");
+            return Ok();
+        }
+
+        [HttpPost("[action]")]
         public IActionResult DeleteItemById([FromBody] string id)
         {
             Databasehandler Dbh = new Databasehandler();
@@ -474,6 +691,13 @@ namespace ACAC.Controllers
         {
             string DbPath = Path.Combine(AppContext.BaseDirectory, "ACAC2.db");
 
+            public void DropTable(string tablename)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    Db.Execute("Drop table " + tablename);
+                }
+            }
             public bool TableExists(string tableName)
             {
                 using (var Db = new SQLiteConnection(DbPath))
@@ -512,6 +736,15 @@ namespace ACAC.Controllers
                                                          password ="babeth2019",
                                                          role ="admin" });
                                 return true;
+                            case "JOBAlternate":
+                                Db.CreateTable<JOBAlternate>();
+                                return true;
+                            case "Attendance":
+                                Db.CreateTable<Attendance>();
+                                return true;
+                            case "RaidContent":
+                                Db.CreateTable<RaidContent>();
+                                return true;
                             default:
                                 return false;
                         }
@@ -544,7 +777,6 @@ namespace ACAC.Controllers
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
-                    RaidItem a = new RaidItem();
                     return Db.Query<RaidItem>("Select * From RaidItem where Raidfloorname='" + XFloor + "' order by raidername desc");
                 }
             }
@@ -563,6 +795,137 @@ namespace ACAC.Controllers
                     }
                 }
             }
+            public IEnumerable<JOBAlternate> GetAllJOBAlternates()
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    //return Enumerable.Empty<JOBAlternate>();
+                    return Db.Query<JOBAlternate>(@"Select 
+                                                    j.raidername,
+                                                    j.alt1,
+                                                    j.alt2,
+                                                    case 
+                                                        when alt1 = 'Black Mage' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem in('Edenrace Rod','Edengrace Rod')) then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Paladin' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Bastard Sword') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Warrior' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Battleaxe') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt1 = 'Samurai' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Blade') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'White Mage' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Cane') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt1 = 'Dark Knight' THEN 
+	                                                            case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Greatsword') then 'Yes'  
+		                                                        else 'No' end  
+                                                        when alt1 = 'Bard' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Harp Bow') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt1 = 'Ninja' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Knives') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Monk' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Knuckles') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Gunbreaker' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Manatrigger') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Astrologian' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Planisphere') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Red Mage' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Rapier') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt1 = 'Machinist' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Revolver') then 'Yes' 
+		                                                        else 'No' end
+                                                        when alt1 = 'Dragoon' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Spear') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Scholar' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Word of Grace') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Summoner' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Book of Grace') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt1 = 'Dancer' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Tathlums') then 'Yes' 
+		                                                        else 'No' end else 'No' end  hasalt1,
+                                                    case 
+                                                        when alt2 = 'Black Mage' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem in('Edenrace Rod','Edengrace Rod')) then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt2 = 'Paladin' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Bastard Sword') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt2 = 'Warrior' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Battleaxe') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt2 = 'Samurai' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Blade') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt2 = 'White Mage' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Cane') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt2 = 'Dark Knight' THEN 
+	                                                            case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Greatsword') then 'Yes'  
+		                                                        else 'No' end  
+                                                        when alt2 = 'Bard' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Harp Bow') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt2 = 'Ninja' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Knives') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt2 = 'Monk' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Knuckles') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt2 = 'Gunbreaker' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Manatrigger') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt2 = 'Astrologian' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Planisphere') then 'Yes' 
+		                                                        else 'No' end 
+	                                                    when alt2 = 'Red Mage' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Rapier') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt2 = 'Machinist' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Revolver') then 'Yes' 
+		                                                        else 'No' end
+                                                        when alt2 = 'Dragoon' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Spear') then 'Yes' 
+		                                                        else 'No' end 
+                                                        when alt2 = 'Scholar' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Word of Grace') then 'Yes' 
+		                                                        else 'No' end
+                                                        when alt2 = 'Summoner' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Book of Grace') then 'Yes' 
+		                                                        else 'No' end
+	                                                    when alt2 = 'Dancer' THEN 
+		                                                        case when exists (select * From raidItem where raidername = j.raidername and raiditem = 'Edengrace Tathlums') then 'Yes' 
+		                                                        else 'No' end else 'No' end  hasalt2
+                                                    From JOBAlternate j");
+                }
+            }
+            public void InsertUpdateJobAlternate(JOBAlternate ja)
+            {
+                using (var Db = new SQLite.SQLiteConnection(DbPath))
+                {
+                    try
+                    {
+                        Db.InsertOrReplace(ja);
+                    }
+                    catch
+                    {
+                        Db.CreateTable<JOBAlternate>();
+                        Db.InsertOrReplace(ja);
+                    }
+                }
+            }
             public IEnumerable<RaidItem> GetAllRaidItems()
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
@@ -570,6 +933,29 @@ namespace ACAC.Controllers
                     return Db.Query<RaidItem>("Select * From RaidItem order by Receiveddate desc, raidfloorname desc");
                 }
             }
+            public IEnumerable<Attendance> GetAllAttendance()
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    return Db.Query<Attendance>("Select * From Attendance order by Eventdate");
+                }
+            }
+            public IEnumerable<RaidContent> GetRaidContent(string contentName)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    string sql = "";
+                    if (contentName != null)
+                    {
+                        sql = "Select * From RaidContent where contentname='" + contentName + "'";
+                    } else
+                    {
+                        sql = "Select * From RaidContent";
+                    }
+                    return Db.Query<RaidContent>(sql);
+                }
+            }
+
             public IEnumerable<Settings> GetAllSettings()
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
@@ -588,7 +974,7 @@ namespace ACAC.Controllers
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
-                    return Db.Query<RaidItem>("Select * From RaidItem order by Receiveddate desc, raidfloorname desc LIMIT 5");
+                    return Db.Query<RaidItem>("Select * From RaidItem order by Receiveddate desc LIMIT 15");
                 }
             }
             public IEnumerable<Archivedraiditem> GetArchivedItems()
@@ -614,7 +1000,15 @@ namespace ACAC.Controllers
                             id = xid.id,
                             raidername = xid.raidername
                         };
-                        Db.Insert(Xida);
+                        try
+                        {
+                            Db.Insert(Xida);
+                        }
+                        catch
+                        {
+                            Db.CreateTable<Archivedraiditem>();
+                            Db.Insert(Xida);
+                        }
                         Db.Execute("Delete from RaidItem where id=" + id);
                     }
                 }
@@ -623,9 +1017,57 @@ namespace ACAC.Controllers
             {
                 using (var Db = new SQLite.SQLiteConnection(DbPath))
                 {
-                    Db.Insert(xItem);
+                    try
+                    {
+                        Db.Insert(xItem);
+                    }
+                    catch
+                    {
+                        Db.CreateTable<RaidItem>();
+                        Db.Insert(xItem);
+                    }
                 }
             }
+            public void AddRaidContent(RaidContent raidContent)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    try
+                    {
+                        Db.InsertOrReplace(raidContent);
+                    }
+                    catch
+                    {
+                        Db.CreateTable<RaidContent>();
+                        Db.Insert(raidContent);
+                    }
+                }
+            }
+            public void AddAttendance(Attendance xItem)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    try
+                    {
+                        if (Db.ExecuteScalar<int>("Select count(*) From Attendance where Raidername='" + xItem.Raidername + "' and Eventdate='" + xItem.Eventdate + "'") == 0)
+                        {
+                            Db.Insert(xItem);
+                        }
+                        else 
+                        {
+                            int attended;
+                            if (xItem.Attended) { attended = 1; } else { attended = 0; }
+                            Db.Execute("Update Attendance set Attended='" + attended + "' where Raidername='" + xItem.Raidername + "' and Eventdate='" + xItem.Eventdate + "'");
+                        }                        
+                    }
+                    catch
+                    {
+                        Db.CreateTable<Attendance>();
+                        Db.Insert(xItem);
+                    }
+                }
+            }
+
             public void AddRoundRobin(RoundrobinEntry XItem)
             {
                 using (var Db = new SQLiteConnection(DbPath))
@@ -663,6 +1105,26 @@ namespace ACAC.Controllers
                 {
                     Db.Execute("Delete From RoundrobinEntry where Raiditem='" + 
                                 XRaiditem + "' and Raidfloorname='" + XRaidfloorname + "'");
+                }
+            }
+            public IEnumerable<DropsReportData> GetReportData(string raidfloorname)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    if (raidfloorname == "ALL")
+                    {
+                        return Db.Query<DropsReportData>("Select raidername, count(raiderName) reportcount from RaidItem Group by raidername");
+                    } 
+                    else{
+                        return Db.Query<DropsReportData>("Select raidername, count(raiderName) reportcount from RaidItem Where Raidfloorname='" + raidfloorname + "' Group by raidername");
+                    }
+                }
+            }
+            public IEnumerable<DropsReportData2> GetReportData2(string raidername)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    return Db.Query<DropsReportData2>("Select raidfloorname, count(raidfloorname) reportcount from RaidItem where raidername='" + raidername + "' Group by raidfloorname");
                 }
             }
             public bool validate(string g)
@@ -741,6 +1203,7 @@ namespace ACAC.Controllers
             public DateTime Receiveddate { get; set; }
             public string Raidfloorname { get; set; }
             public string raidItem { get; set; }
+            public string raidItemimage { get; set; }
             public string raidername { get; set; }
         }
         public class Customraiditem : RaidItem
@@ -786,6 +1249,40 @@ namespace ACAC.Controllers
             public bool loggedIn { get; set; }
             public DateTime expirationDate { get; set; }
             public string _guid { get; set; }
+        }
+        public class JOBAlternate
+        {
+            [PrimaryKey]
+            public string raidername { get; set; }
+            public string alt1 { get; set; }
+            public string alt2 { get; set; }
+            public string hasalt1 { get; set; }
+  
+            public string hasalt2 { get; set; }
+        }
+        public class DropsReportData
+        {
+            public string raidername { get; set; }
+            public string reportcount { get; set; }
+        }
+        public class DropsReportData2
+        { 
+            public string raidfloorname { get; set; }
+            public string reportcount { get; set; }
+        }
+        public class Attendance
+        { 
+            [PrimaryKey, AutoIncrement]
+            public int id { get; set; }
+            public string Eventdate { get; set; }
+            public string Raidername { get; set; }
+            public bool Attended { get; set; }
+        }
+        public class RaidContent
+        {
+            [PrimaryKey]
+            public string contentname { get; set; }
+            public string contentdescription { get; set; }
         }
     }
 }

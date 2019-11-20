@@ -1,0 +1,22 @@
+<br><br>
+<mat-select [(value)]="barChartType">
+    <mat-option value="bar">Attendance Bar Graph</mat-option>
+    <mat-option value="horizontalBar">Attendance Horizontal Bar Graph</mat-option>
+    <mat-option value="radar">Attendance Radar Graph</mat-option>
+</mat-select>
+<div>
+    <div>
+        <div style="display: block">
+        <canvas baseChart
+            height="400"
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [chartType]="barChartType"
+            [legend]="barChartLegend"
+            (chartClick)="chartClicked($event)">
+        </canvas>
+        </div>
+    </div>
+</div>

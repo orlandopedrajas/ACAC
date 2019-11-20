@@ -1,0 +1,323 @@
+<p *ngIf="!drops && !floors && !dropsraider && !groupbydate"><mat-progress-bar mode="indeterminate"></mat-progress-bar></p>
+<div *ngIf='groupbydate'>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor='let g of groupbydate'>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-list>
+                        <mat-list-item>
+                            {{ g.floordate }}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-table [dataSource]='g.item'>
+                <ng-container matColumnDef="dateReceived">
+                    <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="floor">
+                    <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
+                    <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}' matTooltip='{{element.raidfloorname}}'> </mat-cell>
+                </ng-container>
+                
+                <!-- Weight Column -->
+                <ng-container matColumnDef="raider">
+                    <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                    <mat-list>
+                        <mat-list-item >
+                            <div class="toLeft">
+                            <img matListAvatar routerLink='{{ element.profile.pageroute }}'
+                            src='{{ element.profile.raiderimg }}'
+                            matTooltip='{{ element.profile.raidername }}' 
+                            alt='{{ element.profile.raidername }}' class='pointer'>
+                            </div>               
+                        </mat-list-item>
+                        </mat-list>
+                    </mat-cell>
+                </ng-container>
+                
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="droptype">
+                    <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <mat-list>
+                            <mat-list-item>
+                                <div class='toLeft'>
+                                    <img matListAvatar
+                                            src='{{element.raidItemimage}}'
+                                            alt='{{element.raidItem}}'
+                                            matTooltip='{{element.raidItem}}'>
+                                </div>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-cell>
+                </ng-container>
+            
+                <!-- Symbol Column -->
+                <div *ngIf="this.raiderIdentity.IsAdmin; else elseBlock">
+                    <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <mat-icon (click)='OnRemoveItem(element.id)' class='pointer'>remove_circle_outline</mat-icon>
+                    </mat-cell>
+                    </ng-container>
+                </div>
+                <ng-template #elseBlock>
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let element"></mat-cell>
+                    </ng-container>
+                </ng-template>
+                
+                <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>    
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+<div *ngIf='drops'>
+    <mat-table [dataSource]='drops' >
+            <ng-container matColumnDef="dateReceived">
+                <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="floor">
+                <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
+                <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}' matTooltip='{{element.raidfloorname}}'> </mat-cell>
+            </ng-container>
+            
+            <!-- Weight Column -->
+            <ng-container matColumnDef="raider">
+                <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                <mat-list>
+                    <mat-list-item >
+                        <div class="toLeft">
+                        <img matListAvatar routerLink='{{ element.profile.pageroute }}'
+                        src='{{ element.profile.raiderimg }}'
+                        matTooltip='{{ element.profile.raidername }}' 
+                        alt='{{ element.profile.raidername }}' class='pointer'>
+                        </div>               
+                    </mat-list-item>
+                    </mat-list>
+                </mat-cell>
+            </ng-container>
+            
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="droptype">
+                <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-list>
+                        <mat-list-item>
+                            <div class='toLeft'>
+                                <img matListAvatar
+                                        src='{{element.raidItemimage}}'
+                                        alt='{{element.raidItem}}'
+                                        matTooltip='{{element.raidItem}}'>
+                            </div>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-cell>
+            </ng-container>
+        
+            <!-- Symbol Column -->
+            <div *ngIf="this.raiderIdentity.IsAdmin; else elseBlock">
+                <ng-container matColumnDef="id">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                    <mat-icon (click)='OnRemoveItem(element.id)' class='pointer'>remove_circle_outline</mat-icon>
+                </mat-cell>
+                </ng-container>
+            </div>
+            <ng-template #elseBlock>
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element"></mat-cell>
+                </ng-container>
+            </ng-template>
+            
+            <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>    
+</div>
+<div *ngIf='floors'>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor='let floor of floors'>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-list>
+                        <mat-list-item>
+                            <div class="toLeft">
+                            <img matListAvatar 
+                            src='{{ floor.flooricon }}'
+                            alt='{{ floor.floorname}}'
+                            matTooltip='{{floor.floorname}}'>
+                            </div>&nbsp;&nbsp;
+                            <div>{{ floor.floorname }}</div>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-table [dataSource]='floor.floor' >
+                <ng-container matColumnDef="dateReceived">
+                    <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="floor">
+                    <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
+                    <mat-cell *matCellDef="let element" ><img class='floor-icon' src='{{ element.raidfloorImage }}' matTooltip='{{element.raidfloorname}}'></mat-cell>
+                    </ng-container>
+                
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="raider">
+                    <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <mat-list>
+                            <mat-list-item>
+                            <div class="toLeft">
+                                <img matListAvatar routerLink='{{ element.profile.pageroute }}'
+                                src='{{ element.profile.raiderimg }}' 
+                                matTooltip='{{element.profile.raidername}}'
+                                alt='{{ element.profile.raidername }}' class='pointer' >
+                            </div>               
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-cell>
+                    </ng-container>
+                
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="droptype">
+                    <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <mat-list>
+                            <mat-list-item>
+                                <div class='toLeft'>
+                                    <img matListAvatar
+                                            src='{{element.raidItemimage}} '
+                                            alt='{{element.raidItem}}'
+                                            matTooltip='{{element.raidItem}}'>
+                                </div>
+                            </mat-list-item>
+                        </mat-list>   
+                    </mat-cell>
+                    </ng-container>
+                
+                    <!-- Symbol Column -->
+                    <div *ngIf="this.raiderIdentity.IsAdmin; else elseBlock">
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                        <mat-icon (click)='OnRemoveItem(element.id)' class='pointer' >remove_circle_outline</mat-icon>
+                        </mat-cell>
+                    </ng-container>
+                    </div>
+                    <ng-template #elseBlock>
+                        <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let element"></mat-cell>
+                        </ng-container>
+                    </ng-template>
+                
+                    <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+<br><br>
+<div *ngIf='dropsraider'>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor='let items of dropsraider'>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-list>
+                        <mat-list-item>
+                            <div class="toLeft">
+                                <img matListAvatar
+                                    src='{{ items.itemimage }}'
+                                    alt='{{ items.itemname }}'
+                                    matTooltip ='{{items.itemname}}'>
+                            </div>&nbsp;&nbsp;&nbsp;
+                            <p mat-Line>{{ items.itemname }}</p>
+                        </mat-list-item>
+                    </mat-list>                    
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-accordion>
+                <mat-expansion-panel *ngFor="let item of items.item">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-list>
+                        <mat-list-item>
+                            <div class="toLeft">
+                            <img matListAvatar routerLink='{{ item[0].profile.pageroute }}'
+                                src='{{ item[0].profile.raiderimg }}' 
+                                alt='{{ item[0].profile.raidername }}' class='pointer'
+                                matTooltip='{{item[0].profile.raidername}}'>
+                            </div>&nbsp;&nbsp;&nbsp;
+                            <p mat-Line>{{ item[0].profile.raidername }}</p>               
+                        </mat-list-item>
+                        </mat-list>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-table [dataSource]='item'>
+                    <ng-container cdkColumnDef="Date">
+                        <mat-header-cell *cdkHeaderCellDef> Date </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row"> {{row.receiveddate | date:'shortDate'}} </mat-cell>
+                    </ng-container>
+                    <ng-container cdkColumnDef="Floor">
+                        <mat-header-cell *cdkHeaderCellDef> Floor </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row">
+                            <mat-list>
+                                <mat-list-item>
+                                    <div class='toLeft'>
+                                        <img matListAvatar
+                                                src='{{ row.raidfloorImage }}'
+                                                alt='{{ row.raidfloorname }}'
+                                                matTooltip='{{row.raidfloorname}}'>
+                                    </div>
+                                </mat-list-item>
+                            </mat-list>
+                        </mat-cell>
+                    </ng-container>   
+                    <ng-container cdkColumnDef="Raider">
+                        <mat-header-cell *cdkHeaderCellDef> Raider </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row">
+                            <mat-list>
+                                <mat-list-item routerLink='{{ row.profile.pageroute }}'>
+                                    <div class='toLeft'>
+                                        <img matListAvatar
+                                                src='{{ row.profile.raiderimg }}'
+                                                matTooltip='{{row.profile.raidername}}'
+                                                alt='{{ row.profile.raidername }}' class='pointer' >
+                                    </div>
+                                </mat-list-item>
+                            </mat-list>
+                        </mat-cell>
+                    </ng-container>               
+                    <ng-container cdkColumnDef="Drop">
+                        <mat-header-cell *cdkHeaderCellDef> Drop </mat-header-cell>
+                        <mat-cell *cdkCellDef="let row">
+                            <mat-list>
+                                <mat-list-item>
+                                    <div class='toLeft'>
+                                        <img matListAvatar
+                                                src='{{row.raidItemimage}}'
+                                                matTooltip='{{row.raidItem}}'
+                                                alt='{{row.raidItem}}'>
+                                    </div>
+                                </mat-list-item>
+                            </mat-list>                             
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *cdkHeaderRowDef="['Date', 'Floor', 'Raider', 'Drop']"></mat-header-row>
+                    <mat-row *cdkRowDef="let row; columns: ['Date', 'Floor', 'Raider', 'Drop']"></mat-row>
+                </mat-table>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+<br><br>

@@ -1,0 +1,95 @@
+<app-doughnut-chart Filter='ALL'></app-doughnut-chart>
+<mat-tab-group>
+    <mat-tab label='Events'>
+        <mat-grid-list cols="10" rowHeight="1:1">
+            <mat-grid-tile-header>
+                <mat-grid-tile></mat-grid-tile>
+                <mat-grid-tile><b>Event Date</b></mat-grid-tile>
+                <mat-grid-tile>
+                <mat-list>
+                    <mat-list-item>
+                        <img matListAvatar matTooltip='Aerilyn Elessedil' src='https://img2.finalfantasyxiv.com/f/29afb530949056fe7581230e46ce25f8_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1572269901'> 
+                    </mat-list-item>
+                </mat-list>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-list>
+                        <mat-list-item>
+                            <img matListAvatar matTooltip='Hades Carmine' src='https://img2.finalfantasyxiv.com/f/971ab9839fea01f73e66af3faca1fe39_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1572267232'>     
+                        </mat-list-item>
+                    </mat-list>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-list>
+                        <mat-list-item>
+                            <img matListAvatar matTooltip='La Ki' src='https://img2.finalfantasyxiv.com/f/d4a9e875d82fae5d760ea19e106cde42_b937560c841465f7c4bc8eb47ea7948afc0_96x96.jpg?1572270121'>     
+                        </mat-list-item>
+                    </mat-list>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-list>
+                        <mat-list-item>
+                            <img matListAvatar matTooltip='Lan Mantear' src='https://img2.finalfantasyxiv.com/f/79bbfa3e3ffac4723c307a1ba522185f_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1572267127'>     
+                        </mat-list-item>
+                    </mat-list> 
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-list>
+                        <mat-list-item>
+                            <img matListAvatar matTooltip='Shelly Duncan' src='https://img2.finalfantasyxiv.com/f/8343ee17af8fd3c4e5fb2bf918830e68_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1572267128'>     
+                        </mat-list-item>
+                    </mat-list>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-list>
+                        <mat-list-item>
+                            <img matListAvatar matTooltip='Thomas Silverstar' src='https://img2.finalfantasyxiv.com/f/9f92216069dfc0b084b11bbb9fb24dcb_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1572267941'>     
+                        </mat-list-item>
+                    </mat-list> 
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-list>
+                        <mat-list-item>
+                            <img matListAvatar matTooltip='Val Phoenix' src='https://img2.finalfantasyxiv.com/f/3f7234df431e4f6b75a65ec116494239_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1572270357'>     
+                        </mat-list-item>
+                    </mat-list>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-list>
+                        <mat-list-item>
+                            <img matListAvatar matTooltip='Yumi Rin' src='https://img2.finalfantasyxiv.com/f/84263e7ebe2d0bcc2d03ee6fe83bbd69_0e336ff6ad415f47233f0aaf127feac0fc0_96x96.jpg?1572267008'>     
+                        </mat-list-item>
+                    </mat-list>  
+                </mat-grid-tile>
+            </mat-grid-tile-header>
+            <mat-grid-tile><button mat-raised-button color="primary" (click)='SaveAttendance()' [disabled]='isDisabled'>Save</button></mat-grid-tile>
+            <mat-grid-tile>
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date" required [(ngModel)]="CurrentDate" name="CurrentDate" style="width: 100px">
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-grid-tile>
+            <mat-grid-tile><mat-checkbox (change)="toggleAttended($event, 0)" [checked]='false'></mat-checkbox></mat-grid-tile>
+            <mat-grid-tile><mat-checkbox (change)="toggleAttended($event, 1)" [checked]='false'></mat-checkbox></mat-grid-tile>
+            <mat-grid-tile><mat-checkbox (change)="toggleAttended($event, 2)" [checked]='false'></mat-checkbox></mat-grid-tile>
+            <mat-grid-tile><mat-checkbox (change)="toggleAttended($event, 3)" [checked]='false'></mat-checkbox></mat-grid-tile>
+            <mat-grid-tile><mat-checkbox (change)="toggleAttended($event, 4)" [checked]='false'></mat-checkbox></mat-grid-tile>
+            <mat-grid-tile><mat-checkbox (change)="toggleAttended($event, 5)" [checked]='false'></mat-checkbox></mat-grid-tile>
+            <mat-grid-tile><mat-checkbox (change)="toggleAttended($event, 6)" [checked]='false'></mat-checkbox></mat-grid-tile>
+            <mat-grid-tile><mat-checkbox (change)="toggleAttended($event, 7)" [checked]='false'></mat-checkbox></mat-grid-tile>
+            <div *ngFor='let attendee of thisAttendance'>
+                <mat-grid-tile></mat-grid-tile>
+                <mat-grid-tile>{{ attendee.eventdate | date:'fullDate' }}</mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.aerilyn' disabled></mat-checkbox></mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.hades' disabled></mat-checkbox></mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.laki' disabled></mat-checkbox></mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.lan' disabled></mat-checkbox></mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.shelly' disabled></mat-checkbox></mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.thomas' disabled></mat-checkbox></mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.val' disabled></mat-checkbox></mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.yumi' disabled></mat-checkbox></mat-grid-tile>
+            </div>
+        </mat-grid-list> 
+    </mat-tab>
+</mat-tab-group>

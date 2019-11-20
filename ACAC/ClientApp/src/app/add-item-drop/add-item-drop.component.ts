@@ -1,5 +1,10 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material';
+import { ConfirmationDialogComponent } from '../components/confirmation-dialog/confirmation-dialog.component';
+import { CookieService } from 'ngx-cookie-service';
+import { RaiderIdentity, ThisRaider } from '../components/ACACComponents';
 
 export class SavageItem {
   id: number;
@@ -25,14 +30,16 @@ export interface SavI {
 export class AddItemDropComponent {
 
   raiders: any[];
+  override = false;
+  raiderIdentity: ThisRaider = new RaiderIdentity(this.cookieService).Raideridentity();
+
   floors = [
     {value: 'Eden Savage Floor 1', viewValue: 'Eden Savage Floor 1'},
     {value: 'Eden Savage Floor 2', viewValue: 'Eden Savage Floor 2'},
     {value: 'Eden Savage Floor 3', viewValue: 'Eden Savage Floor 3'},
     {value: 'Eden Savage Floor 4', viewValue: 'Eden Savage Floor 4'}];
   drops = [  ];
-  // tslint:disable-next-line: max-line-length
-  // drops = ['Accessory Coffer', 'Chest Coffer', 'Deepshadow Coating', 'Deepshadow Twine', 'Deepshadow Solvent', 'Equipment Coffer', 'Lightweight Tomestone', 'Weapon Coffer'];
+
   submitanother = true;
   redirectto = '../';
 
@@ -43,11 +50,18 @@ export class AddItemDropComponent {
   submitted = false;
   displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
 
-  constructor(private http: HttpClient) {
-    const baseUrl = document.getElementsByTagName('base')[0].href;
+  // tslint:disable-next-line: variable-name
+  constructor(private cookieService: CookieService, private http: HttpClient, private _SnackBar: MatSnackBar, public dialog: MatDialog) {
+      if (this.raiderIdentity.IsAdmin) {
+        this.Si.Receiveddate = new Date();
+        this.getRecentRaidItems();
+      } else { window.location.href = '/'; }
+  }
 
-    http.get<any[]>(baseUrl + 'api/ACAC/GetRecentRaidItems').subscribe(result => {
-     this.SavageItems = result;
+  getRecentRaidItems() {
+    const baseUrl = document.getElementsByTagName('base')[0].href;
+    this.http.get<any[]>(baseUrl + 'api/ACAC/GetRecentRaidItems').subscribe(result => {
+     this.SavageItems = result; // .sort((a, b) => (a.raidfloorname < b.raidfloorname && a.receiveddate < b.receiveddate) ? 1 : -1);
    }, error => console.error(error));
   }
 
@@ -69,7 +83,7 @@ export class AddItemDropComponent {
         this.drops = ['Chest Coffer', 'Weapon Coffer',
                       'Skyslipper Key', 'Book of Grace',
                       'Edengrace Tathlums', 'Edengrace Spear',
-                      'Edengrace Shield', 'Edenrace Rod',
+                      'Edengrace Shield', 'Edengrace Rod',
                       'Edengrace Revolver', 'Edengrace Rapier',
                       'Edengrace Manatrigger', 'Edengrace Planisphere',
                       'Edengrace Knuckles', 'Edengrace Knives',
@@ -85,11 +99,14 @@ export class AddItemDropComponent {
   raiditemchange() {
     const baseUrl = document.getElementsByTagName('base')[0].href;
     this.http.get<any[]>(baseUrl + 'api/ACAC/GetRoundRobinList?XRaidfloorname=' + this.Si.Raidfloorname).subscribe(result => {
-
-      if (result.filter(r => r.raiditem === this.Si.raidItem).length === 0) {
+      if (this.override) {
         this.raiders = result.filter(r => r.raiditem === 'Other Items');
       } else {
-        this.raiders = result.filter(r => r.raiditem === this.Si.raidItem);
+        if (result.filter(r => r.raiditem === this.Si.raidItem).length === 0) {
+          this.raiders = result.filter(r => r.raiditem === 'Other Items');
+        } else {
+          this.raiders = result.filter(r => r.raiditem === this.Si.raidItem);
+        }
       }
      }, error => console.error(error));
   }
@@ -125,23 +142,22 @@ export class AddItemDropComponent {
   }
 
   onSubmit() {
+    if (!this.raiderIdentity.IsAdmin) { window.location.href = '/'; }
     this.submitted = true;
     const headerJson = {'Content-Type': 'application/json'};
     const header = new HttpHeaders(headerJson);
     this.Si.id = 0;
     this.http.post('./api/ACAC/addDrop', JSON.stringify(this.Si), {headers: header}).subscribe(
-      (val) => { console.log('POST call successful value returned in body', val); },
-      response => {
-          console.log('POST call in error', response);
-      },
-      () => {
-          console.log('The POST observable is now completed.');
-      });
+      (val) => { }, response => { }, () => { });
     if (!this.submitanother) {
-        console.log(this.redirectto);
         window.location.href = this.redirectto;
       } else {
-         window.location.reload();
+        const snackBarRef = this._SnackBar.open(this.Si.raidItem + ' added for ' + this.Si.raidername, 'Done',
+        { duration: 3000 });
+        snackBarRef.afterDismissed().subscribe(() => {
+          this.getRecentRaidItems();
+          this.raiditemchange();
+        });
       }
   }
   toggleChange(event) {
@@ -149,20 +165,26 @@ export class AddItemDropComponent {
       this.submitanother = true;
     } else { this.submitanother = false; }
   }
-
+  toggleOverrideChange(event) {
+    if (event.checked) {
+      this.override = true;
+    } else { this.override = false; }
+    this.raiditemchange();
+  }
   OnRemoveItem(id: any) {
-    const headerJson = {'Content-Type': 'application/json'};
-    const header = new HttpHeaders(headerJson);
-
-    this.http.post('./api/ACAC/DeleteItemById', JSON.stringify(id), {headers: header}).subscribe(
-      (val) => { console.log('POST call successful value returned in body', val); },
-      response => {
-          console.log('POST call in error', response);
-      },
-      () => {
-          console.log('The POST observable is now completed.');
-      });
-    window.location.reload();
+    if (!this.raiderIdentity.IsAdmin) { window.location.href = '/'; }
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: 'Do you confirm the delete of this data?'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const headerJson = {'Content-Type': 'application/json'};
+        const header = new HttpHeaders(headerJson);
+        this.http.post('./api/ACAC/DeleteItemById', JSON.stringify(id), {headers: header}).subscribe(
+          (val) => {  }, response => { }, () => { this.getRecentRaidItems(); }
+        );
+      }
+    });
   }
 }
-

@@ -1,12 +1,7 @@
-import { Component, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
-
-export interface DialogData {
-  username: string;
-  password: string;
-}
 
 @Component({
   selector: 'app-nav-menu',
@@ -14,7 +9,11 @@ export interface DialogData {
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-  loggedIn: any;
+  loggedIn: boolean;
+  isAdmin: boolean;
+  discorduser: string;
+  discordavatar: string;
+
   isExpanded = false;
   show = false;
   raiderprofiles: any[];
@@ -31,66 +30,79 @@ export class NavMenuComponent {
   vp = 'assets/img/no-profile.png';
   lk = 'assets/img/no-profile.png';
 
+
   constructor(private cookieService: CookieService, private http: HttpClient, public dialog: MatDialog) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
-    this.loggedIn = cookieService.get('loggedin');
-    this.http.get<any>(baseUrl + 'api/ACAC/validate?g=' + this.loggedIn).subscribe(result => {
-      if (!result) {
-        this.cookieService.delete('loggedin');
-      }
-      http.get<{ raidername: string, raiderimg: string, raiderbanner: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result => {
-        if (result) {
-           this.raiderprofiles = result;
-           this.raiderprofiles.forEach((value) => {
-               switch (value.raidername) {
-                 case 'Aerilyn Elessedil': {
-                   this.ae = value.raiderimg;
-                   break;
-                  }
-                  case 'Hades Carmine': {
-                   this.hc = value.raiderimg;
-                   break;
-                  }
-                  case 'La Ki': {
-                   this.lk = value.raiderimg;
-                   break;
-                  }
-                  case 'Lan Mantear': {
-                   this.lm = value.raiderimg;
-                   break;
-                  }
-                  case 'Shelly Duncan': {
-                   this.sd = value.raiderimg;
-                   break;
-                  }
-                  case 'Thomas Silverstar': {
-                   this.ts = value.raiderimg;
-                   break;
-                  }
-                  case 'Val Phoenix': {
-                   this.vp = value.raiderimg;
-                   break;
-                  }
-                 case 'Yumi Rin': {
-                  this.yr = value.raiderimg;
+    this.isAdmin = false;
+    this.discorduser = cookieService.get('discorduser');
+    this.discordavatar = cookieService.get('discordavatar');
+    if (this.discorduser.length === 0) {
+      cookieService.deleteAll();
+      this.loggedIn = false;
+      this.discordavatar = 'assets/img/discord.png';
+    } else {
+       this.loggedIn = true;
+       if (this.discorduser === 'Lan Mantear') { this.isAdmin = true; }
+    }
+    // tslint:disable-next-line: no-shadowed-variable
+    http.get<{ raidername: string, raiderimg: string, raiderbanner: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result => {
+      if (result) {
+          this.raiderprofiles = result;
+          this.raiderprofiles.forEach((value) => {
+              switch (value.raidername) {
+                case 'Aerilyn Elessedil': {
+                  this.ae = value.raiderimg;
                   break;
-                 }
-               }
-           });
-        }
-       }, error => console.error(error));
-  }, error => console.error(error));
+                }
+                case 'Hades Carmine': {
+                  this.hc = value.raiderimg;
+                  break;
+                }
+                case 'La Ki': {
+                  this.lk = value.raiderimg;
+                  break;
+                }
+                case 'Lan Mantear': {
+                  this.lm = value.raiderimg;
+                  break;
+                }
+                case 'Shelly Duncan': {
+                  this.sd = value.raiderimg;
+                  break;
+                }
+                case 'Thomas Silverstar': {
+                  this.ts = value.raiderimg;
+                  break;
+                }
+                case 'Val Phoenix': {
+                  this.vp = value.raiderimg;
+                  break;
+                }
+                case 'Yumi Rin': {
+                this.yr = value.raiderimg;
+                break;
+                }
+              }
+          });
+      }
+      }, error => console.error(error));
 }
 
   openDialog(): void {
-     // tslint:disable-next-line: no-use-before-declare
-    const dialogRef = this.dialog.open(ValidateUserComponent, {
-      width: '300px',
-      data: {username: this.username, password: this.password }
-    });
+
+    const CLIENT_ID = '638422083788996619';
+    const AuthUrl = 'https://discordapp.com/api/oauth2/authorize?' +
+                    'response_type=code' +
+                    '&client_id=' + CLIENT_ID +
+                    '&scope=identify' +
+                    '&prompt=consent';
+
+    window.location.href = AuthUrl;
   }
   Onlogout(): void {
-     this.cookieService.delete('loggedin');
+     this.cookieService.delete('discorduser', '/');
+     this.cookieService.delete('discordavatar', '/');
+     this.cookieService.deleteAll('/');
      window.location.reload();
   }
   collapse() {
@@ -99,32 +111,5 @@ export class NavMenuComponent {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
-  }
-}
-
-@Component({
-  selector: 'app-validate-user',
-  templateUrl: './validate-user.component.html',
-  styleUrls: ['./validate-user.component.css']
-})
-export class ValidateUserComponent {
-  hide = true;
-  // tslint:disable-next-line: max-line-length
-  constructor(private cookieService: CookieService, private http: HttpClient,
-              public dialogRef: MatDialogRef<NavMenuComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  validate(): void {
-    const baseUrl = document.getElementsByTagName('base')[0].href;
-
-    // tslint:disable-next-line: max-line-length
-    this.http.get<any>(baseUrl + 'api/ACAC/startLogin?userName=' +
-    this.data.username + '&password=' + this.data.password).subscribe(result => {
-        this.cookieService.set('loggedin', result.gString);
-    }, error => console.error(error));
-    window.location.reload();
   }
 }

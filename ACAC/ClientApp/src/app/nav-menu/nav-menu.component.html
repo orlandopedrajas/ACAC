@@ -1,4 +1,9 @@
-<button mat-icon-button [matMenuTriggerFor]="acacmenu"><mat-icon>menu</mat-icon></button>
+<mat-list>
+  <mat-list-item>
+      <img [matMenuTriggerFor]="acacmenu" matListAvatar src='{{ discordavatar }}' class='pointer'>
+      <div *ngIf="!loggedIn"><button mat-menu-item (click)="openDialog()">Login via Discord</button></div>
+  </mat-list-item>
+</mat-list>
 
 <mat-menu #acacmenu="matMenu">
   <button mat-menu-item [routerLink]='["/"]'>
@@ -7,24 +12,11 @@
   <button mat-menu-item [routerLink]='["/item-drop-history"]'>
     <mat-icon aria-hidden="false" aria-label="Item Drop History">history</mat-icon>  Item Drop History
   </button>
-  <button mat-menu-item [matMenuTriggerFor]="savagefloors"><mat-icon aria-hidden="false" aria-label="Who can lot?">work</mat-icon>Who can lot?</button>
+  <button mat-menu-item [routerLink]='["/who-can-lot"]'><mat-icon aria-hidden="false" aria-label="Who can lot?">work</mat-icon>Who can lot?</button>
+  <button mat-menu-item [routerLink]='["/weapon-alternates"]'><mat-icon aria-hidden="false" aria-label="Weapon Alternates">sports_cricket</mat-icon>Weapon Alternate</button>
   <button mat-menu-item [matMenuTriggerFor]="raiders"><mat-icon aria-hidden="false" aria-label="Raiders">emoji_people</mat-icon>Raiders</button>
-  <button mat-menu-item [matMenuTriggerFor]="adminpages"><mat-icon aria-hidden="false" aria-label="Raiders">settings_applications</mat-icon></button>
-</mat-menu>
-
-<mat-menu #savagefloors="matMenu">
-  <button mat-menu-item [routerLink]='["/who-can-lot/eden-savage-1"]'>
-    <mat-icon aria-hidden="false">looks_one</mat-icon> Eden Savage 1
-  </button>
-  <button mat-menu-item [routerLink]='["/who-can-lot/eden-savage-2"]'>
-    <mat-icon aria-hidden="false">looks_two</mat-icon> Eden Savage 2
-  </button>
-  <button mat-menu-item [routerLink]='["/who-can-lot/eden-savage-3"]'>
-    <mat-icon aria-hidden="false">looks_3</mat-icon> Eden Savage 3
-  </button>
-  <button mat-menu-item [routerLink]='["/who-can-lot/eden-savage-4"]'>
-    <mat-icon aria-hidden="false">looks_4</mat-icon> Eden Savage 4
-  </button>
+  <button mat-menu-item [matMenuTriggerFor]="adminpages" *ngIf="isAdmin"><mat-icon aria-hidden="false" aria-label="Raiders">settings_applications</mat-icon>Admin</button>
+  <button mat-menu-item (click)="Onlogout()" *ngIf="loggedIn"><mat-icon aria-hidden="false">vpn_key</mat-icon>Logout</button>
 </mat-menu>
 
 <mat-menu #raiders="matMenu">
@@ -73,28 +65,23 @@
 </mat-menu>
 
 <mat-menu #adminpages="matMenu">
+    <button mat-menu-item [routerLink]='["/nine/nine"]'>
+      <mat-icon aria-hidden="false">portrait</mat-icon> Nine
+    </button>
     <button mat-menu-item [routerLink]='["/admin-pages/archived-item-drop/archived-item-drop"]'>
       <mat-icon aria-hidden="false">archive</mat-icon> Removed Items
     </button>
-    <button mat-menu-item [routerLink]='["/admin-pages/profile-pictures/profile-pictures"]'>
-      <mat-icon aria-hidden="false">portrait</mat-icon> Profile Pictures
+    <button mat-menu-item [routerLink]='["/add-item-drop"]'>
+      <mat-icon aria-hidden="false" aria-label="Item Drop History">add</mat-icon>  Add Drop
+    </button>      
+    <button mat-menu-item [routerLink]='["/admin-pages/manage-lists"]'>
+      <mat-icon aria-hidden="false">view_list</mat-icon> Manage Lists
     </button>
-    <div *ngIf="loggedIn; then thenBlock else elseBlock"></div>
-    <ng-template #thenBlock>
-      <button mat-menu-item [routerLink]='["/add-item-drop"]'>
-        <mat-icon aria-hidden="false" aria-label="Item Drop History">add</mat-icon>  Add Drop
-      </button>      
-      <button mat-menu-item [routerLink]='["/admin-pages/manage-lists"]'>
-        <mat-icon aria-hidden="false">view_list</mat-icon> Manage Lists
-      </button>
-      <button mat-menu-item (click)="Onlogout()">
-        <mat-icon aria-hidden="false">vpn_key</mat-icon>Logout
-      </button>
-    </ng-template>
-    <ng-template #elseBlock>
-      <button mat-menu-item (click)="openDialog()">
-        <mat-icon aria-hidden="false">vpn_key</mat-icon>Login
-      </button>
-    </ng-template>
-  </mat-menu>
+    <button mat-menu-item [routerLink]='["/attendance"]'>
+      <mat-icon aria-hidden="false">group</mat-icon> Attendance
+    </button>
+    <button mat-menu-item [routerLink]='["/admin-pages/raid-floors/raid-floors"]'>
+      <mat-icon aria-hidden="false">group</mat-icon> Raid Floors
+    </button>
+</mat-menu>
 
