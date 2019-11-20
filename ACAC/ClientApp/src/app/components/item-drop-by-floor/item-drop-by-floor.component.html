@@ -1,4 +1,82 @@
-<p *ngIf="!drops && !floors && !dropsraider"><mat-progress-bar mode="indeterminate"></mat-progress-bar></p>
+<p *ngIf="!drops && !floors && !dropsraider && !groupbydate"><mat-progress-bar mode="indeterminate"></mat-progress-bar></p>
+<div *ngIf='groupbydate'>
+    <mat-accordion>
+        <mat-expansion-panel *ngFor='let g of groupbydate'>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-list>
+                        <mat-list-item>
+                            {{ g.floordate }}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-table [dataSource]='g.item'>
+                <ng-container matColumnDef="dateReceived">
+                    <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{ element.receiveddate | date:'shortDate' }} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="floor">
+                    <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
+                    <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}' matTooltip='{{element.raidfloorname}}'> </mat-cell>
+                </ng-container>
+                
+                <!-- Weight Column -->
+                <ng-container matColumnDef="raider">
+                    <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                    <mat-list>
+                        <mat-list-item >
+                            <div class="toLeft">
+                            <img matListAvatar routerLink='{{ element.profile.pageroute }}'
+                            src='{{ element.profile.raiderimg }}'
+                            matTooltip='{{ element.profile.raidername }}' 
+                            alt='{{ element.profile.raidername }}' class='pointer'>
+                            </div>               
+                        </mat-list-item>
+                        </mat-list>
+                    </mat-cell>
+                </ng-container>
+                
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="droptype">
+                    <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <mat-list>
+                            <mat-list-item>
+                                <div class='toLeft'>
+                                    <img matListAvatar
+                                            src='{{element.raidItemimage}}'
+                                            alt='{{element.raidItem}}'
+                                            matTooltip='{{element.raidItem}}'>
+                                </div>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-cell>
+                </ng-container>
+            
+                <!-- Symbol Column -->
+                <div *ngIf="this.raiderIdentity.IsAdmin; else elseBlock">
+                    <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <mat-icon (click)='OnRemoveItem(element.id)' class='pointer'>remove_circle_outline</mat-icon>
+                    </mat-cell>
+                    </ng-container>
+                </div>
+                <ng-template #elseBlock>
+                    <ng-container matColumnDef="id">
+                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                        <mat-cell *matCellDef="let element"></mat-cell>
+                    </ng-container>
+                </ng-template>
+                
+                <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>    
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
 <div *ngIf='drops'>
     <mat-table [dataSource]='drops' >
             <ng-container matColumnDef="dateReceived">

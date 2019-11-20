@@ -4,11 +4,13 @@ import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
 import { RaiderIdentity, ThisRaider } from '../ACACComponents';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-item-drop-by-floor',
     templateUrl: './item-drop-by-floor.component.html',
-    styleUrls: ['./item-drop-by-floor.component.css']
+    styleUrls: ['./item-drop-by-floor.component.css'],
+    providers: [DatePipe]
 })
 
 export class ItemDropByFloorComponent implements OnInit, OnChanges {
@@ -20,6 +22,7 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
     drops: any[] = null;
     floors: any[] = null;
     dropsraider: any[] = null;
+    groupbydate: any[] = null;
 
     ngOnInit() {}
     ngOnChanges() {
@@ -58,6 +61,24 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
                     this.floors.push({ floorname: 'Eden Savage Floor 4',
                                        flooricon: 'https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/68-icon.jpg',
                                        floor: result1.filter(r => r.raidfloorname === 'Eden Savage Floor 4') });
+                }, error => console.error(error));
+                break;
+            }
+            case '3': {
+                this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result => {
+                    this.groupbydate = [];
+                    let currentdate = '';
+                    result.forEach((value) => {
+                         if (currentdate !== this.datePipe.transform(value.receiveddate, 'fullDate')) {
+                            currentdate = this.datePipe.transform(value.receiveddate, 'fullDate');
+                            this.groupbydate.push({floordate: currentdate,
+                                item: result.filter(r => this.datePipe.transform(r.receiveddate, 'fullDate') === currentdate)});
+                         }
+                    });
+
+                   //  console.log(this.datePipe.transform(currentdate, 'yyyy/MM/dd'));
+                    console.log(this.groupbydate);
+                   // console.log('Current Date: ' + currentdate);
                 }, error => console.error(error));
                 break;
             }
@@ -177,5 +198,5 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
         });
     }
 
-    constructor(private http: HttpClient, private cookieService: CookieService, public dialog: MatDialog) {}
+    constructor(private http: HttpClient, private cookieService: CookieService, public dialog: MatDialog, private datePipe: DatePipe) {}
 }

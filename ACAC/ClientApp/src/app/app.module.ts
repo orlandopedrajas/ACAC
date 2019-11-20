@@ -40,7 +40,6 @@ import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-cha
 import { FFLOGComponent } from './components/fflog/fflog.component';
 import { RaidFloorComponent } from './admin-pages/raid-floors/raid-floors.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -1019,7 +1019,7 @@ namespace ACAC.Controllers
                 {
                     try
                     {
-                        Db.InsertOrReplace(xItem);
+                        Db.Insert(xItem);
                     }
                     catch
                     {
