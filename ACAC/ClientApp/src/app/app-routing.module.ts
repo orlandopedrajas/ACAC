@@ -17,6 +17,7 @@ import { NineComponent } from './nine/nine.component';
 import { AuthorizeComponent } from './components/authorize/authorize.component';
 import { AlternateJobsComponent } from './alternate-jobs/alternate-jobs.component';
 import { AttendanceComponent } from './admin-pages/attendance/attendance.component';
+import { RaidFloorComponent } from './admin-pages/raid-floors/raid-floors.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'nine/nine', component: NineComponent },
   { path: 'weapon-alternates', component: AlternateJobsComponent },
   { path: 'attendance', component: AttendanceComponent },
+  { path: 'admin-pages/raid-floors/raid-floors', component: RaidFloorComponent },
 ];
 
 @NgModule({

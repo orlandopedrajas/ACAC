@@ -104,6 +104,17 @@ namespace ACAC.Controllers
             }
             return Ok();
         }
+        [HttpPost("[action]")]
+        public IActionResult AddRaidContent([FromBody] RaidContent[] raidContent)
+        {
+            if (raidContent == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");
+            Databasehandler Dbh = new Databasehandler();
+            foreach (RaidContent r in raidContent)
+            {
+                Dbh.AddRaidContent(r);
+            }
+            return Ok();
+        }
         #endregion
 
         #region "GET"
@@ -374,6 +385,16 @@ namespace ACAC.Controllers
             {
                 return Enumerable.Empty<Customraiditem>();
             }
+        }
+        [HttpGet("[action]")]
+        public IEnumerable<RaidContent> GetRaidContent(string raidContent)
+        {
+            Databasehandler Dbh = new Databasehandler();
+            if (Dbh.TableExists("RaidContent"))
+            {
+                return Dbh.GetRaidContent(raidContent);
+            }
+            else { return Enumerable.Empty<RaidContent>(); }
         }
         [HttpGet("[action]")]
         public IEnumerable<Displayroundrobinentry> GetRoundRobinList(string XRaidfloorname)
@@ -721,6 +742,9 @@ namespace ACAC.Controllers
                             case "Attendance":
                                 Db.CreateTable<Attendance>();
                                 return true;
+                            case "RaidContent":
+                                Db.CreateTable<RaidContent>();
+                                return true;
                             default:
                                 return false;
                         }
@@ -916,6 +940,21 @@ namespace ACAC.Controllers
                     return Db.Query<Attendance>("Select * From Attendance order by Eventdate");
                 }
             }
+            public IEnumerable<RaidContent> GetRaidContent(string contentName)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    string sql = "";
+                    if (contentName != null)
+                    {
+                        sql = "Select * From RaidContent where contentname='" + contentName + "'";
+                    } else
+                    {
+                        sql = "Select * From RaidContent";
+                    }
+                    return Db.Query<RaidContent>(sql);
+                }
+            }
 
             public IEnumerable<Settings> GetAllSettings()
             {
@@ -980,12 +1019,27 @@ namespace ACAC.Controllers
                 {
                     try
                     {
-                        Db.InsertOrReplace(xItem);
+                        Db.Insert(xItem);
                     }
                     catch
                     {
                         Db.CreateTable<RaidItem>();
                         Db.Insert(xItem);
+                    }
+                }
+            }
+            public void AddRaidContent(RaidContent raidContent)
+            {
+                using (var Db = new SQLiteConnection(DbPath))
+                {
+                    try
+                    {
+                        Db.InsertOrReplace(raidContent);
+                    }
+                    catch
+                    {
+                        Db.CreateTable<RaidContent>();
+                        Db.Insert(raidContent);
                     }
                 }
             }
@@ -1223,6 +1277,12 @@ namespace ACAC.Controllers
             public string Eventdate { get; set; }
             public string Raidername { get; set; }
             public bool Attended { get; set; }
+        }
+        public class RaidContent
+        {
+            [PrimaryKey]
+            public string contentname { get; set; }
+            public string contentdescription { get; set; }
         }
     }
 }
