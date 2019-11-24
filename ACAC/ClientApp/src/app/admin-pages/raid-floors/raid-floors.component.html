@@ -1,12 +1,96 @@
+<h1>Raid Content Administration</h1>
+<mat-accordion>
+    <mat-expansion-panel *ngFor='let rContent of raidContent'>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-list>
+                    <mat-list-item>
+                        <div class="toLeft">
+                            <img matListAvatar
+                                 src='{{ rContent.raidContent.contentimg }}'
+                                 matTooltip='{{ rContent.raidContent.contentname }}'>
+                        </div>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <p mat-Line><b>{{ rContent.raidContent.contentname }}</b></p>
+                    </mat-list-item>                        
+                </mat-list>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-card>
+            <mat-card-header>
+                <img mat-card-avatar src='{{ rContent.raidContent.contentimg }}'>
+                <mat-form-field class='raid-floors-full-width'>
+                    <input matInput placeholder="Content Image" [(ngModel)]="rContent.raidContent.contentimg" name="contentImage" value="{{ rContent.raidContent.contentimg }}">
+                </mat-form-field>                
+            </mat-card-header>
+            <mat-card-content>
+                <mat-divider></mat-divider>
+                <br><br>
+                <mat-form-field class='raid-floors-full-width'>
+                    <textarea matInput placeholder="Content Description" name="cdescription" value="{{ rContent.raidContent.contentdescription }}">{{ rContent.raidContent.contentdescription }}</textarea> 
+                </mat-form-field>
+                <table mat-table [dataSource]="rContent.item">
+                    <ng-container matColumnDef="raiditemimg">
+                        <th mat-header-cell *matHeaderCellDef> Raid Item Image </th>
+                        <td mat-cell *matCellDef="let element"><img mat-card-avatar src='{{element.raiditemimg}}'></td>
+                    </ng-container>
 
+                    <ng-container matColumnDef="raiditemname">
+                        <th mat-header-cell *matHeaderCellDef> Raid Item Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.raiditemname}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="hasroundrobin">
+                        <th mat-header-cell *matHeaderCellDef> Has Round Robin </th>
+                        <td mat-cell *matCellDef="let element"> {{element.hasroundrobin}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>              
+            </mat-card-content>
+            <mat-card-footer>
+                <table>
+                    <tr>
+                        <td>
+                            <img mat-card-avatar src='{{ raiditemimg }}'>
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="raiditemimg" placeholder="Raid Item Image" name="raiditemimg">
+                            </mat-form-field>  
+                        </td>
+                        <td>
+                            <mat-form-field>
+                                <input matInput [(ngModel)]="raiditemname" placeholder="Raid Item Name" name="raiditemname">
+                            </mat-form-field>                            
+                        </td>
+                        <td>
+                            <mat-checkbox [(ngModel)]="hasroundrobin">Has round robin</mat-checkbox>
+                        </td>
+                        <td>
+                            <button mat-raised-button color="primary" (click)="addRaidItem(rContent.raidContent.contentname)">Add Raid Item Definition</button>
+                        </td>
+                    </tr>
+                </table>
+            </mat-card-footer>
+        </mat-card>
+    </mat-expansion-panel>
+</mat-accordion>
+<br><br>
 <h1>Add new Raid content</h1>
 <form (ngSubmit)="onSubmit()" #addForm="ngForm" class="raid-floors-form">
+    <mat-form-field class="raid-floors-full-width" hintLabel="Max 25 characters">
+        <input matInput #inputcontentname placeholder="Content Name" maxlength="50" [(ngModel)]="contentname" name="cname" value="{{ contentname }}">
+        <mat-hint align="end">{{ inputcontentname.value?.length || 0}}/50</mat-hint>
+    </mat-form-field>
+    <br><br>
     <mat-form-field class="raid-floors-full-width">
-        <input matInput placeholder="Content Name" [(ngModel)]="contentname" name="cname" value="{{ contentname }}">
+        <input matInput placeholder="Content Image" [(ngModel)]="contentimg" name="cimg" value="{{ contentimg }}">
     </mat-form-field>
     <br><br>
     <mat-form-field class="raid-floors-full-width">
         <textarea matInput placeholder="Content Description" [(ngModel)]="contentdescription" name="cdescription" value="{{ contentdescription }}"></textarea>
     </mat-form-field>
-    <button mat-raised-button type="submit" color="primary" [disabled]="!addForm.form.valid" >Submit</button>
+    <br><br>
+    <button mat-raised-button type="submit" color="primary" [disabled]="!addForm.form.valid" >Add New</button>
 </form>
