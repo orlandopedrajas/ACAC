@@ -18,15 +18,15 @@ namespace ACAC.api
         #region "GET"
 
         [HttpGet("[action]")]
-        public Dictionary<raid.RaidContent, IEnumerable<raid.Raiditeminfo>> GetRaidContent(string contentname)
+        public IEnumerable<raid.RaidContentResponse> GetRaidContent(string contentname)
         {
             db.DBHandler Dbh = new db.DBHandler();
-            Dictionary<raid.RaidContent, IEnumerable<raid.Raiditeminfo>> rsp = null;
+            
             if (Dbh.TableExists("RaidContent"))
             {
-                rsp = Dbh.GetRaidContent(contentname);
+                return Dbh.GetRaidContent(contentname);
             }
-            return rsp;
+            return Enumerable.Empty<raid.RaidContentResponse>();
         }
 
         #endregion
@@ -42,6 +42,14 @@ namespace ACAC.api
             return Ok();
         }
 
+        [HttpPost("[action]")]
+        public IActionResult AddRaiditeminfo([FromBody] raid.Raiditeminfo raidItemInfo)
+        {
+            if (raidItemInfo == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.AddRaiditeminfo(raidItemInfo);
+            return Ok();
+        }
         #endregion
 
     }

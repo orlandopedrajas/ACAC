@@ -30,9 +30,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     onSubmit() {
       const headerJson = {'Content-Type': 'application/json'};
       const header = new HttpHeaders(headerJson);
-      console.log('contentimg 1: ' + this.contentimg);
       if (typeof this.contentimg === 'undefined') { this.contentimg = '/assets/img/msq.png'; }
-      console.log('contentimg 2: ' + this.contentimg);
       this.http.post('./api/ACAC2/AddRaidContent',
                      JSON.stringify({contentname: this.contentname,
                                     contentdescription: this.contentdescription,
@@ -47,8 +45,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     getRaidContent() {
       const baseUrl = document.getElementsByTagName('base')[0].href;
       this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidContent?contentname=').subscribe(result => {
-        console.log(result);
-
+        this.raidContent = result;
       });
     }
 
@@ -56,17 +53,35 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
     }
 
-    addRaidItem(content) {
+    PostRequest(requestRoute: string, reqobj) {
+      console.log(reqobj);
+      const headerJson = {'Content-Type': 'application/json'};
+      const header = new HttpHeaders(headerJson);
+      this.http.post('./api/ACAC2/' + requestRoute,
+                     JSON.stringify(reqobj)).subscribe(
+        (val) => { }, response => { }, () => {
 
+          // const snackBarRef = this._SnackBar.open('Request Complete', 'Done', { duration: 3000 });
+          // snackBarRef.afterDismissed().subscribe(() => { this.getRaidContent(); });
+      });
+    }
+    addRaidItem(content) {
+      console.log(content);
       let idx1 = 0;
       this.raidContent.forEach((value) => {
-        if (value.raidContent.contentname === content) {
-          this.raidContent[idx1].item.push({raiditemimg: this.raiditemimg,
+        if (value._raidContent.contentname === content) {
+          this.raidContent[idx1]._RaidItems.push({raiditemimg: this.raiditemimg,
                                             raiditemname: this.raiditemname,
                                             hasroundrobin: this.hasroundrobin});
         }
+        this.PostRequest('AddRaiditeminfo', {id: 0,
+                                            contentname: value._raidContent.contentname,
+                                            raiditemname: this.raiditemname,
+                                            raiditemimg: this.raiditemimg,
+                                            hasroundrobin: this.hasroundrobin
+                                          });
         idx1 += 1;
       });
-
+      console.log(this.raidContent);
     }
   }

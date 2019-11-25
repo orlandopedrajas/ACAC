@@ -51,12 +51,14 @@ namespace ACAC.api.db
                 return Db.Query<raid.Raiditeminfo>("Select * from Raiditeminfo where contentname='" + contentname + "'");
             }
         }
-        public Dictionary<raid.RaidContent, IEnumerable<raid.Raiditeminfo>> GetRaidContent(string contentname)
+        public IEnumerable<raid.RaidContentResponse> GetRaidContent(string contentname)
         {
-            Dictionary<raid.RaidContent, IEnumerable<raid.Raiditeminfo>> rsp = new Dictionary<raid.RaidContent, IEnumerable<raid.Raiditeminfo>>();
+            List<raid.RaidContentResponse> rsp = new List<raid.RaidContentResponse>();
+            
             using (var Db = new SQLiteConnection(DbPath))
             {
                 IEnumerable<raid.RaidContent> rslt;
+
                 if (contentname != null)
                 {
                     rslt = Db.Query<raid.RaidContent>("Select * From RaidContent where contentname='" + contentname + "'");
@@ -67,7 +69,10 @@ namespace ACAC.api.db
                 }
                 foreach (raid.RaidContent r in rslt)
                 {
-                    rsp.Add(r, GetRaidItemInfo(r.contentname));
+                    // rsp.Add(r, GetRaidItemInfo(r.contentname));
+                    rsp.Add(new raid.RaidContentResponse { _raidContent = r,
+                                                           _RaidItems = GetRaidItemInfo(r.contentname)
+                                                         });
                 }
             }
             return rsp;
@@ -86,6 +91,21 @@ namespace ACAC.api.db
                 {
                     Db.CreateTable<raid.RaidContent>();
                     Db.Insert(raidContent);
+                }
+            }
+        }
+        public void AddRaiditeminfo(raid.Raiditeminfo rii)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            { 
+                try
+                {
+                    Db.Insert(rii);
+                }
+                catch
+                {
+                    Db.CreateTable<raid.Raiditeminfo>();
+                    Db.Insert(rii);
                 }
             }
         }
