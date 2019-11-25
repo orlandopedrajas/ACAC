@@ -2877,12 +2877,12 @@
   "RootNamespace": "ACAC",
   "Documents": [
     {
-      "FilePath": "Pages\\_ViewImports.cshtml",
+      "FilePath": "c:\\Work\\source\\repos\\ACAC\\ACAC\\Pages\\_ViewImports.cshtml",
       "TargetPath": "Pages\\_ViewImports.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "Pages\\Error.cshtml",
+      "FilePath": "c:\\Work\\source\\repos\\ACAC\\ACAC\\Pages\\Error.cshtml",
       "TargetPath": "Pages\\Error.cshtml",
       "FileKind": "mvc"
     }
