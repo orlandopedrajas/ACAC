@@ -43,12 +43,12 @@ namespace ACAC.api.db
             }
         }
 
-        public IEnumerable<raid.Raiditeminfo> GetRaidItemInfo(string contentname)
+        public IEnumerable<raid.Raiditeminfo> GetRaidItemInfo(int contentid)
         {
             using (var Db = new SQLiteConnection(DbPath))
             {
                 TableExists("Raiditeminfo");
-                return Db.Query<raid.Raiditeminfo>("Select * from Raiditeminfo where contentname='" + contentname + "'");
+                return Db.Query<raid.Raiditeminfo>("Select * from Raiditeminfo where contentid=" + contentid);
             }
         }
         public IEnumerable<raid.RaidContentResponse> GetRaidContent(string contentname)
@@ -71,27 +71,32 @@ namespace ACAC.api.db
                 {
                     // rsp.Add(r, GetRaidItemInfo(r.contentname));
                     rsp.Add(new raid.RaidContentResponse { _raidContent = r,
-                                                           _RaidItems = GetRaidItemInfo(r.contentname)
+                                                           _RaidItems = GetRaidItemInfo(r.id)
                                                          });
                 }
             }
             return rsp;
         }
-
-
         public void AddRaidContent(raid.RaidContent raidContent)
         {
             using (var Db = new SQLiteConnection(DbPath))
             {
                 try
                 {
-                    Db.InsertOrReplace(raidContent);
+                    Db.Insert(raidContent);                
                 }
                 catch 
                 {
                     Db.CreateTable<raid.RaidContent>();
                     Db.Insert(raidContent);
                 }
+            }
+        }
+        public void UpdateRaidContent(raid.RaidContent raidContent)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.InsertOrReplace(raidContent);
             }
         }
         public void AddRaiditeminfo(raid.Raiditeminfo rii)
@@ -107,6 +112,20 @@ namespace ACAC.api.db
                     Db.CreateTable<raid.Raiditeminfo>();
                     Db.Insert(rii);
                 }
+            }
+        }
+        public void UpdateRaiditeminfo(raid.Raiditeminfo rii)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.InsertOrReplace(rii);
+            }
+        }
+        public void DeleteRaidItemInfo(string id)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from Raiditeminfo where id=" + id);
             }
         }
     }

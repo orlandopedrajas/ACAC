@@ -17,21 +17,39 @@
         </mat-expansion-panel-header>
         <mat-card>
             <mat-card-header>
-                <img mat-card-avatar src='{{ rContent._raidContent.contentimg }}'>
-                <mat-form-field class='raid-floors-full-width'>
-                    <input matInput placeholder="Content Image" [(ngModel)]="rContent._raidContent.contentimg" name="contentImage" value="{{ rContent._raidContent.contentimg }}">
-                </mat-form-field>                
+                <mat-form-field class="raid-floors-full-width">
+                    <input matInput placeholder="Content Name" 
+                    [(ngModel)]="rContent._raidContent.contentname" 
+                    name="contentName" 
+                    (blur)="onblur(rContent)"
+                    value="{{ rContent._raidContent.contentname }}">
+                </mat-form-field>
             </mat-card-header>
             <mat-card-content>
                 <mat-divider></mat-divider>
                 <br><br>
+                <mat-form-field class="raid-floors-full-width">
+                    <input matInput placeholder="Content Image" 
+                    [(ngModel)]="rContent._raidContent.contentimg" 
+                    name="contentImage" 
+                    (blur)="onblur(rContent)"
+                    value="{{ rContent._raidContent.contentimg }}">
+                </mat-form-field>  
+                <br><br>
                 <mat-form-field class='raid-floors-full-width'>
-                    <textarea matInput placeholder="Content Description" name="cdescription" value="{{ rContent._raidContent.contentdescription }}">{{ rContent._raidContent.contentdescription }}</textarea> 
+                    <textarea matInput placeholder="Content Description" 
+                    name="cdescription" 
+                    [(ngModel)]="rContent._raidContent.contentdescription"
+                    (blur)="onblur(rContent)"
+                    value="{{ rContent._raidContent.contentdescription }}">{{ rContent._raidContent.contentdescription }}</textarea> 
                 </mat-form-field>
                 <table mat-table [dataSource]="rContent._RaidItems">
                     <ng-container matColumnDef="raiditemimg">
                         <th mat-header-cell *matHeaderCellDef> Raid Item Image </th>
-                        <td mat-cell *matCellDef="let element"><img mat-card-avatar src='{{element.raiditemimg}}'></td>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-icon (click)='OnRemoveItem(element.id)' class='pointer'>remove_circle_outline</mat-icon>
+                            <img mat-card-avatar src='{{element.raiditemimg}}'>
+                        </td>
                     </ng-container>
 
                     <ng-container matColumnDef="raiditemname">
@@ -41,7 +59,14 @@
 
                     <ng-container matColumnDef="hasroundrobin">
                         <th mat-header-cell *matHeaderCellDef> Has Round Robin </th>
-                        <td mat-cell *matCellDef="let element"> {{element.hasroundrobin}} </td>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-slide-toggle
+                            [color]="color"
+                            [checked]="element.hasroundrobin"
+                             (click)="onRoundrobinCheck(element)"
+                             [(ngModel)]="element.hasroundrobin"
+                             ></mat-slide-toggle>
+                        </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -65,7 +90,7 @@
                             </mat-form-field>                            
                         </td>
                         <td>
-                            <mat-checkbox [(ngModel)]="hasroundrobin">Has round robin</mat-checkbox>
+                            <mat-slide-toggle [(ngModel)]="hasroundrobin" color="primary">Has round robin</mat-slide-toggle>
                         </td>
                         <td>
                             <button mat-raised-button color="primary" (click)="addRaidItem(rContent._raidContent.contentname)">Add Raid Item Definition</button>
