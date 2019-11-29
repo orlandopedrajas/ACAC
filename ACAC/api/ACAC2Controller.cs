@@ -18,17 +18,38 @@ namespace ACAC.api
         #region "GET"
 
         [HttpGet("[action]")]
-        public IEnumerable<raid.RaidContentResponse> GetRaidContent(string contentname)
+        public IEnumerable<raid.RaidContentResponse> GetRaidContent(string contentid)
         {
             db.DBHandler Dbh = new db.DBHandler();
             
             if (Dbh.TableExists("RaidContent"))
             {
-                return Dbh.GetRaidContent(contentname);
+                return Dbh.GetRaidContent(contentid);
             }
             return Enumerable.Empty<raid.RaidContentResponse>();
         }
+        [HttpGet("[action]")]
+        public IEnumerable<raider.profile> GetRaiderProfiles(string raidername)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
 
+            if (Dbh.TableExists("profile"))
+            {
+                return Dbh.GetUserprofiles(raidername);
+            }
+            return Enumerable.Empty<raider.profile>();
+        }
+        [HttpGet("[action]")]
+        public IEnumerable<raider.profile> GetRaiderProfilesByDiscordUser(string discorduser)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+
+            if (Dbh.TableExists("profile"))
+            {
+                return Dbh.GetUserprofileByDiscordUser(discorduser);
+            }
+            return Enumerable.Empty<raider.profile>();
+        }
         #endregion
 
         #region "POST"
@@ -71,6 +92,14 @@ namespace ACAC.api
         {
             db.DBHandler Dbh = new db.DBHandler();
             Dbh.UpdateRaiditeminfo(raidItemInfo);
+            return Ok();
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult Upsertuserprofile([FromBody] raider.profile profile)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.Upsertuserprofile(profile);
             return Ok();
         }
         #endregion

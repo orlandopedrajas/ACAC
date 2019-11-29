@@ -11,8 +11,9 @@ namespace ACAC.api.raid
 
     public class RaidContent
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         public int id { get; set; }
+        public bool isenabled { get; set; }
         public string contentname { get; set; }
         public string contentdescription { get; set; }
         public string contentimg { get; set; }

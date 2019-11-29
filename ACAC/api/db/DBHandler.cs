@@ -36,6 +36,9 @@ namespace ACAC.api.db
                         case "RaidContent":
                             Db.CreateTable<raid.RaidContent>();
                             return true;
+                        case "profile":
+                            Db.CreateTable<raider.profile>();
+                            return true;
                         default:
                             return false;
                     }
@@ -51,7 +54,7 @@ namespace ACAC.api.db
                 return Db.Query<raid.Raiditeminfo>("Select * from Raiditeminfo where contentid=" + contentid);
             }
         }
-        public IEnumerable<raid.RaidContentResponse> GetRaidContent(string contentname)
+        public IEnumerable<raid.RaidContentResponse> GetRaidContent(string contentid)
         {
             List<raid.RaidContentResponse> rsp = new List<raid.RaidContentResponse>();
             
@@ -59,9 +62,9 @@ namespace ACAC.api.db
             {
                 IEnumerable<raid.RaidContent> rslt;
 
-                if (contentname != null)
+                if (contentid != null)
                 {
-                    rslt = Db.Query<raid.RaidContent>("Select * From RaidContent where contentname='" + contentname + "'");
+                    rslt = Db.Query<raid.RaidContent>("Select * From RaidContent where id=" + contentid);
                 }
                 else
                 {
@@ -77,6 +80,34 @@ namespace ACAC.api.db
             }
             return rsp;
         }
+        public IEnumerable<raider.profile> GetUserprofiles(string raidername)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                if (raidername != null)
+                {
+                    return Db.Query<raider.profile>("Select * From profile where raidername='" + raidername + "'");
+                }
+                else
+                {
+                    return Db.Query<raider.profile>("Select * From profile");
+                }
+            }
+        }
+        public IEnumerable<raider.profile> GetUserprofileByDiscordUser(string discorduser)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                if (discorduser != null)
+                {
+                    return Db.Query<raider.profile>("Select * From profile where discorduser='" + discorduser + "'");
+                }
+                else
+                {
+                    return Db.Query<raider.profile>("Select * From profile");
+                }
+            }
+        }
         public void AddRaidContent(raid.RaidContent raidContent)
         {
             using (var Db = new SQLiteConnection(DbPath))
@@ -89,6 +120,21 @@ namespace ACAC.api.db
                 {
                     Db.CreateTable<raid.RaidContent>();
                     Db.Insert(raidContent);
+                }
+            }
+        }
+        public void Upsertuserprofile(raider.profile profile)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            { 
+                try
+                { 
+                    Db.InsertOrReplace(profile);
+                }
+                catch
+                {
+                    Db.CreateTable<raider.profile>();
+                    Db.Insert(profile);
                 }
             }
         }
