@@ -67,7 +67,7 @@ import { MatDialog } from '@angular/material';
                                               contentdescription: content._raidContent.contentdescription,
                                               isenabled: content._raidContent.isenabled,
                                               contentimg: content._raidContent.contentimg});
-      console.log(content._raidContent.id);
+      // console.log(content._raidContent.id);
      // const snackBarRef = this._SnackBar.open(content.contentname + ' updated.', 'Done', { duration: 3000 });
      // snackBarRef.afterDismissed().subscribe(() => { this.getRaidContent(); });
 

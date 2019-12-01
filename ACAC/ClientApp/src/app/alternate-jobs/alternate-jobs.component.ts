@@ -55,7 +55,7 @@ export class AlternateJobsComponent {
       // tslint:disable-next-line: max-line-length
       this.http.get<{ raidername: string, raiderimg: string, raiderbanner: string, pageroute: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result1 => {
         this.http.get<any[]>(baseUrl + 'api/ACAC/GetAllJOBAlternates').subscribe(result => {
-            console.log(result);
+            // console.log(result);
             this.alternatejobs = [];
             result.forEach((value) => {
                 const a = result1.filter(r => r.raidername === value.raidername);
@@ -156,7 +156,7 @@ export class AlternateJobsComponent {
         j.alt1 = alt1;
         j.alt2 = alt2;
 
-        console.log(j);
+        // console.log(j);
 
         const headerJson = {'Content-Type': 'application/json'};
         const header = new HttpHeaders(headerJson);

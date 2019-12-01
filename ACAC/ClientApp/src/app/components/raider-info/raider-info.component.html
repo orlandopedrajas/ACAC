@@ -5,7 +5,11 @@
                 <mat-list-item>
                     <img matListAvatar src='{{ raider.raiderimg }}' matTooltip='{{ raider.raidername }}' (click)="resetImage(raider)">
                     <p matLine>{{ raider.raidername }}</p>
-                    <p matLine>{{ raider.discorduser }}</p>
+                    <p matLine>
+                        <input matInput (blur)='onAdmintoggle(raider)' placeholder="Discord User" 
+                            maxlength="25" [(ngModel)]="raider.discorduser" name="duser" 
+                            value="{{ raider.discorduser }}">
+                    </p>
                 </mat-list-item>
             </mat-list>
         </td>

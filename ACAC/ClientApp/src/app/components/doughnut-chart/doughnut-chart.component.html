@@ -1,5 +1,5 @@
 <br><br>
-<div *ngIf="barChartData.length === 0">
+<div *ngIf="hasdata">
     <mat-select [(value)]="barChartType">
         <mat-option value="bar">Attendance Bar Graph</mat-option>
         <mat-option value="horizontalBar">Attendance Horizontal Bar Graph</mat-option>

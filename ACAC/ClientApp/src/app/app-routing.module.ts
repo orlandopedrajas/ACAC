@@ -16,6 +16,7 @@ import { AlternateJobsComponent } from './alternate-jobs/alternate-jobs.componen
 import { AttendanceComponent } from './admin-pages/attendance/attendance.component';
 import { RaidFloorComponent } from './admin-pages/raid-floors/raid-floors.component';
 import { RaiderManagementComponent } from './admin-pages/raider-management/raider-management.component';
+import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-raiditem-drop.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'attendance', component: AttendanceComponent },
   { path: 'admin-pages/raid-floors/raid-floors', component: RaidFloorComponent },
   { path: 'admin-pages/raider-management/raider-management', component: RaiderManagementComponent },
+  { path: 'admin-pages/add-raiditem-drop/add-raiditem-drop', component: AddRaidItemDropComponent },
 ];
 
 @NgModule({

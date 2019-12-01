@@ -38,6 +38,7 @@ import { RaidFloorComponent } from './admin-pages/raid-floors/raid-floors.compon
 import { WhocanlotCoreComponent } from './components/who-canlot/who-canlot.component';
 import { RaiderInfoComponent } from './components/raider-info/raider-info.component';
 import { RaiderManagementComponent } from './admin-pages/raider-management/raider-management.component';
+import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-raiditem-drop.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { RaiderManagementComponent } from './admin-pages/raider-management/raide
     RaidFloorComponent,
     RaiderInfoComponent,
     RaiderManagementComponent,
+    AddRaidItemDropComponent,
   ],
   imports: [
     BrowserModule,

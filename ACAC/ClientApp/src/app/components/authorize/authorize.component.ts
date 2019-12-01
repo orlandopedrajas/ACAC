@@ -44,7 +44,7 @@ export class AuthorizeComponent {
              .subscribe(result1 => {
                 this.cookieService.set('discorduser', result1.username);
                 this.cookieService.set('discordavatar', 'https://cdn.discordapp.com/avatars/' + result1.id + '/' + result1.avatar);
-                window.location.href = this.raiderIdentity.Raideridentity().raiderroute;
+                window.location.href = '/raiders/';
              }, error => {
                  console.log(error);
                  this.cookieService.delete('discorduser', '/');

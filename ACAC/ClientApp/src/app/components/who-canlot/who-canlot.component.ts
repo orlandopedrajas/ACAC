@@ -20,7 +20,7 @@ export class WhocanlotCoreComponent implements OnChanges  {
       const baseUrl = document.getElementsByTagName('base')[0].href;
       this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidContent?contentid=').subscribe(result => {
         this.raidContent = result.filter(r => r._raidContent.isenabled === true);
-        console.log(this.raidContent);
+        // console.log(this.raidContent);
       });
     }
     constructor(private http: HttpClient) {
