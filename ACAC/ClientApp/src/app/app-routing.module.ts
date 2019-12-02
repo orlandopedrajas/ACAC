@@ -4,10 +4,7 @@ import { HomeComponent } from './home/home.component';
 
 import { WhoCanLotComponent } from './who-can-lot/who-can-lot.component';
 
-import { AerilynElessedilComponent, HadesCarmineComponent,
-         LaKiComponent, LanMantearComponent,
-         ShellyDuncanComponent, ThomasSilverstarComponent,
-         ValPhoenixComponent, YumiRinComponent, RaiderComponent } from './raiders/raider.component';
+import { RaiderComponent } from './raiders/raider.component';
 
 import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.component';
 import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
@@ -18,19 +15,13 @@ import { AuthorizeComponent } from './components/authorize/authorize.component';
 import { AlternateJobsComponent } from './alternate-jobs/alternate-jobs.component';
 import { AttendanceComponent } from './admin-pages/attendance/attendance.component';
 import { RaidFloorComponent } from './admin-pages/raid-floors/raid-floors.component';
+import { RaiderManagementComponent } from './admin-pages/raider-management/raider-management.component';
+import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-raiditem-drop.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'who-can-lot', component: WhoCanLotComponent },
   { path: 'raiders', component: RaiderComponent },
-  { path: 'raiders/yumi-rin', component: YumiRinComponent },
-  { path: 'raiders/lan-mantear', component: LanMantearComponent },
-  { path: 'raiders/thomas-silverstar', component: ThomasSilverstarComponent },
-  { path: 'raiders/hades-carmine', component: HadesCarmineComponent },
-  { path: 'raiders/shelly-duncan', component: ShellyDuncanComponent },
-  { path: 'raiders/val-phoenix', component: ValPhoenixComponent },
-  { path: 'raiders/aerilyn-elessedil', component: AerilynElessedilComponent },
-  { path: 'raiders/la-ki', component: LaKiComponent },
   { path: 'authorize', component: AuthorizeComponent },
   { path: 'item-drop-history', component: ItemDropHistoryComponent },
   { path: 'add-item-drop', component: AddItemDropComponent },
@@ -40,6 +31,8 @@ const routes: Routes = [
   { path: 'weapon-alternates', component: AlternateJobsComponent },
   { path: 'attendance', component: AttendanceComponent },
   { path: 'admin-pages/raid-floors/raid-floors', component: RaidFloorComponent },
+  { path: 'admin-pages/raider-management/raider-management', component: RaiderManagementComponent },
+  { path: 'admin-pages/add-raiditem-drop/add-raiditem-drop', component: AddRaidItemDropComponent },
 ];
 
 @NgModule({

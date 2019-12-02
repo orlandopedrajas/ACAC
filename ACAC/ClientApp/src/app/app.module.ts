@@ -15,10 +15,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { DemoMaterialModule } from './material-module';
 import { WhoCanLotComponent } from './who-can-lot/who-can-lot.component';
 
-import { AerilynElessedilComponent, HadesCarmineComponent,
-         LaKiComponent, LanMantearComponent,
-         ShellyDuncanComponent, ThomasSilverstarComponent,
-         ValPhoenixComponent, YumiRinComponent, RaiderComponent } from './raiders/raider.component';
+import { RaiderComponent } from './raiders/raider.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.component';
 import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
@@ -37,8 +34,11 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { AttendanceComponent } from './admin-pages/attendance/attendance.component';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
-import { FFLOGComponent } from './components/fflog/fflog.component';
 import { RaidFloorComponent } from './admin-pages/raid-floors/raid-floors.component';
+import { WhocanlotCoreComponent } from './components/who-canlot/who-canlot.component';
+import { RaiderInfoComponent } from './components/raider-info/raider-info.component';
+import { RaiderManagementComponent } from './admin-pages/raider-management/raider-management.component';
+import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-raiditem-drop.component';
 
 @NgModule({
   declarations: [
@@ -46,15 +46,8 @@ import { RaidFloorComponent } from './admin-pages/raid-floors/raid-floors.compon
     HomeComponent,
     NavMenuComponent,
     WhoCanLotComponent,
+    WhocanlotCoreComponent,
     RaiderComponent,
-    AerilynElessedilComponent,
-    HadesCarmineComponent,
-    LaKiComponent,
-    LanMantearComponent,
-    ShellyDuncanComponent,
-    ThomasSilverstarComponent,
-    ValPhoenixComponent,
-    YumiRinComponent,
     ItemDropHistoryComponent,
     AddItemDropComponent,
     ArchivedItemDropComponent,
@@ -71,8 +64,10 @@ import { RaidFloorComponent } from './admin-pages/raid-floors/raid-floors.compon
     PieChartComponent,
     AttendanceComponent,
     DoughnutChartComponent,
-    FFLOGComponent,
     RaidFloorComponent,
+    RaiderInfoComponent,
+    RaiderManagementComponent,
+    AddRaidItemDropComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,7 +85,7 @@ import { RaidFloorComponent } from './admin-pages/raid-floors/raid-floors.compon
   providers: [ CookieService ],
   entryComponents: [TooltipComponent,
                     ConfirmationDialogComponent
-                  ],
+                   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

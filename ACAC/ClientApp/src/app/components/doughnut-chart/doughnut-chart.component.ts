@@ -16,6 +16,8 @@ export class DoughnutChartComponent implements OnInit, OnChanges {
     attendanceList: any[];
     displayingDetail = false;
 
+    hasdata = false;
+
     public barChartOptions: ChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -52,6 +54,7 @@ export class DoughnutChartComponent implements OnInit, OnChanges {
     ngOnInit() {  }
     ngOnChanges() {
         this.displayingDetail = false;
+        this.hasdata = false;
         this.loadAttendance();
      }
 
@@ -126,11 +129,13 @@ export class DoughnutChartComponent implements OnInit, OnChanges {
         this.barChartLabels = ['Tuesday', 'Thurday', 'Monday', 'Optional'];
         const baseUrl = document.getElementsByTagName('base')[0].href;
         this.http.get<any[]>(baseUrl + 'api/ACAC/GetAllAttendance').subscribe(result => {
+
             let res: any[];
             if (this.Filter === 'ALL') {
              res = result;
             } else { res = result.filter(r => r.raidername === this.Filter); }
 
+            if (res.length > 0) { this.hasdata = true; }
             this.attendanceList = res;
             const mon = res.filter( r => r.eventdate.indexOf('Mon') !== -1);
             const tue = res.filter( r => r.eventdate.indexOf('Tue') !== -1);

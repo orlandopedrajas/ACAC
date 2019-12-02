@@ -1,22 +1,21 @@
 <div class="divRow">
     <div class="contentColumn1">
-        <mat-tab-group [selectedIndex]="raider.selected" (selectedTabChange)="tabChanged($event)">
-            <mat-tab *ngFor="let char of raider.raider">
+        <mat-tab-group [selectedIndex]="selected" (selectedTabChange)="tabChanged($event)">
+            <mat-tab *ngFor="let char of raider">
                 <ng-template mat-tab-label>
                     <mat-list>
                         <mat-list-item>
-                            <img matListAvatar src='{{ char.avatar }}'>     
+                            <img matListAvatar src='{{ char.raiderimg }}'>     
                         </mat-list-item>
                     </mat-list>
                 </ng-template>
-                <app-character-info [characterid]='char.characterid'></app-character-info>
+                <app-character-info [characterid]='char.lodestoneid'></app-character-info>
             </mat-tab>
         </mat-tab-group>
-        <app-doughnut-chart [Filter]='raider.raider[raider.selected].charactername'></app-doughnut-chart>
+        <app-doughnut-chart [Filter]='raidername'></app-doughnut-chart>
     </div>
     <div class="contentColumn2">
-        <h5 align='center'>Item Distribution</h5>
-        <app-pie-chart [Filter]='raider.raider[raider.selected].charactername' [Datatype]="'1'" ></app-pie-chart>
-        <app-item-drop [charactername]='raider.raider[raider.selected].charactername'></app-item-drop>
+        <app-pie-chart [Filter]='raidername' [Datatype]="'1'" ></app-pie-chart>
+        <app-item-drop [charactername]='raidername'></app-item-drop>
     </div>
 </div>

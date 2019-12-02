@@ -17,6 +17,12 @@
         </mat-expansion-panel-header>
         <mat-card>
             <mat-card-header>
+                <mat-slide-toggle
+                [color]="color"
+                [checked]="rContent._raidContent.isenabled"
+                    [(ngModel)]="rContent._raidContent.isenabled"
+                    (change)="onblur(rContent)"
+                    ></mat-slide-toggle>&nbsp;&nbsp;&nbsp;&nbsp;              
                 <mat-form-field class="raid-floors-full-width">
                     <input matInput placeholder="Content Name" 
                     [(ngModel)]="rContent._raidContent.contentname" 
@@ -63,7 +69,7 @@
                             <mat-slide-toggle
                             [color]="color"
                             [checked]="element.hasroundrobin"
-                             (click)="onRoundrobinCheck(element)"
+                             (change)="onRoundrobinCheck(element)"
                              [(ngModel)]="element.hasroundrobin"
                              ></mat-slide-toggle>
                         </td>
@@ -105,7 +111,7 @@
 <h1>Add new Raid content</h1>
 <form (ngSubmit)="onSubmit()" #addForm="ngForm" class="raid-floors-form">
     <mat-form-field class="raid-floors-full-width" hintLabel="Max 25 characters">
-        <input matInput #inputcontentname placeholder="Content Name" maxlength="50" [(ngModel)]="contentname" name="cname" value="{{ contentname }}">
+        <input matInput #inputcontentname placeholder="Content Name" maxlength="25" [(ngModel)]="contentname" name="cname" value="{{ contentname }}">
         <mat-hint align="end">{{ inputcontentname.value?.length || 0}}/50</mat-hint>
     </mat-form-field>
     <br><br>

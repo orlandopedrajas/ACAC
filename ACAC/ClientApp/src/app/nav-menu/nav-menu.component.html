@@ -14,55 +14,11 @@
   </button>
   <button mat-menu-item [routerLink]='["/who-can-lot"]'><mat-icon aria-hidden="false" aria-label="Who can lot?">work</mat-icon>Who can lot?</button>
   <button mat-menu-item [routerLink]='["/weapon-alternates"]'><mat-icon aria-hidden="false" aria-label="Weapon Alternates">sports_cricket</mat-icon>Weapon Alternate</button>
-  <button mat-menu-item [matMenuTriggerFor]="raiders"><mat-icon aria-hidden="false" aria-label="Raiders">emoji_people</mat-icon>Raiders</button>
+  <button mat-menu-item [routerLink]='["/raiders"]'><mat-icon aria-hidden="false" aria-label="Raiders">emoji_people</mat-icon>Raiders</button>
   <button mat-menu-item [matMenuTriggerFor]="adminpages" *ngIf="isAdmin"><mat-icon aria-hidden="false" aria-label="Raiders">settings_applications</mat-icon>Admin</button>
   <button mat-menu-item (click)="Onlogout()" *ngIf="loggedIn"><mat-icon aria-hidden="false">vpn_key</mat-icon>Logout</button>
 </mat-menu>
 
-<mat-menu #raiders="matMenu">
-    <mat-list>
-      <mat-list-item [routerLink]='["/raiders/aerilyn-elessedil"]'>
-          <img matListAvatar
-          src='{{ ae }}'>
-          <button mat-menu-item >Aerilyn Elessedil</button>
-      </mat-list-item>
-      <mat-list-item [routerLink]='["/raiders/hades-carmine"]'>
-          <img matListAvatar
-          src='{{ hc }}'>
-          <button mat-menu-item>Hades Carmine</button>
-      </mat-list-item>
-      <mat-list-item [routerLink]='["/raiders/la-ki"]'>
-          <img matListAvatar
-          src='{{ lk }}'>
-          <button mat-menu-item >La Ki</button>
-      </mat-list-item>
-      <mat-list-item [routerLink]='["/raiders/lan-mantear"]'>
-          <img matListAvatar
-          src='{{ lm }}'>
-          <button mat-menu-item>Lan Mantear</button>
-      </mat-list-item>
-      <mat-list-item [routerLink]='["/raiders/shelly-duncan"]'>
-          <img matListAvatar
-          src='{{ sd }}'>
-          <button mat-menu-item>Shelly Duncan</button>
-      </mat-list-item>
-      <mat-list-item [routerLink]='["/raiders/thomas-silverstar"]'>
-          <img matListAvatar
-          src='{{ ts }}'>
-          <button mat-menu-item>Thomas Silverstar</button>
-      </mat-list-item>
-      <mat-list-item [routerLink]='["/raiders/val-phoenix"]'>
-          <img matListAvatar
-          src='{{ vp }}'>
-          <button mat-menu-item>Val Phoenix</button>
-      </mat-list-item>
-      <mat-list-item [routerLink]='["/raiders/yumi-rin"]'>
-          <img matListAvatar
-          src='{{ yr }}'>
-          <button mat-menu-item>Yumi Rin</button>
-      </mat-list-item>
-    </mat-list>
-</mat-menu>
 
 <mat-menu #adminpages="matMenu">
     <button mat-menu-item [routerLink]='["/nine/nine"]'>
@@ -72,8 +28,11 @@
       <mat-icon aria-hidden="false">archive</mat-icon> Removed Items
     </button>
     <button mat-menu-item [routerLink]='["/add-item-drop"]'>
-      <mat-icon aria-hidden="false" aria-label="Item Drop History">add</mat-icon>  Add Drop
-    </button>      
+      <mat-icon aria-hidden="false">add</mat-icon>  Add Drop
+    </button>
+    <button mat-menu-item [routerLink]='["admin-pages/add-raiditem-drop/add-raiditem-drop"]'>
+      <mat-icon aria-hidden="false">add</mat-icon>  Add Raid Item Drop
+    </button>           
     <button mat-menu-item [routerLink]='["/admin-pages/manage-lists"]'>
       <mat-icon aria-hidden="false">view_list</mat-icon> Manage Lists
     </button>
@@ -82,6 +41,9 @@
     </button>
     <button mat-menu-item [routerLink]='["/admin-pages/raid-floors/raid-floors"]'>
       <mat-icon aria-hidden="false">group</mat-icon> Raid Floors
+    </button>
+    <button mat-menu-item [routerLink]='["/admin-pages/raider-management/raider-management"]'>
+      <mat-icon aria-hidden="false">emoji_people</mat-icon> Raider Management
     </button>
 </mat-menu>
 

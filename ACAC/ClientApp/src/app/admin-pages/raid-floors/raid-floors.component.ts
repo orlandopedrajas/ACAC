@@ -33,7 +33,8 @@ import { MatDialog } from '@angular/material';
 
       this.PostRequest('AddRaidContent', {contentname: this.contentname,
                                           contentdescription: this.contentdescription,
-                                          contentimg: this.contentimg});
+                                          contentimg: this.contentimg,
+                                          isenabled: false });
 
       const snackBarRef = this._SnackBar.open(this.contentname + ' added.', 'Done', { duration: 3000 });
       snackBarRef.afterDismissed().subscribe(() => { this.getRaidContent(); });
@@ -42,9 +43,8 @@ import { MatDialog } from '@angular/material';
 
     getRaidContent() {
       const baseUrl = document.getElementsByTagName('base')[0].href;
-      this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidContent?contentname=').subscribe(result => {
+      this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidContent?contentid=').subscribe(result => {
         this.raidContent = result;
-        console.log(this.raidContent);
       });
     }
 
@@ -57,16 +57,17 @@ import { MatDialog } from '@angular/material';
                                               contentid: element.contentid,
                                               raiditemname: element.raiditemname,
                                               raiditemimg: element.raiditemimg,
-                                              hasroundrobin: !element.hasroundrobin
+                                              hasroundrobin: element.hasroundrobin
                                             });
     }
     onblur(content) {
-    //  console.log(content);
+      console.log(content);
       this.PostRequest('UpdateRaidContent', { contentname: content._raidContent.contentname,
-                                              contentid: content._raidContent.contentid,
+                                              id: content._raidContent.id,
                                               contentdescription: content._raidContent.contentdescription,
+                                              isenabled: content._raidContent.isenabled,
                                               contentimg: content._raidContent.contentimg});
-
+      // console.log(content._raidContent.id);
      // const snackBarRef = this._SnackBar.open(content.contentname + ' updated.', 'Done', { duration: 3000 });
      // snackBarRef.afterDismissed().subscribe(() => { this.getRaidContent(); });
 
@@ -110,12 +111,13 @@ import { MatDialog } from '@angular/material';
                                             raiditemname: this.raiditemname,
                                             hasroundrobin: this.hasroundrobin});
           this.PostRequest('AddRaiditeminfo', {id: 0,
-                                            contentid: value._raidContent.contentid,
+                                            contentid: value._raidContent.id,
                                             raiditemname: this.raiditemname,
                                             raiditemimg: this.raiditemimg,
                                             hasroundrobin: this.hasroundrobin
                                           });
-          const snackBarRef = this._SnackBar.open(value._raidContent.contentname + ' added.', 'Done', { duration: 3000 });
+          const snackBarRef = this._SnackBar.open(this.raiditemname + ' added to ' + 
+          value._raidContent.contentname, 'Done', { duration: 3000 });
           snackBarRef.afterDismissed().subscribe(() => { this.getRaidContent(); });
         }
         idx1 += 1;

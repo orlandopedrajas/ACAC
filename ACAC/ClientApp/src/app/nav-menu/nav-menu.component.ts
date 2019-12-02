@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
@@ -8,7 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent {
+export class NavMenuComponent implements OnInit {
   loggedIn: boolean;
   isAdmin: boolean;
   discorduser: string;
@@ -20,6 +20,8 @@ export class NavMenuComponent {
 
   username: string;
   password: string;
+
+  raiders: any[];
 
   lm = 'assets/img/no-profile.png';
   hc = 'assets/img/no-profile.png';
@@ -111,5 +113,17 @@ export class NavMenuComponent {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  ngOnInit() {
+    this.getRaiderProfiles();
+  }
+
+  getRaiderProfiles() {
+    const baseUrl = document.getElementsByTagName('base')[0].href;
+    this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaiderProfiles?raidername=').subscribe(result => {
+      this.raiders = result;
+      // console.log(this.raiders);
+    });
   }
 }

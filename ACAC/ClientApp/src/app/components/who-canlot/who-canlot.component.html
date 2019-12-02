@@ -1,0 +1,22 @@
+<mat-tab-group>
+    <mat-tab *ngFor='let rc of raidContent'>
+        <ng-template mat-tab-label>
+            <mat-list>
+                <mat-list-item>
+                    <div class="toLeft">
+                    <img matListAvatar
+                            src='{{ rc._raidContent.contentimg }}'>
+                    </div>&nbsp;&nbsp;&nbsp;
+                    <p mat-Line>{{ rc._raidContent.contentname }}</p>               
+                </mat-list-item>
+            </mat-list>
+        </ng-template>
+        <div [innerHtml]="rc._raidContent.contentdescription"></div>       
+        <div *ngFor='let rr of rc._RaidItems'>
+            <app-round-robin-list [Floorname]="'Eden Savage Floor 2'"></app-round-robin-list>
+        </div>
+    </mat-tab>
+</mat-tab-group>
+<h5 align='center'>Item Distribution</h5>
+<!-- <app-pie-chart [Filter]='savageFloor' [Datatype]="'0'" ></app-pie-chart>
+<app-item-drop-by-floor [Displaytype]="'2'" [Floorname]='savageFloor'></app-item-drop-by-floor> -->
