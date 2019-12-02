@@ -94,6 +94,20 @@ namespace ACAC.api.db
                 }
             }
         }
+        public IEnumerable<raid.RaidItemDrop> GetRaidItemDrop(string raidername)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                if (raidername != null)
+                {
+                    return Db.Query<raid.RaidItemDrop>("Select * From RaidItemDrop where raidername='" + raidername + "'");
+                }
+                else
+                {
+                    return Db.Query<raid.RaidItemDrop>("Select * From RaidItemDrop");
+                }
+            }
+        }
         public IEnumerable<raider.profile> GetUserprofileByDiscordUser(string discorduser)
         {
             using (var Db = new SQLiteConnection(DbPath))
@@ -120,6 +134,21 @@ namespace ACAC.api.db
                 {
                     Db.CreateTable<raid.RaidContent>();
                     Db.Insert(raidContent);
+                }
+            }
+        }
+        public void AddRaidItemDrop(raid.RaidItemDrop raiditemdrop)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                try
+                {
+                    Db.Insert(raiditemdrop);
+                }
+                catch
+                {
+                    Db.CreateTable<raid.RaidItemDrop>();
+                    Db.Insert(raiditemdrop);
                 }
             }
         }

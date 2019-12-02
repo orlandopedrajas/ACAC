@@ -37,7 +37,7 @@ export class RaiderManagementComponent implements OnInit {
                                                 lodestoneid: this.lodestoneid,
                                                 discorduser: this.discorduser
                                               });
-        this.getRaiderProfiles();
+        window.location.reload();
     }
 
     PostRequest(requestRoute: string, reqobj) {

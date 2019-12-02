@@ -11,17 +11,13 @@ namespace ACAC.api
     public class ACAC2Controller : Controller
     {
 
-        #region "Common Response"
-        
-        #endregion
-
         #region "GET"
 
         [HttpGet("[action]")]
         public IEnumerable<raid.RaidContentResponse> GetRaidContent(string contentid)
         {
             db.DBHandler Dbh = new db.DBHandler();
-            
+
             if (Dbh.TableExists("RaidContent"))
             {
                 return Dbh.GetRaidContent(contentid);
@@ -49,6 +45,17 @@ namespace ACAC.api
                 return Dbh.GetUserprofileByDiscordUser(discorduser);
             }
             return Enumerable.Empty<raider.profile>();
+        }
+
+        [HttpGet("[action]")]
+        public IEnumerable<raid.RaidItemDrop> GetRaidItemDrop(string raidername)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            if (Dbh.TableExists("RaidItemDrop"))
+            {
+                return Dbh.GetRaidItemDrop(raidername);
+            }
+            return Enumerable.Empty<raid.RaidItemDrop>();
         }
         #endregion
 
@@ -100,6 +107,14 @@ namespace ACAC.api
         {
             db.DBHandler Dbh = new db.DBHandler();
             Dbh.Upsertuserprofile(profile);
+            return Ok();
+        }
+
+        [HttpPost("[action]")]
+        public IActionResult AddRaidItemDrop([FromBody] raid.RaidItemDrop raiditemdrop)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.AddRaidItemDrop(raiditemdrop);
             return Ok();
         }
         #endregion

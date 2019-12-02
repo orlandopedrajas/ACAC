@@ -1,4 +1,6 @@
 ﻿using SQLite;
+using System;
+
 namespace ACAC.api.raid
 {
     public class Raiditeminfo
@@ -19,5 +21,14 @@ namespace ACAC.api.raid
     public class Displayroundrobinentry: Roundrobinentry
     {
         public raider.profile raider { get; set; }
+    }
+
+    public class RaidItemDrop
+    {
+        [PrimaryKey, AutoIncrement]
+        public int id { get; set; }
+        public DateTime receiveddate { get; set; }
+        public string raidername { get; set; }
+        public int raiditeminfoid { get; set; }
     }
 }

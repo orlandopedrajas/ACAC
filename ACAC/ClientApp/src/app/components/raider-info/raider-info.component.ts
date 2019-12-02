@@ -45,6 +45,7 @@ export class RaiderInfoComponent implements OnChanges {
             israidmember: element.israidmember,
             discorduser: element.discorduser
            });
+
         }, error => console.error(error));
     }
 }
