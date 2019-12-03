@@ -27,11 +27,13 @@ export class AuthorizeComponent {
         const CLIENT_ID = '638422083788996619';
         const CLIENT_SECRET = 'oUDdYfJ2ZlQIgRyYW30L6j2kqTyUTqMm';
         const API_ENDPOINT = 'https://discordapp.com/api/oauth2/token';
+        const REDIRECT_URI = 'http://localhost:5000/authorize';
 
         const data = 'grant_type=authorization_code&' +
                      'code=' + this.code + '&' +
                      'client_id=' + CLIENT_ID + '&' +
-                     'client_secret=' + CLIENT_SECRET;
+                     'client_secret=' + CLIENT_SECRET + '&' +
+                     'redirect_uri=' + REDIRECT_URI ;
 
         this.http.post<any>(API_ENDPOINT, data, {headers: header})
         .subscribe((result) => {
