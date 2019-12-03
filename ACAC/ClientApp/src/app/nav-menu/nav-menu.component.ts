@@ -93,11 +93,13 @@ export class NavMenuComponent implements OnInit {
   openDialog(): void {
 
     const CLIENT_ID = '638422083788996619';
+    const REDIRECT_URI = 'http://localhost:5000/authorize';
     const AuthUrl = 'https://discordapp.com/api/oauth2/authorize?' +
                     'response_type=code' +
                     '&client_id=' + CLIENT_ID +
                     '&scope=identify' +
-                    '&prompt=consent';
+                    '&prompt=consent' +
+                    '&redirect_uri=' + REDIRECT_URI;
 
     window.location.href = AuthUrl;
   }
