@@ -31,7 +31,7 @@ export class RaiderComponent implements OnInit {
       this.raider = result.filter(r => r.israidmember === true);
       let n = 0;
       if (this.routeparam !== '') {
-        this.raider.forEach((value) => {
+        this.raider.sort((a, b) => (a.raidername > b.raidername) ? 1 : -1).forEach((value) => {
           if (this.routeparam === value.raidername) {
               this.selected = n;
               this.raidername = this.routeparam;
