@@ -46,7 +46,6 @@ namespace ACAC.api
             }
             return Enumerable.Empty<raider.profile>();
         }
-
         [HttpGet("[action]")]
         public IEnumerable<raid.RaidItemDrop> GetRaidItemDrop(string raidername)
         {
@@ -56,6 +55,23 @@ namespace ACAC.api
                 return Dbh.GetRaidItemDrop(raidername);
             }
             return Enumerable.Empty<raid.RaidItemDrop>();
+        }
+        [HttpGet("[action]")]
+        public IEnumerable<raid.Displayroundrobinentry> GetRoundRobinList(int contentid)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            if (Dbh.TableExists("Roundrobinentry"))
+            {
+                List<raid.Displayroundrobinentry> li = new List<raid.Displayroundrobinentry>();
+                 IEnumerable<raid.Roundrobinentry> rres = Dbh.GetRoundrobinentries(contentid);
+                 foreach (raider.profile p in Dbh.GetUserprofiles(null))
+                 {
+                     li.Add(new raid.Displayroundrobinentry {
+                                
+                     });
+                 }
+            }
+            return Enumerable.Empty<raid.Displayroundrobinentry>();
         }
         #endregion
 

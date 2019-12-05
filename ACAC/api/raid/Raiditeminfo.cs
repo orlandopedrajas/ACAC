@@ -16,6 +16,7 @@ namespace ACAC.api.raid
     {
         public string raiditem { get; set; }
         public int raiditeminfoid { get; set; }
+        public int contentid { get; set; }
         public string raidername { get; set; }
     }
     public class Displayroundrobinentry: Roundrobinentry
