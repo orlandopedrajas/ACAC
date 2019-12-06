@@ -11,6 +11,14 @@ namespace ACAC.api.db
     {
         string DbPath = Path.Combine(AppContext.BaseDirectory, "ACAC3.db");
 
+        public IEnumerable<raid.Roundrobinentry> GetRoundrobinentries(int contentid)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                TableExists("Roundrobinentry");
+                return Db.Query<raid.Roundrobinentry>("Select * From Rounrobinentry where contentid=" + contentid);
+            }
+        }
         public void DropTable(string tablename)
         {
             using (var Db = new SQLiteConnection(DbPath))
@@ -39,13 +47,15 @@ namespace ACAC.api.db
                         case "profile":
                             Db.CreateTable<raider.profile>();
                             return true;
+                        case "Roundrobinentry":
+                            Db.CreateTable<raid.Roundrobinentry>();
+                            return true;
                         default:
                             return false;
                     }
                 }
             }
         }
-
         public IEnumerable<raid.Raiditeminfo> GetRaidItemInfo(int contentid)
         {
             using (var Db = new SQLiteConnection(DbPath))
