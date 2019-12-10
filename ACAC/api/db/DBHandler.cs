@@ -11,12 +11,20 @@ namespace ACAC.api.db
     {
         string DbPath = Path.Combine(AppContext.BaseDirectory, "ACAC3.db");
 
-        public IEnumerable<raid.Roundrobinentry> GetRoundrobinentries(int contentid)
+        public IEnumerable<raid.Roundrobinentry> GetRoundRobin(int contentid, string XRaidItem)
         {
             using (var Db = new SQLiteConnection(DbPath))
             {
                 TableExists("Roundrobinentry");
-                return Db.Query<raid.Roundrobinentry>("Select * From Rounrobinentry where contentid=" + contentid);
+                return Db.Query<raid.Roundrobinentry>("Select * From Roundrobinentry where contentid=" + contentid + " and raiditem='" + XRaidItem + "'");                
+            }
+        }
+        public IEnumerable<raid.Roundrobinentry> GetRoundRobin(int contentid)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                TableExists("Roundrobinentry");
+                return Db.Query<raid.Roundrobinentry>("Select * From Roundrobinentry where contentid=" + contentid);
             }
         }
         public void DropTable(string tablename)
@@ -56,7 +64,7 @@ namespace ACAC.api.db
                 }
             }
         }
-        public IEnumerable<raid.Raiditeminfo> GetRaidItemInfo(int contentid)
+        public IEnumerable<raid.Raiditeminfo> GetRaidItemInfo(string contentid)
         {
             using (var Db = new SQLiteConnection(DbPath))
             {
@@ -84,7 +92,7 @@ namespace ACAC.api.db
                 {
                     // rsp.Add(r, GetRaidItemInfo(r.contentname));
                     rsp.Add(new raid.RaidContentResponse { _raidContent = r,
-                                                           _RaidItems = GetRaidItemInfo(r.id)
+                                                           _RaidItems = GetRaidItemInfo(r.id.ToString())
                                                          });
                 }
             }
@@ -213,5 +221,29 @@ namespace ACAC.api.db
                 Db.Execute("Delete from Raiditeminfo where id=" + id);
             }
         }
+        public void AddRoundRobinEntry(raid.Roundrobinentry entry)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                try
+                {
+                    Db.Insert(entry);
+                }
+                catch
+                {
+                    Db.CreateTable<raid.Roundrobinentry>();
+                    Db.Insert(entry);
+                }
+            }
+        }
+        public void ResetRoundRobin(string XRaiditem, int contentid)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete From RoundrobinEntry where Raiditem='" +
+                            XRaiditem + "' and contentid=" + contentid);
+            }
+        }
+        
     }
 }
