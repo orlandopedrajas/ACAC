@@ -2,13 +2,13 @@
 <form (ngSubmit)="onSubmit()" #addForm="ngForm">
     <div class="form-container">
         <mat-form-field appearance="outline">
-            <input matInput [matDatepicker]="picker" placeholder="Choose Date Received" required [(ngModel)]="receiveddate" name="dateReceived">
+            <input matInput [matDatepicker]="picker" placeholder="Choose Date Received" required [(ngModel)]="Si.receiveddate" name="dateReceived">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-            <mat-select placeholder="Raid Content" required [(ngModel)]="raidcontentname" name="raidcontentname" (selectionChange)="toggleRaidcontentname(raidcontentname)">
+            <mat-select placeholder="Raid Content" required [(ngModel)]="Si.contentid" name="raidcontentname" (selectionChange)="toggleRaidcontentname()">
                 <mat-option *ngFor="let cname of arrraidcontentname" [value]="cname.value">
                     {{ cname.viewValue }}
                 </mat-option>
@@ -16,21 +16,21 @@
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-            <mat-select placeholder="Raid Content Item" required [(ngModel)]="raidcontentitem" name="raidcontentitem" (selectionChange)="toggleRaidcontentitem()">
-                <mat-option *ngFor="let rci of arrraidcontentitem" [value]="rci.value">
+            <mat-select placeholder="Raid Content Item" required [(ngModel)]="Si.raiditem" name="raidcontentitem" (selectionChange)="toggleRaidcontentitem($event)">
+                <mat-option *ngFor="let rci of arrraidcontentitem" [value]="rci.viewValue">
                     {{ rci.viewValue }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
 
-        <mat-radio-group aria-label="Raider" required [(ngModel)]="raidername" name="raidername" (change)="raiderchange()">
-            <mat-radio-button *ngFor="" [value]="">
+        <mat-radio-group aria-label="Raider" required [(ngModel)]="Si.raidername" name="raidername" (change)="raiderchange()">
+            <mat-radio-button *ngFor="let r of arrraiders" [value]="r.raidername">
                 <mat-list>
                     <mat-list-item>
                     <div class="toLeft">
                       <img matListAvatar
-                      src='' 
-                      alt=''>
+                      src='{{ r.raider.raiderimg }}' 
+                      matTooltip='{{r.raider.raidername}}'>
                     </div>&nbsp;&nbsp;&nbsp;
                     <p mat-Line></p>               
                   </mat-list-item>
@@ -43,3 +43,5 @@
         <button mat-raised-button type="submit" color="primary" [disabled]="!addForm.form.valid" >Submit</button>
     </div>
 </form>
+
+<app-item-drop-by-floor [Displaytype]="'3'"></app-item-drop-by-floor>

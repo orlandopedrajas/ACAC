@@ -57,21 +57,49 @@ namespace ACAC.api
             return Enumerable.Empty<raid.RaidItemDrop>();
         }
         [HttpGet("[action]")]
-        public IEnumerable<raid.Displayroundrobinentry> GetRoundRobinList(int contentid)
+        public IEnumerable<raid.Displayroundrobinentry> GetRoundRobinList(string contentid)
         {
             db.DBHandler Dbh = new db.DBHandler();
             if (Dbh.TableExists("Roundrobinentry"))
             {
                 List<raid.Displayroundrobinentry> li = new List<raid.Displayroundrobinentry>();
-                 IEnumerable<raid.Roundrobinentry> rres = Dbh.GetRoundrobinentries(contentid);
-                 foreach (raider.profile p in Dbh.GetUserprofiles(null))
-                 {
-                     li.Add(new raid.Displayroundrobinentry {
-                                
-                     });
-                 }
+                IEnumerable<raid.Raiditeminfo> ri = Dbh.GetRaidItemInfo(contentid);
+                IEnumerable<raid.Roundrobinentry> rres = Dbh.GetRoundRobin(int.Parse(contentid));
+
+                // Get all raiders
+                foreach (raider.profile p in Dbh.GetUserprofiles(null).Where(r => r.israidmember == true))
+                {
+                    // Get Raiditems
+                    foreach (raid.Raiditeminfo rii in ri)
+                    { 
+                        if (rres.Where(r => r.raidername == p.raidername && r.raiditeminfoid == rii.id).Count() == 0)
+                        {
+                            li.Add(new raid.Displayroundrobinentry { raider = p,
+                                                                    raiditeminfoid = rii.id,
+                                                                    raiditem = rii.raiditemname,
+                                                                    contentid = int.Parse(contentid),
+                                                                    raidername = p.raidername });
+                        }
+                    }                     
+                }
+
+            return li;
             }
             return Enumerable.Empty<raid.Displayroundrobinentry>();
+        }
+
+        [HttpGet("[action]")]
+        public IEnumerable<raid.RaidItemDrop> GetRaidItemDrops(string XRaider)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.TableExists("RaidItemDrop");
+            if (XRaider == null)
+            {
+                return Dbh.GetRaidItemDrop(null);
+            }
+            else {
+                return Dbh.GetRaidItemDrop(XRaider);
+            }
         }
         #endregion
 
@@ -127,10 +155,31 @@ namespace ACAC.api
         }
 
         [HttpPost("[action]")]
-        public IActionResult AddRaidItemDrop([FromBody] raid.RaidItemDrop raiditemdrop)
+        public IActionResult AddRaidItemDrop([FromBody] raid.RaidItemDrop x)
         {
             db.DBHandler Dbh = new db.DBHandler();
-            Dbh.AddRaidItemDrop(raiditemdrop);
+            Dbh.AddRaidItemDrop(x);
+
+            if (Dbh.GetRaidItemInfo(x.contentid.ToString())
+                .Where(r => r.id == x.raiditeminfoid && r.hasroundrobin == true).Count() > 0)
+            { 
+                if (Dbh.GetRoundRobin(x.contentid,x.raiditem).Count(r => r.raidername == x.raidername) == 0)
+                {
+                    raid.Roundrobinentry rre = new raid.Roundrobinentry
+                    {
+                        contentid = x.contentid,
+                        raidername = x.raidername,
+                        raiditem = x.raiditem,
+                        raiditeminfoid = x.raiditeminfoid
+                    };
+                    Dbh.AddRoundRobinEntry(rre);
+                    if (Dbh.GetRoundRobin(x.contentid, x.raiditem).Count(r => r.raidername == x.raidername) == GetRaiderProfiles(null).Where(r1 => r1.israidmember == true).Count())
+                    {
+                        Dbh.ResetRoundRobin(x.raiditem, x.contentid);
+                    }
+                }
+            }
+            
             return Ok();
         }
         #endregion

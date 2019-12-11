@@ -30,6 +30,8 @@ namespace ACAC.api.raid
         public int id { get; set; }
         public DateTime receiveddate { get; set; }
         public string raidername { get; set; }
+        public int contentid { get; set; }
         public int raiditeminfoid { get; set; }
+        public string raiditem { get; set; }
     }
 }
