@@ -98,6 +98,13 @@ namespace ACAC.api.db
             }
             return rsp;
         }
+        public IEnumerable<raid.RaidContent> GetRaidContentOnly(string contentid)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                return Db.Query<raid.RaidContent>("Select * From RaidContent where id=" + contentid);
+            }
+        }
         public IEnumerable<raider.profile> GetUserprofiles(string raidername)
         {
             using (var Db = new SQLiteConnection(DbPath))

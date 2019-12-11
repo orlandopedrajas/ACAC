@@ -37,7 +37,8 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
         switch (this.Displaytype) {
             case '0': {
 //                this.drops = [];
-                this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result1 => {
+                this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').subscribe(result1 => {
+                    console.log(result1);
                     this.drops = result1;
                 }, error => console.error(error));
                 break;

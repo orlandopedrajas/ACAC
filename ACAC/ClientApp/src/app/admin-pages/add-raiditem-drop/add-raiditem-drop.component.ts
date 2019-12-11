@@ -91,6 +91,6 @@ export class SavageItem {
             this.toggleRaidcontentitem();
            });
         }, response => { console.log('POST call in error', response); }, () => { });
-      console.log(this.Si);
+      // console.log(this.Si);
     }
   }
