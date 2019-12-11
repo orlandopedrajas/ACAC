@@ -34,4 +34,10 @@ namespace ACAC.api.raid
         public int raiditeminfoid { get; set; }
         public string raiditem { get; set; }
     }
+    public class CustomRaidItem : RaidItemDrop
+    {
+        public raider.profile profile;
+        public raid.Raiditeminfo raiditeminfo;
+        public raid.RaidContent raidcontent;
+    }
 }

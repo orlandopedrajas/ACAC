@@ -47,14 +47,30 @@ namespace ACAC.api
             return Enumerable.Empty<raider.profile>();
         }
         [HttpGet("[action]")]
-        public IEnumerable<raid.RaidItemDrop> GetRaidItemDrop(string raidername)
+        public IEnumerable<raid.CustomRaidItem> GetRaidItemDrop(string raidername)
         {
             db.DBHandler Dbh = new db.DBHandler();
+            List<raid.CustomRaidItem> li = new List<raid.CustomRaidItem>();
             if (Dbh.TableExists("RaidItemDrop"))
             {
-                return Dbh.GetRaidItemDrop(raidername);
+                foreach (raid.RaidItemDrop r in Dbh.GetRaidItemDrop(raidername))
+                {
+                    li.Add(new raid.CustomRaidItem
+                    {
+                        contentid = r.contentid,
+                        id = r.id,
+                        profile = Dbh.GetUserprofiles(r.raidername).First(),
+                        raidername = r.raidername,
+                        raiditem = r.raiditem,
+                        raiditeminfo = Dbh.GetRaidItemInfo(r.contentid.ToString()).Where(r1 => r1.id == r.raiditeminfoid).First(),
+                        raiditeminfoid = r.raiditeminfoid,
+                        receiveddate = r.receiveddate,
+                        raidcontent = Dbh.GetRaidContentOnly(r.contentid.ToString()).First()
+                    }) ;
+                }
+                return li;
             }
-            return Enumerable.Empty<raid.RaidItemDrop>();
+            return Enumerable.Empty<raid.CustomRaidItem>();
         }
         [HttpGet("[action]")]
         public IEnumerable<raid.Displayroundrobinentry> GetRoundRobinList(string contentid)
