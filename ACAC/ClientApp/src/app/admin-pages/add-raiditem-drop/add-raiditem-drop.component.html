@@ -29,8 +29,8 @@
                     <mat-list-item>
                     <div class="toLeft">
                       <img matListAvatar
-                      src='{{ r.raider.raiderimg }}' 
-                      matTooltip='{{r.raider.raidername}}'>
+                      src='{{ r.raiderimg }}' 
+                      matTooltip='{{r.raidername}}'>
                     </div>&nbsp;&nbsp;&nbsp;
                     <p mat-Line></p>               
                   </mat-list-item>
@@ -44,4 +44,4 @@
     </div>
 </form>
 <br><br>
-<app-item-drop-by-floor [Displaytype]="'0'"></app-item-drop-by-floor>
+<app-item-drop-by-floor [Displaytype]="drops"></app-item-drop-by-floor>

@@ -23,11 +23,11 @@ export class SavageItem {
   export class AddRaidItemDropComponent {
 
     override = false;
-    raidcontentname: string;
 
     arrraidcontentname: any[];
     arrraidcontentitem: any[];
     arrraiders: any[];
+    drops = '0';
 
     // tslint:disable-next-line: no-use-before-declare
     Si = new SavageItem();
@@ -45,16 +45,41 @@ export class SavageItem {
           this.Si.raiditeminfoid = val.value;
         }
       });
+      this.retrieveValidRaiders();
+    }
+    retrieveValidRaiders() {
+      let baseUrl;
+      if (this.override) {
+        baseUrl = document.getElementsByTagName('base')[0].href + 'api/ACAC2/GetRaiderProfiles';
+        this.http.get<any[]>(baseUrl).subscribe(result => {
+         // console.log(result);
+          this.arrraiders = result; // .filter(r => r.raiditem === this.Si.raiditem).sort((a, b) => (a.raidername > b.raidername) ? 1 : -1);
+        }, error => console.error(error));
+      } else {
+        console.log(this.Si.contentid);
+        if (typeof this.Si.contentid !== 'undefined') {
+          baseUrl = document.getElementsByTagName('base')[0].href + 'api/ACAC2/GetRoundRobinList?contentid=' + this.Si.contentid;
+          this.http.get<any[]>(baseUrl).subscribe(result => {
+          // console.log(result);
+            this.arrraiders = [];
+            result.filter(r => r.raiditem === this.Si.raiditem).sort((a, b) => (a.raidername > b.raidername) ? 1 : -1).forEach((value) => {
+              this.arrraiders.push({ raidername: value.raidername,
+                                    raiderimg: value.raider.raiderimg
+              });
+            });
+          }, error => console.error(error));
+        } else { this.arrraiders = []; }
+      }
 
-      const baseUrl = document.getElementsByTagName('base')[0].href;
-      this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRoundRobinList?contentid=' + this.Si.contentid).subscribe(result => {
-        this.arrraiders = result.filter(r => r.raiditem === this.Si.raiditem).sort((a, b) => (a.raidername > b.raidername) ? 1 : -1);
-        // console.log(this.arrraiders);
-      }, error => console.error(error));
     }
 
-    toggleChange(event) { }
-    toggleOverrideChange(event) { }
+    toggleOverrideChange(event) {
+      if (event.checked) {
+        this.override = true;
+      } else { this.override = false; }
+      this.retrieveValidRaiders();
+     }
+
     raiderchange() { }
 
     GetRaidContent() {
@@ -80,6 +105,7 @@ export class SavageItem {
     }
 
     onSubmit() {
+      this.drops = '-1';
       const headerJson = {'Content-Type': 'application/json'};
       const header = new HttpHeaders(headerJson);
 
@@ -89,6 +115,7 @@ export class SavageItem {
                                                    {duration: 3000 });
            snackBarRef.afterDismissed().subscribe(() => {
             this.toggleRaidcontentitem();
+            this.drops = '0';
            });
         }, response => { console.log('POST call in error', response); }, () => { });
       // console.log(this.Si);

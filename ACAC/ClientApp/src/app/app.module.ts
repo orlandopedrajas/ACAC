@@ -18,7 +18,6 @@ import { WhoCanLotComponent } from './who-can-lot/who-can-lot.component';
 import { RaiderComponent } from './raiders/raider.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.component';
-import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
 import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/archived-item-drop.component';
 import { ManageListsComponent } from './admin-pages/manage-lists.component';
 import { CookieService } from 'ngx-cookie-service';
@@ -49,7 +48,6 @@ import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-ra
     WhocanlotCoreComponent,
     RaiderComponent,
     ItemDropHistoryComponent,
-    AddItemDropComponent,
     ArchivedItemDropComponent,
     ManageListsComponent,
     TooltipComponent,
