@@ -7,7 +7,6 @@ import { WhoCanLotComponent } from './who-can-lot/who-can-lot.component';
 import { RaiderComponent } from './raiders/raider.component';
 
 import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.component';
-import { AddItemDropComponent } from './add-item-drop/add-item-drop.component';
 import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/archived-item-drop.component';
 import { ManageListsComponent } from './admin-pages/manage-lists.component';
 import { NineComponent } from './nine/nine.component';
@@ -24,7 +23,6 @@ const routes: Routes = [
   { path: 'raiders', component: RaiderComponent },
   { path: 'authorize', component: AuthorizeComponent },
   { path: 'item-drop-history', component: ItemDropHistoryComponent },
-  { path: 'add-item-drop', component: AddItemDropComponent },
   { path: 'admin-pages/manage-lists', component: ManageListsComponent },
   { path: 'admin-pages/archived-item-drop/archived-item-drop', component: ArchivedItemDropComponent },
   { path: 'nine/nine', component: NineComponent },

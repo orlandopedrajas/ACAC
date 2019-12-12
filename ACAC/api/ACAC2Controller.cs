@@ -155,6 +155,14 @@ namespace ACAC.api
         }
 
         [HttpPost("[action]")]
+        public IActionResult DeleteItemDrop([FromBody] string id)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.DeleteRaidItemDrop(int.Parse(id));
+            return Ok();
+        }
+
+        [HttpPost("[action]")]
         public IActionResult UpdateRaiditeminfo([FromBody] raid.Raiditeminfo raidItemInfo)
         {
             db.DBHandler Dbh = new db.DBHandler();
@@ -189,7 +197,7 @@ namespace ACAC.api
                         raiditeminfoid = x.raiditeminfoid
                     };
                     Dbh.AddRoundRobinEntry(rre);
-                    if (Dbh.GetRoundRobin(x.contentid, x.raiditem).Count(r => r.raidername == x.raidername) == GetRaiderProfiles(null).Where(r1 => r1.israidmember == true).Count())
+                    if (Dbh.GetRoundRobin(x.contentid, x.raiditem).Count() == GetRaiderProfiles(null).Where(r1 => r1.israidmember == true).Count())
                     {
                         Dbh.ResetRoundRobin(x.raiditem, x.contentid);
                     }

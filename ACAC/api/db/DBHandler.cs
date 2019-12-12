@@ -177,6 +177,13 @@ namespace ACAC.api.db
                 }
             }
         }
+        public void DeleteRaidItemDrop(int id)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            { 
+                Db.Execute("Delete from RaidItemDrop where id=" + id); 
+            }
+        }
         public void Upsertuserprofile(raider.profile profile)
         {
             using (var Db = new SQLiteConnection(DbPath))

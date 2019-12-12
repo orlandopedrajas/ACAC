@@ -35,11 +35,10 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
         const baseUrl = document.getElementsByTagName('base')[0].href;
 
         switch (this.Displaytype) {
-            case '0': {
-//                this.drops = [];
+            case '0': { // Recent drops
                 this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').subscribe(result1 => {
                     console.log(result1);
-                    this.drops = result1;
+                    this.drops = result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1).slice(0, 5);
                 }, error => console.error(error));
                 break;
             }
@@ -192,7 +191,7 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
           if (result) {
             const headerJson = {'Content-Type': 'application/json'};
             const header = new HttpHeaders(headerJson);
-            this.http.post('./api/ACAC/DeleteItemById', JSON.stringify(id), {headers: header}).subscribe((val) => {  }, response => { },
+            this.http.post('./api/ACAC2/DeleteItemDrop', JSON.stringify(id), {headers: header}).subscribe((val) => {  }, response => { },
               () => { this.GetItems(); }
             );
           }
