@@ -16,6 +16,7 @@ import { AttendanceComponent } from './admin-pages/attendance/attendance.compone
 import { RaidFloorComponent } from './admin-pages/raid-floors/raid-floors.component';
 import { RaiderManagementComponent } from './admin-pages/raider-management/raider-management.component';
 import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-raiditem-drop.component';
+import { ManageRoundrobinListsComponent } from './admin-pages/manage-roundrobin-lists/manage-roundrobin-lists.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'admin-pages/raid-floors/raid-floors', component: RaidFloorComponent },
   { path: 'admin-pages/raider-management/raider-management', component: RaiderManagementComponent },
   { path: 'admin-pages/add-raiditem-drop/add-raiditem-drop', component: AddRaidItemDropComponent },
+  { path: 'admin-pages/manage-roundrobin-lists/manage-roundrobin-lists', component: ManageRoundrobinListsComponent },
 ];
 
 @NgModule({

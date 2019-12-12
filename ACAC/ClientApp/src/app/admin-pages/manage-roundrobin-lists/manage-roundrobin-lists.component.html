@@ -1,0 +1,39 @@
+<h1 class='bannertext'>Manage Lists</h1>
+
+<mat-accordion>
+    <mat-expansion-panel *ngFor='let rContent of raidContent'>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-list>
+                    <mat-list-item>
+                        <img matListAvatar src='{{ rContent._raidContent.contentimg }}'
+                            matTooltip='{{ rContent._raidContent.contentname }}'>&nbsp;&nbsp;
+                            <p matLine>{{ rContent._raidContent.contentname }}</p>
+                    </mat-list-item>
+                </mat-list>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-accordion>
+            <mat-expansion-panel *ngFor='let x of rContent._RaidItems' (opened)='getDetail(rContent._raidContent.id, x.raiditemname)'>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <mat-list>
+                            <mat-list-item>
+                                <img matListAvatar src='{{ x.raiditemimg }}'
+                                    matTooltip='{{ x.raiditemname }}'>&nbsp;&nbsp;
+                                    <p matLine>{{ x.raiditemname }}</p>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-selection-list>
+                    <mat-list-option *ngFor='let v of validraiders' [selected]='v.canlot'>
+                        <img matListAvatar src='{{ v.raiderimg }}'
+                                           matTooltip='{{ v.raidername }}'>&nbsp;&nbsp;
+                        <p matLine>{{ v.raidername }}</p>
+                    </mat-list-option>
+                </mat-selection-list>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-expansion-panel>
+</mat-accordion>

@@ -23,7 +23,13 @@ namespace ACAC.api.raid
     {
         public raider.profile raider { get; set; }
     }
-
+    public class Roundrobinreset
+    {
+        public int contentid { get; set; }
+        public string raiditem { get; set; }
+        public int raideriteminfo { get; set; }
+        public string [] raiders { get; set; }
+    }
     public class RaidItemDrop
     {
         [PrimaryKey, AutoIncrement]
