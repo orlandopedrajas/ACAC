@@ -24,6 +24,7 @@ namespace ACAC.api
             }
             return Enumerable.Empty<raid.RaidContentResponse>();
         }
+
         [HttpGet("[action]")]
         public IEnumerable<raider.profile> GetRaiderProfiles(string raidername)
         {
@@ -71,6 +72,37 @@ namespace ACAC.api
                 return li;
             }
             return Enumerable.Empty<raid.CustomRaidItem>();
+        }
+        [HttpGet("[action]")]
+        public IEnumerable<raid.Displayroundrobinentry> GetSpecificRoundRobinEntry(string contentid, string Xraiditem)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            if (Dbh.TableExists("Roundrobinentry"))
+            {
+                List<raid.Displayroundrobinentry> li = new List<raid.Displayroundrobinentry>();
+                IEnumerable<raid.Raiditeminfo> ri = Dbh.GetRaidItemInfo(contentid);
+                IEnumerable<raid.Roundrobinentry> rres = Dbh.GetRoundRobin(int.Parse(contentid), Xraiditem);
+
+                // Get all raiders
+                foreach (raider.profile p in Dbh.GetUserprofiles(null).Where(r => r.israidmember == true))
+                {
+
+                    if (rres.Where(r => r.raidername == p.raidername).Count() == 0)
+                    {
+                        li.Add(new raid.Displayroundrobinentry
+                        {
+                            raider = p,
+                            raiditeminfoid = ri.Where(r => r.raiditemname == Xraiditem).First().id,
+                            raiditem = ri.Where(r => r.raiditemname == Xraiditem).First().raiditemname,
+                            contentid = int.Parse(contentid),
+                            raidername = p.raidername
+                        });;
+                    }
+                }
+
+                return li;
+            }
+            return Enumerable.Empty<raid.Displayroundrobinentry>();
         }
         [HttpGet("[action]")]
         public IEnumerable<raid.Displayroundrobinentry> GetRoundRobinList(string contentid)
@@ -204,6 +236,31 @@ namespace ACAC.api
                 }
             }
             
+            return Ok();
+        }
+        [HttpPost("[action]")]
+        public IActionResult Roundrobinreset([FromBody] raid.Roundrobinreset X)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            List<string> LSRaiders = new List<string>(X.raiders);
+            List<raider.profile> _p = Dbh.GetUserprofiles(null).ToList();
+
+            Dbh.ResetRoundRobin(X.raiditem, X.contentid);
+            foreach (string rrr in LSRaiders)
+            {
+                raider.profile p = _p.Single(r => r.raidername == rrr);
+                _p.Remove(p);
+            }
+
+            foreach (raider.profile r in _p)
+            {
+                Dbh.AddRoundRobinEntry(new raid.Roundrobinentry 
+                {   contentid = X.contentid,
+                    raidername = r.raidername,
+                    raiditem = X.raiditem,
+                    raiditeminfoid = X.raideriteminfo
+                });
+            }
             return Ok();
         }
         #endregion

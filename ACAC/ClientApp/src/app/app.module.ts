@@ -38,6 +38,7 @@ import { WhocanlotCoreComponent } from './components/who-canlot/who-canlot.compo
 import { RaiderInfoComponent } from './components/raider-info/raider-info.component';
 import { RaiderManagementComponent } from './admin-pages/raider-management/raider-management.component';
 import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-raiditem-drop.component';
+import { ManageRoundrobinListsComponent } from './admin-pages/manage-roundrobin-lists/manage-roundrobin-lists.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-ra
     RaiderInfoComponent,
     RaiderManagementComponent,
     AddRaidItemDropComponent,
+    ManageRoundrobinListsComponent,
   ],
   imports: [
     BrowserModule,
