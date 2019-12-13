@@ -12,6 +12,8 @@ export class ManageRoundrobinListsComponent {
     raiders: any[];
     validraiders: any[];
 
+    rrr: any[];
+
     constructor(private http: HttpClient) {
         this.getRaidContent();
         this.getRaiders();
@@ -21,7 +23,6 @@ export class ManageRoundrobinListsComponent {
         const baseUrl = document.getElementsByTagName('base')[0].href;
         this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidContent').subscribe(result => {
           this.raidContent = result;
-          // console.log(this.raidContent);
         });
     }
 
@@ -40,11 +41,6 @@ export class ManageRoundrobinListsComponent {
                                          canlot: true } );
               }
            });
-
-          //console.log(this.raiders);
-          //console.log(result);
-          console.log(this.validraiders);
-
         });
      }
 
@@ -54,5 +50,27 @@ export class ManageRoundrobinListsComponent {
           this.raiders = result.filter(r => r.israidmember === true);
           // console.log(this.raiders);
         });
+     }
+
+     setlist($event, contentid, raiditem, raiditemid) {
+      // console.log(this.raidContent);
+     //  console.log($event);
+     // console.log(contentid);
+      console.log(raiditem);
+     // console.log(raiditemid);
+     }
+     onSubmit() {
+        const headerJson = {'Content-Type': 'application/json'};
+        const header = new HttpHeaders(headerJson);
+
+        // this.http.post('./api/ACAC2/Roundrobinreset', JSON.stringify(this.roundrobinlist), {headers: header}).subscribe(
+        //  (val) => { console.log('POST call successful value returned in body', val); },
+        //  response => {
+        //      console.log('POST call in error', response);
+        //  },
+         // () => {
+        //      console.log('The POST observable is now completed.');
+         // });
+        // window.location.reload();
      }
 }

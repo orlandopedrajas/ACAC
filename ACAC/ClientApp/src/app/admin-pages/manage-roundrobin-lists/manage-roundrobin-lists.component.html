@@ -26,13 +26,16 @@
                         </mat-list>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-selection-list>
+                <mat-selection-list [(ngModel)]="x.id"
+                (ngModelChange)='setlist($event, rContent._raidContent.id, x.raiditemname, x.id)'>
                     <mat-list-option *ngFor='let v of validraiders' [selected]='v.canlot'>
                         <img matListAvatar src='{{ v.raiderimg }}'
                                            matTooltip='{{ v.raidername }}'>&nbsp;&nbsp;
                         <p matLine>{{ v.raidername }}</p>
                     </mat-list-option>
                 </mat-selection-list>
+                <mat-divider></mat-divider>
+                <p align="right"><button mat-raised-button color="primary" (click)="onSubmit()">Reset List</button></p>
             </mat-expansion-panel>
         </mat-accordion>
     </mat-expansion-panel>
