@@ -14,7 +14,7 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-accordion>
-            <mat-expansion-panel *ngFor='let x of rContent._RaidItems' (opened)='getDetail(rContent._raidContent.id, x.raiditemname)'>
+            <mat-expansion-panel *ngFor='let x of filteredRaiditems(rContent._RaidItems)' (opened)='getDetail(rContent._raidContent.id, x.raiditemname)'>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         <mat-list>

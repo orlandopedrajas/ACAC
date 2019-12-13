@@ -1,4 +1,16 @@
-<div class='container'>
+
+<div class='container' *ngIf="roundrobinlists._RaidItems">
+    <div *ngFor="let rrl of filteredRaiditems(roundrobinlists._RaidItems)" class='box'>
+        <mat-table [dataSource]=''>
+            <ng-container matColumnDef="raiditem">
+                <mat-header-cell *matHeaderCellDef>{{ rrl.contentid }} {{ rrl.raiditemname }} </mat-header-cell>
+            </ng-container>
+            <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
+        </mat-table>
+    </div>
+</div>
+
+<!-- <div class='container'>
     <div *ngFor="let roundrobinlist of roundrobinlists" class='box'>
         <mat-table [dataSource]='roundrobinlist.EquipmentItems'>
             <ng-container matColumnDef="raiditem">
@@ -21,3 +33,4 @@
         </mat-table>
     </div>
 </div>
+-->

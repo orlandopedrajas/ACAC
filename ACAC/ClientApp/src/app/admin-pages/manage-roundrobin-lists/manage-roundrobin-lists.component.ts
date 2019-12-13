@@ -30,8 +30,12 @@ export class ManageRoundrobinListsComponent {
         const baseUrl = document.getElementsByTagName('base')[0].href;
         this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidContent').subscribe(result => {
           this.raidContent = result;
-          console.log(result);
+          // console.log(result);
         });
+    }
+
+    filteredRaiditems(RaidItems) {
+      return RaidItems.filter(x => x.hasroundrobin === true);
     }
 
     getDetail(x, y) {
