@@ -12,50 +12,44 @@ export class RoundRobinList {
     styleUrls: ['./round-robin-list.component.css']
 })
 export class RoundRobinListComponent implements OnInit, OnChanges {
-    @Input() Floorname: string;
-    roundrobinlists: any[] = [];
+    @Input() contentid: string;
+    raidcontent: any;
+    raiditems: any[];
     displayedColumns: string[] = ['raiditem'];
 
-    ngOnInit() {}
+    ngOnInit() {
+        //console.log(this.contentid);
+    }
     ngOnChanges() {
 
         const baseUrl = document.getElementsByTagName('base')[0].href;
-        this.roundrobinlists = [];
+        this.raiditems = [];
 
-        this.http.get<any[]>(baseUrl + 'api/ACAC/GetRoundRobinList?XRaidfloorname=' + this.Floorname).subscribe(result => {
-
-            switch (this.Floorname) {
-                case 'Eden Savage Floor 1': {
-                    this.roundrobinlists.push(this.Generateroundrobinlist(result, 'Accessory Coffer'));
-                    break;
-                }
-                case 'Eden Savage Floor 2': {
-                    this.roundrobinlists.push(this.Generateroundrobinlist(result, 'Equipment Coffer'));
-                    this.roundrobinlists.push(this.Generateroundrobinlist(result, 'Deepshadow Coating'));
-                    break;
-                }
-                case 'Eden Savage Floor 3': {
-                    this.roundrobinlists.push(this.Generateroundrobinlist(result, 'Equipment Coffer'));
-                    this.roundrobinlists.push(this.Generateroundrobinlist(result, 'Deepshadow Twine'));
-                    this.roundrobinlists.push(this.Generateroundrobinlist(result, 'Deepshadow Solvent'));
-                    break;
-                }
-                case 'Eden Savage Floor 4': {
-                    this.roundrobinlists.push(this.Generateroundrobinlist(result, 'Chest Coffer'));
-                    this.roundrobinlists.push(this.Generateroundrobinlist(result, 'Weapon Coffer'));
-                    break;
-                }
-            }
-
+        this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidContent?contentid=' + this.contentid).subscribe(result => {
+           //  console.log(result); // .sort((a, b) => (a.raiditem > b.raiditem) ? 1 : -1));
+           this.raidcontent = result[0]._raidContent;
+           this.raiditems = this.filteredRaiditems(result[0]._RaidItems);
+           console.log(this.raidcontent);
+           console.log(this.raiditems);
+           // console.log(this.roundrobinlists);
         }, error => console.error(error));
 
+      
     }
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {  }
 
-    Generateroundrobinlist(result, listname) {
-        const roundrobinlist = new RoundRobinList();
-        roundrobinlist.listname = listname;
-        roundrobinlist.EquipmentItems = result.filter(r => r.raiditem === listname);
-        return roundrobinlist;
+    Generateroundrobinlist(Xraiditem) {
+        const baseUrl = document.getElementsByTagName('base')[0].href;
+        this.http.get<any[]>(baseUrl + 'api/ACAC2/GetSpecificRoundRobinEntry?contentid=' +
+                             this.contentid + '&Xraiditem=' + Xraiditem).subscribe(result => {
+            //  console.log(result); // .sort((a, b) => (a.raiditem > b.raiditem) ? 1 : -1));
+            console.log(result);
+            return result;
+         }, error => console.error(error));
+    }
+
+    filteredRaiditems(rrl) {
+        console.log(rrl);
+        return rrl.filter(x => x.hasroundrobin === true);
     }
 }

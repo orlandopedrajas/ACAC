@@ -113,14 +113,15 @@ namespace ACAC.api
                 List<raid.Displayroundrobinentry> li = new List<raid.Displayroundrobinentry>();
                 IEnumerable<raid.Raiditeminfo> ri = Dbh.GetRaidItemInfo(contentid);
                 IEnumerable<raid.Roundrobinentry> rres = Dbh.GetRoundRobin(int.Parse(contentid));
-
+                
                 // Get all raiders
                 foreach (raider.profile p in Dbh.GetUserprofiles(null).Where(r => r.israidmember == true))
                 {
                     // Get Raiditems
                     foreach (raid.Raiditeminfo rii in ri)
                     { 
-                        if (rres.Where(r => r.raidername == p.raidername && r.raiditeminfoid == rii.id).Count() == 0)
+
+                        if (rii.hasroundrobin == true && rres.Where(r => r.raidername == p.raidername && r.raiditeminfoid == rii.id).Count() == 0)
                         {
                             li.Add(new raid.Displayroundrobinentry { raider = p,
                                                                     raiditeminfoid = rii.id,
@@ -243,7 +244,7 @@ namespace ACAC.api
         {
             db.DBHandler Dbh = new db.DBHandler();
             List<string> LSRaiders = new List<string>(X.raiders);
-            List<raider.profile> _p = Dbh.GetUserprofiles(null).ToList();
+            List<raider.profile> _p = Dbh.GetUserprofiles(null).Where(r => r.israidmember == true).ToList();
 
             Dbh.ResetRoundRobin(X.raiditem, X.contentid);
             foreach (string rrr in LSRaiders)

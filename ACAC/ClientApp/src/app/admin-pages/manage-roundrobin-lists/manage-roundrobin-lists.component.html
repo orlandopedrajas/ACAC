@@ -1,6 +1,6 @@
 <h1 class='bannertext'>Manage Lists</h1>
 
-<mat-accordion>
+<mat-accordion *ngIf='raidContent'>
     <mat-expansion-panel *ngFor='let rContent of raidContent'>
         <mat-expansion-panel-header>
             <mat-panel-title>
@@ -14,7 +14,7 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-accordion>
-            <mat-expansion-panel *ngFor='let x of rContent._RaidItems' (opened)='getDetail(rContent._raidContent.id, x.raiditemname)'>
+            <mat-expansion-panel *ngFor='let x of filteredRaiditems(rContent._RaidItems)' (opened)='getDetail(rContent._raidContent.id, x.raiditemname)'>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         <mat-list>
@@ -26,9 +26,9 @@
                         </mat-list>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <mat-selection-list [(ngModel)]="x.id"
+                <mat-selection-list [ngModel]="other"
                 (ngModelChange)='setlist($event, rContent._raidContent.id, x.raiditemname, x.id)'>
-                    <mat-list-option *ngFor='let v of validraiders' [selected]='v.canlot'>
+                    <mat-list-option *ngFor='let v of validraiders' [selected]='v.canlot' value='{{ v.raidername }}'>
                         <img matListAvatar src='{{ v.raiderimg }}'
                                            matTooltip='{{ v.raidername }}'>&nbsp;&nbsp;
                         <p matLine>{{ v.raidername }}</p>
