@@ -13,28 +13,35 @@ export class RoundRobinList {
 })
 export class RoundRobinListComponent implements OnInit, OnChanges {
     @Input() contentid: string;
-    roundrobinlists: any[] = [];
+    raidcontent: any;
+    raiditems: any[];
     displayedColumns: string[] = ['raiditem'];
 
-    ngOnInit() {}
+    ngOnInit() {
+        //console.log(this.contentid);
+    }
     ngOnChanges() {
 
         const baseUrl = document.getElementsByTagName('base')[0].href;
-        this.roundrobinlists = [];
+        this.raiditems = [];
 
         this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidContent?contentid=' + this.contentid).subscribe(result => {
            //  console.log(result); // .sort((a, b) => (a.raiditem > b.raiditem) ? 1 : -1));
-           this.roundrobinlists = result[0];
+           this.raidcontent = result[0]._raidContent;
+           this.raiditems = this.filteredRaiditems(result[0]._RaidItems);
+           console.log(this.raidcontent);
+           console.log(this.raiditems);
            // console.log(this.roundrobinlists);
         }, error => console.error(error));
 
+      
     }
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {  }
 
-    Generateroundrobinlist(contentid, Xraiditem) {
+    Generateroundrobinlist(Xraiditem) {
         const baseUrl = document.getElementsByTagName('base')[0].href;
         this.http.get<any[]>(baseUrl + 'api/ACAC2/GetSpecificRoundRobinEntry?contentid=' +
-                             contentid + '&Xraiditem=' + Xraiditem).subscribe(result => {
+                             this.contentid + '&Xraiditem=' + Xraiditem).subscribe(result => {
             //  console.log(result); // .sort((a, b) => (a.raiditem > b.raiditem) ? 1 : -1));
             console.log(result);
             return result;
