@@ -243,7 +243,7 @@ namespace ACAC.api
         {
             db.DBHandler Dbh = new db.DBHandler();
             List<string> LSRaiders = new List<string>(X.raiders);
-            List<raider.profile> _p = Dbh.GetUserprofiles(null).ToList();
+            List<raider.profile> _p = Dbh.GetUserprofiles(null).Where(r => r.israidmember == true).ToList();
 
             Dbh.ResetRoundRobin(X.raiditem, X.contentid);
             foreach (string rrr in LSRaiders)

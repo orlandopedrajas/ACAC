@@ -19,7 +19,6 @@ import { RaiderComponent } from './raiders/raider.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.component';
 import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/archived-item-drop.component';
-import { ManageListsComponent } from './admin-pages/manage-lists.component';
 import { CookieService } from 'ngx-cookie-service';
 import { CharacterInfoComponent } from './components/character-info/character-info.component';
 import { ItemDropComponent } from './components/item-drop/item-drop.component';
@@ -50,7 +49,6 @@ import { ManageRoundrobinListsComponent } from './admin-pages/manage-roundrobin-
     RaiderComponent,
     ItemDropHistoryComponent,
     ArchivedItemDropComponent,
-    ManageListsComponent,
     TooltipComponent,
     CharacterInfoComponent,
     ItemDropComponent,
