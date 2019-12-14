@@ -1,36 +1,24 @@
 
 <div class='container'>
     <div *ngFor="let rrl of raiditems" class='box'>
-        <mat-table [dataSource]='Generateroundrobinlist(rrl.raiditemname)'>
+        <mat-table [dataSource]='rrl.items'>
             <ng-container matColumnDef="raiditem">
-                <mat-header-cell *matHeaderCellDef>{{ raidcontent.contentid }} {{ rrl.raiditemname }} </mat-header-cell>
-            </ng-container>
-            <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
-        </mat-table>
-    </div>
-</div>
-<!-- 
-<div class='container'>
-    <div *ngFor="let roundrobinlist of roundrobinlists" class='box'>
-        <mat-table [dataSource]='roundrobinlist.EquipmentItems'>
-            <ng-container matColumnDef="raiditem">
-                <mat-header-cell *matHeaderCellDef> {{ roundrobinlist.listname }} </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef>{{ rrl.raiditemname }} </mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <mat-list>
-                        <mat-list-item routerLink='{{ element.raider.pageroute }}'>
+                        <mat-list-item>
                             <div class="toLeft">
-                            <img matListAvatar
-                                    src='{{ element.raider.raiderimg }}' 
-                                    alt='{{ element.raider.raidername }}' class='pointer' >
-                            </div>&nbsp;&nbsp;&nbsp;
-                            <p mat-Line>{{ element.raider.raidername }}</p>               
+                                <img matListAvatar
+                                    src='{{ element.raider.raiderimg }}'
+                                    matTooltip='{{ element.raidername }}'>                                    
+                            </div>&nbsp;&nbsp;
+                            <p>{{ element.raidername }}</p>
                         </mat-list-item>
                     </mat-list>
                 </mat-cell>
-                </ng-container>     
+            </ng-container>
             <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
     </div>
 </div>
--->

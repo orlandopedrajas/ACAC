@@ -60,13 +60,13 @@ namespace ACAC.api
                     {
                         contentid = r.contentid,
                         id = r.id,
-                        profile = Dbh.GetUserprofiles(r.raidername).First(),
+                        profile = Dbh.GetUserprofiles(r.raidername).FirstOrDefault(),
                         raidername = r.raidername,
                         raiditem = r.raiditem,
-                        raiditeminfo = Dbh.GetRaidItemInfo(r.contentid.ToString()).Where(r1 => r1.id == r.raiditeminfoid).First(),
+                        raiditeminfo = Dbh.GetRaidItemInfo(r.contentid.ToString()).Where(r1 => r1.id == r.raiditeminfoid).FirstOrDefault(),
                         raiditeminfoid = r.raiditeminfoid,
                         receiveddate = r.receiveddate,
-                        raidcontent = Dbh.GetRaidContentOnly(r.contentid.ToString()).First()
+                        raidcontent = Dbh.GetRaidContentOnly(r.contentid.ToString()).FirstOrDefault()
                     }) ;
                 }
                 return li;
@@ -92,8 +92,8 @@ namespace ACAC.api
                         li.Add(new raid.Displayroundrobinentry
                         {
                             raider = p,
-                            raiditeminfoid = ri.Where(r => r.raiditemname == Xraiditem).First().id,
-                            raiditem = ri.Where(r => r.raiditemname == Xraiditem).First().raiditemname,
+                            raiditeminfoid = ri.Where(r => r.raiditemname == Xraiditem).FirstOrDefault().id,
+                            raiditem = ri.Where(r => r.raiditemname == Xraiditem).FirstOrDefault().raiditemname,
                             contentid = int.Parse(contentid),
                             raidername = p.raidername
                         });;
@@ -249,7 +249,7 @@ namespace ACAC.api
             Dbh.ResetRoundRobin(X.raiditem, X.contentid);
             foreach (string rrr in LSRaiders)
             {
-                raider.profile p = _p.Single(r => r.raidername == rrr);
+                raider.profile p = _p.SingleOrDefault(r => r.raidername == rrr);
                 _p.Remove(p);
             }
 

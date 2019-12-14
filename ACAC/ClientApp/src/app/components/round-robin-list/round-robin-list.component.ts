@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import { Component, OnChanges, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 export class RoundRobinList {
@@ -11,45 +11,45 @@ export class RoundRobinList {
     templateUrl: './round-robin-list.component.html',
     styleUrls: ['./round-robin-list.component.css']
 })
-export class RoundRobinListComponent implements OnInit, OnChanges {
+export class RoundRobinListComponent implements OnChanges {
     @Input() contentid: string;
     raidcontent: any;
     raiditems: any[];
     displayedColumns: string[] = ['raiditem'];
 
-    ngOnInit() {
-        //console.log(this.contentid);
-    }
     ngOnChanges() {
 
         const baseUrl = document.getElementsByTagName('base')[0].href;
         this.raiditems = [];
+        let ri;
 
         this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidContent?contentid=' + this.contentid).subscribe(result => {
-           //  console.log(result); // .sort((a, b) => (a.raiditem > b.raiditem) ? 1 : -1));
            this.raidcontent = result[0]._raidContent;
-           this.raiditems = this.filteredRaiditems(result[0]._RaidItems);
-           console.log(this.raidcontent);
-           console.log(this.raiditems);
-           // console.log(this.roundrobinlists);
+           ri = this.filteredRaiditems(result[0]._RaidItems);
+           ri.forEach((value) => {
+               this.Generateroundrobinlist(value);
+           });
         }, error => console.error(error));
 
-      
+
     }
     constructor(private http: HttpClient) {  }
 
-    Generateroundrobinlist(Xraiditem) {
+    Generateroundrobinlist(valueitem) {
         const baseUrl = document.getElementsByTagName('base')[0].href;
         this.http.get<any[]>(baseUrl + 'api/ACAC2/GetSpecificRoundRobinEntry?contentid=' +
-                             this.contentid + '&Xraiditem=' + Xraiditem).subscribe(result => {
-            //  console.log(result); // .sort((a, b) => (a.raiditem > b.raiditem) ? 1 : -1));
-            console.log(result);
-            return result;
+                             this.contentid + '&Xraiditem=' + valueitem.raiditemname).subscribe(result => {
+           this.raiditems.push({ contentid: valueitem.contentid,
+                                 hasroundrobin: valueitem.hasroundrobin,
+                                 id: valueitem.id,
+                                 raiditemimg: valueitem.raiditemimg,
+                                 raiditemname: valueitem.raiditemname,
+                                 items: result});
+
          }, error => console.error(error));
     }
 
     filteredRaiditems(rrl) {
-        console.log(rrl);
         return rrl.filter(x => x.hasroundrobin === true);
     }
 }

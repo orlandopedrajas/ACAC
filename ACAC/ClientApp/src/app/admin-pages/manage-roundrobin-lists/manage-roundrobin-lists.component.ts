@@ -29,8 +29,8 @@ export class ManageRoundrobinListsComponent {
     getRaidContent() {
         const baseUrl = document.getElementsByTagName('base')[0].href;
         this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidContent').subscribe(result => {
-          this.raidContent = result;
-          // console.log(result);
+          this.raidContent = result.filter(r => r._raidContent.isenabled === true);
+          console.log(result);
         });
     }
 
