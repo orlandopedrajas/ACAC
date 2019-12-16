@@ -15,8 +15,8 @@ import { DatePipe } from '@angular/common';
 
 export class ItemDropByFloorComponent implements OnInit, OnChanges {
 
-    @Input() Displaytype: string; // 0 = all, 1 = group by floor, 2= group by drops > raider
-    @Input() Floorname: string;
+    @Input() Displaytype: string; // 0 = recent, 1 = all, 2 = group by floors
+    @Input() Contentid: string;
     displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
     raiderIdentity: ThisRaider = new RaiderIdentity(this.cookieService).Raideridentity();
     drops: any[] = null;
@@ -37,119 +37,23 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
         switch (this.Displaytype) {
             case '0': { // Recent drops
                 this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').subscribe(result1 => {
-                    console.log(result1);
+                    // console.log(result1);
                     this.drops = result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1).slice(0, 5);
                 }, error => console.error(error));
                 break;
             }
-            case '1': {
-
-                this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result1 => {
-                    this.floors = [];
-                    this.floors.push({ floorname: 'Eden Savage Floor 1',
-                                       flooricon: 'https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/65-icon.jpg',
-                                       floor: result1.filter(r => r.raidfloorname === 'Eden Savage Floor 1') });
-
-                    this.floors.push({ floorname: 'Eden Savage Floor 2',
-                                       flooricon: 'https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/66-icon.jpg',
-                                       floor: result1.filter(r => r.raidfloorname === 'Eden Savage Floor 2') });
-
-                    this.floors.push({ floorname: 'Eden Savage Floor 3',
-                                       flooricon: 'https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/67-icon.jpg',
-                                       floor: result1.filter(r => r.raidfloorname === 'Eden Savage Floor 3') });
-
-                    this.floors.push({ floorname: 'Eden Savage Floor 4',
-                                       flooricon: 'https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/68-icon.jpg',
-                                       floor: result1.filter(r => r.raidfloorname === 'Eden Savage Floor 4') });
+            case '1': { // All drops
+                this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').subscribe(result1 => {
+                    // console.log(result1);
+                    this.drops = result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1);
                 }, error => console.error(error));
                 break;
             }
-            case '3': {
-                this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItems').subscribe(result => {
-                    this.groupbydate = [];
-                    let currentdate = '';
-                    result.forEach((value) => {
-                         if (currentdate !== this.datePipe.transform(value.receiveddate, 'fullDate')) {
-                            currentdate = this.datePipe.transform(value.receiveddate, 'fullDate');
-                            this.groupbydate.push({floordate: currentdate,
-                                item: result.filter(r => this.datePipe.transform(r.receiveddate, 'fullDate') === currentdate)});
-                         }
-                    });
-
-                   //  console.log(this.datePipe.transform(currentdate, 'yyyy/MM/dd'));
-                    console.log(this.groupbydate);
-                   // console.log('Current Date: ' + currentdate);
+            case '2': { // group by floors
+                this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDropByContentId?contentid=' + this.Contentid).subscribe(result1 => {
+                    // console.log(this.Contentid);
+                    this.drops = result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1);
                 }, error => console.error(error));
-                break;
-            }
-            case '2': {
-
-                switch (this.Floorname) {
-                    case 'Eden Savage Floor 1': {
-                        this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItemsByFloor?XFloor=Eden Savage Floor 1').subscribe(result => {
-                            this.dropsraider = [];
-                            this.dropsraider.push({itemname: 'Accessory Coffer',
-                                                   // tslint:disable-next-line: max-line-length
-                                                   itemimage: 'https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08',
-                                                   item: this.GenerateArrayItem(result, 'Accessory Coffer') });
-                        });
-                        break;
-                    }
-                    case 'Eden Savage Floor 2': {
-                        this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItemsByFloor?XFloor=Eden Savage Floor 2').subscribe(result => {
-                            this.dropsraider = [];
-                            this.dropsraider.push({itemname: 'Equipment Coffer',
-                                                   // tslint:disable-next-line: max-line-length
-                                                   itemimage: 'https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08',
-                                                   item: this.GenerateArrayItem(result, 'Equipment Coffer')});
-                            this.dropsraider.push({itemname: 'Deepshadow Coating',
-                                                   // tslint:disable-next-line: max-line-length
-                                                   itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/b/b9/Deepshadow_Coating_Icon.png/64px-Deepshadow_Coating_Icon.png',
-                                                   item: this.GenerateArrayItem(result, 'Deepshadow Coating') });
-                            this.dropsraider.push({itemname: 'Other',
-                                                   // tslint:disable-next-line: max-line-length
-                                                   itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/c/c6/Book_of_Descent_Icon.png/40px-Book_of_Descent_Icon.png',
-                                                   item: this.GenerateArrayItem(result, 'other') });
-                        });
-                        break;
-                    }
-                    case 'Eden Savage Floor 3': {
-                        this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItemsByFloor?XFloor=Eden Savage Floor 3').subscribe(result => {
-                            this.dropsraider = [];
-                            this.dropsraider.push({itemname: 'Equipment Coffer',
-                                                   // tslint:disable-next-line: max-line-length
-                                                   itemimage: 'https://img.finalfantasyxiv.com/lds/pc/global/images/itemicon/8f/8ff71fec93cc2b3246609c0d140e5ddd4902090f.png?5.08',
-                                                   item: this.GenerateArrayItem(result, 'Equipment Coffer') });
-                            this.dropsraider.push({itemname: 'Deepshadow Twine',
-                                                   // tslint:disable-next-line: max-line-length
-                                                   itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/e/e8/Deepshadow_Twine_Icon.png/40px-Deepshadow_Twine_Icon.png',
-                                                   item: this.GenerateArrayItem(result, 'Deepshadow Twine') });
-                            this.dropsraider.push({itemname: 'Deepshadow Solvent',
-                                                   // tslint:disable-next-line: max-line-length
-                                                   itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/f/f6/Deepshadow_Solvent_Icon.png/40px-Deepshadow_Solvent_Icon.png',
-                                                   item: this.GenerateArrayItem(result, 'Deepshadow Solvent') });
-                        });
-                        break;
-                    }
-                    case 'Eden Savage Floor 4': {
-                        this.http.get<any[]>(baseUrl + 'api/ACAC/GetRaidItemsByFloor?XFloor=Eden Savage Floor 4').subscribe(result => {
-                            this.dropsraider = [];
-                            this.dropsraider.push({itemname: 'Chest Coffer',
-                                                   // tslint:disable-next-line: max-line-length
-                                                   itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/0/03/Edengrace_Chest_Gear_Coffer_Icon.png/40px-Edengrace_Chest_Gear_Coffer_Icon.png',
-                                                   item: this.GenerateArrayItem(result, 'Chest Coffer') });
-                            this.dropsraider.push({itemname: 'Weapon Coffer',
-                                                   // tslint:disable-next-line: max-line-length
-                                                   itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/f/ff/Edengrace_Weapon_Coffer_Icon.png/40px-Edengrace_Weapon_Coffer_Icon.png',
-                                                   item: this.GenerateArrayItem(result, 'Weapon Coffer') });
-                            this.dropsraider.push({itemname: 'Other',
-                                                   // tslint:disable-next-line: max-line-length
-                                                   itemimage: 'https://ffxiv.gamerescape.com/w/images/thumb/5/5b/Book_of_Sepulture_Icon.png/40px-Book_of_Sepulture_Icon.png',
-                                                   item: this.GenerateArrayItem(result, 'other') });
-                        });
-                        break;
-                    }
-                }
                 break;
             }
         }

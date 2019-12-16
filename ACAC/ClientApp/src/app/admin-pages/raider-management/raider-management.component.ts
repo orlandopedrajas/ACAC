@@ -25,7 +25,7 @@ export class RaiderManagementComponent implements OnInit {
     getRaiderProfiles() {
         const baseUrl = document.getElementsByTagName('base')[0].href;
         this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaiderProfiles?raidername=').subscribe(result => {
-          this.raiders = result;
+          this.raiders = result.sort((a, b) => (a.raidername > b.raidername) ? 1 : -1);
         });
     }
 
