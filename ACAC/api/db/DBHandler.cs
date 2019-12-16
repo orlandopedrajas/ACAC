@@ -58,6 +58,9 @@ namespace ACAC.api.db
                         case "Roundrobinentry":
                             Db.CreateTable<raid.Roundrobinentry>();
                             return true;
+                        case "Attendance":
+                            Db.CreateTable<raid.Attendance>();
+                            return true;
                         default:
                             return false;
                     }
@@ -126,6 +129,20 @@ namespace ACAC.api.db
                 if (raidername != null)
                 {
                     return Db.Query<raid.RaidItemDrop>("Select * From RaidItemDrop where raidername='" + raidername + "'");
+                }
+                else
+                {
+                    return Db.Query<raid.RaidItemDrop>("Select * From RaidItemDrop");
+                }
+            }
+        }
+        public IEnumerable<raid.RaidItemDrop> GetRaidItemDropByContent(string contentid)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                if (contentid != null)
+                {
+                    return Db.Query<raid.RaidItemDrop>("Select * From RaidItemDrop where contentid='" + contentid + "'");
                 }
                 else
                 {
@@ -258,6 +275,37 @@ namespace ACAC.api.db
                             XRaiditem + "' and contentid=" + contentid);
             }
         }
-        
+        public IEnumerable<raid.Attendance> GetAllAttendance()
+        {
+            TableExists("Attendance");
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                return Db.Query<raid.Attendance>("Select * From Attendance order by Eventdate");
+            }
+        }
+        public void AddAttendance(raid.Attendance xItem)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                try
+                {
+                    if (Db.ExecuteScalar<int>("Select count(*) From Attendance where Raidername='" + xItem.Raidername + "' and Eventdate='" + xItem.Eventdate + "'") == 0)
+                    {
+                        Db.Insert(xItem);
+                    }
+                    else
+                    {
+                        int attended;
+                        if (xItem.Attended) { attended = 1; } else { attended = 0; }
+                        Db.Execute("Update Attendance set Attended='" + attended + "' where Raidername='" + xItem.Raidername + "' and Eventdate='" + xItem.Eventdate + "'");
+                    }
+                }
+                catch
+                {
+                    Db.CreateTable<raid.Attendance>();
+                    Db.Insert(xItem);
+                }
+            }
+        }
     }
 }

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { RaiderIdentity, ThisRaider } from '../../components/ACACComponents';
-import { BuiltinType } from '@angular/compiler';
 
 export class Attendance {
     id: number;
@@ -55,7 +54,7 @@ export class IEvent {
     GetAttendance() {
         this.thisAttendance = [];
         const baseUrl = document.getElementsByTagName('base')[0].href;
-        this.http.get<any[]>(baseUrl + 'api/ACAC/GetAllAttendance').subscribe(result => {
+        this.http.get<any[]>(baseUrl + 'api/ACAC2/GetAllAttendance').subscribe(result => {
 
          let currentdate;
          let ie = new IEvent();
@@ -120,7 +119,7 @@ export class IEvent {
             ae.Attended = value.Attended;
             alist.push(ae);
         });
-        this.http.post('./api/ACAC/AddAttendance', JSON.stringify(alist), {headers: header}).subscribe((val) => {  }, response => { },
+        this.http.post('./api/ACAC2/AddAttendance', JSON.stringify(alist), {headers: header}).subscribe((val) => {  }, response => { },
         () => {
            this.isDisabled = true;
            window.location.reload();

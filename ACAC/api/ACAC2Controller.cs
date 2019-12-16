@@ -12,7 +12,20 @@ namespace ACAC.api
     {
 
         #region "GET"
-
+        [HttpGet("[action]")]
+        public IEnumerable<raid.Attendance> GetAllAttendance()
+        {
+            try
+            {
+                db.DBHandler Dbh = new db.DBHandler();
+                if (Dbh.TableExists("Attendance"))
+                {
+                    return Dbh.GetAllAttendance();
+                }
+                else { return Enumerable.Empty<raid.Attendance>(); }
+            }
+            catch { return Enumerable.Empty<raid.Attendance>(); }
+        }
         [HttpGet("[action]")]
         public IEnumerable<raid.RaidContentResponse> GetRaidContent(string contentid)
         {
@@ -68,6 +81,32 @@ namespace ACAC.api
                         receiveddate = r.receiveddate,
                         raidcontent = Dbh.GetRaidContentOnly(r.contentid.ToString()).FirstOrDefault()
                     }) ;
+                }
+                return li;
+            }
+            return Enumerable.Empty<raid.CustomRaidItem>();
+        }
+        [HttpGet("[action]")]
+        public IEnumerable<raid.CustomRaidItem> GetRaidItemDropByContentId(string contentid)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            List<raid.CustomRaidItem> li = new List<raid.CustomRaidItem>();
+            if (Dbh.TableExists("RaidItemDrop"))
+            {
+                foreach (raid.RaidItemDrop r in Dbh.GetRaidItemDropByContent(contentid))
+                {
+                    li.Add(new raid.CustomRaidItem
+                    {
+                        contentid = r.contentid,
+                        id = r.id,
+                        profile = Dbh.GetUserprofiles(r.raidername).FirstOrDefault(),
+                        raidername = r.raidername,
+                        raiditem = r.raiditem,
+                        raiditeminfo = Dbh.GetRaidItemInfo(r.contentid.ToString()).Where(r1 => r1.id == r.raiditeminfoid).FirstOrDefault(),
+                        raiditeminfoid = r.raiditeminfoid,
+                        receiveddate = r.receiveddate,
+                        raidcontent = Dbh.GetRaidContentOnly(r.contentid.ToString()).FirstOrDefault()
+                    });
                 }
                 return li;
             }
@@ -153,7 +192,17 @@ namespace ACAC.api
         #endregion
 
         #region "POST"
-
+        [HttpPost("[action]")]
+        public IActionResult AddAttendance([FromBody] raid.Attendance[] _attendance)
+        {
+            if (_attendance == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");
+            db.DBHandler Dbh = new db.DBHandler();
+            foreach (raid.Attendance a in _attendance)
+            {
+                Dbh.AddAttendance(a);
+            }
+            return Ok();
+        }
         [HttpPost("[action]")]
         public IActionResult AddRaidContent([FromBody] raid.RaidContent raidContent)
         {
