@@ -44,13 +44,21 @@ export class IEvent {
     CurrentDate: Date;
     constructor(private http: HttpClient, private cookieService: CookieService) {
         if (!this.raiderIdentity.IsAdmin) { window.location.href = '/'; }
-        this.GetAttendance();
+        // this.GetAttendance();
+        this.getRaiderProfiles();
         this.isDisabled = false;
     }
 
     toggleAttended(event, num) {
         this.obj[num].Attended = event.checked;
     }
+    getRaiderProfiles() {
+      const baseUrl = document.getElementsByTagName('base')[0].href;
+      this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaiderProfiles?raidername=').subscribe(result => {
+        this.raiderprofiles = result.filter(r => r.israidmember === true).sort((a, b) => (a.raidername > b.raidername) ? 1 : -1);
+        console.log(this.raiderprofiles);
+      });
+  }
     GetAttendance() {
         this.thisAttendance = [];
         const baseUrl = document.getElementsByTagName('base')[0].href;
