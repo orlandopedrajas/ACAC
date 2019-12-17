@@ -1,6 +1,49 @@
 <app-doughnut-chart Filter='ALL'></app-doughnut-chart>
 <mat-tab-group>
     <mat-tab label='Events'>
+        <mat-grid-list cols='{{ raiderprofiles.length + 2 }}' rowHeight="1:1">
+            <mat-grid-tile-header>
+                <mat-grid-tile></mat-grid-tile>
+                <mat-grid-tile><b>Event Date</b></mat-grid-tile>
+                <mat-grid-tile *ngFor="let p of this.raiderprofiles">
+                    <mat-list>
+                        <mat-list-item>
+                            <img matListAvatar matTooltip='{{ p.raidername }}' src='{{ p.raiderimg }}'>
+                        </mat-list-item>
+                    </mat-list>
+                </mat-grid-tile>
+            </mat-grid-tile-header>
+            <mat-grid-tile>
+                <button mat-raised-button color="primary"(click)='SaveAttendance()' [disabled]='isDisabled'>Save</button>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date" required [(ngModel)]="CurrentDate" name="CurrentDate" style="width: 100px">
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-grid-tile>
+            <mat-grid-tile *ngFor="let p of this.raiderprofiles">
+                <mat-checkbox (change)="toggleAttended($event, 0)" [checked]='false'></mat-checkbox>
+            </mat-grid-tile>
+            <div *ngFor='let attendee of thisAttendance'>
+                <mat-grid-tile></mat-grid-tile>
+                <mat-grid-tile>{{ attendee.eventdate | date:'fullDate' }}</mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.aerilyn' disabled></mat-checkbox></mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.hades' disabled></mat-checkbox></mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.laki' disabled></mat-checkbox></mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.lan' disabled></mat-checkbox></mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.shelly' disabled></mat-checkbox></mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.thomas' disabled></mat-checkbox></mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.val' disabled></mat-checkbox></mat-grid-tile>
+                <mat-grid-tile><mat-checkbox [checked]='attendee.yumi' disabled></mat-checkbox></mat-grid-tile>
+            </div>
+        </mat-grid-list>
+    </mat-tab>
+</mat-tab-group>
+<!--
+    <mat-tab-group>
+    <mat-tab label='Events'>
         <mat-grid-list cols="10" rowHeight="1:1">
             <mat-grid-tile-header>
                 <mat-grid-tile></mat-grid-tile>
@@ -93,3 +136,4 @@
         </mat-grid-list> 
     </mat-tab>
 </mat-tab-group>
+-->
