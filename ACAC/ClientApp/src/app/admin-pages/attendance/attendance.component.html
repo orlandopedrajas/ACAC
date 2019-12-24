@@ -1,6 +1,7 @@
 <app-doughnut-chart Filter='ALL'></app-doughnut-chart>
 <mat-tab-group>
     <mat-tab label='Events'>
+        <div *ngIf='raiderprofiles'>
         <mat-grid-list cols='{{ raiderprofiles.length + 2 }}' rowHeight="1:1">
             <mat-grid-tile-header>
                 <mat-grid-tile></mat-grid-tile>
@@ -39,6 +40,7 @@
                 <mat-grid-tile><mat-checkbox [checked]='attendee.yumi' disabled></mat-checkbox></mat-grid-tile>
             </div>
         </mat-grid-list>
+        </div>
     </mat-tab>
 </mat-tab-group>
 <!--
