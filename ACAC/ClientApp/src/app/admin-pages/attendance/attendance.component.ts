@@ -11,14 +11,7 @@ export class Attendance {
 }
 export class IEvent {
   eventdate: string;
-  aerilyn: boolean;
-  hades: boolean;
-  laki: boolean;
-  lan: boolean;
-  shelly: boolean;
-  thomas: boolean;
-  val: boolean;
-  yumi: boolean;
+  raider: any[];
 }
 @Component({
     selector: 'app-attendance',
@@ -32,15 +25,8 @@ export class IEvent {
     raiderIdentity: ThisRaider = new RaiderIdentity(this.cookieService).Raideridentity();
     thisAttendance: any[] = [];
     displayedColumns: string[] = ['Eventdate', 'Raidername', 'Attended'];
-    obj: any[] = [{Raidername: 'Aerilyn Elessedil', Attended: false},
-                    {Raidername: 'Hades Carmine', Attended: false},
-                    {Raidername: 'La Ki', Attended: false},
-                    {Raidername: 'Lan Mantear', Attended: false},
-                    {Raidername: 'Shelly Duncan', Attended: false},
-                    {Raidername: 'Thomas Silverstar', Attended: false},
-                    {Raidername: 'Val Phoenix', Attended: false},
-                    {Raidername: 'Yumi Rin', Attended: false}
-                 ];
+    obj: any[] = [];
+
     CurrentDate: Date;
     constructor(private http: HttpClient, private cookieService: CookieService) {
         if (!this.raiderIdentity.IsAdmin) { window.location.href = '/'; }
@@ -49,13 +35,25 @@ export class IEvent {
         this.isDisabled = false;
     }
 
-    toggleAttended(event, num) {
-        this.obj[num].Attended = event.checked;
+    toggleAttended(event, raidername) {
+        // .obj[num].Attended = event.checked;
+        let num = 0;
+        this.obj.forEach((value) => {
+          if (value.Raidername === raidername) {
+            this.obj[num].Attended = event.checked;
+          }
+          num += 1;
+        });
+        console.log(this.obj);
     }
     getRaiderProfiles() {
       const baseUrl = document.getElementsByTagName('base')[0].href;
       this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaiderProfiles?raidername=').subscribe(result => {
+        this.obj = [];
         this.raiderprofiles = result.filter(r => r.israidmember === true).sort((a, b) => (a.raidername > b.raidername) ? 1 : -1);
+        this.raiderprofiles.forEach((value) => {
+            this.obj.push({Raidername: value.raidername, Attended: false});
+        });
       });
     }
     GetAttendance() {
@@ -64,53 +62,28 @@ export class IEvent {
         this.http.get<any[]>(baseUrl + 'api/ACAC2/GetAllAttendance').subscribe(result => {
 
          let currentdate;
-         let ie = new IEvent();
+         let ie = null;
 
          result.sort((a, b) => (new Date(a.eventdate) < new Date(b.eventdate)) ? 1 : -1)
          .forEach((value) => {
 
             if (currentdate !== value.eventdate) {
-              currentdate = value.eventdate;
+              if (ie !== null) {
+                ie.raider = ie.raider.sort((a, b) => (a.raidername > b.raidername) ? 1 : -1);
+                this.thisAttendance.push(ie);
+              }
               ie = new IEvent();
+              currentdate = value.eventdate;
               ie.eventdate = currentdate;
+              ie.raider = [];
             }
 
-            switch (value.raidername) {
-              case 'Aerilyn Elessedil': {
-                ie.aerilyn = value.attended;
-                break;
-              }
-              case 'Hades Carmine': {
-                ie.hades = value.attended;
-                break;
-              }
-              case 'La Ki': {
-                ie.laki = value.attended;
-                break;
-              }
-              case 'Lan Mantear': {
-                ie.lan = value.attended;
-                break;
-              }
-              case 'Shelly Duncan': {
-                ie.shelly = value.attended;
-                break;
-              }
-              case 'Thomas Silverstar': {
-                ie.thomas = value.attended;
-                break;
-              }
-              case 'Val Phoenix': {
-                ie.val = value.attended;
-                break;
-              }
-              case 'Yumi Rin': {
-                ie.yumi = value.attended;
-                this.thisAttendance.push(ie);
-                break;
-              }
-            }
+            ie.raider.push({raidername: value.raidername, attended: value.attended});
+
          });
+
+         ie.raider = ie.raider.sort((a, b) => (a.raidername > b.raidername) ? 1 : -1);
+         this.thisAttendance.push(ie);
 
        }, error => console.error(error));
     }
@@ -130,7 +103,8 @@ export class IEvent {
         this.http.post('./api/ACAC2/AddAttendance', JSON.stringify(alist), {headers: header}).subscribe((val) => {  }, response => { },
         () => {
            this.isDisabled = true;
-           // window.location.reload();
+
+           window.location.reload();
         }
       );
 
