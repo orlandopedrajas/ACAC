@@ -18,7 +18,7 @@
                 </ng-container>
                 <ng-container matColumnDef="floor">
                     <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-                    <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidfloorImage }}' matTooltip='{{element.raidfloorname}}'> </mat-cell>
+                    <mat-cell *matCellDef="let element" > <img class='floor-icon' src='{{ element.raidcontent.contentimg }}' matTooltip='{{element.raidcontent.contentname}}'> </mat-cell>
                 </ng-container>
                 
                 <!-- Weight Column -->
@@ -46,9 +46,8 @@
                             <mat-list-item>
                                 <div class='toLeft'>
                                     <img matListAvatar
-                                            src='{{element.raidItemimage}}'
-                                            alt='{{element.raidItem}}'
-                                            matTooltip='{{element.raidItem}}'>
+                                            src='{{element.raiditeminfo.raiditemimg}}'
+                                            matTooltip='{{element.raiditeminfo.raiditemname}}'>
                                 </div>
                             </mat-list-item>
                         </mat-list>

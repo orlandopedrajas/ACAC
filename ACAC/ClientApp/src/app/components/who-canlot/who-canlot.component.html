@@ -13,8 +13,10 @@
         </ng-template>
         <div [innerHtml]="rc._raidContent.contentdescription"></div>       
         <app-round-robin-list [contentid]="rc._raidContent.id"></app-round-robin-list>
+        <br><br>
+        <h5 align='center'>Item Distribution</h5>
+        <app-item-drop-by-floor [Displaytype]="'2'" [Contentid]="rc._raidContent.id"></app-item-drop-by-floor>
     </mat-tab>
 </mat-tab-group>
-<h5 align='center'>Item Distribution</h5>
-<!-- <app-pie-chart [Filter]='savageFloor' [Datatype]="'0'" ></app-pie-chart>
-<app-item-drop-by-floor [Displaytype]="'2'" [Floorname]='savageFloor'></app-item-drop-by-floor> -->
+ <app-pie-chart [Filter]='savageFloor' [Datatype]="'0'" ></app-pie-chart> 
+<!--<app-item-drop-by-floor [Displaytype]="'2'" [Contentid]='savageFloor'></app-item-drop-by-floor>-->

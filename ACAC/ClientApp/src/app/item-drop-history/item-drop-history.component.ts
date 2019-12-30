@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class ItemDropHistoryComponent {
 
   savageFloor = 'ALL';
+  contentid = 'ALL';
   raidContent;
 
   constructor(private http: HttpClient) {
@@ -25,29 +26,7 @@ export class ItemDropHistoryComponent {
   }
 
   tabChanged(t) {
-    switch (t.index) {
-      case 0: {
-        this.savageFloor = 'ALL';
-        break;
-      }
-      case 1: {
-        this.savageFloor = 'Eden Savage Floor 1';
-        break;
-      }
-      case 2: {
-        this.savageFloor = 'Eden Savage Floor 2';
-        break;
-      }
-      case 3: {
-        this.savageFloor = 'Eden Savage Floor 3';
-        break;
-      }
-      case 4: {
-        this.savageFloor = 'Eden Savage Floor 4';
-        break;
-      }
-    }
-
-
+    this.contentid =  t.tab.textLabel;
+    if (this.contentid === '') { this.contentid = 'ALL'; }
   }
 }

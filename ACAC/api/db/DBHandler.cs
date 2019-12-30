@@ -307,5 +307,26 @@ namespace ACAC.api.db
                 }
             }
         }
+        public IEnumerable<report.ReportData> GetItemDropReportByRaider(string raidername)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                return Db.Query<report.ReportData>("select c.contentname ReportName, count(c.contentname) ReportValue from RaidItemDrop d left outer join RaidContent c on d.contentid = c.id where d.raidername = '" + raidername + "' Group by c.contentname");
+            }
+        }
+        public IEnumerable<report.ReportData> GetItemDropReportByFloor(string contentid)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                if (contentid == "ALL") 
+                {
+                    return Db.Query<report.ReportData>("select d.raidername ReportName, count(d.raidername) ReportValue from RaidItemDrop d left outer join RaidContent c on d.contentid = c.id Group by d.raidername");
+                }
+                else
+                {
+                    return Db.Query<report.ReportData>("select d.raidername ReportName, count(d.raidername) ReportValue from RaidItemDrop d left outer join RaidContent c on d.contentid = c.id where c.id = " + contentid + " Group by d.raidername");
+                }
+            }
+        }
     }
 }
