@@ -64,49 +64,20 @@ export class PieChartComponent implements OnChanges {
 
      loadRaidFloor(): void {
         const baseUrl = document.getElementsByTagName('base')[0].href;
-        this.http.get<any[]>(baseUrl + 'api/ACAC/GetReportData?raidfloorname=' + this.Filter)
+        this.http.get<any[]>(baseUrl + 'api/ACAC2/GetItemDropReportByFloor?contentid=' + this.Filter)
         .subscribe(result => {
             this.pieChartLabels = [];
             this.pieChartData = [];
             result.forEach((value) => {
-                switch (value.raidername) {
-                    case 'Aerilyn Elessedil': {
-                        value.raidername = 'Aerilyn';
-                        break;
-                    }
-                    case 'Hades Carmine': {
-                        value.raidername = 'Hades';
-                        break;
-                    }
-                    case 'Lan Mantear': {
-                        value.raidername = 'Lan';
-                        break;
-                    }
-                    case 'Shelly Duncan': {
-                        value.raidername = 'Shelly';
-                        break;
-                    }
-                    case 'Thomas Silverstar': {
-                        value.raidername = 'Thomas';
-                        break;
-                    }
-                    case 'Val Phoenix': {
-                        value.raidername = 'Val';
-                        break;
-                    }
-                    case 'Yumi Rin': {
-                        value.raidername = 'Yumi';
-                        break;
-                    }
-                }
-                this.pieChartLabels.push(value.raidername);
-                this.pieChartData.push(+value.reportcount);
+                this.pieChartLabels.push(value.reportName.split(' ', 1));
+                this.pieChartData.push(+value.reportValue);
             });
+            console.log(result);
         });
     }
     loadRaider(): void {
         const baseUrl = document.getElementsByTagName('base')[0].href;
-        this.http.get<any[]>(baseUrl + 'api/ACAC/GetReportData2?raidername=' + this.Filter)
+        this.http.get<any[]>(baseUrl + 'api/ACAC2/GetItemDropReportByRaider?raidername=' + this.Filter)
         .subscribe(result => {
             this.pieChartLabels = [];
             this.pieChartData = [];

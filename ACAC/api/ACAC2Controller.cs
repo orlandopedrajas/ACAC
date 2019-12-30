@@ -13,6 +13,26 @@ namespace ACAC.api
 
         #region "GET"
         [HttpGet("[action]")]
+        public IEnumerable<report.ReportData> GetItemDropReportByFloor(string contentid)
+        {
+            try
+            {
+                db.DBHandler Dbh = new db.DBHandler();
+                return Dbh.GetItemDropReportByFloor(contentid);
+            }
+            catch { return Enumerable.Empty<report.ReportData>(); }
+        }
+        [HttpGet("[action]")]
+        public IEnumerable<report.ReportData> GetItemDropReportByRaider(string raidername)
+        {
+            try
+            {
+                db.DBHandler Dbh = new db.DBHandler();
+                return Dbh.GetItemDropReportByRaider(raidername);
+            }
+            catch { return Enumerable.Empty<report.ReportData>(); }
+        }
+        [HttpGet("[action]")]
         public IEnumerable<raid.Attendance> GetAllAttendance()
         {
             try

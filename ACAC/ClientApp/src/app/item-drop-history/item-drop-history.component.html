@@ -1,6 +1,7 @@
 <h1 class='bannertext'>Item History</h1>
 <br><br>
-<mat-tab-group>
+<app-pie-chart [Filter]="contentid" [Datatype]="'0'" ></app-pie-chart>
+<mat-tab-group (selectedTabChange)="tabChanged($event)">
     <mat-tab>
         <ng-template mat-tab-label>
             <mat-list>
@@ -14,14 +15,14 @@
         </ng-template>
         <app-item-drop-by-floor [Displaytype]="'1'"></app-item-drop-by-floor>
     </mat-tab>
-    <mat-tab *ngFor='let rc of raidContent'>
+    <mat-tab *ngFor='let rc of raidContent' [label]="rc._raidContent.id">
         <ng-template mat-tab-label>
             <mat-list>
                 <mat-list-item>
                     <div class="toLeft">
                         <img matListAvatar src='{{ rc._raidContent.contentimg }}'>
                     </div>&nbsp;&nbsp;&nbsp;
-                    <p mat-Line>{{ rc._raidContent.contentname }}</p>
+                    <p mat-Line>{{ rc._raidContent.contentname }} </p>
                 </mat-list-item>
             </mat-list>
         </ng-template>
@@ -29,8 +30,6 @@
     </mat-tab>
 </mat-tab-group>
 <!--
-    
-<app-pie-chart [Filter]='savageFloor' [Datatype]="'0'" ></app-pie-chart>
 <mat-tab-group (selectedTabChange)="tabChanged($event)">
     <mat-tab>
             <ng-template mat-tab-label>

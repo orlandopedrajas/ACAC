@@ -15,7 +15,7 @@ import { DatePipe } from '@angular/common';
 
 export class ItemDropByFloorComponent implements OnInit, OnChanges {
 
-    @Input() Displaytype: string; // 0 = recent, 1 = all, 2 = group by floors
+    @Input() Displaytype: string; // 0 = recent, 1 = all, 2 = filter by floors, 3 = group by date
     @Input() Contentid: string;
     displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
     raiderIdentity: ThisRaider = new RaiderIdentity(this.cookieService).Raideridentity();
@@ -49,10 +49,20 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
                 }, error => console.error(error));
                 break;
             }
-            case '2': { // group by floors
+            case '2': { // filter by floors, group by date
                 this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDropByContentId?contentid=' + this.Contentid).subscribe(result1 => {
-                    // console.log(this.Contentid);
-                    this.drops = result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1);
+                    this.groupbydate = [];
+                    let currentdate = '';
+                    result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1).forEach((value) => {
+                        if (currentdate !== this.datePipe.transform(value.receiveddate, 'fullDate')) {
+                            currentdate = this.datePipe.transform(value.receiveddate, 'fullDate');
+                            this.groupbydate.push({floordate: currentdate,
+                                                   item: result1.filter(r => this.datePipe.transform(r.receiveddate, 'fullDate')
+                                                   === currentdate)
+                                                  });
+                        }
+                    });
+                    // console.log(this.groupbydate);
                 }, error => console.error(error));
                 break;
             }
