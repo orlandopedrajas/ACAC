@@ -95,7 +95,7 @@
                 <mat-list>
                     <mat-list-item >
                         <div class="toLeft">
-                        <img matListAvatar routerLink='/raiders/'
+                        <img matListAvatar [routerLink]="['/raiders', element.profile.raidername]"
                         src='{{ element.profile.raiderimg }}'
                         matTooltip='{{ element.profile.raidername }}' 
                         alt='{{ element.profile.raidername }}' class='pointer'>

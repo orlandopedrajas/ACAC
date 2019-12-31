@@ -1,5 +1,5 @@
-<mat-tab-group>
-    <mat-tab *ngFor='let rc of raidContent'>
+<mat-tab-group (selectedTabChange)="tabChanged($event)">
+    <mat-tab *ngFor='let rc of raidContent' [label]="rc._raidContent.id">
         <ng-template mat-tab-label>
             <mat-list>
                 <mat-list-item>
@@ -18,5 +18,5 @@
         <app-item-drop-by-floor [Displaytype]="'2'" [Contentid]="rc._raidContent.id"></app-item-drop-by-floor>
     </mat-tab>
 </mat-tab-group>
- <app-pie-chart [Filter]='savageFloor' [Datatype]="'0'" ></app-pie-chart> 
+ <app-pie-chart [Filter]='contentid' [Datatype]="'0'" ></app-pie-chart> 
 <!--<app-item-drop-by-floor [Displaytype]="'2'" [Contentid]='savageFloor'></app-item-drop-by-floor>-->

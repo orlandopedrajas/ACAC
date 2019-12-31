@@ -72,7 +72,6 @@ export class PieChartComponent implements OnChanges {
                 this.pieChartLabels.push(value.reportName.split(' ', 1));
                 this.pieChartData.push(+value.reportValue);
             });
-            console.log(result);
         });
     }
     loadRaider(): void {
@@ -82,26 +81,8 @@ export class PieChartComponent implements OnChanges {
             this.pieChartLabels = [];
             this.pieChartData = [];
             result.forEach((value) => {
-                switch (value.raidfloorname) {
-                    case 'Eden Savage Floor 1': {
-                        value.raidfloorname = 'Resurrection';
-                        break;
-                    }
-                    case 'Eden Savage Floor 2': {
-                        value.raidfloorname = 'Descent';
-                        break;
-                    }
-                    case 'Eden Savage Floor 3': {
-                        value.raidfloorname = 'Inundation';
-                        break;
-                    }
-                    case 'Eden Savage Floor 4': {
-                        value.raidfloorname = 'Sepulture';
-                        break;
-                    }
-                }
-                this.pieChartLabels.push(value.raidfloorname);
-                this.pieChartData.push(+value.reportcount);
+                this.pieChartLabels.push(value.reportName);
+                this.pieChartData.push(+value.reportValue);
             });
         });
     }

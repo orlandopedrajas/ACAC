@@ -11,6 +11,7 @@ import { Api } from '../helpers/api';
 export class WhocanlotCoreComponent implements OnChanges  {
 
     raidContent: any[];
+    contentid = 'ALL';
 
     ngOnChanges() {
        // this.getRaidContent();
@@ -20,10 +21,15 @@ export class WhocanlotCoreComponent implements OnChanges  {
       const baseUrl = document.getElementsByTagName('base')[0].href;
       this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidContent?contentid=').subscribe(result => {
         this.raidContent = result.filter(r => r._raidContent.isenabled === true);
-        // console.log(this.raidContent);
+        this.contentid = this.raidContent[0]._raidContent.id;
       });
     }
     constructor(private http: HttpClient) {
         this.getRaidContent();
+    }
+
+    tabChanged(t) {
+      this.contentid =  t.tab.textLabel;
+      if (this.contentid === '') { this.contentid = 'ALL'; }
     }
 }
