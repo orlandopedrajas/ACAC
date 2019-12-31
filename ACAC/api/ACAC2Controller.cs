@@ -12,6 +12,22 @@ namespace ACAC.api
     {
 
         #region "GET"
+
+        [HttpGet("[action]")]
+        public IEnumerable<raider.Jobalternate> GetAllJOBAlternates()
+        {
+            try
+            {
+                db.DBHandler Dbh = new db.DBHandler();
+                if (Dbh.TableExists("Jobalternate"))
+                {
+                   return Dbh.GetAllJOBAlternates();
+                }
+                else { return Enumerable.Empty<raider.Jobalternate>(); }
+            }
+            catch { return Enumerable.Empty<raider.Jobalternate>(); }
+        }
+
         [HttpGet("[action]")]
         public IEnumerable<report.ReportData> GetItemDropReportByFloor(string contentid)
         {
@@ -212,6 +228,16 @@ namespace ACAC.api
         #endregion
 
         #region "POST"
+
+        [HttpPost("[action]")]
+        public IActionResult AddJobAlt([FromBody] raider.Jobalternate x)
+        {
+            if (x == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.InsertUpdateJobAlternate(x);
+            return Ok();
+        }
+
         [HttpPost("[action]")]
         public IActionResult AddAttendance([FromBody] raid.Attendance[] _attendance)
         {

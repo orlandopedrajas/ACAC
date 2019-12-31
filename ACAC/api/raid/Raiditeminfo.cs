@@ -11,6 +11,7 @@ namespace ACAC.api.raid
         public string raiditemname { get; set; }
         public string raiditemimg { get; set; }
         public bool hasroundrobin { get; set; }
+        public bool isweapon { get; set; }
     }
     public class Roundrobinentry
     {

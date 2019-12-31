@@ -13,7 +13,7 @@ import { MatDialog } from '@angular/material';
 
   export class RaidFloorComponent implements OnInit {
 
-    displayedColumns: string[] = ['raiditemimg', 'raiditemname', 'hasroundrobin'];
+    displayedColumns: string[] = ['raiditemimg', 'raiditemname', 'hasroundrobin', 'isweapon'];
     contentname: string;
     contentdescription: string;
     contentimg: string;
@@ -21,6 +21,7 @@ import { MatDialog } from '@angular/material';
     raiditemimg = '/assets/img/msq.png';
     raiditemname: string;
     hasroundrobin: false;
+    isweapon: false;
     color = 'primary';
 
     // tslint:disable-next-line: variable-name
@@ -45,6 +46,7 @@ import { MatDialog } from '@angular/material';
       const baseUrl = document.getElementsByTagName('base')[0].href;
       this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidContent?contentid=').subscribe(result => {
         this.raidContent = result;
+        console.log(this.raidContent);
       });
     }
 
@@ -57,7 +59,17 @@ import { MatDialog } from '@angular/material';
                                               contentid: element.contentid,
                                               raiditemname: element.raiditemname,
                                               raiditemimg: element.raiditemimg,
-                                              hasroundrobin: element.hasroundrobin
+                                              hasroundrobin: element.hasroundrobin,
+                                              isweapon: element.isweapon
+                                            });
+    }
+    onWeaponCheck(element) {
+      this.PostRequest('UpdateRaiditeminfo', {id: element.id,
+                                              contentid: element.contentid,
+                                              raiditemname: element.raiditemname,
+                                              raiditemimg: element.raiditemimg,
+                                              hasroundrobin: element.hasroundrobin,
+                                              isweapon: element.isweapon
                                             });
     }
     onblur(content) {
