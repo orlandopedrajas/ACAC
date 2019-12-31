@@ -11,6 +11,29 @@ namespace ACAC.api.db
     {
         string DbPath = Path.Combine(AppContext.BaseDirectory, "ACAC3.db");
 
+        public void InsertUpdateJobAlternate(raider.Jobalternate ja)
+        {
+            using (var Db = new SQLite.SQLiteConnection(DbPath))
+            {
+                try
+                {
+                    Db.InsertOrReplace(ja);
+                }
+                catch
+                {
+                    Db.CreateTable<raider.Jobalternate>();
+                    Db.InsertOrReplace(ja);
+                }
+            }
+        }
+        public IEnumerable<raider.Jobalternate> GetAllJOBAlternates()
+        {
+            using (var Db = new SQLite.SQLiteConnection(DbPath))
+            {
+                //return Enumerable.Empty<JOBAlternate>();
+                return Db.Query<raider.Jobalternate>("Select * from Jobalternate");
+            }
+        }
         public IEnumerable<raid.Roundrobinentry> GetRoundRobin(int contentid, string XRaidItem)
         {
             using (var Db = new SQLiteConnection(DbPath))
@@ -60,6 +83,9 @@ namespace ACAC.api.db
                             return true;
                         case "Attendance":
                             Db.CreateTable<raid.Attendance>();
+                            return true;
+                        case "Jobalternate":
+                            Db.CreateTable<raider.Jobalternate>();
                             return true;
                         default:
                             return false;

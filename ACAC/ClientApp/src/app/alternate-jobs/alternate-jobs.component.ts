@@ -53,9 +53,10 @@ export class AlternateJobsComponent {
     getJobAlternates() {
       const baseUrl = document.getElementsByTagName('base')[0].href;
       // tslint:disable-next-line: max-line-length
-      this.http.get<{ raidername: string, raiderimg: string, raiderbanner: string, pageroute: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result1 => {
-        this.http.get<any[]>(baseUrl + 'api/ACAC/GetAllJOBAlternates').subscribe(result => {
-            // console.log(result);
+      this.http.get<{ raidername: string, raiderimg: string, pageroute: string }[]>(baseUrl + 'api/ACAC2/GetRaiderProfiles?raidername=').subscribe(result1 => {
+        console.log(result1);
+        this.http.get<any[]>(baseUrl + 'api/ACAC2/GetAllJOBAlternates').subscribe(result => {
+            console.log(result);
             this.alternatejobs = [];
             result.forEach((value) => {
                 const a = result1.filter(r => r.raidername === value.raidername);
@@ -67,8 +68,7 @@ export class AlternateJobsComponent {
                                          alt2img: this.getJobIcon(value.alt2),
                                          alt2: value.alt2,
                                          raiderimg: a[0].raiderimg,
-                                         raiderbanner: a[0].raiderbanner,
-                                         pageroute: a[0].pageroute });
+                                         pageroute: '/raiders/' + a[0].raidername });
             });
            }, error => console.error(error));
         });
@@ -137,14 +137,13 @@ export class AlternateJobsComponent {
     onSubmit() {
         const headerJson = {'Content-Type': 'application/json'};
         const header = new HttpHeaders(headerJson);
-        this.http.post('./api/ACAC/AddJobAlt', JSON.stringify(this.JAlt), {headers: header}).subscribe(
+        this.http.post('./api/ACAC2/AddJobAlt', JSON.stringify(this.JAlt), {headers: header}).subscribe(
             (val) => { }, response => { }, () => { });
 
         const snackBarRef = this._SnackBar.open('Alts added for ' + this.JAlt.raidername, 'Done',
         { duration: 3000 });
         snackBarRef.afterDismissed().subscribe(() => {
             this.getJobAlternates();
-
         });
     }
 
@@ -156,11 +155,9 @@ export class AlternateJobsComponent {
         j.alt1 = alt1;
         j.alt2 = alt2;
 
-        // console.log(j);
-
         const headerJson = {'Content-Type': 'application/json'};
         const header = new HttpHeaders(headerJson);
-        this.http.post('./api/ACAC/AddJobAlt', JSON.stringify(j), {headers: header}).subscribe(
+        this.http.post('./api/ACAC2/AddJobAlt', JSON.stringify(j), {headers: header}).subscribe(
         (val) => { }, response => { }, () => { });
 
         const snackBarRef = this._SnackBar.open('Alts updated for ' + j.raidername, 'Done',
