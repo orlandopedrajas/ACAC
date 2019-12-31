@@ -20,6 +20,7 @@ import { ManageRoundrobinListsComponent } from './admin-pages/manage-roundrobin-
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'who-can-lot', component: WhoCanLotComponent },
+  { path: 'raiders/:raidername', component: RaiderComponent },
   { path: 'raiders', component: RaiderComponent },
   { path: 'authorize', component: AuthorizeComponent },
   { path: 'item-drop-history', component: ItemDropHistoryComponent },

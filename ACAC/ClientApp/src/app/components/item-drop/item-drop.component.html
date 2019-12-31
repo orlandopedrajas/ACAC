@@ -12,7 +12,7 @@
     <!-- Name Column -->
     <ng-container matColumnDef="floor">
         <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-        <mat-cell *matCellDef="let element"> <div class="toLeft"><img class='floor-icon' matTooltip='{{element.raidfloorname}}' src='{{ element.raidfloorImage }}'></div> </mat-cell>
+        <mat-cell *matCellDef="let element"> <div class="toLeft"><img class='floor-icon' matTooltip='{{element.raidcontent.contentname}}' src='{{ element.raidcontent.contentimg }}'></div> </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
@@ -39,9 +39,8 @@
                 <mat-list-item>
                     <div class='toLeft'>
                         <img matListAvatar
-                                src='{{element.raidItemimage}} '
-                                alt='{{element.raidItem}}'
-                                matTooltip='{{element.raidItem}}'>
+                                src='{{element.raiditeminfo.raiditemimg}}'
+                                matTooltip='{{element.raiditeminfo.raiditemname}}'>
                     </div>
                 </mat-list-item>
             </mat-list>   

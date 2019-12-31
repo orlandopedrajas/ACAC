@@ -12,6 +12,7 @@ export class RaiderComponent implements OnInit {
   raidername: string;
   routeparam = '';
   selected = 0;
+
   tabChanged(event) {
     this.raidername = this.raider[event.index].raidername;
   }
@@ -19,8 +20,8 @@ export class RaiderComponent implements OnInit {
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.routeparam =  params.raidername;
+    this.route.params.subscribe((params) => {
+      this.routeparam = params.raidername;
     });
     this.GetRaiders();
   }
