@@ -5,7 +5,10 @@ class ThisRaider {
     discorduser: string;
     discordavatar: string;
     raidername: string;
+    raiderimg: string;
+    lodestoneid: string;
     raiderroute: string;
+    israidmember: boolean;
 }
 class RaiderIdentity {
 
@@ -18,7 +21,8 @@ class RaiderIdentity {
             this.cookieService.deleteAll('/');
             return false;
         } else {
-            if (raidername === 'Lan Mantear' || raidername === 'Yumi Rin') { return true;
+            if (this.cookieService.get('isadmin') === 'true') {
+                return true;
             } else { return false; }
         }
     }
@@ -27,59 +31,16 @@ class RaiderIdentity {
         const raider = new ThisRaider();
         raider.discordavatar = this.cookieService.get('discordavatar');
         raider.discorduser = this.cookieService.get('discorduser');
-        switch (raider.discorduser) {
-            case 'Aeri': {
-                raider.raidername = 'Aerilyn Elessedil';
-                raider.raiderroute = '/raiders/aerilyn-elessedil';
-                raider.IsAdmin = this.IsAdmin(raider.raidername);
-                break;
-            }
-            case 'Hadesffxi': {
-                raider.raidername = 'Hades Carmine';
-                raider.raiderroute = '/raiders/hades-carmine';
-                raider.IsAdmin = this.IsAdmin(raider.raidername);
-                break;
-            }
-            case 'Lan Mantear': {
-                raider.raidername = 'Lan Mantear';
-                raider.raiderroute = '/raiders/lan-mantear';
-                raider.IsAdmin = this.IsAdmin(raider.raidername);
-                break;
-            }
-            case 'Doki': {
-                raider.raidername = 'La Ki';
-                raider.raiderroute = '/raiders/la-ki';
-                raider.IsAdmin = this.IsAdmin(raider.raidername);
-                break;
-            }
-            case 'Shelly-Net': {
-                raider.raidername = 'Shelly Duncan';
-                raider.raiderroute = '/raiders/shelly-duncan';
-                raider.IsAdmin = this.IsAdmin(raider.raidername);
-                break;
-            }
-            case 'Scar_LIT': {
-                raider.raidername = 'Thomas Silverstar';
-                raider.raiderroute = '/raiders/thomas-silverstar';
-                raider.IsAdmin = this.IsAdmin(raider.raidername);
-                break;
-            }
-            case 'ValPhoenix': {
-                raider.raidername = 'Val Phoenix';
-                raider.raiderroute = '/raiders/val-phoenix';
-                raider.IsAdmin = this.IsAdmin(raider.raidername);
-                break;
-            }
-            case '༄YᑌᗰI࿐❤ 上海': {
-                raider.raidername = 'Yumi Rin';
-                raider.raiderroute = '/raiders/yumi-rin';
-                raider.IsAdmin = this.IsAdmin(raider.raidername);
-                break;
-            }
-            default: {
-                raider.raiderroute = '/';
-            }
-        }
+        if (this.cookieService.get('isadmin') === 'true') {
+            raider.IsAdmin = true;
+        } else { raider.IsAdmin = false; }
+        raider.raidername = this.cookieService.get('raidername');
+        raider.raiderimg = this.cookieService.get('raiderimg');
+        raider.lodestoneid = this.cookieService.get('lodestoneid');
+        raider.raiderroute = this.cookieService.get('raiderroute');
+        if (this.cookieService.get('israidmember') === 'true') {
+            raider.israidmember = true;
+        } else { raider.israidmember = false; }
         return raider;
     }
 }

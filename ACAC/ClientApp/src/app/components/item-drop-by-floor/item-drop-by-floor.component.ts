@@ -46,6 +46,7 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
                 this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').subscribe(result1 => {
                     // console.log(result1);
                     this.drops = result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1);
+                    // console.log(this.drops);
                 }, error => console.error(error));
                 break;
             }

@@ -42,6 +42,7 @@ export class AlternateJobsComponent {
     constructor(private cookieService: CookieService, private http: HttpClient,
                 // tslint:disable-next-line: variable-name
                 private _SnackBar: MatSnackBar, public dialog: MatDialog) {
+        this.jobs = this.jobs.sort((a, b) => (a > b) ? 1 : -1);
         this.getJobAlternates();
     }
 
@@ -53,10 +54,15 @@ export class AlternateJobsComponent {
     getJobAlternates() {
       const baseUrl = document.getElementsByTagName('base')[0].href;
       // tslint:disable-next-line: max-line-length
-      this.http.get<{ raidername: string, raiderimg: string, pageroute: string }[]>(baseUrl + 'api/ACAC2/GetRaiderProfiles?raidername=').subscribe(result1 => {
-        console.log(result1);
+      this.http.get<{ raidername: string, raiderimg: string, pageroute: string, israidmember: any }[]>(baseUrl + 'api/ACAC2/GetRaiderProfiles?raidername=').subscribe(result1 => {
+        // console.log(result1);
+        this.raiders = [];
+        result1.filter(r => r.israidmember === true).sort((a, b) => (a.raidername > b.raidername) ? 1 : -1).forEach((value) => {
+            this.raiders.push(value.raidername);
+        });
+
         this.http.get<any[]>(baseUrl + 'api/ACAC2/GetAllJOBAlternates').subscribe(result => {
-            console.log(result);
+            // console.log(result);
             this.alternatejobs = [];
             result.forEach((value) => {
                 const a = result1.filter(r => r.raidername === value.raidername);

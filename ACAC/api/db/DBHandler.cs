@@ -337,7 +337,7 @@ namespace ACAC.api.db
         {
             using (var Db = new SQLiteConnection(DbPath))
             {
-                return Db.Query<report.ReportData>("select c.contentname ReportName, count(c.contentname) ReportValue from RaidItemDrop d left outer join RaidContent c on d.contentid = c.id where d.raidername = '" + raidername + "' Group by c.contentname");
+                return Db.Query<report.ReportData>("select c.contentname ReportName, count(c.contentname) ReportValue from RaidItemDrop d left outer join RaidContent c on d.contentid = c.id where d.raidername = '" + raidername + "' and c.isenabled=1 Group by c.contentname");
             }
         }
         public IEnumerable<report.ReportData> GetItemDropReportByFloor(string contentid)
@@ -346,11 +346,11 @@ namespace ACAC.api.db
             {
                 if (contentid == "ALL") 
                 {
-                    return Db.Query<report.ReportData>("select d.raidername ReportName, count(d.raidername) ReportValue from RaidItemDrop d left outer join RaidContent c on d.contentid = c.id Group by d.raidername");
+                    return Db.Query<report.ReportData>("select d.raidername ReportName, count(d.raidername) ReportValue from RaidItemDrop d left outer join RaidContent c on d.contentid = c.id where c.isenabled=1 Group by d.raidername");
                 }
                 else
                 {
-                    return Db.Query<report.ReportData>("select d.raidername ReportName, count(d.raidername) ReportValue from RaidItemDrop d left outer join RaidContent c on d.contentid = c.id where c.id = " + contentid + " Group by d.raidername");
+                    return Db.Query<report.ReportData>("select d.raidername ReportName, count(d.raidername) ReportValue from RaidItemDrop d left outer join RaidContent c on d.contentid = c.id where c.id = " + contentid + " and c.isenabled=1 Group by d.raidername");
                 }
             }
         }

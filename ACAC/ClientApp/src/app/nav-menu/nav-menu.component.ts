@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-nav-menu',
@@ -16,22 +17,11 @@ export class NavMenuComponent implements OnInit {
 
   isExpanded = false;
   show = false;
-  raiderprofiles: any[];
 
   username: string;
   password: string;
 
   raiders: any[];
-
-  lm = 'assets/img/no-profile.png';
-  hc = 'assets/img/no-profile.png';
-  yr = 'assets/img/no-profile.png';
-  ae = 'assets/img/no-profile.png';
-  sd = 'assets/img/no-profile.png';
-  ts = 'assets/img/no-profile.png';
-  vp = 'assets/img/no-profile.png';
-  lk = 'assets/img/no-profile.png';
-
 
   constructor(private cookieService: CookieService, private http: HttpClient, public dialog: MatDialog) {
     const baseUrl = document.getElementsByTagName('base')[0].href;
@@ -46,54 +36,13 @@ export class NavMenuComponent implements OnInit {
        this.loggedIn = true;
        if (this.discorduser === 'Lan Mantear') { this.isAdmin = true; }
     }
-    // tslint:disable-next-line: no-shadowed-variable
-    http.get<{ raidername: string, raiderimg: string, raiderbanner: string }[]>(baseUrl + 'api/ACAC/GetAllProfiles').subscribe(result => {
-      if (result) {
-          this.raiderprofiles = result;
-          this.raiderprofiles.forEach((value) => {
-              switch (value.raidername) {
-                case 'Aerilyn Elessedil': {
-                  this.ae = value.raiderimg;
-                  break;
-                }
-                case 'Hades Carmine': {
-                  this.hc = value.raiderimg;
-                  break;
-                }
-                case 'La Ki': {
-                  this.lk = value.raiderimg;
-                  break;
-                }
-                case 'Lan Mantear': {
-                  this.lm = value.raiderimg;
-                  break;
-                }
-                case 'Shelly Duncan': {
-                  this.sd = value.raiderimg;
-                  break;
-                }
-                case 'Thomas Silverstar': {
-                  this.ts = value.raiderimg;
-                  break;
-                }
-                case 'Val Phoenix': {
-                  this.vp = value.raiderimg;
-                  break;
-                }
-                case 'Yumi Rin': {
-                this.yr = value.raiderimg;
-                break;
-                }
-              }
-          });
-      }
-      }, error => console.error(error));
+
 }
 
   openDialog(): void {
 
     const CLIENT_ID = '638422083788996619';
-    const REDIRECT_URI = 'http://localhost:5000/authorize';
+    const REDIRECT_URI = environment.redirecturl;
     const AuthUrl = 'https://discordapp.com/api/oauth2/authorize?' +
                     'response_type=code' +
                     '&client_id=' + CLIENT_ID +

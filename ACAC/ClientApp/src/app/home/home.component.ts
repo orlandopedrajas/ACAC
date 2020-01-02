@@ -12,7 +12,5 @@ export class HomeComponent {
   constructor(private cookieService: CookieService) {
       this.discorduser = cookieService.get('discorduser');
       this.discordavatar = cookieService.get('discordavatar');
-
   }
-
 }
