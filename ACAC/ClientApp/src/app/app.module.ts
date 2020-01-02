@@ -18,13 +18,11 @@ import { WhoCanLotComponent } from './who-can-lot/who-can-lot.component';
 import { RaiderComponent } from './raiders/raider.component';
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { ItemDropHistoryComponent } from './item-drop-history/item-drop-history.component';
-import { ArchivedItemDropComponent } from './admin-pages/archived-item-drop/archived-item-drop.component';
 import { CookieService } from 'ngx-cookie-service';
 import { CharacterInfoComponent } from './components/character-info/character-info.component';
 import { ItemDropComponent } from './components/item-drop/item-drop.component';
 import { RoundRobinListComponent } from './components/round-robin-list/round-robin-list.component';
 import { ItemDropByFloorComponent } from './components/item-drop-by-floor/item-drop-by-floor.component';
-import { NineComponent } from './nine/nine.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { AuthorizeComponent } from './components/authorize/authorize.component';
 import { AlternateJobsComponent } from './alternate-jobs/alternate-jobs.component';
@@ -48,13 +46,11 @@ import { ManageRoundrobinListsComponent } from './admin-pages/manage-roundrobin-
     WhocanlotCoreComponent,
     RaiderComponent,
     ItemDropHistoryComponent,
-    ArchivedItemDropComponent,
     TooltipComponent,
     CharacterInfoComponent,
     ItemDropComponent,
     RoundRobinListComponent,
     ItemDropByFloorComponent,
-    NineComponent,
     ConfirmationDialogComponent,
     AuthorizeComponent,
     AlternateJobsComponent,

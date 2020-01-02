@@ -53,7 +53,7 @@ export class SavageItem {
         baseUrl = document.getElementsByTagName('base')[0].href + 'api/ACAC2/GetRaiderProfiles';
         this.http.get<any[]>(baseUrl).subscribe(result => {
          // console.log(result);
-          this.arrraiders = result; // .filter(r => r.raiditem === this.Si.raiditem).sort((a, b) => (a.raidername > b.raidername) ? 1 : -1);
+          this.arrraiders = result.sort((a, b) => (a.raidername > b.raidername) ? 1 : -1);
         }, error => console.error(error));
       } else {
         console.log(this.Si.contentid);
