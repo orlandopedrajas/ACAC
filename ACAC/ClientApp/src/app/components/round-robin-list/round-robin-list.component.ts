@@ -39,12 +39,13 @@ export class RoundRobinListComponent implements OnChanges {
         const baseUrl = document.getElementsByTagName('base')[0].href;
         this.http.get<any[]>(baseUrl + 'api/ACAC2/GetSpecificRoundRobinEntry?contentid=' +
                              this.contentid + '&Xraiditem=' + valueitem.raiditemname).subscribe(result => {
+
            this.raiditems.push({ contentid: valueitem.contentid,
                                  hasroundrobin: valueitem.hasroundrobin,
                                  id: valueitem.id,
                                  raiditemimg: valueitem.raiditemimg,
                                  raiditemname: valueitem.raiditemname,
-                                 items: result});
+                                 items: result.sort((a, b) => (a.raidername > b.raidername) ? 1 : -1)});
 
          }, error => console.error(error));
     }
