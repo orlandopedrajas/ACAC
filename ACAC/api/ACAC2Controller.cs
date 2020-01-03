@@ -12,7 +12,17 @@ namespace ACAC.api
     {
 
         #region "GET"
-
+        [HttpGet("[action]")]
+        public bool MigrateData()
+        {
+            try
+            {
+                db.DBHandler Dbh = new db.DBHandler();
+                Dbh.MigrateOldData();
+                return true;
+            }
+            catch { return false; }
+        }
         [HttpGet("[action]")]
         public IEnumerable<raider.Jobalternate> GetAllJOBAlternates()
         {
