@@ -1,5 +1,5 @@
 {
-  "FilePath": "c:\\Work\\source\\repos\\ACAC\\ACAC\\ACAC.csproj",
+  "FilePath": "c:\\Users\\sanok\\Downloads\\source\\ACAC\\ACAC\\ACAC.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-2.1",
     "LanguageVersion": "2.1",
@@ -2877,12 +2877,12 @@
   "RootNamespace": "ACAC",
   "Documents": [
     {
-      "FilePath": "c:\\Work\\source\\repos\\ACAC\\ACAC\\Pages\\_ViewImports.cshtml",
+      "FilePath": "c:\\Users\\sanok\\Downloads\\source\\ACAC\\ACAC\\Pages\\_ViewImports.cshtml",
       "TargetPath": "Pages\\_ViewImports.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Work\\source\\repos\\ACAC\\ACAC\\Pages\\Error.cshtml",
+      "FilePath": "c:\\Users\\sanok\\Downloads\\source\\ACAC\\ACAC\\Pages\\Error.cshtml",
       "TargetPath": "Pages\\Error.cshtml",
       "FileKind": "mvc"
     }
