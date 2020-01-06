@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../environments/environment';
+import { RaiderIdentity } from '../components/ACACComponents';
 
 @Component({
   selector: 'app-nav-menu',
@@ -22,6 +23,7 @@ export class NavMenuComponent implements OnInit {
   password: string;
 
   raiders: any[];
+  raiderIdentity: RaiderIdentity;
 
   constructor(private cookieService: CookieService, private http: HttpClient, public dialog: MatDialog) {
     const baseUrl = document.getElementsByTagName('base')[0].href;

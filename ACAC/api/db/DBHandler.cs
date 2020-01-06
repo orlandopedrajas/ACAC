@@ -9,34 +9,7 @@ namespace ACAC.api.db
     public class DBHandler
     {
         string DbPath = Path.Combine(AppContext.BaseDirectory, "ACAC3.db");
-        string OldPath = Path.Combine(AppContext.BaseDirectory, "ACAC2.db");
 
-        public void MigrateOldData()
-        {
-            // Phase 1: Profiles
-            // Step 1: clear current profiles
-            using (var D1 = new SQLiteConnection(DbPath))
-            {
-                TableExists("profile");
-                D1.Execute("Delete from profile");
-
-                using (var D2 = new SQLiteConnection(OldPath))
-                {
-                    IEnumerable<deprecate.profile> v = D2.Query<deprecate.profile>("Select * from profile");
-
-                    foreach (deprecate.profile v1 in v)
-                    {
-                        Type myType = v1.GetType();
-                        IList<PropertyInfo> props = new List<PropertyInfo>(myType.GetProperties());
-                        D1.Insert(new raider.profile()
-                        {
-                            raidername = v1.raidername,
-                            isadmin = true
-                        });
-                    }
-                }
-            }
-        }
         public void InsertUpdateJobAlternate(raider.Jobalternate ja)
         {
             using (var Db = new SQLite.SQLiteConnection(DbPath))
