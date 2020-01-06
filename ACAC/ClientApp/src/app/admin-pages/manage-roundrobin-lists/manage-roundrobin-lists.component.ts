@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { RaiderIdentity } from '../../components/ACACComponents';
 
 export class Rrr {
   contentid: number;
@@ -20,10 +22,14 @@ export class ManageRoundrobinListsComponent {
     validraiders: any[];
 
     rrr = new Rrr();
+    raiderIdentity: RaiderIdentity;
 
-    constructor(private http: HttpClient) {
-         this.getRaiders();
-         this.getRaidContent();
+    constructor(private cookieService: CookieService, private http: HttpClient) {
+      this.raiderIdentity = new RaiderIdentity(this.cookieService);
+      if (this.raiderIdentity.Raideridentity().IsAdmin === true) {
+        this.getRaiders();
+        this.getRaidContent();
+      } else { window.location.href = '/'; }
      }
 
     getRaidContent() {

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material';
-import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
 import { CookieService } from 'ngx-cookie-service';
+import { RaiderIdentity } from '../../components/ACACComponents';
 
 export class SavageItem {
   id: number;
@@ -28,14 +27,18 @@ export class SavageItem {
     arrraidcontentitem: any[];
     arrraiders: any[];
     drops = '0';
+    raiderIdentity: RaiderIdentity;
 
     // tslint:disable-next-line: no-use-before-declare
     Si = new SavageItem();
 
     // tslint:disable-next-line: variable-name
-    constructor(private http: HttpClient, private _SnackBar: MatSnackBar) {
-      this.Si.receiveddate = new Date();
-      this.GetRaidContent();
+    constructor(private cookieService: CookieService, private http: HttpClient, private _SnackBar: MatSnackBar) {
+      this.raiderIdentity = new RaiderIdentity(this.cookieService);
+      if (this.raiderIdentity.Raideridentity().IsAdmin === true) {
+        this.Si.receiveddate = new Date();
+        this.GetRaidContent();
+      } else { window.location.href = '/'; }
     }
 
     toggleRaidcontentitem() {
