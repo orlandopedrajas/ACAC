@@ -45,6 +45,7 @@ export class AuthorizeComponent {
              };
              this.http.get<any>('https://discordapp.com/api/users/@me', httpOptions)
              .subscribe(result1 => {
+                console.log(result1);
                 this.cookieService.set('discorduser', result1.username);
                 this.cookieService.set('discordavatar', 'https://cdn.discordapp.com/avatars/' + result1.id + '/' + result1.avatar);
                 this.raiderIdentity = new RaiderIdentity(this.cookieService);

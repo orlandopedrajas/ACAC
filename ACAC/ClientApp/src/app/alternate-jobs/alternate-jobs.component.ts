@@ -47,9 +47,12 @@ export class AlternateJobsComponent {
     }
 
     onEnableEdit(raider) {
+        console.log(raider);
+        console.log(this.raiderIdentity.raidername);
         if (this.raiderIdentity.raidername === raider) {
             this.enableedit = true;
         } else { this.enableedit = false; }
+        console.log(this.enableedit);
     }
     getJobAlternates() {
       const baseUrl = document.getElementsByTagName('base')[0].href;
@@ -62,9 +65,9 @@ export class AlternateJobsComponent {
         });
 
         this.http.get<any[]>(baseUrl + 'api/ACAC2/GetAllJOBAlternates').subscribe(result => {
-            // console.log(result);
+
             this.alternatejobs = [];
-            result.forEach((value) => {
+            result.sort((a, b) => (a.raidername > b.raidername) ? 1 : -1).forEach((value) => {
                 const a = result1.filter(r => r.raidername === value.raidername);
                 this.alternatejobs.push({raidername: value.raidername,
                                          alt1: value.alt1,
@@ -76,6 +79,7 @@ export class AlternateJobsComponent {
                                          raiderimg: a[0].raiderimg,
                                          pageroute: '/raiders/' + a[0].raidername });
             });
+            console.log(this.alternatejobs);
            }, error => console.error(error));
         });
 

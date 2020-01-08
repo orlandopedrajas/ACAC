@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../environments/environment';
+import { CookieService } from 'ngx-cookie-service';
 import { RaiderIdentity } from '../components/ACACComponents';
 
 @Component({
@@ -26,17 +26,19 @@ export class NavMenuComponent implements OnInit {
   raiderIdentity: RaiderIdentity;
 
   constructor(private cookieService: CookieService, private http: HttpClient, public dialog: MatDialog) {
+
     const baseUrl = document.getElementsByTagName('base')[0].href;
-    this.isAdmin = false;
-    this.discorduser = cookieService.get('discorduser');
-    this.discordavatar = cookieService.get('discordavatar');
+    this.raiderIdentity = new RaiderIdentity(this.cookieService);
+    this.isAdmin = this.raiderIdentity.Raideridentity().IsAdmin;
+    this.discorduser = this.raiderIdentity.Raideridentity().discorduser;
+    this.discordavatar = this.raiderIdentity.Raideridentity().discordavatar;
+
     if (this.discorduser.length === 0) {
       cookieService.deleteAll();
       this.loggedIn = false;
       this.discordavatar = 'assets/img/discord.png';
     } else {
        this.loggedIn = true;
-       if (this.discorduser === 'Lan Mantear') { this.isAdmin = true; }
     }
 
 }

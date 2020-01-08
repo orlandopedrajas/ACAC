@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material';
+import { CookieService } from 'ngx-cookie-service';
+import { RaiderIdentity } from '../../components/ACACComponents';
 
 @Component({
     selector: 'app-raid-floors',
@@ -23,11 +24,15 @@ import { MatDialog } from '@angular/material';
     hasroundrobin: false;
     isweapon: false;
     color = 'primary';
+    raiderIdentity: RaiderIdentity;
 
     // tslint:disable-next-line: variable-name
     constructor(private cookieService: CookieService, private http: HttpClient, private _SnackBar: MatSnackBar, public dialog: MatDialog) {}
     ngOnInit() {
-      this.getRaidContent();
+      this.raiderIdentity = new RaiderIdentity(this.cookieService);
+      if (this.raiderIdentity.Raideridentity().IsAdmin === true) {
+            this.getRaidContent();
+        } else { window.location.href = '/'; }
     }
 
     onSubmit() {
@@ -128,7 +133,7 @@ import { MatDialog } from '@angular/material';
                                             raiditemimg: this.raiditemimg,
                                             hasroundrobin: this.hasroundrobin
                                           });
-          const snackBarRef = this._SnackBar.open(this.raiditemname + ' added to ' + 
+          const snackBarRef = this._SnackBar.open(this.raiditemname + ' added to ' +
           value._raidContent.contentname, 'Done', { duration: 3000 });
           snackBarRef.afterDismissed().subscribe(() => { this.getRaidContent(); });
         }
