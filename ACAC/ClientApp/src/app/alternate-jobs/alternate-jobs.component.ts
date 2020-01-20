@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material';
 import { CookieService } from 'ngx-cookie-service';
 import { RaiderIdentity, ThisRaider } from '../components/ACACComponents';
+import { ConfirmationDialogComponent } from '../components/confirmation-dialog/confirmation-dialog.component';
 
 export class Jobalt {
     raidername: string;
@@ -47,12 +48,12 @@ export class AlternateJobsComponent {
     }
 
     onEnableEdit(raider) {
-        console.log(raider);
-        console.log(this.raiderIdentity.raidername);
+        // console.log(raider);
+        // console.log(this.raiderIdentity.raidername);
         if (this.raiderIdentity.raidername === raider) {
             this.enableedit = true;
         } else { this.enableedit = false; }
-        console.log(this.enableedit);
+        // console.log(this.enableedit);
     }
     getJobAlternates() {
       const baseUrl = document.getElementsByTagName('base')[0].href;
@@ -145,6 +146,7 @@ export class AlternateJobsComponent {
     }
 
     onSubmit() {
+
         const headerJson = {'Content-Type': 'application/json'};
         const header = new HttpHeaders(headerJson);
         this.http.post('./api/ACAC2/AddJobAlt', JSON.stringify(this.JAlt), {headers: header}).subscribe(
@@ -157,6 +159,30 @@ export class AlternateJobsComponent {
         });
     }
 
+    deleteJA(raidername) {
+
+        if (this.raiderIdentity.IsAdmin) {
+            const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+                width: '350px',
+                data: 'Delete Job alternate for ' + raidername + '?'
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    const headerJson = {'Content-Type': 'application/json'};
+                    const header = new HttpHeaders(headerJson);
+                    this.http.post('./api/ACAC2/DeleteJobalternate', JSON.stringify(raidername), {headers: header}).subscribe(
+                        (val) => { }, response => { }, () => { });
+
+                    const snackBarRef = this._SnackBar.open('Alts Entry removed for ' + raidername, 'Done',
+                    { duration: 3000 });
+                    snackBarRef.afterDismissed().subscribe(() => {
+                        this.getJobAlternates();
+                    });
+                }
+              });
+        }
+    }
     onAltchange(raider, alt1, alt2) {
         this.enableedit = false;
 

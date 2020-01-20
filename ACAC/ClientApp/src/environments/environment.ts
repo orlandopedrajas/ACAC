@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  redirecturl: 'http://localhost:5000/authorize'
+  redirecturl: 'http://localhost:5000//authorize'
 };
 
 /*
