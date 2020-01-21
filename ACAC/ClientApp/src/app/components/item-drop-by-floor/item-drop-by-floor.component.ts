@@ -1,7 +1,9 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { MatDialog } from '@angular/material';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
 import { RaiderIdentity, ThisRaider } from '../ACACComponents';
 import { DatePipe } from '@angular/common';
@@ -15,15 +17,17 @@ import { DatePipe } from '@angular/common';
 
 export class ItemDropByFloorComponent implements OnInit, OnChanges {
 
+    @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
     @Input() Displaytype: string; // 0 = recent, 1 = all, 2 = filter by floors, 3 = group by date
     @Input() Contentid: string;
     displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
     raiderIdentity: ThisRaider = new RaiderIdentity(this.cookieService).Raideridentity();
-    drops: any[] = null;
-    floors: any[] = null;
+    drops; // : any[] = null;
+    floors; // any[] = null;
     dropsraider: any[] = null;
     groupbydate: any[] = null;
-
+    dataSource;
     ngOnInit() {}
     ngOnChanges() {
         this.GetItems();
@@ -38,31 +42,38 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
             case '0': { // Recent drops
                 this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').subscribe(result1 => {
                     // console.log(result1);
-                    this.drops = result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1).slice(0, 5);
+                    this.drops = new MatTableDataSource(result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1));
+                    this.drops.paginator = this.paginator;
+                    // this.drops = result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1).slice(0, 5);
                 }, error => console.error(error));
                 break;
             }
             case '1': { // All drops
                 this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').subscribe(result1 => {
                     // console.log(result1);
-                    this.drops = result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1);
-                    // console.log(this.drops);
+                   // this.drops = result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1);
+                   this.drops = new MatTableDataSource(result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1));
+                   this.drops.paginator = this.paginator;
+                   // console.log(this.drops);
                 }, error => console.error(error));
                 break;
             }
             case '2': { // filter by floors, group by date
                 this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDropByContentId?contentid=' + this.Contentid).subscribe(result1 => {
+                    /*
                     this.groupbydate = [];
                     let currentdate = '';
                     result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1).forEach((value) => {
                         if (currentdate !== this.datePipe.transform(value.receiveddate, 'fullDate')) {
                             currentdate = this.datePipe.transform(value.receiveddate, 'fullDate');
                             this.groupbydate.push({floordate: currentdate,
-                                                   item: result1.filter(r => this.datePipe.transform(r.receiveddate, 'fullDate')
-                                                   === currentdate)
-                                                  });
+                                      // tslint:disable-next-line: max-line-length
+                                      item: new MatTableDataSource(result1.filter(r => this.datePipe.transform(r.receiveddate, 'fullDate') === currentdate))
+                                     });
                         }
-                    });
+                    });*/
+                    this.drops = new MatTableDataSource(result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1));
+                    this.drops.paginator = this.paginator;
                     // console.log(this.groupbydate);
                 }, error => console.error(error));
                 break;
