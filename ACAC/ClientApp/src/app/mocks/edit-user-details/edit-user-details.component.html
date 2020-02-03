@@ -1,0 +1,29 @@
+<div mat-dialog-title style="background-color: #ffffff;">
+    Edit Location Details
+<img src='https://d30y9cdsu7xlg0.cloudfront.net/png/53504-200.png' style="height:20px; width:20px; float: right;">
+</div>
+
+<div mat-dialog-content   style="background-color: rgba(186, 193, 198, 0.2);">
+    <table width='100%'>
+        <tr>
+            <td>
+                <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Location Name</mat-label>
+                    <input matInput  placeholder="Location Name" value="Shipping - OEM Partner">
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>Location Type</mat-label>
+                    <mat-radio-group aria-label="Location Type">
+                        <mat-radio-button value="1">Head Office</mat-radio-button>
+                        <mat-radio-button value="2">Billing Address</mat-radio-button>
+                        <mat-radio-button value="2">Shipping Address</mat-radio-button>
+                    </mat-radio-group>
+                </mat-form-field>               
+            </td>
+        </tr>
+    </table>
+</div>
