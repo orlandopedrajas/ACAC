@@ -140,7 +140,7 @@
             
             <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>    
+    </mat-table>  
 </div>
 <div *ngIf='floors'>
     <mat-accordion>
@@ -320,4 +320,5 @@
         </mat-expansion-panel>
     </mat-accordion>
 </div>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>  
 <br><br>

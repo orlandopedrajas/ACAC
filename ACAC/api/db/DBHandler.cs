@@ -100,6 +100,13 @@ namespace ACAC.api.db
                 return Db.Query<raid.Raiditeminfo>("Select * from Raiditeminfo where contentid=" + contentid);
             }
         }
+        public void DeleteJobAlternate(string raidername)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from Jobalternate where raidername='" + raidername + "'");
+            }
+        }
         public IEnumerable<raid.RaidContentResponse> GetRaidContent(string contentid)
         {
             List<raid.RaidContentResponse> rsp = new List<raid.RaidContentResponse>();
@@ -153,11 +160,11 @@ namespace ACAC.api.db
             {
                 if (raidername != null)
                 {
-                    return Db.Query<raid.RaidItemDrop>("Select * From RaidItemDrop where raidername='" + raidername + "'");
+                    return Db.Query<raid.RaidItemDrop>("Select * From RaidItemDrop where contentid not in(select id from raidcontent where isenabled = 0) and raidername='" + raidername + "'");
                 }
                 else
                 {
-                    return Db.Query<raid.RaidItemDrop>("Select * From RaidItemDrop");
+                    return Db.Query<raid.RaidItemDrop>("Select * From RaidItemDrop where contentid not in(select id from raidcontent where isenabled = 0)");
                 }
             }
         }

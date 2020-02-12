@@ -6,7 +6,7 @@
             <mat-list>
             <mat-list-item >
                 <div class="toLeft">
-                <img matListAvatar routerLink='{{ element.pageroute }}'
+                <img matListAvatar (click)="deleteJA(element.raidername)"
                 src='{{ element.raiderimg }}' 
                 matTooltip='{{element.raidername}}'
                 alt='{{ element.raidername }}'>

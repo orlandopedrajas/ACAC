@@ -1,4 +1,5 @@
 {
     "appService.preDeployTask": "publish-release",
-    "appService.deploySubpath": "ACAC/bin/Release/netcoreapp2.1/publish"
+    "appService.deploySubpath": "ACAC/bin/Release/netcoreapp2.1/publish",
+    "appService.defaultWebAppToDeploy": "None"
 }

@@ -280,7 +280,13 @@ namespace ACAC.api
             Dbh.DeleteRaidItemInfo(id);
             return Ok();
         }
-
+        [HttpPost("[action]")]
+        public IActionResult DeleteJobalternate([FromBody] string raidername)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.DeleteJobAlternate(raidername);
+            return Ok();
+        }
         [HttpPost("[action]")]
         public IActionResult DeleteItemDrop([FromBody] string id)
         {
