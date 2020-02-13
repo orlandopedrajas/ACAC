@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material';
-import { CookieService } from 'ngx-cookie-service';
 import { RaiderIdentity, ThisRaider } from '../components/ACACComponents';
 import { ConfirmationDialogComponent } from '../components/confirmation-dialog/confirmation-dialog.component';
 
@@ -38,9 +37,9 @@ export class AlternateJobsComponent {
                       'White Mage', 'Scholar', 'Astrologian'];
 
     JAlt = new Jobalt();
-    raiderIdentity: ThisRaider = new RaiderIdentity(this.cookieService).Raideridentity();
+    raiderIdentity: RaiderIdentity = new RaiderIdentity();
 
-    constructor(private cookieService: CookieService, private http: HttpClient,
+    constructor(private http: HttpClient,
                 // tslint:disable-next-line: variable-name
                 private _SnackBar: MatSnackBar, public dialog: MatDialog) {
         this.jobs = this.jobs.sort((a, b) => (a > b) ? 1 : -1);
@@ -50,7 +49,7 @@ export class AlternateJobsComponent {
     onEnableEdit(raider) {
         // console.log(raider);
         // console.log(this.raiderIdentity.raidername);
-        if (this.raiderIdentity.raidername === raider) {
+        if (this.raiderIdentity.Raideridentity().raidername === raider) {
             this.enableedit = true;
         } else { this.enableedit = false; }
         // console.log(this.enableedit);
@@ -80,7 +79,6 @@ export class AlternateJobsComponent {
                                          raiderimg: a[0].raiderimg,
                                          pageroute: '/raiders/' + a[0].raidername });
             });
-            console.log(this.alternatejobs);
            }, error => console.error(error));
         });
 

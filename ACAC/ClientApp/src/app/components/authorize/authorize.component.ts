@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
-import { RaiderIdentity } from '../ACACComponents';
+import { RaiderIdentity, ThisRaider } from '../ACACComponents';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -13,16 +12,16 @@ import { environment } from '../../../environments/environment';
 export class AuthorizeComponent {
     code: any;
     avatarImg: any;
-    raiderIdentity: RaiderIdentity;
 
-    constructor(private route: ActivatedRoute,  private http: HttpClient, private cookieService: CookieService) {
+    raider: ThisRaider;
+    constructor(private route: ActivatedRoute,  private http: HttpClient) {
 
         this.route.queryParams.subscribe(params => {
            // tslint:disable-next-line: no-string-literal
            this.code = params['code'];
         });
 
-        this.cookieService.deleteAll();
+        this.raider = new ThisRaider();
         const headerJson = {'Content-Type': 'application/x-www-form-urlencoded' };
         const header = new HttpHeaders(headerJson);
         const CLIENT_ID = '638422083788996619';
@@ -45,36 +44,27 @@ export class AuthorizeComponent {
              };
              this.http.get<any>('https://discordapp.com/api/users/@me', httpOptions)
              .subscribe(result1 => {
-                console.log(result1);
-                this.cookieService.set('discorduser', result1.username);
-                this.cookieService.set('discordavatar', 'https://cdn.discordapp.com/avatars/' + result1.id + '/' + result1.avatar);
-                this.raiderIdentity = new RaiderIdentity(this.cookieService);
+                this.raider.discorduser = result1.username;
+                this.raider.discordavatar = 'https://cdn.discordapp.com/avatars/' + result1.id + '/' + result1.avatar;
 
                 const baseUrl = document.getElementsByTagName('base')[0].href;
                 this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaiderProfilesByDiscordUser?discorduser=' + result1.username)
                 .subscribe(result2 => {
                     result2.forEach((value) => {
-                        this.cookieService.set('isadmin', value.isadmin);
-                        this.cookieService.set('israidmember', value.israidmember);
-                        this.cookieService.set('lodestoneid', value.lodestoneid);
-                        this.cookieService.set('raiderimg', value.raiderimg);
-                        this.cookieService.set('raidername', value.raidername);
-                        this.cookieService.set('raiderroute', value.raidername);
+                        this.raider.IsAdmin = value.isadmin;
+                        this.raider.israidmember = value.israidmember;
+                        this.raider.lodestoneid = value.lodestoneid;
+                        this.raider.raiderimg = value.raiderimg;
+                        this.raider.raidername = value.raidername;
+                        this.raider.raiderroute = value.raidername;
                     });
-                    window.location.href = '/raiders/' + this.raiderIdentity.Raideridentity().raiderroute;
+                    localStorage.setItem('user', JSON.stringify(this.raider));
+                    window.location.href = '/raiders/' + this.raider.raiderroute;
                 }, error => { });
              }, error => {
-                 console.log(error);
-                 this.cookieService.delete('discorduser', '/');
-                 this.cookieService.delete('discordavatar', '/');
-                 this.cookieService.deleteAll('/');
                  window.location.href = '/';
              });
          }, error => {
-            console.log(error);
-            this.cookieService.delete('discorduser', '/');
-            this.cookieService.delete('discordavatar', '/');
-            this.cookieService.deleteAll('/');
             window.location.href = '/';
          });
 

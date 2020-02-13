@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from '../../environments/environment';
-import { CookieService } from 'ngx-cookie-service';
-import { RaiderIdentity } from '../components/ACACComponents';
+import { RaiderIdentity, ThisRaider } from '../components/ACACComponents';
 
 @Component({
   selector: 'app-nav-menu',
@@ -23,24 +22,22 @@ export class NavMenuComponent implements OnInit {
   password: string;
 
   raiders: any[];
-  raiderIdentity: RaiderIdentity;
+  thisRaider: ThisRaider;
 
-  constructor(private cookieService: CookieService, private http: HttpClient, public dialog: MatDialog) {
+  constructor( private http: HttpClient, public dialog: MatDialog) {
 
     const baseUrl = document.getElementsByTagName('base')[0].href;
-    this.raiderIdentity = new RaiderIdentity(this.cookieService);
-    this.isAdmin = this.raiderIdentity.Raideridentity().IsAdmin;
-    this.discorduser = this.raiderIdentity.Raideridentity().discorduser;
-    this.discordavatar = this.raiderIdentity.Raideridentity().discordavatar;
-
-    if (this.discorduser.length === 0) {
-      cookieService.deleteAll();
+    this.thisRaider = JSON.parse(localStorage.getItem('user'));
+    if (this.thisRaider === null) {
+      localStorage.removeItem('user');
       this.loggedIn = false;
       this.discordavatar = 'assets/img/discord.png';
     } else {
-       this.loggedIn = true;
+      this.isAdmin = this.thisRaider.IsAdmin;
+      this.discorduser = this.thisRaider.discorduser;
+      this.discordavatar = this.thisRaider.discordavatar;
+      this.loggedIn = true;
     }
-
 }
 
   openDialog(): void {
@@ -57,9 +54,7 @@ export class NavMenuComponent implements OnInit {
     window.location.href = AuthUrl;
   }
   Onlogout(): void {
-     this.cookieService.delete('discorduser', '/');
-     this.cookieService.delete('discordavatar', '/');
-     this.cookieService.deleteAll('/');
+     localStorage.removeItem('user');
      window.location.reload();
   }
   collapse() {
@@ -78,7 +73,6 @@ export class NavMenuComponent implements OnInit {
     const baseUrl = document.getElementsByTagName('base')[0].href;
     this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaiderProfiles?raidername=').subscribe(result => {
       this.raiders = result;
-      // console.log(this.raiders);
     });
   }
 }

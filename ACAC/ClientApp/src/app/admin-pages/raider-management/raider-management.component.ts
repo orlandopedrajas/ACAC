@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CookieService } from 'ngx-cookie-service';
-import { RaiderIdentity } from '../../components/ACACComponents';
+import { RaiderIdentity, ThisRaider } from '../../components/ACACComponents';
 
 @Component({
     selector: 'app-raider-management',
@@ -18,14 +17,13 @@ export class RaiderManagementComponent implements OnInit {
     discorduser: string;
     lodestoneid: string;
     isadmin: false;
-    raiderIdentity: RaiderIdentity;
 
+    thisRaider: RaiderIdentity = new RaiderIdentity();
     // tslint:disable-next-line: variable-name
-    constructor(private cookieService: CookieService, private http: HttpClient, private _SnackBar: MatSnackBar) { }
+    constructor(private http: HttpClient, private _SnackBar: MatSnackBar) { }
 
     ngOnInit() {
-        this.raiderIdentity = new RaiderIdentity(this.cookieService);
-        if (this.raiderIdentity.Raideridentity().IsAdmin === true) {
+        if (this.thisRaider.IsAdmin() === true) {
             this.getRaiderProfiles();
         } else { window.location.href = '/'; }
     }

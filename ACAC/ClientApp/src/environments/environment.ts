@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   redirecturl: 'http://localhost:5000/authorize'
 };
 
@@ -13,5 +13,7 @@ export const environment = {
  *
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
+ * 'https://acac.azurewebsites.net/authorize'
+ * 'http://localhost:5000/authorize'
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
