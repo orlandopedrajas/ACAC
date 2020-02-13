@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
 import { RaiderIdentity, ThisRaider } from '../../components/ACACComponents';
 
 export class Attendance {
@@ -22,14 +21,14 @@ export class IEvent {
   export class AttendanceComponent {
     isDisabled: boolean;
     raiderprofiles: any[];
-    raiderIdentity: ThisRaider = new RaiderIdentity(this.cookieService).Raideridentity();
+    raiderIdentity: RaiderIdentity = new RaiderIdentity();
     thisAttendance: any[] = [];
     displayedColumns: string[] = ['Eventdate', 'Raidername', 'Attended'];
     obj: any[] = [];
 
     CurrentDate: Date;
-    constructor(private http: HttpClient, private cookieService: CookieService) {
-        if (!this.raiderIdentity.IsAdmin) { window.location.href = '/'; }
+    constructor(private http: HttpClient) {
+        if (!this.raiderIdentity.IsAdmin()) { window.location.href = '/'; }
         this.GetAttendance();
         this.getRaiderProfiles();
         this.isDisabled = false;

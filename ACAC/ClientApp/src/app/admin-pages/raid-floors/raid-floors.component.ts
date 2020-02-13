@@ -3,8 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material';
-import { CookieService } from 'ngx-cookie-service';
-import { RaiderIdentity } from '../../components/ACACComponents';
+import { RaiderIdentity, ThisRaider } from '../../components/ACACComponents';
 
 @Component({
     selector: 'app-raid-floors',
@@ -24,13 +23,12 @@ import { RaiderIdentity } from '../../components/ACACComponents';
     hasroundrobin: false;
     isweapon: false;
     color = 'primary';
-    raiderIdentity: RaiderIdentity;
+    raiderIdentity: RaiderIdentity = new RaiderIdentity();
 
     // tslint:disable-next-line: variable-name
-    constructor(private cookieService: CookieService, private http: HttpClient, private _SnackBar: MatSnackBar, public dialog: MatDialog) {}
+    constructor(private http: HttpClient, private _SnackBar: MatSnackBar, public dialog: MatDialog) {}
     ngOnInit() {
-      this.raiderIdentity = new RaiderIdentity(this.cookieService);
-      if (this.raiderIdentity.Raideridentity().IsAdmin === true) {
+      if (this.raiderIdentity.IsAdmin() === true) {
             this.getRaidContent();
         } else { window.location.href = '/'; }
     }
@@ -59,7 +57,6 @@ import { RaiderIdentity } from '../../components/ACACComponents';
 
     }
     onRoundrobinCheck(element) {
-     //  console.log(element.hasroundrobin, hasroundrobin);
       this.PostRequest('UpdateRaiditeminfo', {id: element.id,
                                               contentid: element.contentid,
                                               raiditemname: element.raiditemname,
@@ -84,9 +81,6 @@ import { RaiderIdentity } from '../../components/ACACComponents';
                                               contentdescription: content._raidContent.contentdescription,
                                               isenabled: content._raidContent.isenabled,
                                               contentimg: content._raidContent.contentimg});
-      // console.log(content._raidContent.id);
-     // const snackBarRef = this._SnackBar.open(content.contentname + ' updated.', 'Done', { duration: 3000 });
-     // snackBarRef.afterDismissed().subscribe(() => { this.getRaidContent(); });
 
     }
     OnRemoveItem(id) {
@@ -114,9 +108,7 @@ import { RaiderIdentity } from '../../components/ACACComponents';
       this.http.post('./api/ACAC2/' + requestRoute,
                      JSON.stringify(reqobj),
                      {headers: header}).subscribe(
-        (val) => { }, response => { }, () => {
-          // this.getRaidContent();
-      });
+        (val) => { }, response => { }, () => {      });
     }
 
     addRaidItem(content) {

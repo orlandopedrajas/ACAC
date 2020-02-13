@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CookieService } from 'ngx-cookie-service';
-import { RaiderIdentity } from '../../components/ACACComponents';
+import { RaiderIdentity, ThisRaider } from '../../components/ACACComponents';
 
 export class SavageItem {
   id: number;
@@ -27,15 +26,15 @@ export class SavageItem {
     arrraidcontentitem: any[];
     arrraiders: any[];
     drops = '0';
-    raiderIdentity: RaiderIdentity;
+    raiderIdentity: RaiderIdentity = new RaiderIdentity();
 
     // tslint:disable-next-line: no-use-before-declare
     Si = new SavageItem();
 
     // tslint:disable-next-line: variable-name
-    constructor(private cookieService: CookieService, private http: HttpClient, private _SnackBar: MatSnackBar) {
-      this.raiderIdentity = new RaiderIdentity(this.cookieService);
-      if (this.raiderIdentity.Raideridentity().IsAdmin === true) {
+    constructor( private http: HttpClient, private _SnackBar: MatSnackBar) {
+
+      if (this.raiderIdentity.IsAdmin() === true) {
         this.Si.receiveddate = new Date();
         this.GetRaidContent();
       } else { window.location.href = '/'; }
@@ -55,7 +54,6 @@ export class SavageItem {
       if (this.override) {
         baseUrl = document.getElementsByTagName('base')[0].href + 'api/ACAC2/GetRaiderProfiles';
         this.http.get<any[]>(baseUrl).subscribe(result => {
-         // console.log(result);
           this.arrraiders = result.sort((a, b) => (a.raidername > b.raidername) ? 1 : -1);
         }, error => console.error(error));
       } else {
@@ -63,7 +61,6 @@ export class SavageItem {
         if (typeof this.Si.contentid !== 'undefined') {
           baseUrl = document.getElementsByTagName('base')[0].href + 'api/ACAC2/GetRoundRobinList?contentid=' + this.Si.contentid;
           this.http.get<any[]>(baseUrl).subscribe(result => {
-          // console.log(result);
             this.arrraiders = [];
             result.filter(r => r.raiditem === this.Si.raiditem).sort((a, b) => (a.raidername > b.raidername) ? 1 : -1).forEach((value) => {
               this.arrraiders.push({ raidername: value.raidername,
@@ -89,7 +86,7 @@ export class SavageItem {
       const baseUrl = document.getElementsByTagName('base')[0].href;
       this.arrraidcontentname = [];
       this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidContent').subscribe(result => {
-        result.forEach((val) => {
+        result.filter(r => r._raidContent.isenabled === true).forEach((val) => {
           this.arrraidcontentname.push({value: val._raidContent.id, viewValue: val._raidContent.contentname});
         });
       }, error => console.error(error));
@@ -100,10 +97,8 @@ export class SavageItem {
       this.arrraidcontentitem = [];
       this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidContent?contentid=' + this.Si.contentid).subscribe(result => {
         result[0]._RaidItems.forEach((val) => {
-          // console.log(val);
           this.arrraidcontentitem.push({value: val.id, viewValue: val.raiditemname});
         });
-       //  console.log(this.arrraidcontentitem);
       }, error => console.error(error));
     }
 
@@ -121,6 +116,5 @@ export class SavageItem {
             this.drops = '0';
            });
         }, response => { console.log('POST call in error', response); }, () => { });
-      // console.log(this.Si);
     }
   }

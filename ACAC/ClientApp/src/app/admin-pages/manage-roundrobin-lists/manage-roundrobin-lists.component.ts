@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
-import { RaiderIdentity } from '../../components/ACACComponents';
+import { RaiderIdentity, ThisRaider } from '../../components/ACACComponents';
 
 export class Rrr {
   contentid: number;
@@ -22,11 +21,10 @@ export class ManageRoundrobinListsComponent {
     validraiders: any[];
 
     rrr = new Rrr();
-    raiderIdentity: RaiderIdentity;
+    raiderIdentity: RaiderIdentity = new RaiderIdentity();
 
-    constructor(private cookieService: CookieService, private http: HttpClient) {
-      this.raiderIdentity = new RaiderIdentity(this.cookieService);
-      if (this.raiderIdentity.Raideridentity().IsAdmin === true) {
+    constructor(private http: HttpClient) {
+      if (this.raiderIdentity.IsAdmin() === true) {
         this.getRaiders();
         this.getRaidContent();
       } else { window.location.href = '/'; }
@@ -66,7 +64,6 @@ export class ManageRoundrobinListsComponent {
         const baseUrl = document.getElementsByTagName('base')[0].href;
         this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaiderProfiles').subscribe(result => {
           this.raiders = result.filter(r => r.israidmember === true);
-          // console.log(this.raiders);
         });
      }
 
@@ -75,7 +72,6 @@ export class ManageRoundrobinListsComponent {
        this.rrr.contentid = contentid;
        this.rrr.raiditem = raiditem;
        this.rrr.raideriteminfo = raiditemid;
-       // console.log(this.rrr);
      }
      onSubmit() {
         const headerJson = {'Content-Type': 'application/json'};

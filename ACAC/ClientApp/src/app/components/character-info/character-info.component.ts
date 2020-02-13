@@ -61,10 +61,12 @@ export class Charprofile {
     ring1: any;
     ring2: any;
     soulcrystal: any;
+    refreshdate: Date;
 
     constructor() {  }
     public getRaider(http: HttpClient, result: any) {
 
+        this.refreshdate = new Date();
         this.name = result.Character.Name;
         this.server = result.Character.Server;
         this.dc = result.Character.DC;
@@ -122,13 +124,28 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
     ngOnInit() { }
 
     ngOnChanges() {
-      this.characterprofile = new Charprofile();
-      this.http.get<any[]>('https://xivapi.com/character/' + this.characterid + '?data=fc&extended=1')
-      .subscribe(newObj => {
-        const result: any = newObj;
-        this.characterprofile.getRaider(this.http, result);
-        // console.log(this.characterprofile);
-      }, error => console.error(error));
+
+      let pulldata = false;
+      this.characterprofile = JSON.parse(localStorage.getItem(this.characterid));
+
+      if (this.characterprofile  === null) {
+        pulldata = true;
+      } else {
+        const t = new Date(this.characterprofile.refreshdate).valueOf() - new Date(this.characterprofile.refreshdate).valueOf();
+        const diff = Math.ceil(t / (1000 * 3600 * 24));
+        if (diff > t ) { pulldata = true; }
+      }
+
+      if (pulldata) {
+        localStorage.removeItem(this.characterid);
+        this.characterprofile = new Charprofile();
+        this.http.get<any[]>('https://xivapi.com/character/' + this.characterid + '?data=fc&extended=1')
+        .subscribe(newObj => {
+          const result: any = newObj;
+          this.characterprofile.getRaider(this.http, result);
+          localStorage.setItem(this.characterid, JSON.stringify(this.characterprofile));
+        }, error => console.error(error));
+      }
     }
     constructor(public http: HttpClient, private dialog: MatDialog) {    }
 
@@ -137,16 +154,6 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
       this.dialog.open(TooltipComponent, {
         data: { item: sitem }}
       );
-
-      // console.log(sitem);
-
-      // this.http.get<any>('https://xivapi.com/item/' + sitem.Item.ID)
-      // .subscribe(result => {
-      //   this.dialog.open(TooltipComponent, {
-      //     data: { item: sitem,
-      //             item2: result }}
-      //   );
-      // });
 
     }
 }
