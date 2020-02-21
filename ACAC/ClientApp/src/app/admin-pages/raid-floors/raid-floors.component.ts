@@ -48,8 +48,7 @@ import { RaiderIdentity, ThisRaider } from '../../components/ACACComponents';
     getRaidContent() {
       const baseUrl = document.getElementsByTagName('base')[0].href;
       this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidContent?contentid=').subscribe(result => {
-        this.raidContent = result;
-        console.log(this.raidContent);
+        this.raidContent = result.sort((a, b) => (a._raidContent.isenabled < b._raidContent.isenabled) ? 1 : -1);
       });
     }
 

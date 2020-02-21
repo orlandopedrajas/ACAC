@@ -312,6 +312,13 @@ namespace ACAC.api
         }
 
         [HttpPost("[action]")]
+        public IActionResult AddRaidItemFromACT([FromBody] string request)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            
+            return Ok();
+        }
+        [HttpPost("[action]")]
         public IActionResult AddRaidItemDrop([FromBody] raid.RaidItemDrop x)
         {
             db.DBHandler Dbh = new db.DBHandler();
