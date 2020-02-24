@@ -72,9 +72,9 @@ export class Charprofile {
         this.dc = result.Character.DC;
         this.portrait = result.Character.Portrait;
         this.avatar = result.Character.Avatar;
-        this.level = result.Character.ActiveClassJob.Level;
-        this.activeclass = result.Character.ActiveClassJob.Name.toUpperCase();
-        this.jobicon = 'https://xivapi.com' + result.Character.ActiveClassJob.Job.Icon;
+        try { this.level = this.EvaluateGear(result.Character.ActiveClassJob.Level); } catch (e) { }
+        try {this.activeclass = this.EvaluateGear(result.Character.ActiveClassJob.Name.toUpperCase());} catch (e) { }
+        try { this.jobicon = this.EvaluateGear('https://xivapi.com' + result.Character.ActiveClassJob.Job.Icon); } catch (e) { }
 
         try { this.mainhand = this.EvaluateGear(result.Character.GearSet.Gear.MainHand); } catch (e) { }
         try { this.head = this.EvaluateGear(result.Character.GearSet.Gear.Head); } catch (e) { }
@@ -99,7 +99,9 @@ export class Charprofile {
     }
 
     EvaluateGear(gear) {
-        return gear;
+      if (gear === null) {
+        return '';
+      } else { return gear; }
     }
     delay(ms: number) {
         new Promise(resolve =>
@@ -142,7 +144,9 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
         this.http.get<any[]>('https://xivapi.com/character/' + this.characterid + '?data=fc&extended=1')
         .subscribe(newObj => {
           const result: any = newObj;
+          // console.log(result);
           this.characterprofile.getRaider(this.http, result);
+          // console.log(this.characterprofile);
           localStorage.setItem(this.characterid, JSON.stringify(this.characterprofile));
         }, error => console.error(error));
       }

@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SQLite;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ACAC.api
 {
@@ -312,10 +314,11 @@ namespace ACAC.api
         }
 
         [HttpPost("[action]")]
-        public IActionResult AddRaidItemFromACT([FromBody] string request)
+        public IActionResult AddRaidItemFromACT([FromBody] JToken x)
         {
             db.DBHandler Dbh = new db.DBHandler();
-            
+            var usersArray = x.ToObject<raid.kapture[]>();
+           // string id =  (string)(x["XIVEvent"].Where(r => (string)r["Name"]).ToList()[0]);
             return Ok();
         }
         [HttpPost("[action]")]
