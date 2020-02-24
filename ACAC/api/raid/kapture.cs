@@ -5,9 +5,6 @@ using System.Threading.Tasks;
 
 namespace ACAC.api.raid
 {
-
-
-
     public class kapture
     {
         public class ACTLogLineEvents
@@ -31,6 +28,35 @@ namespace ACAC.api.raid
             public string SingularName { get; set; }
             public string PluralName { get; set; }
             public string Quantity { get; set; }
+
+            public string RaidDropItem()
+            {
+                if (ProperName.ToLower() == "Edenchoir Waist Gear Coffer".ToLower() ||
+                    ProperName.ToLower() == "Edenchoir Earring Coffer".ToLower() ||
+                    ProperName.ToLower() == "Edenchoir Necklace Coffer".ToLower() ||
+                    ProperName.ToLower() == "Edenchoir Bracelet Coffer".ToLower() ||
+                        ProperName.ToLower() == "Edenchoir Ring Coffer".ToLower())
+                {
+                    return "Accessory Coffer";
+                }
+                else if (ProperName.ToLower() == "Edenchoir Head Gear Coffer".ToLower() ||
+                         ProperName.ToLower() == "Edenchoir Hand Gear Coffer".ToLower() ||
+                         ProperName.ToLower() == "Edenchoir Foot Gear Coffer".ToLower() ||
+                         ProperName.ToLower() == "Edenchoir Leg Gear Coffer".ToLower())
+                {
+                    return "Equipment Coffer";
+                }
+                else if (ProperName.ToLower() == "Edenchoir Chest Gear Coffer".ToLower())
+                {
+                    return "Chest Coffer";
+                }
+                else if (ProperName.ToLower() == "Edenchoir Weapon Coffer".ToLower())
+                {
+                    return "Weapon Coffer";
+                }
+                else
+                { return ProperName; }
+            }
         }
         public class Actors
         {
@@ -52,6 +78,15 @@ namespace ACAC.api.raid
             public Worlds CurrentWorld { get; set; }
             public Worlds HomeWorld { get; set; }
             public string IsReporter { get; set; }
+            public string RaiderName()
+            {
+                db.DBHandler Dbh = new db.DBHandler();
+                foreach (raider.profile p in Dbh.GetUserprofiles(Name))
+                {
+                    return p.raidername;
+                }
+                return "PUG";
+            }
         }
         public class Locations
         {
