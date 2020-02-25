@@ -133,6 +133,13 @@ namespace ACAC.api.db
             }
             return rsp;
         }
+        public void RunCommand(string Command)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute(Command);
+            }
+        }
         public IEnumerable<raid.RaidContent> GetRaidContentOnly(string contentid)
         {
             using (var Db = new SQLiteConnection(DbPath))

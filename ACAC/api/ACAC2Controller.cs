@@ -321,26 +321,35 @@ namespace ACAC.api
             raid.kapture k = usersArray[0];
 
             raid.RaidItemDrop rid = new raid.RaidItemDrop();
-           
+            rid.receiveddate = DateTime.Parse(k.ACTLogLineEvent.DetectedTime);
+            rid.raidername = k.XIVEvent.Actor.RaiderName();
+            rid.raiditem = k.XIVEvent.Item.RaidDropItem();
             foreach (raid.RaidContentResponse r in GetRaidContent(null))
             {
                 if (r._raidContent.isenabled && k.ACTLogLineEvent.DetectedZone.ToLower().Contains(r._raidContent.contentname))
                 {
                     rid.contentid = r._raidContent.id;
-                    rid.receiveddate = DateTime.Parse(k.ACTLogLineEvent.DetectedTime);
-                    rid.raidername = k.XIVEvent.Actor.RaiderName();
                     foreach (raid.Raiditeminfo rii in Dbh.GetRaidItemInfo(rid.contentid.ToString()))
                     {
                         if (rii.raiditemname.ToLower() == k.XIVEvent.Item.RaidDropItem().ToLower())
                         {
                             rid.raiditem = rii.raiditemname;
                             rid.raiditeminfoid = rii.id;
+                            AddRaidItemDrop(rid);
+                            return Ok();
                         }
                     }
                 }
-                AddRaidItemDrop(rid);
             }
             
+            return Ok();
+        }
+    
+        [HttpPost("[action]")]
+        public IActionResult RunCommand([FromBody] string x)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.RunCommand(x);
             return Ok();
         }
         [HttpPost("[action]")]
