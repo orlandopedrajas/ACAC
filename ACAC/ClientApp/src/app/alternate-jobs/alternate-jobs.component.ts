@@ -44,11 +44,12 @@ export class AlternateJobsComponent {
                 private _SnackBar: MatSnackBar, public dialog: MatDialog) {
         this.jobs = this.jobs.sort((a, b) => (a > b) ? 1 : -1);
         this.getJobAlternates();
+        // console.log(this.raiderIdentity.Raideridentity());
     }
 
     onEnableEdit(raider) {
-        // console.log(raider);
-        // console.log(this.raiderIdentity.raidername);
+       //  console.log(raider);
+       // console.log(this.raiderIdentity.Raideridentity().raidername);
         if (this.raiderIdentity.Raideridentity().raidername === raider) {
             this.enableedit = true;
         } else { this.enableedit = false; }

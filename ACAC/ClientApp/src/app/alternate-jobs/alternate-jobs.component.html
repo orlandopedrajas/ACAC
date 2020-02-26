@@ -17,7 +17,7 @@
     <ng-container matColumnDef="alt1" >
         <mat-header-cell *matHeaderCellDef> Alt 1 </mat-header-cell>
         <mat-cell *matCellDef="let element; let i = index" >
-            <ng-container *ngIf="enableedit && element.raidername === this.raiderIdentity.raidername; else viewonly">
+            <ng-container *ngIf="enableedit && element.raidername === this.raiderIdentity.Raideridentity().raidername; else viewonly">
                 <mat-select placeholder="Alternate 1" name="i" [(ngModel)]="element.alt1" (blur)="onBlur()"  (selectionChange)="onAltchange(element.raidername,element.alt1, element.alt2)">
                     <mat-option *ngFor="let job of jobs" [value]="job">
                     {{ job }}
@@ -41,7 +41,7 @@
     <ng-container matColumnDef="alt2">
         <mat-header-cell *matHeaderCellDef> Alt 2</mat-header-cell>
         <mat-cell *matCellDef="let element; let i = index" >
-            <ng-container *ngIf="enableedit && element.raidername === this.raiderIdentity.raidername; else viewonly">
+            <ng-container *ngIf="enableedit && element.raidername === this.raiderIdentity.Raideridentity().raidername; else viewonly">
                 <mat-select placeholder="Alternate 2" name="i" [(ngModel)]="element.alt2"  (selectionChange)="onAltchange(element.raidername,element.alt1, element.alt2)">
                     <mat-option *ngFor="let job of jobs" [value]="job">
                     {{ job }}
