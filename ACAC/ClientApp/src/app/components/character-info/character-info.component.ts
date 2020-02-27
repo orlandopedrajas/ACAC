@@ -126,7 +126,11 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
     ngOnInit() { }
 
     ngOnChanges() {
+      this.refreshRaider(false);
+    }
+    constructor(public http: HttpClient, private dialog: MatDialog) {    }
 
+    refreshRaider(override) {
       let pulldata = false;
       this.characterprofile = JSON.parse(localStorage.getItem(this.characterid));
 
@@ -138,7 +142,7 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
         if (diff > t ) { pulldata = true; }
       }
 
-      if (pulldata) {
+      if (pulldata || override) {
         localStorage.removeItem(this.characterid);
         this.characterprofile = new Charprofile();
         this.http.get<any[]>('https://xivapi.com/character/' + this.characterid + '?data=fc&extended=1')
@@ -151,8 +155,6 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
         }, error => console.error(error));
       }
     }
-    constructor(public http: HttpClient, private dialog: MatDialog) {    }
-
     openDialog(sitem) {
 
       this.dialog.open(TooltipComponent, {

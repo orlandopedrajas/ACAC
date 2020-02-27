@@ -126,9 +126,9 @@ export class DoughnutChartComponent implements OnInit, OnChanges {
     }
 
     loadAttendance() {
-        this.barChartLabels = ['Tuesday', 'Thurday', 'Monday', 'Optional'];
+        this.barChartLabels = ['Tuesday', 'Wednesday', 'Thursday', 'Optional'];
         const baseUrl = document.getElementsByTagName('base')[0].href;
-        this.http.get<any[]>(baseUrl + 'api/ACAC/GetAllAttendance').subscribe(result => {
+        this.http.get<any[]>(baseUrl + 'api/ACAC2/GetAllAttendance').subscribe(result => {
 
             let res: any[];
             if (this.Filter === 'ALL') {
@@ -137,15 +137,15 @@ export class DoughnutChartComponent implements OnInit, OnChanges {
 
             if (res.length > 0) { this.hasdata = true; }
             this.attendanceList = res;
-            const mon = res.filter( r => r.eventdate.indexOf('Mon') !== -1);
+            const wed = res.filter( r => r.eventdate.indexOf('Wed') !== -1);
             const tue = res.filter( r => r.eventdate.indexOf('Tue') !== -1);
             const thu = res.filter( r => r.eventdate.indexOf('Thu') !== -1);
-            const opt = res.filter( r => r.eventdate.indexOf('Mon') === -1
+            const opt = res.filter( r => r.eventdate.indexOf('Wed') === -1
                                       && r.eventdate.indexOf('Tue') === -1
                                       && r.eventdate.indexOf('Thu') === -1
                             );
-            let imon = 0;
-            let imon2 = 0;
+            let iwed = 0;
+            let iwed2 = 0;
             let itue = 0;
             let itue2 = 0;
             let ithu = 0;
@@ -153,10 +153,10 @@ export class DoughnutChartComponent implements OnInit, OnChanges {
             let iopt = 0;
             let iopt2 = 0;
 
-            mon.forEach((value) => {
+            wed.forEach((value) => {
                 if (value.attended === true) {
-                    imon += 1;
-                } else { imon2 += 1; }
+                    iwed += 1;
+                } else { iwed2 += 1; }
             });
             tue.forEach((value) => {
                 if (value.attended === true) {
@@ -175,8 +175,8 @@ export class DoughnutChartComponent implements OnInit, OnChanges {
             });
 
             this.barChartData = [
-                {data: [itue2, ithu2, imon2, iopt2], label: 'Absent'},
-                {data: [itue, ithu, imon, iopt], label: 'Attended'}, ];
+                {data: [itue2, iwed2, ithu2, iopt2], label: 'Absent'},
+                {data: [itue, iwed, ithu, iopt], label: 'Attended'}, ];
 
          });
     }
