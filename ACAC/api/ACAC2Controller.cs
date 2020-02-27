@@ -314,11 +314,12 @@ namespace ACAC.api
         }
 
         [HttpPost("[action]")]
-        public IActionResult AddRaidItemFromACT([FromBody] JToken x)
+        public IActionResult AddRaidItemFromACT([FromBody] object x)
         {
             db.DBHandler Dbh = new db.DBHandler();
-            var usersArray = x.ToObject<raid.kapture[]>();
-            raid.kapture k = usersArray[0];
+            string usersArray = x.ToString();
+            
+            raid.kapture k = JsonConvert.DeserializeObject<raid.kapture>(usersArray);
 
             raid.RaidItemDrop rid = new raid.RaidItemDrop();
             rid.receiveddate = DateTime.Parse(k.ACTLogLineEvent.DetectedTime);
@@ -326,7 +327,7 @@ namespace ACAC.api
             rid.raiditem = k.XIVEvent.Item.RaidDropItem();
             foreach (raid.RaidContentResponse r in GetRaidContent(null))
             {
-                if (r._raidContent.isenabled && k.ACTLogLineEvent.DetectedZone.ToLower().Contains(r._raidContent.contentname))
+                if (r._raidContent.isenabled && k.ACTLogLineEvent.DetectedZone.ToLower().Contains(r._raidContent.contentname.ToLower()))
                 {
                     rid.contentid = r._raidContent.id;
                     foreach (raid.Raiditeminfo rii in Dbh.GetRaidItemInfo(rid.contentid.ToString()))
@@ -337,7 +338,7 @@ namespace ACAC.api
                             rid.raiditeminfoid = rii.id;
                             AddRaidItemDrop(rid);
                             return Ok();
-                        }
+                        }  
                     }
                 }
             }

@@ -1,11 +1,11 @@
 <div class="divRow">
-    <div class="contentColumn1" style="width:100%;">
+    <div class="contentColumn1">
         <mat-tab-group [selectedIndex]="selected" (selectedTabChange)="tabChanged($event)">
             <mat-tab *ngFor="let char of raider">
                 <ng-template mat-tab-label>
                     <mat-list>
                         <mat-list-item>
-                            <img matListAvatar src='{{ char.raiderimg }}'>     
+                            <img matListAvatar src='{{ char.raiderimg }}'> 
                         </mat-list-item>
                     </mat-list>
                 </ng-template>
