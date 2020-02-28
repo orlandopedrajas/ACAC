@@ -2,7 +2,7 @@
 <div *ngIf="characterprofile.name">
     <mat-list>
         <mat-list-item>
-            <img matListAvatar src='{{ characterprofile.avatar }}'>&nbsp;&nbsp;
+            <img matListAvatar src='{{ characterprofile.avatar }}' (click)='refreshRaider(true)'>&nbsp;&nbsp;
             <h2>{{ characterprofile.name }}&nbsp;&nbsp;</h2><h6>~{{ characterprofile.freecompanyname }}</h6>
         </mat-list-item>
         <mat-list-item>
