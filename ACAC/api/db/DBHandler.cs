@@ -25,6 +25,7 @@ namespace ACAC.api.db
                 }
             }
         }
+        
         public IEnumerable<raider.Jobalternate> GetAllJOBAlternates()
         {
             using (var Db = new SQLite.SQLiteConnection(DbPath))
@@ -215,6 +216,21 @@ namespace ACAC.api.db
                 {
                     Db.CreateTable<raid.RaidContent>();
                     Db.Insert(raidContent);
+                }
+            }
+        }
+        public void AddLog(logs log)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                try
+                {
+                    Db.Insert(log);
+                }
+                catch
+                {
+                    Db.CreateTable<logs>();
+                    Db.Insert(log);
                 }
             }
         }

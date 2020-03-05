@@ -12,6 +12,7 @@ export class TooltipComponent {
     itemdamage;
     itemdelayms;
     itemautoattack;
+    profileinfo = false;
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
         // console.log(data);
