@@ -1,5 +1,5 @@
 <p *ngIf="!characterprofile.name"><mat-progress-bar mode="indeterminate"></mat-progress-bar></p>
-<div *ngIf="characterprofile.name">
+<div *ngIf="characterprofile.name" style="width:375px;">
     <mat-list>
         <mat-list-item>
             <img matListAvatar src='{{ characterprofile.avatar }}' (click)='refreshRaider(true)'>&nbsp;&nbsp;
@@ -16,7 +16,7 @@
             </table>  
         </mat-list-item>
     </mat-list>
-    <div class="contentColumn1" style="width: 100%">
+    <div class="contentColumn1" style="width: 100%;">
         <div class="divrow">
             <div class="divcolumn1">
                 <mat-list>

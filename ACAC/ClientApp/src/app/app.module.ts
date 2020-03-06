@@ -36,6 +36,7 @@ import { RaiderInfoComponent } from './components/raider-info/raider-info.compon
 import { RaiderManagementComponent } from './admin-pages/raider-management/raider-management.component';
 import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-raiditem-drop.component';
 import { ManageRoundrobinListsComponent } from './admin-pages/manage-roundrobin-lists/manage-roundrobin-lists.component';
+import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ManageRoundrobinListsComponent } from './admin-pages/manage-roundrobin-
     RoundRobinListComponent,
     ItemDropByFloorComponent,
     ConfirmationDialogComponent,
+    BottomSheetComponent,
     AuthorizeComponent,
     AlternateJobsComponent,
     PieChartComponent,
@@ -79,6 +81,7 @@ import { ManageRoundrobinListsComponent } from './admin-pages/manage-roundrobin-
   providers: [ CookieService ],
   entryComponents: [TooltipComponent,
                     ConfirmationDialogComponent,
+                    BottomSheetComponent,
                    ],
   bootstrap: [AppComponent]
 })

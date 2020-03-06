@@ -2,6 +2,8 @@ import { Component, OnChanges, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { TooltipComponent } from '../tooltip/tooltip.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { BottomSheetComponent } from '../bottom-sheet/bottom-sheet.component';
 
 export class RoundRobinList {
     listname: string;
@@ -35,7 +37,8 @@ export class RoundRobinListComponent implements OnChanges {
 
 
     }
-    constructor(private http: HttpClient, private dialog: MatDialog) {  }
+    // tslint:disable-next-line: variable-name
+    constructor(private http: HttpClient, private dialog: MatDialog, private _bottomSheet: MatBottomSheet) {  }
 
     Generateroundrobinlist(valueitem) {
         const baseUrl = document.getElementsByTagName('base')[0].href;
@@ -61,7 +64,10 @@ export class RoundRobinListComponent implements OnChanges {
           data: { item: sitem }}
         );
 
-      }
-
-      closeDialog() { this.dialog.closeAll(); }
+    }
+    openBottomSheet(lodestoneid): void {
+       // console.log(lodestoneid);
+        this._bottomSheet.open(BottomSheetComponent, {data: { item: lodestoneid}});
+    }
+    closeDialog() { this.dialog.closeAll(); }
 }
