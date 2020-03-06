@@ -67,7 +67,7 @@ export class RoundRobinListComponent implements OnChanges {
     }
     openBottomSheet(lodestoneid): void {
        // console.log(lodestoneid);
-        this._bottomSheet.open(BottomSheetComponent, {data: { item: lodestoneid}});
+        this._bottomSheet.open(BottomSheetComponent, {data: { lodestoneid}});
     }
     closeDialog() { this.dialog.closeAll(); }
 }
