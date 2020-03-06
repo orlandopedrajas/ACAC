@@ -43,6 +43,7 @@
         </mat-list>          
     </mat-card-content>
 </mat-card>
-<mat-card *ngIf="profileinfo">
-<!--https://lh3.googleusercontent.com/GFarHvcgbgeOq0MaIZ5mYXQVc_xqyOczsjx1Pm6Nf5vOYbZ8HKzxF6i0sxPVr_OiU7hAzGprc993PzBoE5ekySttFdPD1X56frqeC_BPMXLEn3MbhqzfuxBvJGjHPcE60DzY-DV0ljtJ8j0P1-E-gHm6X-72qlJt6Sj7rCY7SFYrwusl7SViC4iEXfD30idQ8Y8LIxA_CMyd5vjDmhDHNUVTPmK5KTvWAxtGKBbJwqbBqelmDTKoDvnpQ4UkppcPPF3mBubJK-D5ZYuRpixoQMZtyDib7tGvifw42mCHrGiMUZZcK0Db0Q3-7rJzSCaOwVCd3lXwFEij8Zx4oTtu1nUMbX8Eu3qF7rtAATRXR1cUE3U5Gy7CH7nycLdQwjY9Yg-wImpKrCxrgwDTTy2mNHo_5Ec7PQY9eLP5pcqmlf03EDDxUNxjrOdVWckLJ1BIGWrCB2dRoDsHxCdd44m8nSbn35oQDEB1LoXcGYeH4u0sNEDre62F1bCW0oJ_XYK4Jq9GGvtdAqgmdjZg03H1O7h6i0LcLlm-w9C7zK2e_7Up-1M8ydr_vJJY9IfdJolcBk_4ox0MQ8wylAihVwCh9MSfZ7hDTiOCsj7J9Axv6MAUdtwlr3S2EWJvo7DQY05MGaj1FeLT1wJePATIyxzEzZwxr4T77YzbbSqK1XozVoaxCqwX4TfOJH7baynYc2A3MJLx3KHQxpO1mWZ3EaZ5SPPOLqlAaEjSxH86Tcq5hZtFUs_HrA=w873-h908-no-->
-</mat-card>
+<mat-dialog-content *ngIf='profileinfo'>
+    <app-character-info [characterid]='profileinfo'></app-character-info>
+</mat-dialog-content>
+
