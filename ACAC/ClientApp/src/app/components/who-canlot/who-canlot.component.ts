@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Api } from '../helpers/api';
 
 @Component({
     selector: 'app-who-canlot',

@@ -1,5 +1,7 @@
 import { Component, OnChanges, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { TooltipComponent } from '../tooltip/tooltip.component';
 
 export class RoundRobinList {
     listname: string;
@@ -33,7 +35,7 @@ export class RoundRobinListComponent implements OnChanges {
 
 
     }
-    constructor(private http: HttpClient) {  }
+    constructor(private http: HttpClient, private dialog: MatDialog) {  }
 
     Generateroundrobinlist(valueitem) {
         const baseUrl = document.getElementsByTagName('base')[0].href;
@@ -53,4 +55,13 @@ export class RoundRobinListComponent implements OnChanges {
     filteredRaiditems(rrl) {
         return rrl.filter(x => x.hasroundrobin === true);
     }
+    openDialog(sitem) {
+
+        this.dialog.open(TooltipComponent, {
+          data: { item: sitem }}
+        );
+
+      }
+
+      closeDialog() { this.dialog.closeAll(); }
 }
