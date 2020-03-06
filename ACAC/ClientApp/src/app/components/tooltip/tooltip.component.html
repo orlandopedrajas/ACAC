@@ -1,4 +1,4 @@
-<mat-card class='tooltip-card' *ngIf="!profileinfo">
+<mat-card class='tooltip-card'>
     <mat-card-header>
         <div mat-card-avatar class='divColumn1'><img src='https://xivapi.com{{ data.item.Item.Icon }}'></div>
         <mat-card-title>{{ data.item.Item.Name }}</mat-card-title>
@@ -43,7 +43,4 @@
         </mat-list>          
     </mat-card-content>
 </mat-card>
-<mat-dialog-content *ngIf='profileinfo'>
-    <app-character-info [characterid]='profileinfo'></app-character-info>
-</mat-dialog-content>
 

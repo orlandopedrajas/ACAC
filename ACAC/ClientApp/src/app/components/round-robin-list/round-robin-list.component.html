@@ -10,7 +10,7 @@
                             <div class="toLeft">
                                 <img matListAvatar
                                     src='{{ element.raider.raiderimg }}'
-                                    (mouseover)="openDialog('14593575')">                                    
+                                    (click)="openBottomSheet(element.raider.lodestoneid)">                                    
                             </div>&nbsp;&nbsp;
                             <p>{{ element.raidername }}</p>
                         </mat-list-item>
