@@ -318,31 +318,39 @@ namespace ACAC.api
         {
             db.DBHandler Dbh = new db.DBHandler();
             string usersArray = x.ToString();
-            
-            raid.kapture k = JsonConvert.DeserializeObject<raid.kapture>(usersArray);
 
-            raid.RaidItemDrop rid = new raid.RaidItemDrop();
-            rid.receiveddate = DateTime.Parse(k.ACTLogLineEvent.DetectedTime);
-            rid.raidername = k.XIVEvent.Actor.RaiderName();
-            rid.raiditem = k.XIVEvent.Item.RaidDropItem();
-            foreach (raid.RaidContentResponse r in GetRaidContent(null))
+            try
             {
-                if (r._raidContent.isenabled && k.ACTLogLineEvent.DetectedZone.ToLower().Contains(r._raidContent.contentname.ToLower()))
+                AddLog("AddRaidItemFromACT - userArray", usersArray);
+                raid.kapture k = JsonConvert.DeserializeObject<raid.kapture>(usersArray);
+                raid.RaidItemDrop rid = new raid.RaidItemDrop();
+                rid.receiveddate = DateTime.Parse(k.ACTLogLineEvent.DetectedTime);
+                rid.raidername = k.XIVEvent.Actor.RaiderName();
+                rid.raiditem = k.XIVEvent.Item.RaidDropItem();
+
+                foreach (raid.RaidContentResponse r in GetRaidContent(null))
                 {
-                    rid.contentid = r._raidContent.id;
-                    foreach (raid.Raiditeminfo rii in Dbh.GetRaidItemInfo(rid.contentid.ToString()))
+                    if (r._raidContent.isenabled && k.ACTLogLineEvent.DetectedZone.ToLower().Contains(r._raidContent.contentname.ToLower()))
                     {
-                        if (rii.raiditemname.ToLower() == k.XIVEvent.Item.RaidDropItem().ToLower())
+                        rid.contentid = r._raidContent.id;
+                        foreach (raid.Raiditeminfo rii in Dbh.GetRaidItemInfo(rid.contentid.ToString()))
                         {
-                            rid.raiditem = rii.raiditemname;
-                            rid.raiditeminfoid = rii.id;
-                            AddRaidItemDrop(rid);
-                            return Ok();
-                        }  
+                            if (rii.raiditemname.ToLower() == k.XIVEvent.Item.RaidDropItem().ToLower())
+                            {
+                                rid.raiditem = rii.raiditemname;
+                                rid.raiditeminfoid = rii.id;
+                                AddRaidItemDrop(rid);
+                                return Ok();
+                            }
+                        }
                     }
                 }
             }
-            
+            catch (Exception ex)
+            {
+                AddLog("AddRaidItemFromACT - Error", ex.Message.ToString());
+            }
+                        
             return Ok();
         }
     
@@ -408,5 +416,17 @@ namespace ACAC.api
         }
         #endregion
 
+        private void AddLog(string method, string description)
+        {
+            logs log = new logs
+            {
+                description = description,
+                method = method,
+                errordate = DateTime.Now.ToString()
+            };
+
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.AddLog(log);
+        }
     }
 }
