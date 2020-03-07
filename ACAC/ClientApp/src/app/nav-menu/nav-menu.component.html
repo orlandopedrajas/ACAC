@@ -19,10 +19,7 @@
   <button mat-menu-item (click)="Onlogout()" *ngIf="loggedIn"><mat-icon aria-hidden="false">vpn_key</mat-icon>Logout</button>
 </mat-menu>
 
-<mat-menu #adminpages="matMenu">
-    <button mat-menu-item [routerLink]='["admin-pages/add-raiditem-drop/add-raiditem-drop"]'>
-      <mat-icon aria-hidden="false">add</mat-icon>  Add Raid Item Drop
-    </button>           
+<mat-menu #adminpages="matMenu">      
     <button mat-menu-item [routerLink]='["/admin-pages/manage-roundrobin-lists/manage-roundrobin-lists"]'>
       <mat-icon aria-hidden="false">view_list</mat-icon> Manage Roundrobin Lists
     </button>
