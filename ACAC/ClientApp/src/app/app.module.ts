@@ -37,6 +37,7 @@ import { RaiderManagementComponent } from './admin-pages/raider-management/raide
 import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-raiditem-drop.component';
 import { ManageRoundrobinListsComponent } from './admin-pages/manage-roundrobin-lists/manage-roundrobin-lists.component';
 import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.component';
+import { testingcomponent } from './testing/testing.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.com
     RaiderManagementComponent,
     AddRaidItemDropComponent,
     ManageRoundrobinListsComponent,
+    testingcomponent,
   ],
   imports: [
     BrowserModule,

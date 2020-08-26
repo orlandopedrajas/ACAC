@@ -17,12 +17,7 @@
         </mat-expansion-panel-header>
         <mat-card>
             <mat-card-header>
-                <mat-slide-toggle
-                [color]="color"
-                [checked]="rContent._raidContent.isenabled"
-                    [(ngModel)]="rContent._raidContent.isenabled"
-                    (change)="onblur(rContent)"
-                    ></mat-slide-toggle>&nbsp;&nbsp;&nbsp;&nbsp;              
+                &nbsp;&nbsp;&nbsp;&nbsp;              
                 <mat-form-field class="raid-floors-full-width">
                     <input matInput placeholder="Content Name" 
                     [(ngModel)]="rContent._raidContent.contentname" 
@@ -32,7 +27,13 @@
                 </mat-form-field>
             </mat-card-header>
             <mat-card-content>
-                <mat-divider></mat-divider>
+                <mat-slide-toggle
+                [color]="color"
+                [checked]="rContent._raidContent.isenabled"
+                    [(ngModel)]="rContent._raidContent.isenabled"
+                    (change)="onblur(rContent)"
+                    ></mat-slide-toggle>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button mat-raised-button color="primary" (click)="onresetdrops(rContent)">Clear Item Drops</button>    
                 <br><br>
                 <mat-form-field class="raid-floors-full-width">
                     <input matInput placeholder="Content Image" 
@@ -114,7 +115,7 @@
                             <button mat-raised-button color="primary" (click)="addRaidItem(rContent._raidContent.contentname)">Add Raid Item Definition</button>
                         </td>
                     </tr>
-                </table>
+                </table>                
             </mat-card-footer>
         </mat-card>
     </mat-expansion-panel>

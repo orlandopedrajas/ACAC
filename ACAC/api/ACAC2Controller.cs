@@ -283,6 +283,27 @@ namespace ACAC.api
             return Ok();
         }
         [HttpPost("[action]")]
+        public IActionResult Deleteuserprofile([FromBody] string raidername)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.Deleteuserprofile(raidername);
+            return Ok();
+        }
+        [HttpPost("[action]")]
+        public IActionResult Deleteraidropbycontentid([FromBody] string id)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.Deleteraidropbycontentid(int.Parse(id));
+            return Ok();
+        }
+        [HttpPost("[action]")]
+        public IActionResult ResetDatabase()
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.ResetDatabase();
+            return Ok();
+        }
+        [HttpPost("[action]")]
         public IActionResult DeleteJobalternate([FromBody] string raidername)
         {
             db.DBHandler Dbh = new db.DBHandler();

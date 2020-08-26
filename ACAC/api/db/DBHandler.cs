@@ -271,6 +271,13 @@ namespace ACAC.api.db
                 }
             }
         }
+        public void Deleteuserprofile(string raidername)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from profile where raidername='" + raidername + "'");
+            }
+        }
         public void UpdateRaidContent(raid.RaidContent raidContent)
         {
             using (var Db = new SQLiteConnection(DbPath))
@@ -381,6 +388,23 @@ namespace ACAC.api.db
                 {
                     return Db.Query<report.ReportData>("select d.raidername ReportName, count(d.raidername) ReportValue from RaidItemDrop d left outer join RaidContent c on d.contentid = c.id where c.id = " + contentid + " and c.isenabled=1 Group by d.raidername");
                 }
+            }
+        }
+        public void ResetDatabase()
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from Attendance"); // Delete Attendance records
+                Db.Execute("Delete from RaidItemDrop"); // Delete Raid Item Drops
+                Db.Execute("Delete from Roundrobinentry"); // Delete Round Robin Entries
+
+            }
+        }
+        public void Deleteraidropbycontentid(int contentid)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from RaidItemDrop where contentid=" + contentid);
             }
         }
     }
