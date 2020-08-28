@@ -122,6 +122,7 @@
 </mat-accordion>
 <br><br>
 <h1>Add new Raid content</h1>
+
 <form (ngSubmit)="onSubmit()" #addForm="ngForm" class="raid-floors-form">
     <mat-form-field class="raid-floors-full-width" hintLabel="Max 25 characters">
         <input matInput #inputcontentname placeholder="Content Name" maxlength="25" [(ngModel)]="contentname" name="cname" value="{{ contentname }}">

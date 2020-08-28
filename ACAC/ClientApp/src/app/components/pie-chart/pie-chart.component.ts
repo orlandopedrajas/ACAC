@@ -19,9 +19,12 @@ export class PieChartComponent implements OnChanges {
         maintainAspectRatio: false,
         legend: {
             position: 'top',
+            labels: { fontColor: 'rgb(253, 247, 247)'
+            }
         },
         plugins: {
             datalabels: {
+                color: '#ffffff',
                 formatter: (value, ctx) => {
                     const label = ctx.chart.data.labels[ctx.dataIndex];
                     return label;
