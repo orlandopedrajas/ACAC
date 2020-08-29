@@ -2410,7 +2410,7 @@ th.mat-header-cell {
 }
 
 .mat-slide-toggle.mat-primary.mat-checked .mat-slide-toggle-bar {
-	background-color: rgba(103, 58, 183, .54)
+	background-color:#ffd740
 }
 
 .mat-slide-toggle.mat-primary.mat-checked .mat-ripple-element {

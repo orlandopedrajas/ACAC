@@ -165,7 +165,7 @@ export class AlternateJobsComponent {
 
     deleteJA(raidername) {
 
-        if (this.raiderIdentity.IsAdmin) {
+        if (this.raiderIdentity.IsAdmin()) {
             const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
                 width: '350px',
                 data: 'Delete Job alternate for ' + raidername + '?'

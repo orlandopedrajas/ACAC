@@ -39,14 +39,14 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
 
         switch (this.Displaytype) {
             case '0': { // Recent drops
-                this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').subscribe(result1 => {
+                this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').toPromise().then(result1 => {
                     this.drops = new MatTableDataSource(result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1));
                     this.drops.paginator = this.paginator;
                 }, error => console.error(error));
                 break;
             }
             case '1': { // All drops
-                this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').subscribe(result1 => {
+                this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').toPromise().then(result1 => {
                    this.drops = new MatTableDataSource(result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1));
                    this.drops.paginator = this.paginator;
                 }, error => console.error(error));
@@ -54,7 +54,7 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
                 break;
             }
             case '2': { // filter by floors, group by date
-                this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDropByContentId?contentid=' + this.Contentid).subscribe(result1 => {
+                this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDropByContentId?contentid=' + this.Contentid).toPromise().then(result1 => {
                     this.drops = new MatTableDataSource(result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1));
                     this.drops.paginator = this.paginator;
                 }, error => console.error(error));

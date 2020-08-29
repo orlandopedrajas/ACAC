@@ -42,13 +42,18 @@ export class PieChartComponent implements OnChanges {
     public pieChartPlugins = [pluginDataLabels];
     public pieChartColors = [
         {
-          backgroundColor: ['#54a373',
+          backgroundColor: ['#488f31',
+                            '#409a70',
+                            '#67ad75',
                             '#8cbf7a',
-                            '#c4d986',
+                            '#b1d082',
+                            '#d8e18c',
                             '#fff199',
-                            '#fbc773',
+                            '#fcd57e',
+                            '#f9b969',
                             '#f49c5a',
-                            '#e76e50',
+                            '#ec7e52',
+                            '#e25f4f',
                             '#de425b'],
         },
     ];

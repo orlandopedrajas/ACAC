@@ -21,14 +21,14 @@
         <td>
             <mat-slide-toggle [(ngModel)]='raider.israidmember'
                 [checked]="raider.israidmember"
-                (change)="onAdmintoggle(raider)"
-                color="primary">Is Raid member</mat-slide-toggle>
+                (change)="onAdmintoggle(raider)" color=primary
+                >Is Raid member</mat-slide-toggle>
         </td>
         <td align='right'>
             <mat-slide-toggle [(ngModel)]='raider.isadmin'
                               [checked]="raider.isadmin"
-                              (change)="onAdmintoggle(raider)"
-                              color="primary">Is Admin</mat-slide-toggle>
+                              (change)="onAdmintoggle(raider)" color=primary>Is Admin</mat-slide-toggle>
+                               
         </td>
     </tr>
 </table>
