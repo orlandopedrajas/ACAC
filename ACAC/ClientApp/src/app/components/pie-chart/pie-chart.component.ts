@@ -14,17 +14,20 @@ export class PieChartComponent implements OnChanges {
     @Input() Filter: string;
     @Input() Datatype: string;
 
+    chartlabelcolor = getComputedStyle(document.body).getPropertyValue('--chart-label-color');
+    chartlegendlabelcolor = getComputedStyle(document.body).getPropertyValue('--chart-legend-label-color');
+   
+
     public pieChartOptions: ChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
         legend: {
             position: 'top',
-            labels: { fontColor: 'rgb(253, 247, 247)'
-            }
+            labels: { fontColor: this.chartlegendlabelcolor }
         },
         plugins: {
             datalabels: {
-                color: '#ffffff',
+                color: this.chartlabelcolor,
                 formatter: (value, ctx) => {
                     const label = ctx.chart.data.labels[ctx.dataIndex];
                     return label;
@@ -39,14 +42,14 @@ export class PieChartComponent implements OnChanges {
     public pieChartPlugins = [pluginDataLabels];
     public pieChartColors = [
         {
-          backgroundColor: ['rgba(255,0,0,0.3)',
-                            'rgba(0,255,0,0.3)',
-                            'rgba(0,0,255,0.3)',
-                            'rgba(238, 255, 0, 0.3)',
-                            'rgba(0, 255, 94, 0.3)',
-                            'rgba(0, 208, 255, 0.3)',
-                            'rgba(255, 0, 221, 0.3)',
-                            'rgba(25, 0, 255, 0.3)'],
+          backgroundColor: ['#54a373',
+                            '#8cbf7a',
+                            '#c4d986',
+                            '#fff199',
+                            '#fbc773',
+                            '#f49c5a',
+                            '#e76e50',
+                            '#de425b'],
         },
     ];
 

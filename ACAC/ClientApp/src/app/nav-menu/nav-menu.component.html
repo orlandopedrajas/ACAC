@@ -17,6 +17,8 @@
   <button mat-menu-item [routerLink]='["/raiders"]'><mat-icon aria-hidden="false" aria-label="Raiders" color=primary>emoji_people</mat-icon>Raiders</button>
   <button mat-menu-item [matMenuTriggerFor]="adminpages" *ngIf="isAdmin"><mat-icon aria-hidden="false" aria-label="Raiders" color=primary>settings_applications</mat-icon>Admin</button>
   <button mat-menu-item (click)="Onlogout()" *ngIf="loggedIn"><mat-icon aria-hidden="false" color=primary>vpn_key</mat-icon>Logout</button>
+  <hr>
+  <mat-slide-toggle (change)="onslidetogglechange()"  [checked]="isDarkmode()">Enable Dark Mode</mat-slide-toggle>
 </mat-menu>
 
 <mat-menu #adminpages="matMenu">      
