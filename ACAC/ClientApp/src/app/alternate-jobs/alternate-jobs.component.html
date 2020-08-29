@@ -66,7 +66,7 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
 <br><br>
-<div *ngIf="raiderIdentity.IsAdmin">
+<div *ngIf="raiderIdentity.IsAdmin()">
     <form (ngSubmit)="onSubmit()" #addForm="ngForm">
         <mat-form-field>
             <mat-select placeholder="Raider" required [(ngModel)]="JAlt.raidername" name="raider" >

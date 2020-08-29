@@ -15,13 +15,12 @@ class RaiderIdentity {
     constructor() {}
 
     IsAdmin(): boolean {
-        try {
-            if (this.IsLoggedIn() === true) {
-                const thisRaider: ThisRaider = JSON.parse(localStorage.getItem('user'));
-                return thisRaider.IsAdmin;
-            } else { return false; }
-        } catch { return false; }
-
+        var breturn = false;
+        if (this.IsLoggedIn() === true) {
+            const thisRaider: ThisRaider = JSON.parse(localStorage.getItem('user'));
+            breturn = thisRaider.IsAdmin;
+        } else { breturn = false; }
+        return breturn;
     }
 
     IsLoggedIn(): boolean {

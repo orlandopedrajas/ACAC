@@ -105,7 +105,7 @@ export class NavMenuComponent implements OnInit {
     }else { 
       breturn = true;
      }
-     console.log(breturn);
+     // console.log(breturn);
      return breturn;
   }
 }

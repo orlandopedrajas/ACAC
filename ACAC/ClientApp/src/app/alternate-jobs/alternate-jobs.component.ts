@@ -39,12 +39,17 @@ export class AlternateJobsComponent {
     JAlt = new Jobalt();
     raiderIdentity: RaiderIdentity = new RaiderIdentity();
 
+    //thisRaider: ThisRaider;
+    //IsAdmin: boolean;
+
     constructor(private http: HttpClient,
                 // tslint:disable-next-line: variable-name
                 private _SnackBar: MatSnackBar, public dialog: MatDialog) {
         this.jobs = this.jobs.sort((a, b) => (a > b) ? 1 : -1);
         this.getJobAlternates();
-        // console.log(this.raiderIdentity.Raideridentity());
+        console.log(this.raiderIdentity.IsLoggedIn());
+        console.log(this.raiderIdentity.IsAdmin());
+        // this.thisRaider = JSON.parse(localStorage.getItem('user'));
     }
 
     onEnableEdit(raider) {
