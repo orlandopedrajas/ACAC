@@ -38,6 +38,8 @@ import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-ra
 import { ManageRoundrobinListsComponent } from './admin-pages/manage-roundrobin-lists/manage-roundrobin-lists.component';
 import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.component';
 import { testingcomponent } from './testing/testing.component';
+import { NineComponent } from './nine/nine.component';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,7 @@ import { testingcomponent } from './testing/testing.component';
     AddRaidItemDropComponent,
     ManageRoundrobinListsComponent,
     testingcomponent,
+    NineComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,7 +81,8 @@ import { testingcomponent } from './testing/testing.component';
     MatTableModule,
     MatNativeDateModule,
     DemoMaterialModule,
-    ChartsModule
+    ChartsModule,
+    NgxGalleryModule,
   ],
   providers: [ CookieService ],
   entryComponents: [TooltipComponent,

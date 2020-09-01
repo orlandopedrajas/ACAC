@@ -9,6 +9,7 @@ class ThisRaider {
     lodestoneid: string;
     raiderroute: string;
     israidmember: boolean;
+    isninemember: boolean;
 }
 class RaiderIdentity {
 

@@ -12,6 +12,7 @@ import { RaiderIdentity, ThisRaider } from '../components/ACACComponents';
 export class NavMenuComponent implements OnInit {
   loggedIn: boolean;
   isAdmin: boolean;
+  isninemember: boolean;
   discorduser: string;
   discordavatar: string;
   
@@ -35,6 +36,7 @@ export class NavMenuComponent implements OnInit {
       this.discordavatar = 'assets/img/discord.png';
     } else {
       this.isAdmin = this.thisRaider.IsAdmin;
+      this.isninemember = this.thisRaider.isninemember;
       this.discorduser = this.thisRaider.discorduser;
       this.discordavatar = this.thisRaider.discordavatar;
       this.loggedIn = true;
@@ -73,13 +75,14 @@ export class NavMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getRaiderProfiles();
+   // this.getRaiderProfiles();
   }
 
   getRaiderProfiles() {
     const baseUrl = document.getElementsByTagName('base')[0].href;
     this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaiderProfiles?raidername=').subscribe(result => {
       this.raiders = result;
+      //console.log(result);
     });
   }
 

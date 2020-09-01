@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  redirecturl:  'https://acac.azurewebsites.net/authorize'
+  redirecturl:  'http://localhost:5000/authorize'
 };
 
 /*

@@ -1,4 +1,11 @@
-<table width='90%' align='center'>
+<table align='center'>
+    <tr>
+        <th>Raider</th>
+        <th>Lodestone Id</th>
+        <th>Is Raid Member</th>
+        <th>Is Nine Member</th>
+        <th>Is Admin</th>
+    </tr>
     <tr *ngFor="let raider of raiders">
         <td>
             <mat-list>
@@ -18,16 +25,22 @@
                    maxlength="25" [(ngModel)]="raider.lodestoneid" name="lstoneid" 
                    value="{{ raider.lodestoneid }}">
         </td>
-        <td>
+        <td align='center'>
             <mat-slide-toggle [(ngModel)]='raider.israidmember'
                 [checked]="raider.israidmember"
                 (change)="onAdmintoggle(raider)" color=primary
-                >Is Raid member</mat-slide-toggle>
+                ></mat-slide-toggle>
         </td>
-        <td align='right'>
+        <td align='center'>
+            <mat-slide-toggle [(ngModel)]='raider.isninemember'
+                              [checked]="raider.isninemember"
+                              (change)="onAdmintoggle(raider)" color=primary></mat-slide-toggle>
+                               
+        </td>
+        <td align='center'>
             <mat-slide-toggle [(ngModel)]='raider.isadmin'
                               [checked]="raider.isadmin"
-                              (change)="onAdmintoggle(raider)" color=primary>Is Admin</mat-slide-toggle>
+                              (change)="onAdmintoggle(raider)" color=primary></mat-slide-toggle>
                                
         </td>
     </tr>

@@ -15,6 +15,7 @@ import { RaiderManagementComponent } from './admin-pages/raider-management/raide
 import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-raiditem-drop.component';
 import { ManageRoundrobinListsComponent } from './admin-pages/manage-roundrobin-lists/manage-roundrobin-lists.component';
 import { testingcomponent } from './testing/testing.component';
+import { NineComponent } from './nine/nine.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'admin-pages/add-raiditem-drop/add-raiditem-drop', component: AddRaidItemDropComponent },
   { path: 'admin-pages/manage-roundrobin-lists/manage-roundrobin-lists', component: ManageRoundrobinListsComponent },
   { path: 'testing', component: testingcomponent },
+  { path: 'nine', component: NineComponent },
 ];
 
 @NgModule({

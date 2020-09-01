@@ -22,7 +22,8 @@ export class RaiderInfoComponent implements OnChanges {
                                                isadmin: element.isadmin,
                                                lodestoneid: element.lodestoneid,
                                                israidmember: element.israidmember,
-                                               discorduser: element.discorduser
+                                               discorduser: element.discorduser,
+                                               isninemember: element.isninemember
                                               });
     }
 
@@ -43,7 +44,8 @@ export class RaiderInfoComponent implements OnChanges {
             isadmin: element.isadmin,
             lodestoneid: element.lodestoneid,
             israidmember: element.israidmember,
-            discorduser: element.discorduser
+            discorduser: element.discorduser,
+            isninemember: element.isninemember
            });
 
         }, error => console.error(error));

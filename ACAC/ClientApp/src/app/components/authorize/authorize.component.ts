@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { RaiderIdentity, ThisRaider } from '../ACACComponents';
+import { ThisRaider } from '../ACACComponents';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -57,7 +57,9 @@ export class AuthorizeComponent {
                         this.raider.raiderimg = value.raiderimg;
                         this.raider.raidername = value.raidername;
                         this.raider.raiderroute = value.raidername;
+                        this.raider.isninemember = value.isninemember;
                     });
+
                     localStorage.setItem('user', JSON.stringify(this.raider));
                     window.location.href = '/raiders/' + this.raider.raiderroute;
                 }, error => { });

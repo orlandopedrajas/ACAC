@@ -14,7 +14,8 @@
   </button>
   <button mat-menu-item [routerLink]='["/who-can-lot"]'><mat-icon aria-hidden="false" aria-label="Who can lot?" color=primary>work</mat-icon>Who can lot?</button>
   <button mat-menu-item [routerLink]='["/weapon-alternates"]'><mat-icon aria-hidden="false" aria-label="Weapon Alternates" color=primary>sports_cricket</mat-icon>Weapon Alternate</button>
-  <button mat-menu-item [routerLink]='["/raiders"]'><mat-icon aria-hidden="false" aria-label="Raiders" color=primary>emoji_people</mat-icon>Raiders</button>
+  <button mat-menu-item [routerLink]='["/raiders"]'><mat-icon aria-hidden="false" aria-label="Raiders" color=primary>sports_handball</mat-icon>Raiders</button>
+  <!--<button mat-menu-item [routerLink]='["/nine"]'><mat-icon aria-hidden="false" aria-label="Nine Members" color=primary>psychology</mat-icon>Nine Members</button>-->
   <button mat-menu-item [matMenuTriggerFor]="adminpages" *ngIf="isAdmin"><mat-icon aria-hidden="false" aria-label="Raiders" color=primary>settings_applications</mat-icon>Admin</button>
   <button mat-menu-item (click)="Onlogout()" *ngIf="loggedIn"><mat-icon aria-hidden="false" color=primary>vpn_key</mat-icon>Logout</button>
   <hr>
@@ -32,7 +33,7 @@
       <mat-icon aria-hidden="false" color=primary>group</mat-icon> Raid Floors
     </button>
     <button mat-menu-item [routerLink]='["/admin-pages/raider-management/raider-management"]'>
-      <mat-icon aria-hidden="false" color=primary>emoji_people</mat-icon> Raider Management
+      <mat-icon aria-hidden="false" color=primary>account_circle</mat-icon> Raider Management
     </button>
 </mat-menu>
 
