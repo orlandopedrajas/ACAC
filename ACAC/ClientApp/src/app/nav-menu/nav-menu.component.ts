@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from '../../environments/environment';
-import { RaiderIdentity, ThisRaider } from '../components/ACACComponents';
+import { ThisRaider } from '../components/ACACComponents';
 
 @Component({
   selector: 'app-nav-menu',

@@ -1,6 +1,6 @@
 <mat-list>
   <mat-list-item>
-    <div *ngIf="!loggedIn"><button mat-menu-item (click)="openDialog()">Login via Discord</button></div>
+    <div *ngIf="!loggedIn"><button mat-menu-item (click)="openDialog()">Login</button></div>
     <img [matMenuTriggerFor]="acacmenu" matListAvatar src='{{ discordavatar }}' class='pointer' >
   </mat-list-item>
 </mat-list>
@@ -22,7 +22,7 @@
   <mat-slide-toggle (change)="onslidetogglechange()"  [checked]="isDarkmode()">Enable Dark Mode</mat-slide-toggle>
 </mat-menu>
 
-<mat-menu #adminpages="matMenu">      
+<mat-menu #adminpages="matMenu">
     <button mat-menu-item [routerLink]='["/admin-pages/manage-roundrobin-lists/manage-roundrobin-lists"]'>
       <mat-icon aria-hidden="false" color=primary>view_list</mat-icon> Manage Roundrobin Lists
     </button>

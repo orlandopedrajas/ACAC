@@ -61,7 +61,8 @@ export class AuthorizeComponent {
                     });
 
                     localStorage.setItem('user', JSON.stringify(this.raider));
-                    window.location.href = '/raiders/' + this.raider.raiderroute;
+                    //window.location.href = '/raiders/' + this.raider.raiderroute;
+                    window.location.href = '/';
                 }, error => { });
              }, error => {
                  window.location.href = '/';
