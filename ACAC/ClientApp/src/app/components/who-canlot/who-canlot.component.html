@@ -11,8 +11,10 @@
                 </mat-list-item>
             </mat-list>
         </ng-template>
-        <div [innerHtml]="rc._raidContent.contentdescription"></div>       
-        <app-round-robin-list [contentid]="rc._raidContent.id"></app-round-robin-list>
+        <div [innerHtml]="rc._raidContent.contentdescription"></div> 
+        <ng-template matTabContent>
+            <app-round-robin-list [contentid]="rc._raidContent.id"></app-round-robin-list>  
+        </ng-template>
     </mat-tab>
 </mat-tab-group>
 <br><br>

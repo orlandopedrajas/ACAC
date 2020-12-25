@@ -1816,6 +1816,17 @@
     "CSharpLanguageVersion": 703
   },
   "RootNamespace": "ACAC",
-  "Documents": [],
+  "Documents": [
+    {
+      "FilePath": "f:\\Source\\ACAC\\ACAC\\Pages\\_ViewImports.cshtml",
+      "TargetPath": "Pages\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "f:\\Source\\ACAC\\ACAC\\Pages\\Error.cshtml",
+      "TargetPath": "Pages\\Error.cshtml",
+      "FileKind": "mvc"
+    }
+  ],
   "SerializationFormat": "0.2"
 }

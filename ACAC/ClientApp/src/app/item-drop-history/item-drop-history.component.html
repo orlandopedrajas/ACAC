@@ -13,7 +13,9 @@
                 </mat-list-item>
             </mat-list>
         </ng-template>
-        <app-item-drop-by-floor [Displaytype]="'1'"></app-item-drop-by-floor>
+        <ng-template matTabContent>
+            <app-item-drop-by-floor [Displaytype]="'1'"></app-item-drop-by-floor>
+        </ng-template>        
     </mat-tab>
     <mat-tab *ngFor='let rc of raidContent' [label]="rc._raidContent.id">
         <ng-template mat-tab-label>
@@ -26,6 +28,8 @@
                 </mat-list-item>
             </mat-list>
         </ng-template>
-        <app-item-drop-by-floor [Displaytype]="'2'" [Contentid]="rc._raidContent.id"></app-item-drop-by-floor>
+        <ng-template matTabContent>
+            <app-item-drop-by-floor [Displaytype]="'2'" [Contentid]="rc._raidContent.id"></app-item-drop-by-floor>
+        </ng-template>        
     </mat-tab>
 </mat-tab-group>
