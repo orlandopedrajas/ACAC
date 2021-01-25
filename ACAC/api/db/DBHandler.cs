@@ -25,7 +25,31 @@ namespace ACAC.api.db
                 }
             }
         }
-        
+
+        public void InsertUpdateImage(report.album album)
+        {
+            using (var Db = new SQLite.SQLiteConnection(DbPath))
+            {
+                try
+                {
+                    Db.InsertOrReplace(album);
+                }
+                catch
+                {
+                    Db.CreateTable<report.album>();
+                    Db.InsertOrReplace(album);
+                }
+            }
+        }
+        public IEnumerable<report.album> Getalbumbyname(string album)
+        {
+            using (var Db = new SQLite.SQLiteConnection(DbPath))
+            {
+                TableExists("album");
+                return Db.Query<report.album>("Select * from album where albumname='" + album + "'");
+            }
+        }
+
         public IEnumerable<raider.Jobalternate> GetAllJOBAlternates()
         {
             using (var Db = new SQLite.SQLiteConnection(DbPath))
@@ -86,6 +110,9 @@ namespace ACAC.api.db
                             return true;
                         case "Jobalternate":
                             Db.CreateTable<raider.Jobalternate>();
+                            return true;
+                        case "album":
+                            Db.CreateTable<report.album>();
                             return true;
                         default:
                             return false;

@@ -1,4 +1,8 @@
-<p *ngIf="!characterprofile.name"><mat-progress-bar mode="indeterminate"></mat-progress-bar></p>
+<div *ngIf="!characterprofile.name" align="center">
+    <br><br>
+    <mat-spinner color="accent"></mat-spinner>
+    <br><br>
+</div>
 <div *ngIf="characterprofile.name" style="width:375px;">
     <mat-list>
         <mat-list-item>
@@ -8,8 +12,6 @@
         <mat-list-item>
             <table>
                 <tr>
-                   <!-- <td><img matListAvatar src='{{ characterprofile.jobicon }}' matTooltip='{{characterprofile.activeclass}}'></td>-->
-                   <!--<td><h5>Level {{ characterprofile.level }} {{ characterprofile.activeclass.split("/")[1] }}</h5></td>-->
                     <td><mat-icon>home</mat-icon></td>
                     <td><h5>{{ characterprofile.server }}&nbsp;&nbsp;({{ characterprofile.dc }})</h5></td>
                 </tr>

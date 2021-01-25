@@ -25,6 +25,7 @@ export class NavMenuComponent implements OnInit {
 
   raiders: any[];
   thisRaider: ThisRaider;
+  lodestonelink: string = 'https://na.finalfantasyxiv.com/lodestone';
 
   constructor( private http: HttpClient, public dialog: MatDialog) {
 
@@ -34,17 +35,19 @@ export class NavMenuComponent implements OnInit {
       localStorage.removeItem('user');
       this.loggedIn = false;
       this.discordavatar = 'assets/img/discord.png';
+      this.lodestonelink = 'https://na.finalfantasyxiv.com/lodestone';
     } else {
       this.isAdmin = this.thisRaider.IsAdmin;
       this.isninemember = this.thisRaider.isninemember;
       this.discorduser = this.thisRaider.discorduser;
       this.discordavatar = this.thisRaider.discordavatar;
+      this.lodestonelink = 'https://na.finalfantasyxiv.com/lodestone/character/' + this.thisRaider.lodestoneid;
       this.loggedIn = true;
     }
 
     this.apptheme = localStorage.getItem('apptheme');
     if (!this.apptheme || this.apptheme === undefined || this.apptheme === "" || this.apptheme.length === 0) {
-      this.apptheme = 'acac-light-theme.css';
+      this.apptheme = 'acac-dark-theme.css';
     }
     this.changeTheme();
 }

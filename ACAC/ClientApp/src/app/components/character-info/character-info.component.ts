@@ -104,7 +104,7 @@ export class Charprofile {
       } else { return gear; }
     }
     delay(ms: number) {
-        new Promise(resolve =>
+        new Promise<void>(resolve =>
                         setTimeout(() => resolve(), ms)).then(() =>
                         console.log('launch'));
     }

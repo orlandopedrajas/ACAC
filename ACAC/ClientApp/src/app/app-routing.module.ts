@@ -16,6 +16,7 @@ import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-ra
 import { ManageRoundrobinListsComponent } from './admin-pages/manage-roundrobin-lists/manage-roundrobin-lists.component';
 import { testingcomponent } from './testing/testing.component';
 import { NineComponent } from './nine/nine.component';
+import { picturealbumComponent } from './admin-pages/picture-album/picture-album.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'admin-pages/manage-roundrobin-lists/manage-roundrobin-lists', component: ManageRoundrobinListsComponent },
   { path: 'testing', component: testingcomponent },
   { path: 'nine', component: NineComponent },
+  { path: 'admin-pages/picture-album', component: picturealbumComponent },
 ];
 
 @NgModule({

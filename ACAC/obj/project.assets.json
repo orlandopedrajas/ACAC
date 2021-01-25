@@ -12914,11 +12914,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Source\\ACAC\\ACAC\\ACAC.csproj",
+      "projectUniqueName": "f:\\Source\\ACAC\\ACAC\\ACAC.csproj",
       "projectName": "ACAC",
-      "projectPath": "F:\\Source\\ACAC\\ACAC\\ACAC.csproj",
+      "projectPath": "f:\\Source\\ACAC\\ACAC\\ACAC.csproj",
       "packagesPath": "C:\\Users\\sanok\\.nuget\\packages\\",
-      "outputPath": "F:\\Source\\ACAC\\ACAC\\obj\\",
+      "outputPath": "f:\\Source\\ACAC\\ACAC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12996,7 +12996,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,9 +1,19 @@
-<mat-list>
-  <mat-list-item>
-    <div *ngIf="!loggedIn"><button mat-menu-item (click)="openDialog()">Login</button></div>
-    <img [matMenuTriggerFor]="acacmenu" matListAvatar src='{{ discordavatar }}' class='pointer' >
-  </mat-list-item>
-</mat-list>
+<p>
+  <mat-toolbar color="primary">
+    <mat-icon [matMenuTriggerFor]="acacmenu" color="primary" class='iconpointer'>menu</mat-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class='bannertext'>A Clear's A Clear</span>
+    <span class="example-spacer"></span>
+    <a mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" 
+      href="{{ lodestonelink }}">
+      <img class="iconify" src='assets/img/lodestone-icon.png'>
+    </a>
+    <mat-list>
+      <mat-list-item>
+        <img matListAvatar src='{{ discordavatar }}' class='pointer' [matMenuTriggerFor]="profilemenu" >
+      </mat-list-item>
+    </mat-list>
+  </mat-toolbar>
+</p>
 
 <mat-menu #acacmenu="matMenu">
   <button mat-menu-item [routerLink]='["/"]'>
@@ -12,28 +22,35 @@
   <button mat-menu-item [routerLink]='["/item-drop-history"]'>
     <mat-icon aria-hidden="false" aria-label="Item Drop History" color=primary>history</mat-icon>  Item Drop History
   </button>
-  <button mat-menu-item [routerLink]='["/who-can-lot"]'><mat-icon aria-hidden="false" aria-label="Who can lot?" color=primary>work</mat-icon>Who can lot?</button>
-  <button mat-menu-item [routerLink]='["/weapon-alternates"]'><mat-icon aria-hidden="false" aria-label="Weapon Alternates" color=primary>sports_cricket</mat-icon>Weapon Alternate</button>
+  <button mat-menu-item [routerLink]='["/who-can-lot"]'><mat-icon aria-hidden="false" aria-label="Who can lot?" color=primary>gavel</mat-icon>Who can lot?</button>
+  <button mat-menu-item [routerLink]='["/weapon-alternates"]'><mat-icon aria-hidden="false" aria-label="Weapon Alternates" color=primary>alt_route</mat-icon>Alternates</button>
   <button mat-menu-item [routerLink]='["/raiders"]'><mat-icon aria-hidden="false" aria-label="Raiders" color=primary>sports_handball</mat-icon>Raiders</button>
   <!--<button mat-menu-item [routerLink]='["/nine"]'><mat-icon aria-hidden="false" aria-label="Nine Members" color=primary>psychology</mat-icon>Nine Members</button>-->
-  <button mat-menu-item [matMenuTriggerFor]="adminpages" *ngIf="isAdmin"><mat-icon aria-hidden="false" aria-label="Raiders" color=primary>settings_applications</mat-icon>Admin</button>
-  <button mat-menu-item (click)="Onlogout()" *ngIf="loggedIn"><mat-icon aria-hidden="false" color=primary>vpn_key</mat-icon>Logout</button>
-  <hr>
-  <mat-slide-toggle (change)="onslidetogglechange()"  [checked]="isDarkmode()">Enable Dark Mode</mat-slide-toggle>
+  <button mat-menu-item [matMenuTriggerFor]="adminpages" *ngIf="isAdmin"><mat-icon aria-hidden="false" aria-label="Raiders" color=primary>settings</mat-icon>Admin</button>  
 </mat-menu>
 
 <mat-menu #adminpages="matMenu">
     <button mat-menu-item [routerLink]='["/admin-pages/manage-roundrobin-lists/manage-roundrobin-lists"]'>
-      <mat-icon aria-hidden="false" color=primary>view_list</mat-icon> Manage Roundrobin Lists
+      <mat-icon aria-hidden="false" color=primary>list</mat-icon> Manage Roundrobin Lists
     </button>
-    <!--<button mat-menu-item [routerLink]='["/attendance"]'>
-      <mat-icon aria-hidden="false" color=primary>group</mat-icon> Attendance
-    </button>-->
     <button mat-menu-item [routerLink]='["/admin-pages/raid-floors/raid-floors"]'>
       <mat-icon aria-hidden="false" color=primary>group</mat-icon> Raid Floors
     </button>
     <button mat-menu-item [routerLink]='["/admin-pages/raider-management/raider-management"]'>
       <mat-icon aria-hidden="false" color=primary>account_circle</mat-icon> Raider Management
     </button>
+    <button mat-menu-item [routerLink]='["/admin-pages/picture-album"]'>
+      <mat-icon aria-hidden="false" color=primary>photo_album</mat-icon> Photo Library
+    </button>
 </mat-menu>
 
+<mat-menu #profilemenu="matMenu">
+  <button mat-menu-item (click)="openDialog()" *ngIf="!loggedIn"><mat-icon arial-label="Login" color="primary">login</mat-icon> Login</button>   
+  <button mat-menu-item (click)="Onlogout()" *ngIf="loggedIn"><mat-icon aria-hidden="false" color=primary>power_settings_new</mat-icon> Logout</button>
+  <button mat-menu-item (click)="onslidetogglechange()" *ngIf="isDarkmode()">
+    <mat-icon color="primary">toggle_on</mat-icon> Light Mode
+  </button>
+  <button mat-menu-item (click)="onslidetogglechange()" *ngIf="!isDarkmode()">
+    <mat-icon color="primary">toggle_off</mat-icon> Dark Mode
+  </button>
+</mat-menu>

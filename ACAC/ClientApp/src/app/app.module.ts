@@ -40,6 +40,7 @@ import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.com
 import { testingcomponent } from './testing/testing.component';
 import { NineComponent } from './nine/nine.component';
 import { NgxGalleryModule } from 'ngx-gallery';
+import { picturealbumComponent } from './admin-pages/picture-album/picture-album.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { NgxGalleryModule } from 'ngx-gallery';
     ManageRoundrobinListsComponent,
     testingcomponent,
     NineComponent,
+    picturealbumComponent,
   ],
   imports: [
     BrowserModule,

@@ -2900,8 +2900,8 @@ td.mat-footer-cell {
 }
 
 .mat-toolbar.mat-primary {
-	background: #673ab7;
-	color: #fff
+	background: #5b7286;
+	color: rgba(253, 247, 247)
 }
 
 .mat-toolbar.mat-accent {
