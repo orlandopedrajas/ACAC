@@ -49,8 +49,9 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
                 this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').toPromise().then(result1 => {
                    this.drops = new MatTableDataSource(result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1));
                    this.drops.paginator = this.paginator;
+                   console.log(result1);
                 }, error => console.error(error));
-                console.log(this.raiderIdentity);
+                
                 break;
             }
             case '2': { // filter by floors, group by date

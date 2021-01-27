@@ -1,38 +1,44 @@
-<h1>Raider Management</h1>
+<h1>&nbsp;&nbsp;Raider Management</h1>
 <app-raider-info [raiders]='raiders'></app-raider-info>
 <mat-divider></mat-divider>
 <br><br>
+
 <form (ngSubmit)="onSubmit()" #addForm="ngForm">
-    <table width='100%'>
-        <tr>
-            <td colspan=2>
-                <mat-form-field class="raid-floors-full-width" hintLabel="Max 25 characters" appearance="outline">
-                    <input matInput #inputraidername placeholder="Raider Name" maxlength="25" [(ngModel)]="raidername" name="rname" value="{{ raidername }}" required>
-                    <mat-hint align="end">{{ inputraidername.value?.length || 0}}/25</mat-hint>
-                </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <mat-form-field class="raid-floors-full-width" hintLabel="Max 25 characters" appearance="outline">
-                    <input matInput #inputdiscorduser placeholder="Discord User" maxlength="25" [(ngModel)]="discorduser" name="duser" value="{{ discorduser }}">
-                    <mat-hint align="end">{{ inputdiscorduser.value?.length || 0}}/25</mat-hint>
-                </mat-form-field>
-            </td>
-            <td>
-                <mat-form-field class="raid-floors-full-width" hintLabel="Max 25 characters" appearance="outline">
-                    <input matInput #inputlodestoneid placeholder="Lodestone ID" maxlength="25" [(ngModel)]="lodestoneid" name="lstoneid" value="{{ lodestoneid }}">
-                    <mat-hint align="end">{{ inputlodestoneid.value?.length || 0}}/25</mat-hint>
-                </mat-form-field>
-            </td>
-        </tr>
-        <tr>
-            <td colspan=3 align="end">
-                <mat-slide-toggle [(ngModel)]='isadmin'
-                    [checked]="isadmin"
-                    color="primary" name="isadmin">Is Admin</mat-slide-toggle>&nbsp;&nbsp;&nbsp;&nbsp;
-                <button mat-raised-button color=primary type="submit" [disabled]="!addForm.form.valid" name="btnsubmit" >Add Raider</button>
-            </td>
-        </tr>
-    </table>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Add character</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <table width='100%'>
+                <tr>
+                    <td colspan=2>
+                        <mat-form-field class="raid-floors-full-width" hintLabel="Max 25 characters" appearance="outline">
+                            <input matInput #inputraidername placeholder="Raider Name" maxlength="25" [(ngModel)]="raidername" name="rname" value="{{ raidername }}" required>
+                            <mat-hint align="end">{{ inputraidername.value?.length || 0}}/25</mat-hint>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-form-field class="raid-floors-full-width" hintLabel="Max 25 characters" appearance="outline">
+                            <input matInput #inputdiscorduser placeholder="Discord User" maxlength="25" [(ngModel)]="discorduser" name="duser" value="{{ discorduser }}">
+                            <mat-hint align="end">{{ inputdiscorduser.value?.length || 0}}/25</mat-hint>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="raid-floors-full-width" hintLabel="Max 25 characters" appearance="outline">
+                            <input matInput #inputlodestoneid placeholder="Lodestone ID" maxlength="25" [(ngModel)]="lodestoneid" name="lstoneid" value="{{ lodestoneid }}">
+                            <mat-hint align="end">{{ inputlodestoneid.value?.length || 0}}/25</mat-hint>
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+        </mat-card-content>
+        <mat-card-actions>
+            <mat-slide-toggle [(ngModel)]='isadmin'
+                [checked]="isadmin"
+                color="primary" name="isadmin">Is Admin</mat-slide-toggle>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-raised-button color=primary type="submit" [disabled]="!addForm.form.valid" name="btnsubmit" >Add Raider</button>
+        </mat-card-actions>
+    </mat-card>
 </form>

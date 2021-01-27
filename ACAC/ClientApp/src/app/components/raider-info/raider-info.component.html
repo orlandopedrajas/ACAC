@@ -1,47 +1,33 @@
 <table align='center'>
-    <tr>
-        <th>Raider</th>
-        <th>Lodestone Id</th>
-        <th>Is Raid Member</th>
-        <th>Is Nine Member</th>
-        <th>Is Admin</th>
-    </tr>
     <tr *ngFor="let raider of raiders">
-        <td>
-            <mat-list>
-                <mat-list-item>
-                    <img matListAvatar src='{{ raider.raiderimg }}' matTooltip='{{ raider.raidername }}' (click)="resetImage(raider)">
-                    <p matLine>{{ raider.raidername }}</p>
-                    <p matLine>
+        <td colspan="5">
+            <mat-card>
+                <mat-card-header>
+                    <img mat-card-avatar src='{{ raider.raiderimg }}' matTooltip='{{ raider.raidername }}' (click)="resetImage(raider)">
+                    <mat-card-title>{{ raider.raidername }}</mat-card-title>
+                    <mat-card-subtitle>
                         <input matInput (blur)='onAdmintoggle(raider)' placeholder="Discord User" 
                             maxlength="25" [(ngModel)]="raider.discorduser" name="duser" 
                             value="{{ raider.discorduser }}">
-                    </p>
-                </mat-list-item>
-            </mat-list>
-        </td>
-        <td>
-            <input matInput (blur)='onAdmintoggle(raider)' placeholder="Lodestone ID" 
-                   maxlength="25" [(ngModel)]="raider.lodestoneid" name="lstoneid" 
-                   value="{{ raider.lodestoneid }}">
-        </td>
-        <td align='center'>
-            <mat-slide-toggle [(ngModel)]='raider.israidmember'
-                [checked]="raider.israidmember"
-                (change)="onAdmintoggle(raider)" color=primary
-                ></mat-slide-toggle>
-        </td>
-        <td align='center'>
-            <mat-slide-toggle [(ngModel)]='raider.isninemember'
-                              [checked]="raider.isninemember"
-                              (change)="onAdmintoggle(raider)" color=primary></mat-slide-toggle>
-                               
-        </td>
-        <td align='center'>
-            <mat-slide-toggle [(ngModel)]='raider.isadmin'
-                              [checked]="raider.isadmin"
-                              (change)="onAdmintoggle(raider)" color=primary></mat-slide-toggle>
-                               
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>                    
+                    <p><input matInput (blur)='onAdmintoggle(raider)' placeholder="Lodestone ID" 
+                           maxlength="25" [(ngModel)]="raider.lodestoneid" name="lstoneid" 
+                           value="{{ raider.lodestoneid }}"></p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <mat-slide-toggle [(ngModel)]='raider.israidmember' [checked]="raider.israidmember"
+                           (change)="onAdmintoggle(raider)" color=primary>&nbsp;&nbsp;Is Raid member</mat-slide-toggle>
+                           &nbsp;&nbsp;&nbsp;
+                    <mat-slide-toggle [(ngModel)]='raider.isninemember' [checked]="raider.isninemember"
+                           (change)="onAdmintoggle(raider)" color=primary>&nbsp;&nbsp;Is Nine member</mat-slide-toggle>
+                           &nbsp;&nbsp;&nbsp;
+                    <mat-slide-toggle [(ngModel)]='raider.isadmin'
+                           [checked]="raider.isadmin"
+                           (change)="onAdmintoggle(raider)" color=primary>&nbsp;&nbsp;Is Admin</mat-slide-toggle>
+                </mat-card-actions>
+            </mat-card>
         </td>
     </tr>
 </table>

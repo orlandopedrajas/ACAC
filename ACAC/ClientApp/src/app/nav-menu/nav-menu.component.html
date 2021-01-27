@@ -5,13 +5,9 @@
     <span class="example-spacer"></span>
     <a mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" 
       href="{{ lodestonelink }}">
-      <img class="iconify" src='assets/img/lodestone-icon.png'>
-    </a>
-    <mat-list>
-      <mat-list-item>
-        <img matListAvatar src='{{ discordavatar }}' class='pointer' [matMenuTriggerFor]="profilemenu" >
-      </mat-list-item>
-    </mat-list>
+      <img class="acac-avatar" src='assets/img/lodestone-icon.png' matTooltip='Lodestone'>
+    </a>&nbsp;&nbsp;&nbsp;
+    <img class='acac-avatar' src='{{ discordavatar }}' [matMenuTriggerFor]="profilemenu" matTooltip='{{ raidername }}'>
   </mat-toolbar>
 </p>
 

@@ -1,36 +1,11 @@
-<!--<div class="divRow">
-    <div class="contentColumn1"> 
-        <mat-tab-group [selectedIndex]="selected" (selectedTabChange)="tabChanged($event)">
-            <mat-tab *ngFor="let char of raider">
-                <ng-template mat-tab-label>
-                    <mat-list>
-                        <mat-list-item>
-                            <img matListAvatar src='{{ char.raiderimg }}'> 
-                        </mat-list-item>
-                    </mat-list>
-                </ng-template>
-                <ng-template matTabContent>
-                    <app-character-info [characterid]='char.lodestoneid'></app-character-info>
-                </ng-template>      
-            </mat-tab>
-        </mat-tab-group>
-    </div>
-    <div class="contentColumn2">
-        <app-pie-chart [Filter]='raidername' [Datatype]="'1'"></app-pie-chart>
-        <app-item-drop [charactername]='raidername'></app-item-drop>
-    </div>
-</div>-->
 <mat-tab-group [selectedIndex]="selected" (selectedTabChange)="tabChanged($event)">
     <mat-tab *ngFor="let char of raider">
         <ng-template mat-tab-label>
-            <mat-list>
-                <mat-list-item>
-                    <img matListAvatar src='{{ char.raiderimg }}'> 
-                </mat-list-item>
-            </mat-list>
+            <img class='acac-avatar' src="{{ char.raiderimg }}" matTooltip="{{ char.raidername }}">
         </ng-template>
         <ng-template matTabContent>
             <div align="center">
+                <br><br>
                <app-character-info [characterid]='char.lodestoneid'></app-character-info> 
             </div>
         </ng-template>      

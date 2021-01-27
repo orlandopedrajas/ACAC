@@ -1,47 +1,43 @@
 <h1 align="center">Add Raid Item Drop</h1>
+<br>
+
 <form (ngSubmit)="onSubmit()" #addForm="ngForm">
-    <div class="form-container">
-        <mat-form-field appearance="outline">
-            <input matInput [matDatepicker]="picker" placeholder="Choose Date Received" required [(ngModel)]="Si.receiveddate" name="dateReceived">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-select placeholder="Raid Content" required [(ngModel)]="Si.contentid" name="raidcontentname" (selectionChange)="toggleRaidcontentname()">
-                <mat-option *ngFor="let cname of arrraidcontentname" [value]="cname.value" >
-                    {{ cname.viewValue }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-select placeholder="Raid Content Item" required [(ngModel)]="Si.raiditem" name="raidcontentitem" (selectionChange)="toggleRaidcontentitem($event)">
-                <mat-option *ngFor="let rci of arrraidcontentitem" [value]="rci.viewValue">
-                    {{ rci.viewValue }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <mat-radio-group aria-label="Raider" required [(ngModel)]="Si.raidername" name="raidername" (change)="raiderchange()">
-            <mat-radio-button *ngFor="let r of arrraiders" [value]="r.raidername">
-                <mat-list>
-                    <mat-list-item>
-                    <div class="toLeft">
-                      <img matListAvatar
-                      src='{{ r.raiderimg }}' 
-                      matTooltip='{{r.raidername}}'>
-                    </div>&nbsp;&nbsp;&nbsp;
-                    <p mat-Line></p>               
-                  </mat-list-item>
-                </mat-list>
-            </mat-radio-button>
-        </mat-radio-group>
-        
-        <!--<mat-checkbox (change)="toggleChange($event)" [checked]='true'>Add another</mat-checkbox>-->
-        <mat-checkbox (change)="toggleOverrideChange($event)" [checked]='false'>Allow Override</mat-checkbox>
-        <button mat-raised-button type="submit" color="primary" [disabled]="!addForm.form.valid" >Submit</button>
-    </div>
+    <mat-card>
+        <mat-card-content>
+            <mat-form-field appearance="fill" [style.width]="'100%'">
+                <input matInput [matDatepicker]="picker" placeholder="Choose Date Received" required [(ngModel)]="Si.receiveddate" name="dateReceived">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill" [style.width]="'100%'">
+                <mat-select placeholder="Raid Content" required [(ngModel)]="Si.contentid" name="raidcontentname" (selectionChange)="toggleRaidcontentname()">
+                    <mat-option *ngFor="let cname of arrraidcontentname" [value]="cname.value" >
+                        {{ cname.viewValue }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>     
+            <mat-form-field appearance="fill" [style.width]="'100%'">
+                <mat-select placeholder="Raid Content Item" required [(ngModel)]="Si.raiditem" name="raidcontentitem" (selectionChange)="toggleRaidcontentitem($event)">
+                    <mat-option *ngFor="let rci of arrraidcontentitem" [value]="rci.viewValue">
+                        {{ rci.viewValue }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>  
+            <mat-radio-group aria-label="Raider" required [(ngModel)]="Si.raidername" name="raidername" (change)="raiderchange()">
+                <mat-radio-button *ngFor="let r of arrraiders" [value]="r.raidername">
+                    <img class="acac-avatar" src='{{ r.raiderimg }}' matTooltip='{{ r.raidername }}'>&nbsp;&nbsp;&nbsp;
+                </mat-radio-button>
+            </mat-radio-group>
+            <br> 
+            <mat-checkbox (change)="toggleOverrideChange($event)" [checked]='false'>Allow Override</mat-checkbox>                 
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" type="button" (click)="onCancel()">Cancel</button>&nbsp;&nbsp;
+            <button mat-raised-button type="submit" color="primary" [disabled]="!addForm.form.valid" >Submit</button>
+        </mat-card-actions>
+    </mat-card>
 </form>
 <br><br>
-<!--<app-item-drop-by-floor [Displaytype]="drops"></app-item-drop-by-floor>-->

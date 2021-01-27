@@ -4,15 +4,11 @@
         <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
         <mat-cell *matCellDef="let element">
             <mat-list>
-            <mat-list-item >
-                <div class="toLeft">
-                <img matListAvatar (click)="deleteJA(element.raidername)"
-                src='{{ element.raiderimg }}' 
-                matTooltip='{{element.raidername}}'
-                alt='{{ element.raidername }}'>
-                </div>               
-            </mat-list-item>
-        </mat-list></mat-cell>
+                <mat-list-item>
+                    <img matListAvatar (click)="deleteJA(element.raidername)" src="{{ element.raiderimg }}" matTooltip='{{ element.raidername }}'>
+                </mat-list-item>
+            </mat-list>             
+        </mat-cell>
     </ng-container>
     <ng-container matColumnDef="alt1" >
         <mat-header-cell *matHeaderCellDef> Alt 1 </mat-header-cell>
@@ -27,12 +23,12 @@
             <ng-template #viewonly>
                 <mat-list>
                     <mat-list-item >
-                        <div class="toLeft">
-                            <img matListAvatar class="imgA1" (click)="onEnableEdit(element.raidername)"
-                            src='{{ element.alt1img }}' matTooltip='{{element.alt1}}'>
-                            <img  matListAvatar class="imgB1"
-                            src='assets/img/green-check.png' matTooltip='{{element.alt1}}' *ngIf="element.hasalt1 === 'Yes'" >
-                            </div>                    
+                        <img matListAvatar class="imgA1" 
+                             (click)="onEnableEdit(element.raidername)"
+                             src='{{ element.alt1img }}' 
+                             matTooltip='{{element.alt1}}'>
+                        <img  matListAvatar class="imgB1"
+                        src='assets/img/green-check.png' matTooltip='{{element.alt1}}' *ngIf="element.hasalt1 === 'Yes'" >                 
                     </mat-list-item>
                 </mat-list>
             </ng-template>
@@ -51,12 +47,10 @@
             <ng-template #viewonly>
                 <mat-list>
                     <mat-list-item >
-                        <div class="toLeft">
                         <img matListAvatar class="imgA1" (click)="onEnableEdit(element.raidername)"
                         src='{{ element.alt2img }}' matTooltip='{{element.alt2}}'>
                         <img  matListAvatar class="imgB1"
-                        src='assets/img/green-check.png' matTooltip='{{element.alt2}}' *ngIf="element.hasalt2 === 'Yes'" >
-                        </div>               
+                        src='assets/img/green-check.png' matTooltip='{{element.alt2}}' *ngIf="element.hasalt2 === 'Yes'" >    
                     </mat-list-item>
                 </mat-list>
             </ng-template>
@@ -69,26 +63,29 @@
 <div *ngIf="raiderIdentity.IsAdmin()">
     <form (ngSubmit)="onSubmit()" #addForm="ngForm">
         <mat-form-field>
-            <mat-select placeholder="Raider" required [(ngModel)]="JAlt.raidername" name="raider" >
+            <mat-select placeholder="Raider" required [(ngModel)]="JAlt.raidername" name="raider" color='primary'>
                 <mat-option *ngFor="let raider of raiders" [value]="raider">
                 {{ raider }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
+        &nbsp;&nbsp;
         <mat-form-field>
-            <mat-select placeholder="alt1" required [(ngModel)]="JAlt.alt1" name="alt1" >
+            <mat-select placeholder="alt1" required [(ngModel)]="JAlt.alt1" name="alt1" color='primary'>
                 <mat-option *ngFor="let job of jobs" [value]="job">
                 {{ job }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
+        &nbsp;&nbsp;
         <mat-form-field>
-            <mat-select placeholder="alt2" required [(ngModel)]="JAlt.alt2" name="alt2" >
+            <mat-select placeholder="alt2" required [(ngModel)]="JAlt.alt2" name="alt2" color='primary'>
                 <mat-option *ngFor="let job of jobs" [value]="job">
                 {{ job }}
                 </mat-option>
             </mat-select>
         </mat-form-field>    
+        &nbsp;&nbsp;
         <button mat-raised-button type="submit" color="primary" [disabled]="!addForm.form.valid" >Submit</button>
     </form>
 </div>

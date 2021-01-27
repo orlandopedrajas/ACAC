@@ -15,6 +15,7 @@ export class NavMenuComponent implements OnInit {
   isninemember: boolean;
   discorduser: string;
   discordavatar: string;
+  raidername: string;
   
   isExpanded = false;
   show = false;
@@ -42,6 +43,7 @@ export class NavMenuComponent implements OnInit {
       this.discorduser = this.thisRaider.discorduser;
       this.discordavatar = this.thisRaider.discordavatar;
       this.lodestonelink = 'https://na.finalfantasyxiv.com/lodestone/character/' + this.thisRaider.lodestoneid;
+      this.raidername = this.thisRaider.raidername;
       this.loggedIn = true;
     }
 

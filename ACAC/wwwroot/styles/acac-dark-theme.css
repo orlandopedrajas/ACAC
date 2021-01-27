@@ -1468,7 +1468,7 @@ textarea.cdk-textarea-autosize-measuring {
 }
 
 .mat-checkbox-frame {
-	border-color: rgba(0, 0, 0, .54)
+	border-color: rgb(255, 255, 255)
 }
 
 .mat-checkbox-checkmark {
@@ -1575,7 +1575,7 @@ textarea.cdk-textarea-autosize-measuring {
 }
 
 .mat-chip.mat-standard-chip.mat-chip-selected.mat-primary {
-	background-color: #E4E7EB;
+	background-color: #26485c;
 	color: #fff
 }
 
@@ -1913,7 +1913,7 @@ th.mat-header-cell {
 }
 
 .mat-form-field-appearance-fill .mat-form-field-flex {
-	background-color: rgba(0, 0, 0, .04)
+	background-color: rgb(104, 107, 112)
 }
 
 .mat-form-field-appearance-fill.mat-form-field-disabled .mat-form-field-flex {
@@ -2152,7 +2152,7 @@ th.mat-header-cell {
 }
 
 .mat-radio-outer-circle {
-	border-color: rgba(0, 0, 0, .54)
+	border-color: rgb(252, 250, 250)
 }
 
 .mat-radio-button.mat-primary.mat-radio-checked .mat-radio-outer-circle {

@@ -132,12 +132,15 @@ export class SavageItem {
       this.http.post('./api/ACAC2/AddRaidItemDrop', JSON.stringify(this.Si), {headers: header}).subscribe(
         (val) => {
            const snackBarRef = this._SnackBar.open(this.Si.raiditem + ' added for ' + this.Si.raidername, 'Done',
-                                                   {duration: 3000 });
+                                                   {duration: 500 });
            snackBarRef.afterDismissed().subscribe(() => {
             this.toggleRaidcontentitem();
             this.drops = '0';
             this._bottomSheetRef.dismiss();
            });
         }, response => { console.log('POST call in error', response); }, () => { });
+    }
+    onCancel() {
+      this._bottomSheetRef.dismiss();
     }
   }

@@ -13,6 +13,15 @@ body {
   margin: 0;
 }
 
+.acac-avatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
 img.main {
   display: block;
   margin-left: auto;

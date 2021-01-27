@@ -5,16 +5,14 @@
             <ng-container matColumnDef="raiditem">
                 <mat-header-cell *matHeaderCellDef>{{ rrl.raiditemname }} </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <mat-list>
-                        <mat-list-item>
-                            <div class="toLeft">
-                                <img matListAvatar
-                                    src='{{ element.raider.raiderimg }}'
-                                    (click)="openBottomSheet(element.raider.lodestoneid, element.raider.raidername, rrl.raiditemname, rrl.id)">                                    
-                            </div>&nbsp;&nbsp;
-                            <p>{{ element.raidername }}</p>
-                        </mat-list-item>
-                    </mat-list>
+                    <img class='acac-avatar'
+                         src='{{ element.raider.raiderimg }}'
+                         (click)="openBottomSheet(element.raider.lodestoneid, element.raider.raidername, rrl.raiditemname, rrl.id)">
+                         &nbsp;&nbsp;
+                         <mat-chip-list>
+                             <mat-chip color="primary" selected (click)="openBottomSheet(element.raider.lodestoneid, element.raider.raidername, rrl.raiditemname, rrl.id)">
+                                 {{ element.raidername }}</mat-chip>
+                         </mat-chip-list>
                 </mat-cell>
             </ng-container>
             <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>
