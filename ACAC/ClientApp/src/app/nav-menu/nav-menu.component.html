@@ -4,7 +4,7 @@
     <span class='bannertext'>A Clear's A Clear</span>
     <span class="example-spacer"></span>
     <a mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" 
-      href="{{ lodestonelink }}">
+      href="{{ lodestonelink }}" target="_blank">
       <img class="acac-avatar" src='assets/img/lodestone-icon.png' matTooltip='Lodestone'>
     </a>&nbsp;&nbsp;&nbsp;
     <img class='acac-avatar' src='{{ discordavatar }}' [matMenuTriggerFor]="profilemenu" matTooltip='{{ raidername }}'>
@@ -21,7 +21,7 @@
   <button mat-menu-item [routerLink]='["/who-can-lot"]'><mat-icon aria-hidden="false" aria-label="Who can lot?" color=primary>gavel</mat-icon>Who can lot?</button>
   <button mat-menu-item [routerLink]='["/weapon-alternates"]'><mat-icon aria-hidden="false" aria-label="Weapon Alternates" color=primary>alt_route</mat-icon>Alternates</button>
   <button mat-menu-item [routerLink]='["/raiders"]'><mat-icon aria-hidden="false" aria-label="Raiders" color=primary>sports_handball</mat-icon>Raiders</button>
-  <!--<button mat-menu-item [routerLink]='["/nine"]'><mat-icon aria-hidden="false" aria-label="Nine Members" color=primary>psychology</mat-icon>Nine Members</button>-->
+  
   <button mat-menu-item [matMenuTriggerFor]="adminpages" *ngIf="isAdmin"><mat-icon aria-hidden="false" aria-label="Raiders" color=primary>settings</mat-icon>Admin</button>  
 </mat-menu>
 
@@ -37,6 +37,9 @@
     </button>
     <button mat-menu-item [routerLink]='["/admin-pages/picture-album"]'>
       <mat-icon aria-hidden="false" color=primary>photo_album</mat-icon> Photo Library
+    </button>
+    <button mat-menu-item [routerLink]='["/nine"]'>
+      <mat-icon aria-hidden="false" aria-label="Nine Members" color="primary">favorite</mat-icon> Nine Members
     </button>
 </mat-menu>
 

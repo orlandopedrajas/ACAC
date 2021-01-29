@@ -1,4 +1,7 @@
-<div align='center' *ngIf='data.lodestoneid'><app-character-info [characterid]='data.lodestoneid' ></app-character-info></div>
+<div align='center' *ngIf='data.lodestoneid'>
+    <!--<app-character-info [characterid]='data.lodestoneid' ></app-character-info>-->
+    <app-item-drop [charactername]='data.lodestoneid'></app-item-drop>
+</div>
 <app-add-raiditem-drop 
     [contentid]='data.contentid' 
     [raiditeminfoid]='data.raiditeminfoid' 

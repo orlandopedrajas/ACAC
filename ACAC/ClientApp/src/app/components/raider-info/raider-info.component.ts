@@ -1,5 +1,8 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-raider-info',
@@ -11,7 +14,7 @@ export class RaiderInfoComponent implements OnChanges {
 
     @Input() raiders: any[];
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,private _SnackBar: MatSnackBar, public dialog: MatDialog) { }
 
     ngOnChanges() { }
 
@@ -49,5 +52,26 @@ export class RaiderInfoComponent implements OnChanges {
            });
 
         }, error => console.error(error));
+    }
+
+    deleteraider(element) {
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            width: '350px',
+            data: 'Delete ' + element.raidername + '?'
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              const headerJson = {'Content-Type': 'application/json'};
+              const header = new HttpHeaders(headerJson);
+              this.http.post('./api/ACAC2/DeleteRaider', JSON.stringify(element.raidername), 
+                                                                          {headers: header}).subscribe((val) => {  },
+                                                                           response => { },
+                () => {
+                  const snackBarRef = this._SnackBar.open('Raider Deleted', 'Done', { duration: 500 });
+                  snackBarRef.afterDismissed().subscribe(() => { location.reload(); });
+                 }
+              );
+            }
+          });
     }
 }

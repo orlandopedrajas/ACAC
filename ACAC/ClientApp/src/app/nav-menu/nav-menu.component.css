@@ -2,9 +2,6 @@
     width:100%;
     cursor: pointer;
 }
-.example-spacer {
-    flex: 1 1 auto;
-  }
 .iconify { width: 24px; height: 24px; }
 .iconpointer {
   cursor: pointer;

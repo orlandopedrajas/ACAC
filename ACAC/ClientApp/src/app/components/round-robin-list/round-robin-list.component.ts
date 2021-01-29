@@ -75,6 +75,7 @@ export class RoundRobinListComponent implements OnChanges {
                 this.ngOnChanges();
             });
         } else {
+            lodestoneid = raidername;
             this._bottomSheet.open(BottomSheetComponent, {data: { lodestoneid }});
         }
     }

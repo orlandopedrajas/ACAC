@@ -97,7 +97,7 @@ export class NineComponent implements OnInit {
   GetRaiders() {
     const baseUrl = document.getElementsByTagName('base')[0].href;
     this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaiderProfiles?raidername=').subscribe(result => {
-        this.ninemember = result.filter(r => r.isninemember === true);     
+        this.ninemember = result.filter(r => r.isninemember === true).sort((a, b) => (a.raidername > b.raidername) ? 1 : -1);     
     });
   }
 

@@ -1,6 +1,6 @@
 <table align='center'>
     <tr *ngFor="let raider of raiders">
-        <td colspan="5">
+        <td>
             <mat-card>
                 <mat-card-header>
                     <img mat-card-avatar src='{{ raider.raiderimg }}' matTooltip='{{ raider.raidername }}' (click)="resetImage(raider)">
@@ -10,6 +10,8 @@
                             maxlength="25" [(ngModel)]="raider.discorduser" name="duser" 
                             value="{{ raider.discorduser }}">
                     </mat-card-subtitle>
+                    <span class="example-spacer"></span>
+                    <mat-icon color="primary" (click)='deleteraider(raider)' [style.cursor]="'pointer'">close</mat-icon>
                 </mat-card-header>
                 <mat-card-content>                    
                     <p><input matInput (blur)='onAdmintoggle(raider)' placeholder="Lodestone ID" 

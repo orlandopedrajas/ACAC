@@ -283,6 +283,36 @@ namespace ACAC.api.db
                 Db.Execute("Delete from RaidItemDrop where id=" + id); 
             }
         }
+        public void DeleteContent(int id)
+        {
+            DeleteRaidItemDrops(id);
+            DeleteRaidItemInfos(id);
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from RaidContent where id=" + id);
+            }
+        }
+        public void DeleteRaidItemDrops(int id)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from RaidItemDrop where contentid=" + id);
+            }
+        }
+        public void DeleteRaider(string raidername)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("delete from profile where raidername='" + raidername + "'");
+            }
+        }
+        public void DeleteRaidItemInfos(int id)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from RaidItemInfo where contentid=" + id);
+            }
+        }
         public void Upsertuserprofile(raider.profile profile)
         {
             using (var Db = new SQLiteConnection(DbPath))

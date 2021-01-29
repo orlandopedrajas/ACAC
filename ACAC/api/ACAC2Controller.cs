@@ -297,6 +297,13 @@ namespace ACAC.api
             return Ok();
         }
         [HttpPost("[action]")]
+        public IActionResult DeleteRaider([FromBody] string raidername)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.DeleteRaider(raidername);
+            return Ok();
+        }
+        [HttpPost("[action]")]
         public IActionResult ResetDatabase()
         {
             db.DBHandler Dbh = new db.DBHandler();
@@ -317,7 +324,13 @@ namespace ACAC.api
             Dbh.DeleteRaidItemDrop(int.Parse(id));
             return Ok();
         }
-
+        [HttpPost("[action]")]
+        public IActionResult DeleteContent([FromBody] string id)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.DeleteContent(int.Parse(id));
+            return Ok();
+        }
         [HttpPost("[action]")]
         public IActionResult UpdateRaiditeminfo([FromBody] raid.Raiditeminfo raidItemInfo)
         {

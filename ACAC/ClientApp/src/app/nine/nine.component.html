@@ -8,9 +8,14 @@
             </mat-list>
         </ng-template>
         <ng-template matTabContent>
-            <app-character-info [characterid]='char.lodestoneid'></app-character-info>
+            <br><br>
+            <div align="center">
+                <app-character-info [characterid]='char.lodestoneid'></app-character-info>
+            </div>
         </ng-template>        
     </mat-tab>
 </mat-tab-group>
-
-<ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+<br><br>
+<div align="center">
+    <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+</div>
