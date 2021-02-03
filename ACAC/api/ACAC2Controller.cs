@@ -30,6 +30,16 @@ namespace ACAC.api
         }
 
         [HttpGet("[action]")]
+        public IEnumerable<pictures.picture> GetPictureByCategory(string category)
+        {
+            try 
+            {
+                db.DBHandler Dbh = new db.DBHandler();
+                return Dbh.GetAllPicturesByCategory(category);
+            }
+            catch { return Enumerable.Empty<pictures.picture>(); }
+        }
+        [HttpGet("[action]")]
         public IEnumerable<report.ReportData> GetItemDropReportByFloor(string contentid)
         {
             try
@@ -238,7 +248,16 @@ namespace ACAC.api
             Dbh.InsertUpdateJobAlternate(x);
             return Ok();
         }
-
+        
+        [HttpPost("[action]")]
+        public IActionResult AddPicture([FromBody] pictures.picture x)
+        {
+            if (x == null) return BadRequest("Unfortunately your request could not be completed at this time, please try again later.");
+            x.uploaddate = DateTime.Now.ToString();
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.AddImage(x);
+            return Ok();
+        }
         [HttpPost("[action]")]
         public IActionResult AddAttendance([FromBody] raid.Attendance[] _attendance)
         {
@@ -280,6 +299,20 @@ namespace ACAC.api
         {
             db.DBHandler Dbh = new db.DBHandler();
             Dbh.DeleteRaidItemInfo(id);
+            return Ok();
+        }
+        [HttpPost("[action]")]
+        public IActionResult ToggleFavorite([FromBody] string id)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.ToggleFavorite(id);
+            return Ok();
+        }
+        [HttpPost("[action]")]
+        public IActionResult DeletePicture([FromBody] string id)
+        {
+            db.DBHandler Dbh = new db.DBHandler();
+            Dbh.DeleteImage(id);
             return Ok();
         }
         [HttpPost("[action]")]

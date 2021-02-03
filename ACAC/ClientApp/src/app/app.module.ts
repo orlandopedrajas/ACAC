@@ -37,10 +37,9 @@ import { RaiderManagementComponent } from './admin-pages/raider-management/raide
 import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-raiditem-drop.component';
 import { ManageRoundrobinListsComponent } from './admin-pages/manage-roundrobin-lists/manage-roundrobin-lists.component';
 import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.component';
-import { testingcomponent } from './testing/testing.component';
 import { NineComponent } from './nine/nine.component';
 import { NgxGalleryModule } from 'ngx-gallery';
-import { picturealbumComponent } from './admin-pages/picture-album/picture-album.component';
+import { bottomsheetpicturealbum, picturealbumComponent } from './admin-pages/picture-album/picture-album.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +57,7 @@ import { picturealbumComponent } from './admin-pages/picture-album/picture-album
     ItemDropByFloorComponent,
     ConfirmationDialogComponent,
     BottomSheetComponent,
+    bottomsheetpicturealbum,
     AuthorizeComponent,
     AlternateJobsComponent,
     PieChartComponent,
@@ -68,7 +68,6 @@ import { picturealbumComponent } from './admin-pages/picture-album/picture-album
     RaiderManagementComponent,
     AddRaidItemDropComponent,
     ManageRoundrobinListsComponent,
-    testingcomponent,
     NineComponent,
     picturealbumComponent,
   ],
@@ -90,6 +89,7 @@ import { picturealbumComponent } from './admin-pages/picture-album/picture-album
   entryComponents: [TooltipComponent,
                     ConfirmationDialogComponent,
                     BottomSheetComponent,
+                    bottomsheetpicturealbum,
                    ],
   bootstrap: [AppComponent]
 })

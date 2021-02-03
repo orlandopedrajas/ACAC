@@ -203,6 +203,21 @@ namespace ACAC.api.db
                 }
             }
         }
+        public IEnumerable<pictures.picture> GetAllPicturesByCategory(string category)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                if (category != null)
+                {
+                    return Db.Query<pictures.picture>("Select * from picture where category='" + category + "' order by favorite desc, uploaddate");
+                }
+                else
+                {
+                    return Db.Query<pictures.picture>("Select * from picture  order by favorite desc, uploaddate");
+                }
+            }
+        }
+
         public IEnumerable<raid.RaidItemDrop> GetRaidItemDropByContent(string contentid)
         {
             using (var Db = new SQLiteConnection(DbPath))
@@ -276,6 +291,21 @@ namespace ACAC.api.db
                 }
             }
         }
+        public void AddImage(pictures.picture thisPicture)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                try 
+                {
+                    Db.Insert(thisPicture);
+                }
+                catch 
+                {
+                    Db.CreateTable<pictures.picture>();
+                    Db.Insert(thisPicture);
+                }
+            }
+        }
         public void DeleteRaidItemDrop(int id)
         {
             using (var Db = new SQLiteConnection(DbPath))
@@ -290,6 +320,13 @@ namespace ACAC.api.db
             using (var Db = new SQLiteConnection(DbPath))
             {
                 Db.Execute("Delete from RaidContent where id=" + id);
+            }
+        }
+        public void DeleteImage(string id)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from picture where id=" + id);
             }
         }
         public void DeleteRaidItemDrops(int id)
@@ -369,6 +406,13 @@ namespace ACAC.api.db
             using (var Db = new SQLiteConnection(DbPath))
             {
                 Db.Execute("Delete from Raiditeminfo where id=" + id);
+            }
+        }
+        public void ToggleFavorite(string id)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("update picture set favorite= not favorite where id =" + id);
             }
         }
         public void AddRoundRobinEntry(raid.Roundrobinentry entry)

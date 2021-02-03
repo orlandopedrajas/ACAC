@@ -1,0 +1,20 @@
+<mat-toolbar>
+    <button mat-flat-button color="primary" (click)="openBottomSheet()">Add New Image</button>
+</mat-toolbar>
+<mat-grid-list cols="4">
+    <mat-grid-tile *ngFor="let image of imageContent">
+        <mat-card>
+            <mat-card-title align="end">
+                <button mat-icon-button (click)='deletePicture(image.id)'><mat-icon color="primary">close</mat-icon></button>
+            </mat-card-title>
+            <mat-card-content>
+                <img src='{{ image.url }}' [style.width]="'400px'">
+            </mat-card-content>
+            <mat-card-actions align="end">
+                <div *ngIf='image.favorite; then thenBlock; else elseBlock'></div>
+                <ng-template #thenBlock><button mat-icon-button (click)='toggleFavorite(image.id)'><mat-icon color="primary">favorite</mat-icon></button></ng-template>
+                <ng-template #elseBlock><button mat-icon-button (click)='toggleFavorite(image.id)'><mat-icon color="primary">favorite_border</mat-icon></button></ng-template>
+            </mat-card-actions>
+        </mat-card>        
+    </mat-grid-tile>
+</mat-grid-list>

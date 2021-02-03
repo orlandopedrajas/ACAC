@@ -16,18 +16,19 @@
                     name="contentName" 
                     (blur)="onblur(rContent)"
                     value="{{ rContent._raidContent.contentname }}">
-                </mat-form-field>
-            </mat-card-header>
-            <mat-card-content>
+                </mat-form-field> 
+                <span class="example-spacer"></span>
                 <mat-slide-toggle
                 [color]="color"
                 [checked]="rContent._raidContent.isenabled"
                     [(ngModel)]="rContent._raidContent.isenabled"
-                    (change)="onblur(rContent)"
-                    ></mat-slide-toggle>&nbsp;&nbsp;&nbsp;&nbsp;
-                <button mat-raised-button color="primary" (click)="onresetdrops(rContent)">Clear Item Drops</button>    
+                    (change)="onblur(rContent)" matTooltip="Enable floor"></mat-slide-toggle>
                 &nbsp;&nbsp;
-                <button mat-raised-button color="primary" (click)="deletefloor(rContent)">Delete Floor</button>
+                <mat-icon color="primary" (click)='onresetdrops(rContent)' [style.cursor]="'pointer'" matTooltip="Clear Items">clear_all</mat-icon>
+                &nbsp;&nbsp;
+                <mat-icon color="primary" (click)='deletefloor(rContent)' [style.cursor]="'pointer'" matTooltip="Delete Floor">delete_forever</mat-icon>
+            </mat-card-header>
+            <mat-card-content>
                 <br><br>
                 <mat-form-field class="raid-floors-full-width">
                     <input matInput placeholder="Content Image" 
@@ -48,7 +49,7 @@
                     <ng-container matColumnDef="raiditemimg">
                         <th mat-header-cell *matHeaderCellDef> Raid Item Image </th>
                         <td mat-cell *matCellDef="let element">
-                            <mat-icon (click)='OnRemoveItem(element.id)' class='pointer'>remove_circle_outline</mat-icon>
+                            <mat-icon (click)='OnRemoveItem(element.id)' [style.cursor]="'pointer'" MatTooltip='Delete Item' color='primary'>delete_forever</mat-icon>
                             &nbsp;&nbsp;&nbsp;
                             <img mat-card-avatar src='{{element.raiditemimg}}'>
                         </td>
@@ -56,7 +57,11 @@
 
                     <ng-container matColumnDef="raiditemname">
                         <th mat-header-cell *matHeaderCellDef> Raid Item Name </th>
-                        <td mat-cell *matCellDef="let element"> {{element.raiditemname}} </td>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-chip-list>
+                                <mat-chip color="primary" selected>{{ element.raiditemname }}</mat-chip>
+                            </mat-chip-list>
+                        </td>
                     </ng-container>
 
                     <ng-container matColumnDef="hasroundrobin">
