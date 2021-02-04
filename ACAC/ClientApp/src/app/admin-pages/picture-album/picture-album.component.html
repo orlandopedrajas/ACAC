@@ -1,4 +1,4 @@
-<mat-toolbar>
+<mat-toolbar *ngIf="thisRaider.IsAdmin()">
     <button mat-flat-button color="primary" (click)="openBottomSheet()">Add New Image</button>
 </mat-toolbar>
 <mat-grid-list cols="4">

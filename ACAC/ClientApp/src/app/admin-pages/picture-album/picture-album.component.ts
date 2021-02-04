@@ -23,9 +23,10 @@ import { ImageDialogComponent } from 'src/app/components/image-dialog/image-dial
     constructor(private http: HttpClient, private _bottomSheet: MatBottomSheet, private _SnackBar: MatSnackBar, public dialog: MatDialog) { }
 
     ngOnInit() {
-        if (this.thisRaider.IsAdmin() === true) {
-          this.getPicturebyCategory('homepage');
-        } else { window.location.href = '/'; }
+      this.getPicturebyCategory('homepage');
+       // if (this.thisRaider.IsAdmin() === true) {
+      //    this.getPicturebyCategory('homepage');
+       // } else { window.location.href = '/'; }
     }
 
     openBottomSheet(): void {

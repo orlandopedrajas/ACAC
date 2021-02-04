@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { NgxGalleryOptions,  NgxGalleryImage, NgxGalleryAnimation } from 'ngx-gallery';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ImageDialogComponent } from '../components/image-dialog/image-dialog.component';
 
 export interface images {
   image: string;
@@ -23,7 +22,6 @@ export class HomeComponent implements OnInit{
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   imageSource: any[]; // = image_data;
-  imageContent: any[];
 
   constructor(private http: HttpClient, public dialog: MatDialog) {  }
 
@@ -34,7 +32,6 @@ export class HomeComponent implements OnInit{
     const baseUrl = document.getElementsByTagName('base')[0].href;
     this.http.get<any[]>(baseUrl + 'api/ACAC2/GetPictureByCategory?category=homepage').subscribe(result => {
       this.imageSource = result.sort((a, b) => (a.favorite < b.favorite) ? 1 : -1);
-      this.imageContent = this.imageSource;
       this.imageSource.forEach(function(value){
         let img = {} as image_detail;
         img.small = value.url;
@@ -69,13 +66,5 @@ export class HomeComponent implements OnInit{
     ];
 
     this.galleryImages = gi;
-  }
-
-  showImage(imageurl) {
-    const dialogRef = this.dialog.open(ImageDialogComponent, {
-      width: '70%',
-      data: imageurl
-    });
-    dialogRef.afterClosed().subscribe(result => { });
   }
 }
