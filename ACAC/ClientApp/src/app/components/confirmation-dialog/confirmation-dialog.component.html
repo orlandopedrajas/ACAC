@@ -1,7 +1,8 @@
-<div mat-dialog-content>
+<div mat-dialog-content align="middle">
     {{ message }}
 </div>
-<div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">No</button>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Yes</button>
+<div mat-dialog-actions align="end">
+    <button mat-icon-button (click)="onNoClick()"><mat-icon color="primary" matTooltip="Cancel">cancel</mat-icon></button>
+    &nbsp;&nbsp;
+    <button mat-icon-button [mat-dialog-close]="true" cdkFocusInitial><mat-icon color="primary" mat-Tooltip="Yes">check_circle</mat-icon></button>
 </div>

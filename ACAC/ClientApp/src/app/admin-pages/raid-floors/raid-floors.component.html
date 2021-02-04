@@ -24,9 +24,13 @@
                     [(ngModel)]="rContent._raidContent.isenabled"
                     (change)="onblur(rContent)" matTooltip="Enable floor"></mat-slide-toggle>
                 &nbsp;&nbsp;
-                <mat-icon color="primary" (click)='onresetdrops(rContent)' [style.cursor]="'pointer'" matTooltip="Clear Items">clear_all</mat-icon>
+                <button mat-icon-button>
+                    <mat-icon color="primary" (click)='onresetdrops(rContent)' [style.cursor]="'pointer'" matTooltip="Clear Items">clear_all</mat-icon>
+                </button>
                 &nbsp;&nbsp;
-                <mat-icon color="primary" (click)='deletefloor(rContent)' [style.cursor]="'pointer'" matTooltip="Delete Floor">delete_forever</mat-icon>
+                <button mat-icon-button>
+                  <mat-icon color="primary" (click)='deletefloor(rContent)' [style.cursor]="'pointer'" matTooltip="Delete Floor">delete_forever</mat-icon>  
+                </button>
             </mat-card-header>
             <mat-card-content>
                 <br><br>
@@ -49,7 +53,9 @@
                     <ng-container matColumnDef="raiditemimg">
                         <th mat-header-cell *matHeaderCellDef> Raid Item Image </th>
                         <td mat-cell *matCellDef="let element">
-                            <mat-icon (click)='OnRemoveItem(element.id)' [style.cursor]="'pointer'" MatTooltip='Delete Item' color='primary'>delete_forever</mat-icon>
+                            <button mat-icon-button>
+                                <mat-icon (click)='OnRemoveItem(element.id)' [style.cursor]="'pointer'" MatTooltip='Delete Item' color='primary'>delete_forever</mat-icon>
+                            </button>
                             &nbsp;&nbsp;&nbsp;
                             <img mat-card-avatar src='{{element.raiditemimg}}'>
                         </td>

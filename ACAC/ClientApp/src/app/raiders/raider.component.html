@@ -1,7 +1,9 @@
 <mat-tab-group [selectedIndex]="selected" (selectedTabChange)="tabChanged($event)">
     <mat-tab *ngFor="let char of raider">
         <ng-template mat-tab-label>
-            <img class='acac-avatar' src="{{ char.raiderimg }}" matTooltip="{{ char.raidername }}">
+            <button mat-icon-button>
+                <img class='acac-avatar' src="{{ char.raiderimg }}" matTooltip="{{ char.raidername }}">
+            </button>
         </ng-template>
         <ng-template matTabContent>
             <div align="center">

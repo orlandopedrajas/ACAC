@@ -8,7 +8,7 @@
                 <button mat-icon-button (click)='deletePicture(image.id)'><mat-icon color="primary">close</mat-icon></button>
             </mat-card-title>
             <mat-card-content>
-                <img src='{{ image.url }}' [style.width]="'400px'">
+                <img src='{{ image.url }}' [style.width]="'400px'" (click)="showImage(image.url)">
             </mat-card-content>
             <mat-card-actions align="end">
                 <div *ngIf='image.favorite; then thenBlock; else elseBlock'></div>

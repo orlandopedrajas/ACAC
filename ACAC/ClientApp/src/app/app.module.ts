@@ -40,6 +40,7 @@ import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.com
 import { NineComponent } from './nine/nine.component';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { bottomsheetpicturealbum, picturealbumComponent } from './admin-pages/picture-album/picture-album.component';
+import { ImageDialogComponent } from './components/image-dialog/image-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { bottomsheetpicturealbum, picturealbumComponent } from './admin-pages/pi
     RoundRobinListComponent,
     ItemDropByFloorComponent,
     ConfirmationDialogComponent,
+    ImageDialogComponent,
     BottomSheetComponent,
     bottomsheetpicturealbum,
     AuthorizeComponent,
@@ -88,6 +90,7 @@ import { bottomsheetpicturealbum, picturealbumComponent } from './admin-pages/pi
   providers: [ CookieService ],
   entryComponents: [TooltipComponent,
                     ConfirmationDialogComponent,
+                    ImageDialogComponent,
                     BottomSheetComponent,
                     bottomsheetpicturealbum,
                    ],

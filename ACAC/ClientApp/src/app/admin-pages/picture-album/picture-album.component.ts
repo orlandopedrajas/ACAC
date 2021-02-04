@@ -5,6 +5,7 @@ import { RaiderIdentity, ThisRaider } from '../../components/ACACComponents';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material';
+import { ImageDialogComponent } from 'src/app/components/image-dialog/image-dialog.component';
 
 @Component({
     selector: 'app-picture-album',
@@ -64,6 +65,14 @@ import { MatDialog } from '@angular/material';
           );
         }
       });
+    }
+
+    showImage(imageurl) {
+      const dialogRef = this.dialog.open(ImageDialogComponent, {
+        width: '90%',
+        data: imageurl
+      });
+      dialogRef.afterClosed().subscribe(result => { });
     }
 
     PostRequest(requestRoute: string, reqobj) {

@@ -4,8 +4,11 @@
             <img class='acac-avatar' src='{{ rc._raidContent.contentimg }}'>
             &nbsp;&nbsp;&nbsp;{{ rc._raidContent.contentname }}
         </ng-template>
-        <div [innerHtml]="rc._raidContent.contentdescription"></div> 
         <ng-template matTabContent>
+            <br>
+            <h1 align="center">{{ rc._raidContent.contentname }}</h1>
+            <br>
+            <div [innerHtml]="rc._raidContent.contentdescription"></div> 
             <app-round-robin-list [contentid]="rc._raidContent.id"></app-round-robin-list>  
         </ng-template>
     </mat-tab>
