@@ -2,3 +2,7 @@
     width:100%;
     cursor: pointer;
 }
+.iconify { width: 24px; height: 24px; }
+.iconpointer {
+  cursor: pointer;
+}

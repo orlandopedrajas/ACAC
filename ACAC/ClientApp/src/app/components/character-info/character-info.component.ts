@@ -104,7 +104,7 @@ export class Charprofile {
       } else { return gear; }
     }
     delay(ms: number) {
-        new Promise(resolve =>
+        new Promise<void>(resolve =>
                         setTimeout(() => resolve(), ms)).then(() =>
                         console.log('launch'));
     }
@@ -146,7 +146,7 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
         localStorage.removeItem(this.characterid);
         this.characterprofile = new Charprofile();
         this.http.get<any[]>('https://xivapi.com/character/' + this.characterid + '?data=fc&extended=1')
-        .subscribe(newObj => {
+        .toPromise().then(newObj => {
           const result: any = newObj;
           // console.log(result);
           this.characterprofile.getRaider(this.http, result);

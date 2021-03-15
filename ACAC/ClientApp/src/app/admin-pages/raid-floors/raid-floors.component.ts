@@ -82,6 +82,46 @@ import { RaiderIdentity, ThisRaider } from '../../components/ACACComponents';
                                               contentimg: content._raidContent.contentimg});
 
     }
+    onresetdrops(content) {
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        width: '350px',
+        data: 'Clear Item Drops?'
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          const headerJson = {'Content-Type': 'application/json'};
+          const header = new HttpHeaders(headerJson);
+          this.http.post('./api/ACAC2/Deleteraidropbycontentid', JSON.stringify(content._raidContent.id), 
+                                                                                {headers: header}).subscribe((val) => {  }, response => { },
+            () => {
+              const snackBarRef = this._SnackBar.open('Drops cleared', 'Done', { duration: 3000 });
+              snackBarRef.afterDismissed().subscribe(() => { this.getRaidContent(); });
+             }
+          );
+        }
+      });
+
+    }
+    deletefloor(content) {
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        width: '350px',
+        data: 'Remove this item?'
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          const headerJson = {'Content-Type': 'application/json'};
+          const header = new HttpHeaders(headerJson);
+          this.http.post('./api/ACAC2/DeleteContent', JSON.stringify(content._raidContent.id), 
+                                                                      {headers: header}).subscribe((val) => {  },
+                                                                       response => { },
+            () => {
+              const snackBarRef = this._SnackBar.open('Content Deleted', 'Done', { duration: 500 });
+              snackBarRef.afterDismissed().subscribe(() => { this.getRaidContent(); });
+             }
+          );
+        }
+      });
+    }
     OnRemoveItem(id) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '350px',

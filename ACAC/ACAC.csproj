@@ -27,22 +27,18 @@
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Compile Remove="ClientApp\src\app\add-equipment-drop\**" />
+    <Compile Remove="ClientApp\src\app\add-item-drop\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="ClientApp\src\app\add-equipment-drop\**" />
+    <Content Remove="ClientApp\src\app\add-item-drop\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="ClientApp\src\app\add-equipment-drop\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\add-item-drop\**" />
     <None Remove="ClientApp\src\app\add-equipment-drop\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="ClientApp\src\app\add-item-drop\add-item-drop.component.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\app\add-item-drop\add-item-drop.component.ts" />
+    <None Remove="ClientApp\src\app\add-item-drop\**" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

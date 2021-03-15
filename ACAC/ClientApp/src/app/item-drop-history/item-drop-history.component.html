@@ -4,102 +4,20 @@
 <mat-tab-group (selectedTabChange)="tabChanged($event)">
     <mat-tab>
         <ng-template mat-tab-label>
-            <mat-list>
-                <mat-list-item>
-                    <div class="toLeft">
-                        <img matListAvatar src='https://lh3.googleusercontent.com/U1XMWFUmn44O3I_e0LL4ZoSIeHLX3mPWHo9qLpmobR2Es2UBoM6xKtNbk3dup1nA6cBeHSJERYzIn8YreIpyShVdzozxEhjwx0_jxqx68OwRCtnEm0z-qVrYhDb6MJxH-10Vn8jRcf0fx0mW4c6ELIW-emSCUVIhYzQWm8wvciQ_EV6YH89erZNx33XZTQd_W7alHZf_oe0iAKSh8kQLGuKpkr55onPDserKrWZ0AillTbbBna9R8C_EACY4BTrUuJSAy0pbglFOVxDMq4F1MovPxroPK0QGiob51x9EZqmIgqhf3KhclP6gZXeXL-mXIuuMvV9ZJbFbZxY-dFRLq44yFa09abK-v0FxrU9ptW1_g7kC3OKcvfzVsRSesRWnOVG6HiP1iHbMymga1wc268gOGlVRQ9Di3uBaPYhC_k7xdSxnlo2wuzxtO87iFerg_EUZTInTkVO4Trpi1wiS_dC3vd6GAXL5N5vSGTFMjbFSnUQ22RVQ7HPUqQAS9vKTU0V9qjZAthqjPsJ8N_MEaodw1JpYAFcrN0ZfvKJVKiOBvEGyicMO6BbMhpnFDEm-VNMzfuEZ1oIFRwuE3jEJxNIbjssHRZFzgB8DNBV01ZlmQ729NOC32lJRFPqMzF7dfr8GkhUKimSps5rvlbisRZo23XXpHVuvE5Ax6AGiCIWpZkweYpyIXXRpSxXyCU0BlFJyflIK9FysgEct2r6s-X9qEtibHfije6S0WiAPWHQcHQcG0w=w1920-h804-no'>
-                    </div>&nbsp;&nbsp;&nbsp;
-                    <p mat-Line>All Drops</p>
-                </mat-list-item>
-            </mat-list>
+            <img class='acac-avatar' src='https://lh3.googleusercontent.com/U1XMWFUmn44O3I_e0LL4ZoSIeHLX3mPWHo9qLpmobR2Es2UBoM6xKtNbk3dup1nA6cBeHSJERYzIn8YreIpyShVdzozxEhjwx0_jxqx68OwRCtnEm0z-qVrYhDb6MJxH-10Vn8jRcf0fx0mW4c6ELIW-emSCUVIhYzQWm8wvciQ_EV6YH89erZNx33XZTQd_W7alHZf_oe0iAKSh8kQLGuKpkr55onPDserKrWZ0AillTbbBna9R8C_EACY4BTrUuJSAy0pbglFOVxDMq4F1MovPxroPK0QGiob51x9EZqmIgqhf3KhclP6gZXeXL-mXIuuMvV9ZJbFbZxY-dFRLq44yFa09abK-v0FxrU9ptW1_g7kC3OKcvfzVsRSesRWnOVG6HiP1iHbMymga1wc268gOGlVRQ9Di3uBaPYhC_k7xdSxnlo2wuzxtO87iFerg_EUZTInTkVO4Trpi1wiS_dC3vd6GAXL5N5vSGTFMjbFSnUQ22RVQ7HPUqQAS9vKTU0V9qjZAthqjPsJ8N_MEaodw1JpYAFcrN0ZfvKJVKiOBvEGyicMO6BbMhpnFDEm-VNMzfuEZ1oIFRwuE3jEJxNIbjssHRZFzgB8DNBV01ZlmQ729NOC32lJRFPqMzF7dfr8GkhUKimSps5rvlbisRZo23XXpHVuvE5Ax6AGiCIWpZkweYpyIXXRpSxXyCU0BlFJyflIK9FysgEct2r6s-X9qEtibHfije6S0WiAPWHQcHQcG0w=w1920-h804-no'>
+            &nbsp;&nbsp;&nbsp;All Drops
         </ng-template>
-        <app-item-drop-by-floor [Displaytype]="'1'"></app-item-drop-by-floor>
+        <ng-template matTabContent>
+            <app-item-drop-by-floor [Displaytype]="'1'"></app-item-drop-by-floor>
+        </ng-template>        
     </mat-tab>
     <mat-tab *ngFor='let rc of raidContent' [label]="rc._raidContent.id">
         <ng-template mat-tab-label>
-            <mat-list>
-                <mat-list-item>
-                    <div class="toLeft">
-                        <img matListAvatar src='{{ rc._raidContent.contentimg }}'>
-                    </div>&nbsp;&nbsp;&nbsp;
-                    <p mat-Line>{{ rc._raidContent.contentname }} </p>
-                </mat-list-item>
-            </mat-list>
+            <img class='acac-avatar' src='{{ rc._raidContent.contentimg }}'>
+            &nbsp;&nbsp;&nbsp;{{ rc._raidContent.contentname }}
         </ng-template>
-        <app-item-drop-by-floor [Displaytype]="'2'" [Contentid]="rc._raidContent.id"></app-item-drop-by-floor>
+        <ng-template matTabContent>
+            <app-item-drop-by-floor [Displaytype]="'2'" [Contentid]="rc._raidContent.id"></app-item-drop-by-floor>
+        </ng-template>        
     </mat-tab>
 </mat-tab-group>
-<!--
-<mat-tab-group (selectedTabChange)="tabChanged($event)">
-    <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-list>
-                    <mat-list-item>
-                        <div class="toLeft">
-                        <img matListAvatar
-                                src='https://lh3.googleusercontent.com/U1XMWFUmn44O3I_e0LL4ZoSIeHLX3mPWHo9qLpmobR2Es2UBoM6xKtNbk3dup1nA6cBeHSJERYzIn8YreIpyShVdzozxEhjwx0_jxqx68OwRCtnEm0z-qVrYhDb6MJxH-10Vn8jRcf0fx0mW4c6ELIW-emSCUVIhYzQWm8wvciQ_EV6YH89erZNx33XZTQd_W7alHZf_oe0iAKSh8kQLGuKpkr55onPDserKrWZ0AillTbbBna9R8C_EACY4BTrUuJSAy0pbglFOVxDMq4F1MovPxroPK0QGiob51x9EZqmIgqhf3KhclP6gZXeXL-mXIuuMvV9ZJbFbZxY-dFRLq44yFa09abK-v0FxrU9ptW1_g7kC3OKcvfzVsRSesRWnOVG6HiP1iHbMymga1wc268gOGlVRQ9Di3uBaPYhC_k7xdSxnlo2wuzxtO87iFerg_EUZTInTkVO4Trpi1wiS_dC3vd6GAXL5N5vSGTFMjbFSnUQ22RVQ7HPUqQAS9vKTU0V9qjZAthqjPsJ8N_MEaodw1JpYAFcrN0ZfvKJVKiOBvEGyicMO6BbMhpnFDEm-VNMzfuEZ1oIFRwuE3jEJxNIbjssHRZFzgB8DNBV01ZlmQ729NOC32lJRFPqMzF7dfr8GkhUKimSps5rvlbisRZo23XXpHVuvE5Ax6AGiCIWpZkweYpyIXXRpSxXyCU0BlFJyflIK9FysgEct2r6s-X9qEtibHfije6S0WiAPWHQcHQcG0w=w1920-h804-no'>
-                        </div>&nbsp;&nbsp;&nbsp;
-                        <p mat-Line>All Drops</p>               
-                    </mat-list-item>
-                </mat-list>
-            </ng-template>
-            <app-item-drop-by-floor [Displaytype]="'3'"></app-item-drop-by-floor>
-    </mat-tab>
-    <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-list>
-                    <mat-list-item>
-                        <div class="toLeft">
-                        <img matListAvatar
-                                src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/65-icon.jpg'>
-                        </div>&nbsp;&nbsp;&nbsp;
-                        <p mat-Line>Resurrection</p>               
-                    </mat-list-item>
-                </mat-list>
-            </ng-template>
-            <app-item-drop-by-floor [Displaytype]="'2'" [Floorname]="'Eden Savage Floor 1'"></app-item-drop-by-floor>
-    </mat-tab>
-    <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-list>
-                    <mat-list-item>
-                        <div class="toLeft">
-                        <img matListAvatar
-                                src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/66-icon.jpg'>
-                        </div>&nbsp;&nbsp;&nbsp;
-                        <p mat-Line>Descent</p>               
-                    </mat-list-item>
-                </mat-list>
-            </ng-template>
-            <app-item-drop-by-floor [Displaytype]="'2'" [Floorname]="'Eden Savage Floor 2'"></app-item-drop-by-floor>
-    </mat-tab>
-    <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-list>
-                    <mat-list-item>
-                        <div class="toLeft">
-                        <img matListAvatar
-                                src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/67-icon.jpg'>
-                        </div>&nbsp;&nbsp;&nbsp;
-                        <p mat-Line>Inundation</p>               
-                    </mat-list-item>
-                </mat-list>
-            </ng-template> 
-            <app-item-drop-by-floor [Displaytype]="'2'" [Floorname]="'Eden Savage Floor 3'"></app-item-drop-by-floor>
-    </mat-tab>
-    <mat-tab>
-            <ng-template mat-tab-label>
-                <mat-list>
-                    <mat-list-item>
-                        <div class="toLeft">
-                        <img matListAvatar
-                                src='https://dmszsuqyoe6y6.cloudfront.net/img/ff/bosses/68-icon.jpg'>
-                        </div>&nbsp;&nbsp;&nbsp;
-                        <p mat-Line>Sepulture</p>               
-                    </mat-list-item>
-                </mat-list>
-            </ng-template>    
-            <app-item-drop-by-floor [Displaytype]="'2'" [Floorname]="'Eden Savage Floor 4'"></app-item-drop-by-floor>
-    </mat-tab>    
-</mat-tab-group>
--->

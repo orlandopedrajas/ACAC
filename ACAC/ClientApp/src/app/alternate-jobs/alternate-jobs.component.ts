@@ -40,26 +40,24 @@ export class AlternateJobsComponent {
     raiderIdentity: RaiderIdentity = new RaiderIdentity();
 
     constructor(private http: HttpClient,
-                // tslint:disable-next-line: variable-name
-                private _SnackBar: MatSnackBar, public dialog: MatDialog) {
+        private _SnackBar: MatSnackBar, public dialog: MatDialog) {
         this.jobs = this.jobs.sort((a, b) => (a > b) ? 1 : -1);
         this.getJobAlternates();
-        // console.log(this.raiderIdentity.Raideridentity());
+
     }
 
     onEnableEdit(raider) {
-       //  console.log(raider);
-       // console.log(this.raiderIdentity.Raideridentity().raidername);
+
         if (this.raiderIdentity.Raideridentity().raidername === raider) {
             this.enableedit = true;
         } else { this.enableedit = false; }
-        // console.log(this.enableedit);
+
     }
     getJobAlternates() {
       const baseUrl = document.getElementsByTagName('base')[0].href;
       // tslint:disable-next-line: max-line-length
       this.http.get<{ raidername: string, raiderimg: string, pageroute: string, israidmember: any }[]>(baseUrl + 'api/ACAC2/GetRaiderProfiles?raidername=').subscribe(result1 => {
-        // console.log(result1);
+
         this.raiders = [];
         result1.filter(r => r.israidmember === true).sort((a, b) => (a.raidername > b.raidername) ? 1 : -1).forEach((value) => {
             this.raiders.push(value.raidername);
@@ -160,7 +158,7 @@ export class AlternateJobsComponent {
 
     deleteJA(raidername) {
 
-        if (this.raiderIdentity.IsAdmin) {
+        if (this.raiderIdentity.IsAdmin()) {
             const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
                 width: '350px',
                 data: 'Delete Job alternate for ' + raidername + '?'

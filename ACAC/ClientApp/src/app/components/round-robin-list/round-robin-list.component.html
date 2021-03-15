@@ -1,20 +1,17 @@
-
+<br><br>
 <div class='container'>
     <div *ngFor="let rrl of raiditems" class='box'>
         <mat-table [dataSource]='rrl.items'>
             <ng-container matColumnDef="raiditem">
                 <mat-header-cell *matHeaderCellDef>{{ rrl.raiditemname }} </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <mat-list>
-                        <mat-list-item>
-                            <div class="toLeft">
-                                <img matListAvatar
-                                    src='{{ element.raider.raiderimg }}'
-                                    (click)="openBottomSheet(element.raider.lodestoneid)">                                    
-                            </div>&nbsp;&nbsp;
-                            <p>{{ element.raidername }}</p>
-                        </mat-list-item>
-                    </mat-list>
+                    <mat-chip-list>
+                        <mat-chip color="primary" selected (click)="openBottomSheet(element.raider.lodestoneid, element.raider.raidername, rrl.raiditemname, rrl.id)">
+                            <img class='acac-avatar'
+                            src='{{ element.raider.raiderimg }}'>
+                            &nbsp;&nbsp;
+                            {{ element.raidername }}</mat-chip>
+                    </mat-chip-list>
                 </mat-cell>
             </ng-container>
             <mat-header-row  *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -25,7 +25,31 @@ namespace ACAC.api.db
                 }
             }
         }
-        
+
+        public void InsertUpdateImage(report.album album)
+        {
+            using (var Db = new SQLite.SQLiteConnection(DbPath))
+            {
+                try
+                {
+                    Db.InsertOrReplace(album);
+                }
+                catch
+                {
+                    Db.CreateTable<report.album>();
+                    Db.InsertOrReplace(album);
+                }
+            }
+        }
+        public IEnumerable<report.album> Getalbumbyname(string album)
+        {
+            using (var Db = new SQLite.SQLiteConnection(DbPath))
+            {
+                TableExists("album");
+                return Db.Query<report.album>("Select * from album where albumname='" + album + "'");
+            }
+        }
+
         public IEnumerable<raider.Jobalternate> GetAllJOBAlternates()
         {
             using (var Db = new SQLite.SQLiteConnection(DbPath))
@@ -86,6 +110,9 @@ namespace ACAC.api.db
                             return true;
                         case "Jobalternate":
                             Db.CreateTable<raider.Jobalternate>();
+                            return true;
+                        case "album":
+                            Db.CreateTable<report.album>();
                             return true;
                         default:
                             return false;
@@ -176,6 +203,21 @@ namespace ACAC.api.db
                 }
             }
         }
+        public IEnumerable<pictures.picture> GetAllPicturesByCategory(string category)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                if (category != null)
+                {
+                    return Db.Query<pictures.picture>("Select * from picture where category='" + category + "' order by favorite desc, uploaddate");
+                }
+                else
+                {
+                    return Db.Query<pictures.picture>("Select * from picture  order by favorite desc, uploaddate");
+                }
+            }
+        }
+
         public IEnumerable<raid.RaidItemDrop> GetRaidItemDropByContent(string contentid)
         {
             using (var Db = new SQLiteConnection(DbPath))
@@ -249,11 +291,63 @@ namespace ACAC.api.db
                 }
             }
         }
+        public void AddImage(pictures.picture thisPicture)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                try 
+                {
+                    Db.Insert(thisPicture);
+                }
+                catch 
+                {
+                    Db.CreateTable<pictures.picture>();
+                    Db.Insert(thisPicture);
+                }
+            }
+        }
         public void DeleteRaidItemDrop(int id)
         {
             using (var Db = new SQLiteConnection(DbPath))
             { 
                 Db.Execute("Delete from RaidItemDrop where id=" + id); 
+            }
+        }
+        public void DeleteContent(int id)
+        {
+            DeleteRaidItemDrops(id);
+            DeleteRaidItemInfos(id);
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from RaidContent where id=" + id);
+            }
+        }
+        public void DeleteImage(string id)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from picture where id=" + id);
+            }
+        }
+        public void DeleteRaidItemDrops(int id)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from RaidItemDrop where contentid=" + id);
+            }
+        }
+        public void DeleteRaider(string raidername)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("delete from profile where raidername='" + raidername + "'");
+            }
+        }
+        public void DeleteRaidItemInfos(int id)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from RaidItemInfo where contentid=" + id);
             }
         }
         public void Upsertuserprofile(raider.profile profile)
@@ -269,6 +363,13 @@ namespace ACAC.api.db
                     Db.CreateTable<raider.profile>();
                     Db.Insert(profile);
                 }
+            }
+        }
+        public void Deleteuserprofile(string raidername)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from profile where raidername='" + raidername + "'");
             }
         }
         public void UpdateRaidContent(raid.RaidContent raidContent)
@@ -305,6 +406,13 @@ namespace ACAC.api.db
             using (var Db = new SQLiteConnection(DbPath))
             {
                 Db.Execute("Delete from Raiditeminfo where id=" + id);
+            }
+        }
+        public void ToggleFavorite(string id)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("update picture set favorite= not favorite where id =" + id);
             }
         }
         public void AddRoundRobinEntry(raid.Roundrobinentry entry)
@@ -381,6 +489,23 @@ namespace ACAC.api.db
                 {
                     return Db.Query<report.ReportData>("select d.raidername ReportName, count(d.raidername) ReportValue from RaidItemDrop d left outer join RaidContent c on d.contentid = c.id where c.id = " + contentid + " and c.isenabled=1 Group by d.raidername");
                 }
+            }
+        }
+        public void ResetDatabase()
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from Attendance"); // Delete Attendance records
+                Db.Execute("Delete from RaidItemDrop"); // Delete Raid Item Drops
+                Db.Execute("Delete from Roundrobinentry"); // Delete Round Robin Entries
+
+            }
+        }
+        public void Deleteraidropbycontentid(int contentid)
+        {
+            using (var Db = new SQLiteConnection(DbPath))
+            {
+                Db.Execute("Delete from RaidItemDrop where contentid=" + contentid);
             }
         }
     }

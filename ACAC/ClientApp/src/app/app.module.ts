@@ -37,6 +37,10 @@ import { RaiderManagementComponent } from './admin-pages/raider-management/raide
 import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-raiditem-drop.component';
 import { ManageRoundrobinListsComponent } from './admin-pages/manage-roundrobin-lists/manage-roundrobin-lists.component';
 import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.component';
+import { NineComponent } from './nine/nine.component';
+import { NgxGalleryModule } from 'ngx-gallery';
+import { bottomsheetpicturealbum, picturealbumComponent } from './admin-pages/picture-album/picture-album.component';
+import { ImageDialogComponent } from './components/image-dialog/image-dialog.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +57,9 @@ import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.com
     RoundRobinListComponent,
     ItemDropByFloorComponent,
     ConfirmationDialogComponent,
+    ImageDialogComponent,
     BottomSheetComponent,
+    bottomsheetpicturealbum,
     AuthorizeComponent,
     AlternateJobsComponent,
     PieChartComponent,
@@ -64,6 +70,8 @@ import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.com
     RaiderManagementComponent,
     AddRaidItemDropComponent,
     ManageRoundrobinListsComponent,
+    NineComponent,
+    picturealbumComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,12 +84,15 @@ import { BottomSheetComponent } from './components/bottom-sheet/bottom-sheet.com
     MatTableModule,
     MatNativeDateModule,
     DemoMaterialModule,
-    ChartsModule
+    ChartsModule,
+    NgxGalleryModule,
   ],
   providers: [ CookieService ],
   entryComponents: [TooltipComponent,
                     ConfirmationDialogComponent,
+                    ImageDialogComponent,
                     BottomSheetComponent,
+                    bottomsheetpicturealbum,
                    ],
   bootstrap: [AppComponent]
 })

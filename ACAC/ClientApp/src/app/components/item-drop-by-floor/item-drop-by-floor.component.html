@@ -55,11 +55,13 @@
                 </ng-container>
             
                 <!-- Symbol Column -->
-                <div *ngIf="this.raiderIdentity.IsAdmin; else elseBlock">
+                <div *ngIf="this.raiderIdentity.IsAdmin(); else elseBlock">
                     <ng-container matColumnDef="id">
                     <mat-header-cell *matHeaderCellDef></mat-header-cell>
                     <mat-cell *matCellDef="let element">
-                        <mat-icon (click)='OnRemoveItem(element.id)' class='pointer'>remove_circle_outline</mat-icon>
+                        <button mat-icon-button>
+                           <mat-icon (click)='OnRemoveItem(element.id)' class='pointer'>delete_forever</mat-icon> 
+                        </button>
                     </mat-cell>
                     </ng-container>
                 </div>
@@ -77,6 +79,7 @@
     </mat-accordion>
 </div>
 <div *ngIf='drops'>
+    <br><br>
     <mat-table [dataSource]='drops' >
             <ng-container matColumnDef="dateReceived">
                 <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
@@ -84,24 +87,16 @@
             </ng-container>
             <ng-container matColumnDef="floor">
                 <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-                <mat-cell *matCellDef="let element" > <img class='floor-icon' 
-                    src='{{ element.raidcontent.contentimg }}' matTooltip='{{element.raidcontent.contentname }}'> </mat-cell>
+                <mat-cell *matCellDef="let element" >
+                    <img class='acac-avatar' src='{{ element.raidcontent.contentimg }}' matTooltip='{{element.raidcontent.contentname }}'>
+                </mat-cell>
             </ng-container>
             
             <!-- Weight Column -->
             <ng-container matColumnDef="raider">
                 <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                <mat-list>
-                    <mat-list-item >
-                        <div class="toLeft">
-                        <img matListAvatar [routerLink]="['/raiders', element.profile.raidername]"
-                        src='{{ element.profile.raiderimg }}'
-                        matTooltip='{{ element.profile.raidername }}' 
-                        alt='{{ element.profile.raidername }}' class='pointer'>
-                        </div>               
-                    </mat-list-item>
-                    </mat-list>
+                    <img class='acac-avatar' src='{{ element.profile.raiderimg }}' matTooltip='{{ element.profile.raidername }}'>
                 </mat-cell>
             </ng-container>
             
@@ -109,25 +104,16 @@
             <ng-container matColumnDef="droptype">
                 <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <mat-list>
-                        <mat-list-item>
-                            <div class='toLeft'>
-                                <img matListAvatar
-                                        src='{{ element.raiditeminfo.raiditemimg }}'
-                                        alt='{{element.raiditem}}'
-                                        matTooltip='{{element.raiditem}}'>
-                            </div>
-                        </mat-list-item>
-                    </mat-list>
+                    <img class='acac-avatar' src='{{ element.raiditeminfo.raiditemimg }}' matTooltip='{{ element.raiditem }}'>
                 </mat-cell>
             </ng-container>
         
             <!-- Symbol Column -->
-            <div *ngIf="this.raiderIdentity.IsAdmin; else elseBlock">
+            <div *ngIf="this.raiderIdentity.IsAdmin(); else elseBlock">
                 <ng-container matColumnDef="id">
                 <mat-header-cell *matHeaderCellDef></mat-header-cell>
                 <mat-cell *matCellDef="let element">
-                    <mat-icon (click)='OnRemoveItem(element.id)' class='pointer'>remove_circle_outline</mat-icon>
+                    <button mat-icon-button><mat-icon (click)='OnRemoveItem(element.id)' class='pointer' color='primary' matTooltip="Delete item">delete_forever</mat-icon></button>
                 </mat-cell>
                 </ng-container>
             </div>
@@ -205,11 +191,13 @@
                     </ng-container>
                 
                     <!-- Symbol Column -->
-                    <div *ngIf="this.raiderIdentity.IsAdmin; else elseBlock">
+                    <div *ngIf="this.raiderIdentity.IsAdmin(); else elseBlock">
                     <ng-container matColumnDef="id">
                         <mat-header-cell *matHeaderCellDef></mat-header-cell>
                         <mat-cell *matCellDef="let element">
-                        <mat-icon (click)='OnRemoveItem(element.id)' class='pointer' >remove_circle_outline</mat-icon>
+                            <button mat-icon-button>
+                                <mat-icon (click)='OnRemoveItem(element.id)' class='pointer' color='primary' matTooltip="Delete item">delete_forever</mat-icon>
+                            </button>
                         </mat-cell>
                     </ng-container>
                     </div>
@@ -320,5 +308,5 @@
         </mat-expansion-panel>
     </mat-accordion>
 </div>
-<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>  
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20, 25, 50]" showFirstLastButtons></mat-paginator>  
 <br><br>

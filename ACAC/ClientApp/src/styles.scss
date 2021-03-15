@@ -1,5 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "../node_modules/font-awesome/css/font-awesome.css";
+
+/* 
+.mat-sidenav-container, .mat-sidenav-content, .mat-tab-body-content {
+	transform: none !important;
+}
+*/
+  
+body {
+  --chart-legend-label-color: #ff8f00;
+  --chart-label-color: black;
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+.acac-avatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
 
 img.main {
   display: block;
@@ -8,11 +31,6 @@ img.main {
   width: 90%;
 }
 
-body { 
-    font-family: Roboto, Arial, sans-serif;
-    margin: 0;
-}
-    
 h1.bannertext {
   display: block;
   margin-left: auto;

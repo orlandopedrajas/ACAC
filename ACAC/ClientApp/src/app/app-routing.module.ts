@@ -14,6 +14,8 @@ import { RaidFloorComponent } from './admin-pages/raid-floors/raid-floors.compon
 import { RaiderManagementComponent } from './admin-pages/raider-management/raider-management.component';
 import { AddRaidItemDropComponent } from './admin-pages/add-raiditem-drop/add-raiditem-drop.component';
 import { ManageRoundrobinListsComponent } from './admin-pages/manage-roundrobin-lists/manage-roundrobin-lists.component';
+import { NineComponent } from './nine/nine.component';
+import { picturealbumComponent } from './admin-pages/picture-album/picture-album.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -28,6 +30,8 @@ const routes: Routes = [
   { path: 'admin-pages/raider-management/raider-management', component: RaiderManagementComponent },
   { path: 'admin-pages/add-raiditem-drop/add-raiditem-drop', component: AddRaidItemDropComponent },
   { path: 'admin-pages/manage-roundrobin-lists/manage-roundrobin-lists', component: ManageRoundrobinListsComponent },
+  { path: 'nine', component: NineComponent },
+  { path: 'admin-pages/picture-album', component: picturealbumComponent },
 ];
 
 @NgModule({

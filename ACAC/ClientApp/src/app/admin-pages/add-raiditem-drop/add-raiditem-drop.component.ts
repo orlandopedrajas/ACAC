@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, Input} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { RaiderIdentity, ThisRaider } from '../../components/ACACComponents';
+import { RaiderIdentity } from '../../components/ACACComponents';
+import { MatBottomSheetRef } from '@angular/material';
 
 export class SavageItem {
   id: number;
@@ -18,26 +19,45 @@ export class SavageItem {
     styleUrls: ['./add-raiditem-drop.component.scss']
   })
 
-  export class AddRaidItemDropComponent {
+  export class AddRaidItemDropComponent implements OnChanges {
+
+    @Input() raidername: string;
+    @Input() raiditemname: string;
+    @Input() contentid: number;
+    @Input() raiditeminfoid: number;
 
     override = false;
-
     arrraidcontentname: any[];
     arrraidcontentitem: any[];
     arrraiders: any[];
     drops = '0';
     raiderIdentity: RaiderIdentity = new RaiderIdentity();
 
+    // AddItemGroup: FormGroup;
+
     // tslint:disable-next-line: no-use-before-declare
     Si = new SavageItem();
 
-    // tslint:disable-next-line: variable-name
-    constructor( private http: HttpClient, private _SnackBar: MatSnackBar) {
-
+    ngOnChanges() {
       if (this.raiderIdentity.IsAdmin() === true) {
-        this.Si.receiveddate = new Date();
         this.GetRaidContent();
+        this.Si.contentid = this.contentid;
+        this.toggleRaidcontentname();
+        this.Si.raiditem = this.raiditemname;
+        this.Si.raiditeminfoid = this.raiditeminfoid;
+        this.toggleRaidcontentitem();
+        this.Si.raidername = this.raidername;
+        this.Si.receiveddate = new Date();
+        // console.log(this.Si);
       } else { window.location.href = '/'; }
+    }
+
+
+    // tslint:disable-next-line: variable-name
+    constructor(private http: HttpClient, private _SnackBar: MatSnackBar,
+                // tslint:disable-next-line: variable-name
+                private _bottomSheetRef: MatBottomSheetRef<AddRaidItemDropComponent>) {
+
     }
 
     toggleRaidcontentitem() {
@@ -49,6 +69,7 @@ export class SavageItem {
       });
       this.retrieveValidRaiders();
     }
+
     retrieveValidRaiders() {
       let baseUrl;
       if (this.override) {
@@ -57,7 +78,7 @@ export class SavageItem {
           this.arrraiders = result.sort((a, b) => (a.raidername > b.raidername) ? 1 : -1);
         }, error => console.error(error));
       } else {
-        console.log(this.Si.contentid);
+        // console.log(this.Si.contentid);
         if (typeof this.Si.contentid !== 'undefined') {
           baseUrl = document.getElementsByTagName('base')[0].href + 'api/ACAC2/GetRoundRobinList?contentid=' + this.Si.contentid;
           this.http.get<any[]>(baseUrl).subscribe(result => {
@@ -89,6 +110,7 @@ export class SavageItem {
         result.filter(r => r._raidContent.isenabled === true).forEach((val) => {
           this.arrraidcontentname.push({value: val._raidContent.id, viewValue: val._raidContent.contentname});
         });
+
       }, error => console.error(error));
     }
 
@@ -110,11 +132,15 @@ export class SavageItem {
       this.http.post('./api/ACAC2/AddRaidItemDrop', JSON.stringify(this.Si), {headers: header}).subscribe(
         (val) => {
            const snackBarRef = this._SnackBar.open(this.Si.raiditem + ' added for ' + this.Si.raidername, 'Done',
-                                                   {duration: 3000 });
+                                                   {duration: 500 });
            snackBarRef.afterDismissed().subscribe(() => {
             this.toggleRaidcontentitem();
             this.drops = '0';
+            this._bottomSheetRef.dismiss();
            });
         }, response => { console.log('POST call in error', response); }, () => { });
+    }
+    onCancel() {
+      this._bottomSheetRef.dismiss();
     }
   }

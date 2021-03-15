@@ -14,14 +14,15 @@ export class ItemDropComponent implements OnInit, OnChanges {
     displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype'];
     count: number;
 
-    ngOnInit() {}
+    ngOnInit() { }
     ngOnChanges() {
-
         const baseUrl = document.getElementsByTagName('base')[0].href;
-        this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop?raidername=' + this.charactername).subscribe(result => {
-            this.SavageItems = result;
+        this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop?raidername=' + this.charactername).toPromise().then(result => {
+            this.SavageItems = result.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1);
             this.count = this.SavageItems.length;
           }, error => console.error(error));
-    }
-    constructor(private http: HttpClient) {}
+     }
+
+    constructor(private http: HttpClient) { }
+
 }

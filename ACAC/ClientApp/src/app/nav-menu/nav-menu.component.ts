@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { environment } from '../../environments/environment';
-import { RaiderIdentity, ThisRaider } from '../components/ACACComponents';
+import { ThisRaider } from '../components/ACACComponents';
 
 @Component({
   selector: 'app-nav-menu',
@@ -12,17 +12,21 @@ import { RaiderIdentity, ThisRaider } from '../components/ACACComponents';
 export class NavMenuComponent implements OnInit {
   loggedIn: boolean;
   isAdmin: boolean;
+  isninemember: boolean;
   discorduser: string;
   discordavatar: string;
-
+  raidername: string;
+  
   isExpanded = false;
   show = false;
 
   username: string;
   password: string;
+  apptheme: string;
 
   raiders: any[];
   thisRaider: ThisRaider;
+  lodestonelink: string = 'https://na.finalfantasyxiv.com/lodestone';
 
   constructor( private http: HttpClient, public dialog: MatDialog) {
 
@@ -32,12 +36,22 @@ export class NavMenuComponent implements OnInit {
       localStorage.removeItem('user');
       this.loggedIn = false;
       this.discordavatar = 'assets/img/discord.png';
+      this.lodestonelink = 'https://na.finalfantasyxiv.com/lodestone';
     } else {
       this.isAdmin = this.thisRaider.IsAdmin;
+      this.isninemember = this.thisRaider.isninemember;
       this.discorduser = this.thisRaider.discorduser;
       this.discordavatar = this.thisRaider.discordavatar;
+      this.lodestonelink = 'https://na.finalfantasyxiv.com/lodestone/character/' + this.thisRaider.lodestoneid;
+      this.raidername = this.thisRaider.raidername;
       this.loggedIn = true;
     }
+
+    this.apptheme = localStorage.getItem('apptheme');
+    if (!this.apptheme || this.apptheme === undefined || this.apptheme === "" || this.apptheme.length === 0) {
+      this.apptheme = 'acac-dark-theme.css';
+    }
+    this.changeTheme();
 }
 
   openDialog(): void {
@@ -66,13 +80,40 @@ export class NavMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getRaiderProfiles();
+   // this.getRaiderProfiles();
   }
 
   getRaiderProfiles() {
     const baseUrl = document.getElementsByTagName('base')[0].href;
     this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaiderProfiles?raidername=').subscribe(result => {
       this.raiders = result;
+      //console.log(result);
     });
+  }
+
+  changeTheme() {
+    var element = document.getElementById('themeAsset');
+    element.outerHTML = '<link id="themeAsset" rel="stylesheet" href="/styles/' + this.apptheme + '">';
+    localStorage.setItem('apptheme',this.apptheme);
+
+  }
+  onslidetogglechange() {
+    if (this.apptheme === 'acac-light-theme.css')
+    {
+      this.apptheme = 'acac-dark-theme.css';
+    } else { this.apptheme = 'acac-light-theme.css'; }
+
+    this.changeTheme();
+  }
+  isDarkmode() {
+    var breturn = false;
+    if (this.apptheme === 'acac-light-theme.css')
+    {
+      breturn = false;
+    }else { 
+      breturn = true;
+     }
+     // console.log(breturn);
+     return breturn;
   }
 }

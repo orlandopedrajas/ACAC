@@ -11,5 +11,6 @@ namespace ACAC.api.raider
         public bool isadmin { get; set; }
         public string lodestoneid { get; set; }
         public bool israidmember { get; set; }
+        public bool isninemember { get; set; }
     }
 }

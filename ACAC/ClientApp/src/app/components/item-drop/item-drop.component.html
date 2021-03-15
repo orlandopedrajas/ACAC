@@ -12,22 +12,14 @@
     <!-- Name Column -->
     <ng-container matColumnDef="floor">
         <mat-header-cell  *matHeaderCellDef> Floor </mat-header-cell>
-        <mat-cell *matCellDef="let element"> <div class="toLeft"><img class='floor-icon' matTooltip='{{element.raidcontent.contentname}}' src='{{ element.raidcontent.contentimg }}'></div> </mat-cell>
+        <mat-cell *matCellDef="let element"> <div class="toLeft"><img class='acac-avatar' matTooltip='{{element.raidcontent.contentname}}' src='{{ element.raidcontent.contentimg }}'></div> </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="raider">
     <mat-header-cell *matHeaderCellDef> Raider </mat-header-cell>
     <mat-cell *matCellDef="let element">
-        <mat-list>
-            <mat-list-item>
-                <div class="toLeft">
-                <img matListAvatar
-                src='{{ element.profile.raiderimg }}' 
-                alt='{{ element.profile.raidername }}'>
-                </div>               
-            </mat-list-item>
-            </mat-list>
+        <img class="acac-avatar" src='{{ element.profile.raiderimg }}' matTooltip='{{ element.profile.raidername }}'>
     </mat-cell>
     </ng-container>    
     
@@ -35,15 +27,8 @@
     <ng-container matColumnDef="droptype">
         <mat-header-cell *matHeaderCellDef> Drop </mat-header-cell>
         <mat-cell *matCellDef="let element">
-            <mat-list>
-                <mat-list-item>
-                    <div class='toLeft'>
-                        <img matListAvatar
-                                src='{{element.raiditeminfo.raiditemimg}}'
-                                matTooltip='{{element.raiditeminfo.raiditemname}}'>
-                    </div>
-                </mat-list-item>
-            </mat-list>   
+            <img class='acac-avatar' src='{{ element.raiditeminfo.raiditemimg }}' 
+                                     matTooltip='{{ element.raiditeminfo.raiditemimg }}'>
         </mat-cell>
     </ng-container>
     

@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TooltipComponent } from '../tooltip/tooltip.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BottomSheetComponent } from '../bottom-sheet/bottom-sheet.component';
+import { RaiderIdentity } from '../../components/ACACComponents';
 
 export class RoundRobinList {
     listname: string;
@@ -20,6 +21,7 @@ export class RoundRobinListComponent implements OnChanges {
     raidcontent: any;
     raiditems: any[];
     displayedColumns: string[] = ['raiditem'];
+    raiderIdentity: RaiderIdentity = new RaiderIdentity();
 
     ngOnChanges() {
 
@@ -34,8 +36,6 @@ export class RoundRobinListComponent implements OnChanges {
                this.Generateroundrobinlist(value);
            });
         }, error => console.error(error));
-
-
     }
     // tslint:disable-next-line: variable-name
     constructor(private http: HttpClient, private dialog: MatDialog, private _bottomSheet: MatBottomSheet) {  }
@@ -65,9 +65,22 @@ export class RoundRobinListComponent implements OnChanges {
         );
 
     }
-    openBottomSheet(lodestoneid): void {
-       // console.log(lodestoneid);
-        this._bottomSheet.open(BottomSheetComponent, {data: { lodestoneid}});
+    openBottomSheet(lodestoneid, raidername, raiditemname, raiditeminfoid): void {
+         // console.log(this.raiditems);
+         if (this.raiderIdentity.IsAdmin() === true) {
+            // tslint:disable-next-line: max-line-length
+            const bottomSheetRef = this._bottomSheet.open(BottomSheetComponent, {data: { raiditeminfoid, raiditemname, raidername, contentid: this.raidcontent.id }});
+            bottomSheetRef.afterDismissed().subscribe(() => {
+               // console.log('Bottom sheet has been dismissed.');
+                this.ngOnChanges();
+            });
+        } else {
+            lodestoneid = raidername;
+            this._bottomSheet.open(BottomSheetComponent, {data: { lodestoneid }});
+        }
     }
+
+
+      
     closeDialog() { this.dialog.closeAll(); }
 }

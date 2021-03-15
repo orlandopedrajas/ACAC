@@ -9,16 +9,19 @@ class ThisRaider {
     lodestoneid: string;
     raiderroute: string;
     israidmember: boolean;
+    isninemember: boolean;
 }
 class RaiderIdentity {
 
     constructor() {}
 
     IsAdmin(): boolean {
+        var breturn = false;
         if (this.IsLoggedIn() === true) {
             const thisRaider: ThisRaider = JSON.parse(localStorage.getItem('user'));
-            return thisRaider.IsAdmin;
-        } else { return false; }
+            breturn = thisRaider.IsAdmin;
+        } else { breturn = false; }
+        return breturn;
     }
 
     IsLoggedIn(): boolean {

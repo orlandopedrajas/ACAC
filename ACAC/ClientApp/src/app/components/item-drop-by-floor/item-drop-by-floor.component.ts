@@ -1,10 +1,10 @@
 import { Component, OnInit, OnChanges, Input, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
-import { RaiderIdentity, ThisRaider } from '../ACACComponents';
+import { RaiderIdentity } from '../../components/ACACComponents';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -21,16 +21,16 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
     @Input() Displaytype: string; // 0 = recent, 1 = all, 2 = filter by floors, 3 = group by date
     @Input() Contentid: string;
     displayedColumns: string[] = ['dateReceived', 'floor', 'raider', 'droptype', 'id'];
-    raiderIdentity: ThisRaider = JSON.parse(localStorage.getItem('user'));
-    drops; // : any[] = null;
+    raiderIdentity: RaiderIdentity = new RaiderIdentity();
+    drops;
     floors; // any[] = null;
     dropsraider: any[] = null;
     groupbydate: any[] = null;
     dataSource;
-    ngOnInit() {}
+    ngOnInit() { }
     ngOnChanges() {
         this.GetItems();
-    }
+     }
     GetItems() {
 
         this.drops = null;
@@ -39,21 +39,22 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
 
         switch (this.Displaytype) {
             case '0': { // Recent drops
-                this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').subscribe(result1 => {
+                this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').toPromise().then(result1 => {
                     this.drops = new MatTableDataSource(result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1));
                     this.drops.paginator = this.paginator;
                 }, error => console.error(error));
                 break;
             }
             case '1': { // All drops
-                this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').subscribe(result1 => {
+                this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDrop').toPromise().then(result1 => {
                    this.drops = new MatTableDataSource(result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1));
                    this.drops.paginator = this.paginator;
                 }, error => console.error(error));
+                
                 break;
             }
             case '2': { // filter by floors, group by date
-                this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDropByContentId?contentid=' + this.Contentid).subscribe(result1 => {
+                this.http.get<any[]>(baseUrl + 'api/ACAC2/GetRaidItemDropByContentId?contentid=' + this.Contentid).toPromise().then(result1 => {
                     this.drops = new MatTableDataSource(result1.sort((a, b) => (a.receiveddate < b.receiveddate) ? 1 : -1));
                     this.drops.paginator = this.paginator;
                 }, error => console.error(error));
@@ -105,5 +106,9 @@ export class ItemDropByFloorComponent implements OnInit, OnChanges {
         });
     }
 
-    constructor(private http: HttpClient, public dialog: MatDialog, private datePipe: DatePipe) {}
+    constructor(private http: HttpClient, public dialog: MatDialog, private datePipe: DatePipe) {
+        if (this.raiderIdentity === null) {
+            this.raiderIdentity = new RaiderIdentity();
+        }
+    }
 }

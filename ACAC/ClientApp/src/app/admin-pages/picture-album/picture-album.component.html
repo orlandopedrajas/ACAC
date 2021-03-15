@@ -1,0 +1,23 @@
+<mat-toolbar *ngIf="thisRaider.IsAdmin()">
+    <button mat-flat-button color="primary" (click)="openBottomSheet()">Add New Image</button>
+</mat-toolbar>
+<br>
+<div [style.display]="'flex'" [style.margin]="'auto'" *ngFor="let image of imageContent" >
+    <div [style.min-width]="'25%'" [style.background]="'lightblue'" [style.margin]="'auto'"></div>
+    <table [style.max-width]="'600px'" [style.margin]="'auto'">
+        <tr>
+            <td align="middle">
+                <img src='{{ image.url }}' (click)="showImage(image.url)" [style.max-width]="'100%'">
+            </td>
+        </tr>
+        <tr>
+            <td align="end">
+                <div *ngIf='image.favorite; then thenBlock; else elseBlock'></div>
+                <ng-template #thenBlock><button matTooltip="Unlike" mat-icon-button (click)='toggleFavorite(image.id)'><mat-icon color="primary">favorite</mat-icon></button></ng-template>
+                <ng-template #elseBlock><button matTooltip="Like" mat-icon-button (click)='toggleFavorite(image.id)'><mat-icon color="primary">favorite_border</mat-icon></button></ng-template>
+                <button *ngIf="thisRaider.IsAdmin()" mat-icon-button (click)='deletePicture(image.id)'><mat-icon color="primary">close</mat-icon></button>
+            </td>
+        </tr>
+    </table>
+    <div [style.min-width]="'25%'" [style.background]="'red'" [style.margin]="'auto'"></div>
+</div>

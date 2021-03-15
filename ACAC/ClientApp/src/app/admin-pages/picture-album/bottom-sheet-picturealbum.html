@@ -1,0 +1,12 @@
+<mat-card>
+    <mat-card-content align="center">
+        <img [style.width]="'200px'" src='{{ url }}'>
+    </mat-card-content>
+    <mat-card-actions align="end">
+        <mat-form-field>
+            <input matInput [(ngModel)]="url" placeholder="Image Url" name="uploadimg" value="{{ url }}">
+        </mat-form-field>
+        &nbsp;&nbsp;&nbsp;  
+        <button mat-icon-button (click)='onSubmit()'><mat-icon color="primary">save_alt</mat-icon></button>
+    </mat-card-actions>
+</mat-card>
