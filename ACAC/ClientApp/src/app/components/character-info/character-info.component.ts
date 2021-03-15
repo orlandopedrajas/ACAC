@@ -148,9 +148,9 @@ export class CharacterInfoComponent implements OnInit, OnChanges {
         this.http.get<any[]>('https://xivapi.com/character/' + this.characterid + '?data=fc&extended=1')
         .toPromise().then(newObj => {
           const result: any = newObj;
-          // console.log(result);
+          console.log(result);
           this.characterprofile.getRaider(this.http, result);
-          // console.log(this.characterprofile);
+          console.log(this.characterprofile);
           localStorage.setItem(this.characterid, JSON.stringify(this.characterprofile));
         }, error => console.error(error));
       }
